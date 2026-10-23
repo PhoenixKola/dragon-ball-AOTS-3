@@ -250,7 +250,7 @@ export class Battle {
         const input = this.guardIn;
         this.guardIn = undefined;
         const r = this.gen.next(input as GuardGrade);
-        if (this.phase === 'ended') return;
+        if ((this.phase as BattlePhase) === 'ended') return;
         if (!r.done) {
           this.pending = r.value;
           this.phase = 'guard';
