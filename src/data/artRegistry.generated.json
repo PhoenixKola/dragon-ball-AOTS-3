@@ -5362,7 +5362,7 @@
       286,
       130
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       157,
       132
@@ -5380,7 +5380,7 @@
       217,
       126
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       86,
       128
@@ -5399,7 +5399,7 @@
       143,
       128
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       76,
       130
@@ -5417,7 +5417,7 @@
       133,
       128
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       70,
       130
@@ -5435,7 +5435,7 @@
       117,
       125
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       79,
       127
@@ -5453,7 +5453,7 @@
       122,
       127
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       64,
       129
@@ -5472,7 +5472,7 @@
       155,
       124
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       86,
       126
@@ -5490,7 +5490,7 @@
       217,
       126
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       86,
       128
@@ -5508,7 +5508,7 @@
       146,
       137
      ],
-     "facing": "right",
+     "facing": "left",
      "feet": [
       74,
       139
@@ -5522,7 +5522,7 @@
    },
    "displayHeight": 108,
    "displayName": "Drain Drone",
-   "facing": "right",
+   "facing": "left",
    "id": "drain-drone",
    "kind": "enemy",
    "owHeight": 36,
