@@ -30,6 +30,8 @@ const defs: CutsceneDef[] = [
       { t: 'pose', id: 't', state: 'charge' },
       { t: 'vfx', vfx: 'aura-ssj', x: 0.2, y: 0.78, scale: 1.4, ms: 900 },
       { t: 'flash', color: '#ffe36b', ms: 280 },
+      { t: 'form', id: 't', actor: 'trunks-ssj' },
+      say('trunks', 'Hah!'),
       { t: 'pose', id: 't', state: 'attack' },
       { t: 'move', id: 't', x: 0.62, y: 0.82, ms: 220 },
       { t: 'vfx', vfx: 'slash', x: 0.7, y: 0.7, scale: 1.6, ms: 400 },
@@ -41,9 +43,10 @@ const defs: CutsceneDef[] = [
   {
     id: 'goku_arrives', title: 'The Medicine', backdrop: 'landing_future', music: 'hub', provisionalArt: true,
     steps: [
-      show('t', 'trunks-base', 0.25, 'right', 'victory'),
+      show('t', 'trunks-ssj', 0.25, 'right', 'victory'),
       show('g', 'goku-base', 0.7, 'left'),
       say('goku', 'Whoa. Someone beat me to the fight — and they did it before I even got here.'),
+      say('goku', 'Wait… that golden hair, that aura — you are a Super Saiyan?! Just like me?'),
       say('trunks', 'Son Goku. I\'m Trunks. I came from a future where you are already gone — taken by a virus of the heart.'),
       say('goku', 'A heart virus? Me?'),
       say('trunks', 'In three years, two androids will come out of the north. Dr. Gero\'s work. Take this. It is the only cure. Don\'t lose it.'),

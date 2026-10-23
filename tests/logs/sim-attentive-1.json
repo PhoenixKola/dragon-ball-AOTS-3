@@ -25,11 +25,11 @@
    "stage": "P02",
    "kind": "story",
    "outcome": "victory",
-   "rounds": 19,
-   "turns": 39,
-   "hitsTaken": 20,
-   "perfect": 15,
-   "good": 4,
+   "rounds": 14,
+   "turns": 29,
+   "hitsTaken": 14,
+   "perfect": 11,
+   "good": 2,
    "missed": 1,
    "itemsUsed": 0,
    "rageArts": 2,
@@ -43,8 +43,8 @@
    "rounds": 2,
    "turns": 10,
    "hitsTaken": 4,
-   "perfect": 2,
-   "good": 2,
+   "perfect": 3,
+   "good": 1,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 0,
@@ -56,14 +56,29 @@
    "kind": "story",
    "outcome": "victory",
    "rounds": 4,
-   "turns": 16,
-   "hitsTaken": 7,
-   "perfect": 3,
-   "good": 3,
+   "turns": 18,
+   "hitsTaken": 8,
+   "perfect": 4,
+   "good": 4,
+   "missed": 0,
+   "itemsUsed": 0,
+   "rageArts": 0,
+   "party": "trunksL11,gokuL10,gohanL8",
+   "attempt": 1
+  },
+  {
+   "stage": "RND_rocky_outskirts",
+   "kind": "random",
+   "outcome": "victory",
+   "rounds": 2,
+   "turns": 9,
+   "hitsTaken": 3,
+   "perfect": 1,
+   "good": 1,
    "missed": 1,
    "itemsUsed": 0,
-   "rageArts": 1,
-   "party": "trunksL11,gokuL10,gohanL8",
+   "rageArts": 0,
+   "party": "trunksL11,gokuL11,gohanL9",
    "attempt": 1
   },
   {
@@ -73,8 +88,8 @@
    "rounds": 4,
    "turns": 8,
    "hitsTaken": 4,
-   "perfect": 4,
-   "good": 0,
+   "perfect": 3,
+   "good": 1,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 0,
@@ -82,32 +97,17 @@
    "attempt": 1
   },
   {
-   "stage": "RND_rocky_outskirts",
-   "kind": "random",
-   "outcome": "victory",
-   "rounds": 3,
-   "turns": 13,
-   "hitsTaken": 5,
-   "perfect": 3,
-   "good": 2,
-   "missed": 0,
-   "itemsUsed": 0,
-   "rageArts": 0,
-   "party": "trunksL11,gohanL9",
-   "attempt": 1
-  },
-  {
    "stage": "A04",
    "kind": "story",
    "outcome": "victory",
-   "rounds": 13,
-   "turns": 27,
-   "hitsTaken": 9,
-   "perfect": 4,
-   "good": 4,
-   "missed": 1,
+   "rounds": 11,
+   "turns": 23,
+   "hitsTaken": 8,
+   "perfect": 6,
+   "good": 2,
+   "missed": 0,
    "itemsUsed": 0,
-   "rageArts": 0,
+   "rageArts": 1,
    "party": "vegetaL11",
    "attempt": 1
   },
@@ -117,10 +117,10 @@
    "outcome": "victory",
    "rounds": 10,
    "turns": 21,
-   "hitsTaken": 8,
-   "perfect": 2,
-   "good": 2,
-   "missed": 4,
+   "hitsTaken": 7,
+   "perfect": 3,
+   "good": 3,
+   "missed": 1,
    "itemsUsed": 1,
    "rageArts": 0,
    "party": "vegetaL11",
@@ -133,26 +133,26 @@
    "rounds": 3,
    "turns": 11,
    "hitsTaken": 3,
-   "perfect": 1,
-   "good": 2,
-   "missed": 0,
+   "perfect": 0,
+   "good": 1,
+   "missed": 2,
    "itemsUsed": 1,
    "rageArts": 0,
-   "party": "trunksL12,gohanL11,vegetaL12",
+   "party": "trunksL12,gohanL10,vegetaL12",
    "attempt": 1
   },
   {
    "stage": "A06",
    "kind": "story",
    "outcome": "victory",
-   "rounds": 4,
-   "turns": 17,
-   "hitsTaken": 15,
-   "perfect": 9,
-   "good": 3,
-   "missed": 3,
+   "rounds": 5,
+   "turns": 20,
+   "hitsTaken": 16,
+   "perfect": 6,
+   "good": 6,
+   "missed": 4,
    "itemsUsed": 0,
-   "rageArts": 1,
+   "rageArts": 2,
    "party": "trunksL12,gohanL11,vegetaL12",
    "attempt": 1
   },
@@ -162,10 +162,10 @@
    "outcome": "victory",
    "rounds": 3,
    "turns": 13,
-   "hitsTaken": 9,
-   "perfect": 6,
+   "hitsTaken": 15,
+   "perfect": 11,
    "good": 3,
-   "missed": 0,
+   "missed": 1,
    "itemsUsed": 0,
    "rageArts": 0,
    "party": "trunksL13,gohanL11,vegetaL13",
@@ -176,7 +176,7 @@
    "kind": "story",
    "outcome": "victory",
    "rounds": 3,
-   "turns": 13,
+   "turns": 14,
    "hitsTaken": 16,
    "perfect": 12,
    "good": 4,
@@ -191,13 +191,13 @@
    "kind": "story",
    "outcome": "victory",
    "rounds": 5,
-   "turns": 22,
+   "turns": 21,
    "hitsTaken": 13,
    "perfect": 6,
    "good": 4,
    "missed": 3,
-   "itemsUsed": 1,
-   "rageArts": 2,
+   "itemsUsed": 0,
+   "rageArts": 1,
    "party": "trunksL14,gohanL12,vegetaL13",
    "attempt": 1
   },
@@ -205,11 +205,11 @@
    "stage": "RND_gingertown",
    "kind": "random",
    "outcome": "victory",
-   "rounds": 3,
-   "turns": 13,
-   "hitsTaken": 6,
+   "rounds": 4,
+   "turns": 17,
+   "hitsTaken": 7,
    "perfect": 4,
-   "good": 2,
+   "good": 3,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 0,
@@ -220,13 +220,13 @@
    "stage": "RND_rocky_outskirts",
    "kind": "random",
    "outcome": "victory",
-   "rounds": 4,
-   "turns": 20,
-   "hitsTaken": 9,
+   "rounds": 3,
+   "turns": 17,
+   "hitsTaken": 8,
    "perfect": 4,
-   "good": 4,
+   "good": 3,
    "missed": 1,
-   "itemsUsed": 1,
+   "itemsUsed": 2,
    "rageArts": 1,
    "party": "trunksL15,gohanL13,vegetaL14",
    "attempt": 2
@@ -237,8 +237,8 @@
    "outcome": "victory",
    "rounds": 16,
    "turns": 34,
-   "hitsTaken": 15,
-   "perfect": 11,
+   "hitsTaken": 16,
+   "perfect": 12,
    "good": 2,
    "missed": 2,
    "itemsUsed": 0,
@@ -253,8 +253,8 @@
    "rounds": 5,
    "turns": 22,
    "hitsTaken": 11,
-   "perfect": 7,
-   "good": 4,
+   "perfect": 6,
+   "good": 5,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 1,
@@ -280,10 +280,10 @@
    "stage": "H02",
    "kind": "story",
    "outcome": "victory",
-   "rounds": 9,
-   "turns": 20,
-   "hitsTaken": 7,
-   "perfect": 4,
+   "rounds": 11,
+   "turns": 24,
+   "hitsTaken": 8,
+   "perfect": 5,
    "good": 2,
    "missed": 1,
    "itemsUsed": 0,
@@ -297,9 +297,9 @@
    "outcome": "victory",
    "rounds": 4,
    "turns": 13,
-   "hitsTaken": 5,
+   "hitsTaken": 7,
    "perfect": 4,
-   "good": 1,
+   "good": 3,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 0,
@@ -313,8 +313,8 @@
    "rounds": 4,
    "turns": 12,
    "hitsTaken": 5,
-   "perfect": 3,
-   "good": 2,
+   "perfect": 4,
+   "good": 1,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 1,
@@ -328,8 +328,8 @@
    "rounds": 12,
    "turns": 25,
    "hitsTaken": 19,
-   "perfect": 8,
-   "good": 9,
+   "perfect": 9,
+   "good": 8,
    "missed": 2,
    "itemsUsed": 0,
    "rageArts": 2,
@@ -343,8 +343,8 @@
    "rounds": 2,
    "turns": 8,
    "hitsTaken": 3,
-   "perfect": 2,
-   "good": 1,
+   "perfect": 0,
+   "good": 3,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 0,
@@ -358,8 +358,8 @@
    "rounds": 3,
    "turns": 9,
    "hitsTaken": 11,
-   "perfect": 5,
-   "good": 6,
+   "perfect": 6,
+   "good": 5,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 0,
@@ -372,12 +372,12 @@
    "outcome": "victory",
    "rounds": 3,
    "turns": 9,
-   "hitsTaken": 12,
-   "perfect": 5,
-   "good": 5,
-   "missed": 2,
+   "hitsTaken": 17,
+   "perfect": 7,
+   "good": 7,
+   "missed": 3,
    "itemsUsed": 0,
-   "rageArts": 0,
+   "rageArts": 1,
    "party": "trunksL18",
    "attempt": 1
   },
@@ -388,8 +388,8 @@
    "rounds": 11,
    "turns": 28,
    "hitsTaken": 18,
-   "perfect": 11,
-   "good": 4,
+   "perfect": 10,
+   "good": 5,
    "missed": 3,
    "itemsUsed": 0,
    "rageArts": 2,
@@ -401,13 +401,13 @@
    "kind": "story",
    "outcome": "victory",
    "rounds": 5,
-   "turns": 25,
+   "turns": 24,
    "hitsTaken": 15,
-   "perfect": 4,
-   "good": 10,
+   "perfect": 5,
+   "good": 9,
    "missed": 1,
    "itemsUsed": 0,
-   "rageArts": 3,
+   "rageArts": 2,
    "party": "trunksL19,gohanL18,vegetaL19",
    "attempt": 1
   },
@@ -418,9 +418,9 @@
    "rounds": 5,
    "turns": 16,
    "hitsTaken": 33,
-   "perfect": 17,
-   "good": 14,
-   "missed": 2,
+   "perfect": 18,
+   "good": 11,
+   "missed": 4,
    "itemsUsed": 0,
    "rageArts": 2,
    "party": "gokuL19",
@@ -433,9 +433,9 @@
    "rounds": 3,
    "turns": 9,
    "hitsTaken": 21,
-   "perfect": 12,
-   "good": 4,
-   "missed": 5,
+   "perfect": 11,
+   "good": 7,
+   "missed": 3,
    "itemsUsed": 0,
    "rageArts": 0,
    "party": "gohanL19",
@@ -448,9 +448,9 @@
    "rounds": 4,
    "turns": 19,
    "hitsTaken": 14,
-   "perfect": 8,
+   "perfect": 9,
    "good": 4,
-   "missed": 2,
+   "missed": 1,
    "itemsUsed": 0,
    "rageArts": 1,
    "party": "vegetaL20,piccoloL19,trunksL20",
@@ -463,8 +463,8 @@
    "rounds": 4,
    "turns": 16,
    "hitsTaken": 13,
-   "perfect": 9,
-   "good": 4,
+   "perfect": 10,
+   "good": 3,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 2,
@@ -475,11 +475,11 @@
    "stage": "G05",
    "kind": "story",
    "outcome": "victory",
-   "rounds": 14,
-   "turns": 43,
-   "hitsTaken": 58,
-   "perfect": 35,
-   "good": 19,
+   "rounds": 13,
+   "turns": 40,
+   "hitsTaken": 54,
+   "perfect": 33,
+   "good": 17,
    "missed": 4,
    "itemsUsed": 1,
    "rageArts": 4,
@@ -493,8 +493,8 @@
    "rounds": 4,
    "turns": 12,
    "hitsTaken": 12,
-   "perfect": 7,
-   "good": 5,
+   "perfect": 6,
+   "good": 6,
    "missed": 0,
    "itemsUsed": 0,
    "rageArts": 1,
@@ -561,7 +561,7 @@
    },
    "zeni": 380,
    "map": "south_city",
-   "ticks": 756
+   "ticks": 1257
   },
   {
    "beat": "A02",
@@ -576,7 +576,7 @@
    },
    "zeni": 570,
    "map": "rocky_outskirts",
-   "ticks": 1054
+   "ticks": 1552
   },
   {
    "beat": "A03",
@@ -585,13 +585,13 @@
     "gohan": 9,
     "vegeta": 11,
     "piccolo": 10,
-    "trunks": 11,
+    "trunks": 12,
     "krillin": 8,
     "tien": 8
    },
-   "zeni": 570,
+   "zeni": 630,
    "map": "rocky_outskirts",
-   "ticks": 1297
+   "ticks": 1795
   },
   {
    "beat": "A04",
@@ -604,24 +604,24 @@
     "krillin": 9,
     "tien": 9
    },
-   "zeni": 934,
+   "zeni": 930,
    "map": "rocky_outskirts",
-   "ticks": 1860
+   "ticks": 2358
   },
   {
    "beat": "A05",
    "levels": {
     "goku": 12,
-    "gohan": 11,
+    "gohan": 10,
     "vegeta": 12,
     "piccolo": 11,
     "trunks": 12,
     "krillin": 10,
     "tien": 10
    },
-   "zeni": 1214,
+   "zeni": 1210,
    "map": "mountain_lab",
-   "ticks": 2187
+   "ticks": 2685
   },
   {
    "beat": "A06",
@@ -634,9 +634,9 @@
     "krillin": 10,
     "tien": 10
    },
-   "zeni": 1548,
+   "zeni": 1544,
    "map": "lab_inner",
-   "ticks": 2702
+   "ticks": 3200
   },
   {
    "beat": "A07",
@@ -649,9 +649,9 @@
     "krillin": 11,
     "tien": 11
    },
-   "zeni": 1548,
+   "zeni": 1544,
    "map": "lab_inner",
-   "ticks": 2914
+   "ticks": 3412
   },
   {
    "beat": "A08",
@@ -664,9 +664,9 @@
     "krillin": 11,
     "tien": 11
    },
-   "zeni": 1548,
+   "zeni": 1544,
    "map": "capsule_corp",
-   "ticks": 2936
+   "ticks": 3434
   },
   {
    "beat": "C01",
@@ -679,9 +679,9 @@
     "krillin": 12,
     "tien": 12
    },
-   "zeni": 1868,
+   "zeni": 1864,
    "map": "gingertown",
-   "ticks": 3177
+   "ticks": 3702
   },
   {
    "beat": "E_KAMI",
@@ -694,9 +694,9 @@
     "krillin": 12,
     "tien": 12
    },
-   "zeni": 2058,
+   "zeni": 2054,
    "map": "lookout",
-   "ticks": 4766
+   "ticks": 5319
   },
   {
    "beat": "C02",
@@ -709,9 +709,9 @@
     "krillin": 13,
     "tien": 13
    },
-   "zeni": 2438,
+   "zeni": 2434,
    "map": "gingertown",
-   "ticks": 5085
+   "ticks": 5638
   },
   {
    "beat": "C03",
@@ -724,9 +724,9 @@
     "krillin": 13,
     "tien": 13
    },
-   "zeni": 2778,
+   "zeni": 2774,
    "map": "gingertown",
-   "ticks": 5210
+   "ticks": 5763
   },
   {
    "beat": "H01",
@@ -739,14 +739,14 @@
     "krillin": 14,
     "tien": 14
    },
-   "zeni": 3178,
+   "zeni": 3174,
    "map": "android_island",
-   "ticks": 5484
+   "ticks": 6037
   },
   {
    "beat": "H02",
    "levels": {
-    "goku": 15,
+    "goku": 16,
     "gohan": 15,
     "vegeta": 16,
     "piccolo": 15,
@@ -754,9 +754,9 @@
     "krillin": 14,
     "tien": 14
    },
-   "zeni": 3538,
+   "zeni": 3534,
    "map": "android_island",
-   "ticks": 5585
+   "ticks": 6138
   },
   {
    "beat": "H03",
@@ -769,9 +769,9 @@
     "krillin": 15,
     "tien": 15
    },
-   "zeni": 3538,
+   "zeni": 3534,
    "map": "capsule_corp",
-   "ticks": 5664
+   "ticks": 6217
   },
   {
    "beat": "T01",
@@ -784,9 +784,9 @@
     "krillin": 15,
     "tien": 15
    },
-   "zeni": 3958,
+   "zeni": 3954,
    "map": "time_chamber",
-   "ticks": 6004
+   "ticks": 6557
   },
   {
    "beat": "T02",
@@ -799,9 +799,9 @@
     "krillin": 16,
     "tien": 16
    },
-   "zeni": 4408,
+   "zeni": 4404,
    "map": "rocky_outskirts",
-   "ticks": 6661
+   "ticks": 7214
   },
   {
    "beat": "T03",
@@ -814,9 +814,9 @@
     "krillin": 16,
     "tien": 16
    },
-   "zeni": 4488,
+   "zeni": 4484,
    "map": "rocky_outskirts",
-   "ticks": 7260
+   "ticks": 7813
   },
   {
    "beat": "T04",
@@ -829,9 +829,9 @@
     "krillin": 16,
     "tien": 16
    },
-   "zeni": 4488,
+   "zeni": 4484,
    "map": "capsule_corp",
-   "ticks": 7261
+   "ticks": 7814
   },
   {
    "beat": "R01",
@@ -844,9 +844,9 @@
     "krillin": 17,
     "tien": 17
    },
-   "zeni": 4988,
+   "zeni": 4984,
    "map": "time_chamber",
-   "ticks": 7600
+   "ticks": 8153
   },
   {
    "beat": "R02",
@@ -859,9 +859,9 @@
     "krillin": 17,
     "tien": 17
    },
-   "zeni": 4928,
+   "zeni": 4924,
    "map": "capsule_corp",
-   "ticks": 7992
+   "ticks": 8545
   },
   {
    "beat": "G01",
@@ -874,14 +874,14 @@
     "krillin": 18,
     "tien": 18
    },
-   "zeni": 5488,
+   "zeni": 5484,
    "map": "cell_games_arena",
-   "ticks": 8749
+   "ticks": 9302
   },
   {
    "beat": "G02",
    "levels": {
-    "goku": 19,
+    "goku": 20,
     "gohan": 20,
     "vegeta": 20,
     "piccolo": 19,
@@ -889,9 +889,9 @@
     "krillin": 18,
     "tien": 18
    },
-   "zeni": 5488,
+   "zeni": 5484,
    "map": "cell_games_arena",
-   "ticks": 8750
+   "ticks": 9303
   },
   {
    "beat": "G03",
@@ -904,9 +904,9 @@
     "krillin": 19,
     "tien": 19
    },
-   "zeni": 5488,
+   "zeni": 5484,
    "map": "cell_games_arena",
-   "ticks": 8751
+   "ticks": 9304
   },
   {
    "beat": "G04",
@@ -919,9 +919,9 @@
     "krillin": 19,
     "tien": 19
    },
-   "zeni": 6088,
+   "zeni": 6084,
    "map": "cell_games_arena",
-   "ticks": 8752
+   "ticks": 9305
   },
   {
    "beat": "G05",
@@ -934,9 +934,9 @@
     "krillin": 20,
     "tien": 20
    },
-   "zeni": 6728,
+   "zeni": 6724,
    "map": "cell_games_arena",
-   "ticks": 8753
+   "ticks": 9306
   },
   {
    "beat": "G06",
@@ -949,9 +949,9 @@
     "krillin": 20,
     "tien": 20
    },
-   "zeni": 6728,
+   "zeni": 6724,
    "map": "cell_games_arena",
-   "ticks": 8754
+   "ticks": 9307
   },
   {
    "beat": "G07",
@@ -964,14 +964,15 @@
     "krillin": 21,
     "tien": 21
    },
-   "zeni": 7728,
+   "zeni": 7724,
    "map": "capsule_corp",
-   "ticks": 8755
+   "ticks": 9308
   }
  ],
  "finalFlags": [
   "p01_done",
   "p01_cleared",
+  "trunks_ssj_unlocked",
   "warning_delivered",
   "medicine_received",
   "three_years_training",
@@ -993,7 +994,6 @@
   "cell_absorbed_17",
   "vegeta_ascended_unlocked",
   "trunks_ultra_unlocked",
-  "trunks_ssj_unlocked",
   "vegeta_vs_semi",
   "cell_perfect",
   "cell_games_announced",
@@ -1016,12 +1016,12 @@
   "battlesWon": 34,
   "battlesLost": 0,
   "randomBattles": 5,
-  "turns": 607,
-  "perfectGuards": 263,
-  "goodGuards": 154,
+  "turns": 595,
+  "perfectGuards": 265,
+  "goodGuards": 155,
   "rageArts": 28,
-  "stepsTaken": 776,
+  "stepsTaken": 791,
   "itemsUsed": 5
  },
- "ms": 750
+ "ms": 366
 }

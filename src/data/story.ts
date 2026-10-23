@@ -35,7 +35,7 @@ export const BEATS: Beat[] = [
   {
     id: 'P02', kind: 'battle', chapter: 0, map: 'landing_future', where: 'Walk east to Frieza\'s ship.',
     objective: 'Defeat Mecha Frieza and King Cold at their ship.',
-    pre: [{ t: 'cutscene', id: 'trunks_arrival' }],
+    pre: [set('trunks_ssj_unlocked'), { t: 'cutscene', id: 'trunks_arrival' }],
     post: [
       { t: 'cutscene', id: 'goku_arrives' },
       { t: 'give', item: 'medicine_vial', n: 1 },
