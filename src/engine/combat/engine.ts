@@ -445,7 +445,10 @@ export class Battle {
       if (waves && this.waveIdx < waves.length) {
         const w = waves[this.waveIdx++];
         this.log('Reinforcements arrive!');
+        const before = this.fighters.length;
         this.spawnWave(w);
+        this.emit({ t: 'wave', uids: this.fighters.slice(before).map((f) => f.uid) });
+        this.snapAll();
         this.emit({ t: 'announce', uid: 'e:0', text: 'Next wave!' });
         if (this.queue.length) this.queue = this.queue.concat(this.fighters.filter((f) => f.team === 'enemy' && f.alive).map((f) => ({ uid: f.uid, extra: false })));
         return false;

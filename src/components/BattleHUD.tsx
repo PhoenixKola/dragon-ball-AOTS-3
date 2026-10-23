@@ -203,6 +203,7 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
       setMsg('There is nobody to target.');
       return;
     }
+    if (of === 'enemy' && list.length === 1) return resolve(p, list[0]);
     setTIdx(0);
     setLvl({ l: 'target', p, of });
   };

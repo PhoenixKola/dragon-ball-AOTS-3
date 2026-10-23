@@ -13,6 +13,8 @@ export interface Clock {
 /** Visual side of a battle. Implemented by the Phaser BattleScene (and by a recording fake in tests). */
 export interface BattleStage {
   setup(fighters: FighterView[]): Promise<void>;
+  /** reinforcements joining mid-battle */
+  spawn(fighters: FighterView[]): Promise<void>;
   clip(uid: string, clip: ClipId, vfx: string, sfx: string, targetUid?: string): Promise<void>;
   /** attacker starts moving toward the target; contact happens `ms` later */
   approach(attackerUid: string, targetUid: string, ms: number, label: string): void;
@@ -230,6 +232,13 @@ export class BattleDirector {
       case 'round':
         this.pushView();
         return;
+      case 'wave': {
+        const fresh = e.uids.map((u) => this.battle.get(u)).filter((f): f is Fighter => !!f).map(toView);
+        for (const v of fresh) this.fighters.set(v.uid, v);
+        await this.stage.spawn(fresh);
+        this.pushView();
+        return;
+      }
       case 'turn': {
         this.turnOrder = [];
         this.pushView();

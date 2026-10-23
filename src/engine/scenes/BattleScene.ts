@@ -154,6 +154,16 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     });
   }
 
+  async spawn(fighters: FighterView[]): Promise<void> {
+    await Promise.all([...new Set(fighters.map((f) => f.actor))].map((a) => ensureActor(this, a, 'battle')));
+    const n = fighters.length;
+    fighters.forEach((f, i) => {
+      const x = n === 1 ? 760 : 560 + (i % 3) * 130 + (i >= 3 ? 50 : 0);
+      const y = n === 1 ? 560 : 545 + ((i % 3) - 1) * 42 + (i >= 3 ? 40 : 0);
+      this.addSlot(f, x, y);
+    });
+  }
+
   private buildBackground() {
     for (const o of this.bg) o.destroy();
     this.bg = [];

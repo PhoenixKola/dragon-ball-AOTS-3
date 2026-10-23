@@ -321,6 +321,7 @@ export type BattleEvent =
   | { t: 'phase'; uid: string; text: string; becomes?: string }
   | { t: 'turn'; uid: string }
   | { t: 'round'; round: number }
+  | { t: 'wave'; uids: string[] }
   | { t: 'clip'; uid: string; clip: ClipId; vfx: string; sfx: string; skillId?: string; targetUid?: string }
   | { t: 'snap'; uid: string; hp: number; maxHp: number; ki: number; maxKi: number; rage: number; alive: boolean; form: FormId; actor: string; name: string; sparking: number; charging: boolean }
   | { t: 'end'; outcome: 'victory' | 'defeat' | 'fled'; reason: string };
