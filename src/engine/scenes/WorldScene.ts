@@ -27,6 +27,7 @@ export interface WorldBridge {
   sim: WorldSim;
   /** true while a script/battle/menu owns the screen */
   blocked(): boolean;
+  reducedMotion(): boolean;
   onEvents(events: WorldEvent[]): void;
   onPrompt(text: string | null): void;
   tick(dtMs: number): void;
@@ -290,6 +291,7 @@ export class WorldScene extends Phaser.Scene {
     const sim = this.bridge.sim;
     this.bridge.tick(dt);
     const blocked = this.bridge.blocked();
+    const reducedMotion = this.bridge.reducedMotion();
     if (!blocked) {
       const held = input.held();
       const events = sim.update(Math.min(dt, 50), held);
@@ -310,12 +312,13 @@ export class WorldScene extends Phaser.Scene {
       if (v.e.kind === 'foe') {
         const [fx, fy] = sim.foePos(v.e as FoeEntity);
         (v.obj as Phaser.GameObjects.Image).setPosition(fx, fy).setDepth(fy);
-        v.label?.setPosition(fx, fy - (v.obj as Phaser.GameObjects.Image).displayHeight - 4 + Math.sin(this.t / 200) * 2);
+        v.label?.setPosition(fx, fy - (v.obj as Phaser.GameObjects.Image).displayHeight - 4 + (reducedMotion ? 0 : Math.sin(this.t / 200) * 2));
         v.shadow?.setPosition(fx, fy - 1);
       } else if (v.e.kind === 'npc') {
         (v.obj as Phaser.GameObjects.Image).setDepth((v.e as NpcEntity).y);
         const n = v.e as NpcEntity;
-        if (v.label) v.label.setText(n.story && sim.state.beat === BEAT_INDEX[n.story] ? '!' : '');
+        const marker = n.story && sim.state.beat === BEAT_INDEX[n.story] ? '!' : '';
+        if (v.label && v.label.text !== marker) v.label.setText(marker);
       } else if (v.e.kind === 'chest') {
         const opened = sim.state.opened.includes(`chest:${v.e.id}`);
         if (v.obj instanceof Phaser.GameObjects.Image) {
@@ -331,10 +334,10 @@ export class WorldScene extends Phaser.Scene {
         v.obj.setVisible(!!d.closedWhen && evalCond(sim.state, d.closedWhen));
       }
     }
-    this.exitArrows.forEach((a, i) => a.setAlpha(0.45 + 0.35 * Math.sin(this.t / 250 + i)));
+    this.exitArrows.forEach((a, i) => a.setAlpha(reducedMotion ? 0.7 : 0.45 + 0.35 * Math.sin(this.t / 250 + i)));
     if (this.weather) this.weather.forEach((r, i) => {
-      if (r.fillAlpha < 0.1) {
-        r.x += 0.15 * (i % 2 ? 1 : -1);
+      if (r.fillAlpha < 0.1 && !reducedMotion) {
+        r.x += 0.009 * Math.min(dt, 50) * (i % 2 ? 1 : -1);
         if (r.x > sim.map.width * TILE + 120) r.x = -120;
         if (r.x < -120) r.x = sim.map.width * TILE + 120;
       }

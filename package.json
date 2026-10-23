@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests tools --max-warnings 0",
     "test": "vitest run",
+    "test:controls": "node tests/e2e/battle-controls.mjs",
     "test:e2e": "node tests/e2e/run.mjs",
     "art:build": "python tools/build_art.py",
     "art:audit": "python tools/audit_assets.py",

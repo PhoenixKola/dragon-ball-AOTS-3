@@ -142,6 +142,10 @@ const sync = () => {
   uiStore.set({ ...uiStore.get(), game: structuredClone(game), settings: { ...settings }, version: uiStore.get().version + 1 });
 };
 
+// Expose submitted commands so browser checks can verify the visible menu path.
+const submitted: unknown[] = [];
+(window as unknown as { __battleSubmissions: unknown[] }).__battleSubmissions = submitted;
+
 const mock: SessionApi = {
   newGame: () => {}, continueGame: () => {}, loadSlot: () => true, saveSlot: () => ({ ok: true }), deleteSlot: () => {}, exportSlot: () => {}, importFile: () => ({ ok: true }), toTitle: () => {}, refreshSlots: () => {},
   openMenu: () => push({ overlay: 'menu' }), closeOverlay: () => uiStore.patch({ overlay: null }), openOverlay: (o) => uiStore.patch({ overlay: o }),
@@ -157,7 +161,7 @@ const mock: SessionApi = {
   sell: (i, q) => { const r = sellItem(game, i, q); sync(); return r; },
   closeShop: () => uiStore.patch({ overlay: null, shop: null }), chooseTravel: () => uiStore.patch({ overlay: null, travel: null }), setDifficulty: (d) => { game.difficulty = d; sync(); },
   dismissRewards: () => uiStore.patch({ overlay: null, rewards: null }), defeatChoice: () => uiStore.patch({ overlay: null }),
-  battleSubmit: () => ({ ok: true }), battleGuard: () => {}, battlePause: (p) => { const b = uiStore.get().battle; if (b) uiStore.patch({ battle: { ...b, paused: p } }); },
+  battleSubmit: (action) => { submitted.push(action); return { ok: true }; }, battleGuard: () => {}, battlePause: (p) => { const b = uiStore.get().battle; if (b) uiStore.patch({ battle: { ...b, paused: p } }); },
   dismissBattleTutorial: () => { const b = uiStore.get().battle; if (b) uiStore.patch({ battle: { ...b, tutorial: null } }); }, skipBattleAnimations: () => {}, ui: () => {},
 };
 

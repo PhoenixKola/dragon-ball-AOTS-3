@@ -222,6 +222,7 @@ export class Session implements SessionApi, ControllerHost {
     this.world.bridge = {
       sim: this.sim,
       blocked: () => this.worldBlocked(),
+      reducedMotion: () => uiStore.get().settings.reducedMotion,
       onEvents: (evs) => this.onWorldEvents(evs),
       onPrompt: (t) => {
         if (uiStore.get().prompt !== t) uiStore.patch({ prompt: t });

@@ -1,5 +1,7 @@
 # Missing or provisional art
 
+> **RC2 update:** The table below is an RC1 backlog, not the current asset inventory. `FINAL_PASS_NOTES.md` records the RC2 handoff and patch integration, and `src/data/artRegistry.generated.json` is authoritative for each current frame. Gohan SSJ/SSJ2, Vegeta Ascended, Trunks Ultra, Goku weakened, Cell Junior, Super Perfect Cell, the listed NPCs, and most listed enemies now have handoff or patch frames. Landing security remains derived; wounded Gohan's overworld walk reuses base Gohan; worlds and VFX have not received the handoff replacement pass. The old icon-sliver finding below was addressed by the RC2 icon reslice. No registry art has human approval yet (`approved=false`).
+
 Nothing in this project is human-approved (`approved=false` everywhere). Outcomes: **resolved-derived** (usable derived art, not authentic), **provisional-fallback** (tool-drawn or tinted stand-in), **missing** (no art produced).
 
 | class | id | requirement | outcome | detail |

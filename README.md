@@ -11,6 +11,8 @@ Private, offline, fan-made JRPG: React 19 + TypeScript (strict) + Phaser 3 + Vit
 |---|---|
 | `npm run build` | `tsc --noEmit` + production `vite build` |
 | `npm test` | unit + integration (combat, all 84 skills, content/map reachability, save integrity, art audit, natural-progression simulation) |
+| `npm run test:controls` | focused browser check of visible battle technique, item, Back, and target controls |
+| `npm run test:e2e` | build, create test saves, run browser checks and a full Normal playthrough |
 | `npm run lint` | eslint, zero warnings |
 | `node tests/e2e/playthrough.mjs` | real-Chrome playthrough of `dist` (see docs/QA_REPORT.md) |
 | `python tools/build_art.py` | regenerate `public/assets` + `src/data/artRegistry.generated.json` from `art/source` |

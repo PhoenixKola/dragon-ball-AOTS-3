@@ -1,5 +1,11 @@
 # Art usage manifest (final art pass, partial)
 
+## Current RC2 status
+
+The generated registry (`src/data/artRegistry.generated.json`) is the authority for individual frame provenance, quality, and `provisional` / `approved` flags. The pipeline now applies `art/handoff`, `art/handoff2`, and `art/patch` in `tools/build_art.py`. The earlier summary table below records the first handoff pass and is retained for its technical notes; its claims that NPC, villain, regular-enemy, and base-hero replacement sheets are **not integrated** are superseded. Those sheets were integrated in the RC2 pass described in `FINAL_PASS_NOTES.md`.
+
+Current remaining gaps: world tiles and VFX have not had the handoff replacement pass; landing-security is derived from the armored sentinel; Gohan's wounded battle poses use the handoff sheet but the overworld walk reuses Gohan base; painted cutscene frames are absent. Registry entries still have `approved=false` pending human art review. Source quality (`genuine` or `derived`) and human approval are separate fields.
+
 | Category | Source (art/handoff) | Registry output | Status |
 |---|---|---|---|
 | Skill icons (84) | ui_and_icons/skill_status_icon_atlas.png | skillIcons `<hero>_<n>` -> assets/ui/skills | grid-sliced, 64x64, unique cell each; mapping in tools/art_icons.py SKILL_CELL |

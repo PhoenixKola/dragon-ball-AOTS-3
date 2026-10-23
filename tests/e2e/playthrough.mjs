@@ -39,6 +39,17 @@ const shotBattles = new Set();
 const jitterDone = new Set();
 const seenMaps = new Set();
 const beatLog = [];
+// Match the headless WorldBot's ordinary supply stops on the no-guard route.
+// Purchases go through the shop UI, so this profile exercises the same economy as a player.
+const SHOPS = { capsule_corp: 'shop_cc', south_city: 'shop_sc', cell_games_approach: 'shop_ca' };
+const SUPPLIES = [
+  ['Senzu Fragment', 'senzu_small', 6, 70],
+  ['Ki Capsule', 'ki_capsule', 4, 80],
+  ['Revive Seed', 'revive_seed', 1, 260],
+  ['Antidote', 'antidote', 2, 60],
+];
+const shopped = new Set();
+let shopVisit = null;
 let rng = 12345;
 const rnd = () => ((rng = (Math.imul(rng, 1664525) + 1013904223) >>> 0) / 4294967296);
 
@@ -107,6 +118,24 @@ async function overlayStep(s) {
   if (o === 'defeat') { L('DEFEAT -> retry'); await page.getByRole('button', { name: /retry/i }).first().click(); return true; }
   if (o === 'travel') return false;
   if (o === 'confirm') { await page.getByRole('button', { name: /^yes/i }).first().click(); return true; }
+  if (o === 'shop' && POLICY === 'noguard' && shopVisit) {
+    for (const [name, id, want, price] of SUPPLIES) {
+      const option = page.getByRole('option', { name: new RegExp(`^${name}\\b`, 'i') });
+      if (!await option.count()) continue;
+      while (true) {
+        const game = (await snap(page)).game;
+        if ((game.inventory[id] ?? 0) >= want || game.zeni < price + 100) break;
+        await option.click();
+        await page.locator('.shop .detail .btn-primary').click();
+        await page.waitForFunction(([item, count]) => (window.__AOTS__.snapshot().game?.inventory[item] ?? 0) > count, [id, game.inventory[id] ?? 0]);
+      }
+    }
+    L('shop ' + shopVisit + ' inventory=' + JSON.stringify((await snap(page)).game.inventory));
+    shopped.add(shopVisit);
+    shopVisit = null;
+    await page.keyboard.press('KeyX');
+    return true;
+  }
   if (o === 'shop' || o === 'menu' || o === 'save' || o === 'help' || o === 'options') { await page.keyboard.press('KeyX'); await page.waitForTimeout(100); return true; }
   return false;
 }
@@ -152,7 +181,11 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
   if (game.beat >= 30 && !process.env.POSTGAME) { L('STORY COMPLETE'); break; }
   if (process.env.POSTGAME && game.postgame.records.SIM_JUNIORS) { L('POSTGAME SIM CLEARED ' + JSON.stringify(game.postgame.records)); break; }
   if (!seenMaps.has(game.mapId)) { seenMaps.add(game.mapId); await shot(page, `map-${game.mapId}`, 'tests/logs/screens/playthrough'); }
-  const goal = await page.evaluate(() => window.__AOTS__.goal());
+  const visit = `${game.mapId}:${game.beat}`;
+  const shopId = POLICY === 'noguard' ? SHOPS[game.mapId] : null;
+  const goal = shopId && !shopped.has(visit)
+    ? { kind: 'interact', entityId: shopId, why: 'restock supplies' }
+    : await page.evaluate(() => window.__AOTS__.goal());
   if (!goal || goal.kind === 'done') { L('no goal'); break; }
   const simPos = await page.evaluate(() => window.__AOTS__.sim());
   const posKey = Math.round(simPos.x / 6) + ',' + Math.round(simPos.y / 6) + simPos.map;
@@ -195,6 +228,7 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
     await page.keyboard.press('KeyE');
     await page.waitForTimeout(250);
     const s2 = await snap(page);
+    if (s2.overlay === 'shop' && goal.entityId === shopId) shopVisit = visit;
     if (s2.overlay === 'travel' && goal.travelTo) {
       const opt = s2.travel.options.find((o) => o.map === goal.travelTo);
       await page.getByRole('button', { name: new RegExp(opt.label) }).first().click();
