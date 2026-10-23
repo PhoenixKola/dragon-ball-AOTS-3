@@ -106,7 +106,7 @@
   "seed": 1,
   "completed": 30,
   "total": 30,
-  "defeats": 0,
+  "defeats": 1,
   "failed": null,
   "level": {
    "goku": 22,
@@ -157,14 +157,14 @@
   "seed": 4,
   "completed": 30,
   "total": 30,
-  "defeats": 1,
+  "defeats": 0,
   "failed": null,
   "level": {
    "goku": 22,
    "gohan": 23,
    "vegeta": 22,
    "piccolo": 21,
-   "trunks": 22,
+   "trunks": 23,
    "krillin": 21,
    "tien": 21
   }
@@ -191,7 +191,7 @@
   "seed": 6,
   "completed": 30,
   "total": 30,
-  "defeats": 0,
+  "defeats": 1,
   "failed": null,
   "level": {
    "goku": 22,

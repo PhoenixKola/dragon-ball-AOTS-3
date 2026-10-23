@@ -40,6 +40,7 @@ export const BEATS: Beat[] = [
       { t: 'cutscene', id: 'goku_arrives' },
       { t: 'give', item: 'medicine_vial', n: 1 },
       set('warning_delivered'),
+      set('goku_ssj_unlocked'),
       { t: 'join', hero: 'goku' },
       { t: 'join', hero: 'gohan' },
       { t: 'join', hero: 'piccolo' },

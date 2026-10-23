@@ -230,7 +230,7 @@ export function setParty(s: GameState, heroes: HeroId[]): { ok: boolean; reason?
 }
 
 /* ------------------------------------------------------------------ battles */
-export const FLAGS_OF = (s: GameState): Record<string, boolean> => ({ ...s.flags });
+export const FLAGS_OF = (s: GameState): Record<string, boolean> => ({ ...s.flags, ...(s.flags.warning_delivered ? { goku_ssj_unlocked: true } : {}) });
 
 export function nextStagePower(s: GameState): number {
   const b = BEATS.slice(s.beat).find((x) => x.kind === 'battle');

@@ -139,7 +139,7 @@ export function formsUnlocked(s: GameState, hero: HeroId): FormId[] {
     piccolo: [], trunks: [['ssj', 'trunks_ssj_unlocked'], ['ultra', 'trunks_ultra_unlocked']], krillin: [], tien: [],
   };
   for (const [f, flag] of map[hero]) {
-    if (!s.flags[flag]) continue;
+    if (!s.flags[flag] && !(flag === 'goku_ssj_unlocked' && s.flags.warning_delivered)) continue;
     if (f === 'ssj2' && !s.flags.android16_destroyed) continue;
     out.push(f);
   }

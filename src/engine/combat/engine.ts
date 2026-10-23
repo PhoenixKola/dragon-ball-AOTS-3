@@ -676,7 +676,6 @@ export class Battle {
         const foeSpd = this.livingEnemies().reduce((s, h) => s + effSpd(h), 0) / Math.max(1, this.livingEnemies().length);
         const chance = Math.max(0.4, Math.min(0.95, 0.65 + (mySpd - foeSpd) / 80));
         if (this.rng.next() < chance) {
-          this.emit({ t: 'clip', uid: f.uid, clip: 'teleport', vfx: 'teleport', sfx: 'flee' });
           this.finish('fled', 'fled');
           return;
         }

@@ -568,6 +568,16 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       for (const s of this.slots.values()) if (s.view.team === 'ally' && s.alive) this.setPose(s, 'victory');
       audio.sfx('victory');
     } else if (outcome === 'defeat') audio.sfx('defeat');
+    else {
+      audio.sfx('flee');
+      const allies = [...this.slots.values()].filter((s) => s.view.team === 'ally' && s.alive && !s.view.isProtectee);
+      for (const s of allies) {
+        this.setPose(s, 'charge', 400);
+        this.playVfx('teleport', s.img.x, s.homeY - 60, 1.1);
+      }
+      await this.wait(160);
+      await Promise.all(allies.map((s) => this.tween(s.img, { alpha: 0, x: s.img.x - 60 }, 260, 'Cubic.easeIn')));
+    }
     await this.wait(600);
   }
   setFast(skip: boolean) {
