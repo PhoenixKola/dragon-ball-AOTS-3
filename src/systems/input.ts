@@ -69,6 +69,10 @@ export class InputManager {
   private onKeyDown = (e: KeyboardEvent) => {
     if (e.ctrlKey || e.altKey || e.metaKey) return;
     if (InputManager.typing(e.target)) return;
+    if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+      this.down.add(e.code);
+      return;
+    }
     const a = KEYMAP[e.code];
     if (!a) return;
     // buttons keep native activation for Space/Enter so a focused button is not double-fired
