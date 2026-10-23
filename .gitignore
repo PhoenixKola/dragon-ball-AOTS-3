@@ -1,0 +1,32 @@
+# dependencies and build output
+node_modules/
+dist/
+dist-ui/
+dist-test/
+release/
+*.zip
+.vite/
+*.tsbuildinfo
+
+# python caches
+__pycache__/
+*.pyc
+
+# source art inputs (large; supplied separately, tools/build_art.py regenerates public/assets from them)
+art/source/
+art/handoff/
+art/patch/
+
+# generated test evidence that is large or regenerable
+tests/logs/screens/
+tests/logs/saves/
+docs/art-evidence/_tmp_*
+tests/tmp/
+
+# local/editor files
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log.bak

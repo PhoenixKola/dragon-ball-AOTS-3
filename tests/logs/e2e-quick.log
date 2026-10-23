@@ -1,0 +1,13 @@
+[1s] raf frames in 300ms: 19 hidden=false
+[1s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[32s] raf frames in 300ms: 16 hidden=false
+[32s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[36s] beat 0 done -> now 1 (completed 1) map=landing_future battles=1
+[62s] raf frames in 300ms: 14 hidden=false
+[62s] diag {"screen":"battle","overlay":null,"phase":"anim","round":13,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[86s] beat 1 done -> now 2 (completed 2) map=capsule_corp battles=2
+[92s] raf frames in 300ms: 14 hidden=false
+[92s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[120s] FINAL {"beat":3,"completed":3,"flags":["p01_done","p01_cleared","warning_delivered","medicine_received","three_years_training"],"stats":{"playMs":29693.900000000012,"battlesWon":3,"battlesLost":0,"randomBattles":0,"turns":57,"perfectGuards":24,"goodGuards":0,"rageArts":3,"stepsTaken":79,"itemsUsed":0}}
+[120s] page errors: []
+[120s] external requests: []

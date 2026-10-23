@@ -1,0 +1,32 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mE:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell[39m
+
+ [32m✓[39m tests/unit/sprite-stability.test.ts [2m([22m[2m352 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-icons.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m tests/unit/gen-docs.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/unit/content.test.ts [2m([22m[2m51 tests[22m[2m)[22m[32m 153[2mms[22m[39m
+ [32m✓[39m tests/unit/combat.test.ts [2m([22m[2m122 tests[22m[2m)[22m[32m 210[2mms[22m[39m
+ [32m✓[39m tests/unit/art-runtime.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 570[2mms[22m[39m
+   [33m[2m✓[22m[39m runtime art integration audit[2m > [22mevery registry frame exists on disk with the recorded size and visible pixels [33m 356[2mms[22m[39m
+ [32m✓[39m tests/unit/systems.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 320[2mms[22m[39m
+[90mstdout[2m | tests/integration/policies.test.ts[2m > [22m[2mnatural progression simulation[2m > [22m[2mattentive guard: fresh save to credits without cheats
+[22m[39mP01:victory:trunksL10:r2:a1 | P02:victory:trunksL10:r19:a1 | A01:victory:trunksL10,gokuL10,gohanL8:r2:a1 | A02:victory:trunksL11,gokuL10,gohanL8:r4:a1 | A03:victory:gokuL11:r4:a1 | RND_rocky_outskirts:victory:trunksL11,gohanL9:r3:a1 | A04:victory:vegetaL11:r13:a1 | A05:victory:vegetaL11:r10:a1 | RND_mountain_lab:victory:trunksL12,gohanL11,vegetaL12:r3:a1 | A06:victory:trunksL12,gohanL11,vegetaL12:r4:a1 | A07:victory:trunksL13,gohanL11,vegetaL13:r3:a1 | A08:victory:trunksL13,gohanL12,vegetaL13:r3:a1 | C01:victory:trunksL14,gohanL12,vegetaL13:r5:a1 | RND_gingertown:victory:trunksL14,gohanL13,vegetaL14:r3:a1 | RND_rocky_outskirts:victory:trunksL15,gohanL13,vegetaL14:r4:a2 | C02:victory:piccoloL13:r16:a1 | C03:victory:trunksL15,gohanL14,vegetaL15:r5:a1 | H01:victory:piccoloL14:r9:a1 | H02:victory:android16L16:r9:a1 | H03:victory:trunksL17,gohanL15,vegetaL16:r4:a1 | T01:victory:vegetaL17,trunksL17:r4:a1 | T02:victory:vegetaL17:r12:a1 | RND_rocky_outskirts:victory:trunksL18,gohanL17,vegetaL18:r2:a3 | T03:victory:vegetaL18:r3:a1 | T04:victory:trunksL18:r3:a1 | R01:victory:gokuL17,gohanL18:r11:a1 | R02:victory:trunksL19,gohanL18,vegetaL19:r5:a1 | G01:victory:gokuL19:r5:a1 | G02:victory:gohanL19:r3:a1 | G03:victory:vegetaL20,piccoloL19,trunksL20:r4:a1 | G04:victory:gohanL20:r4:a1 | G05:victory:gohanL21:r14:a1 | G06:victory:gohanL21:r4:a1 | G07:victory:gohanL22:r2:a1
+
+[90mstdout[2m | tests/integration/simulation.test.ts[2m > [22m[2mnatural progression simulation[2m > [22m[2mattentive guard: fresh save to credits without cheats
+[22m[39mP01:victory:trunksL10:r2:a1 | P02:victory:trunksL10:r19:a1 | A01:victory:trunksL10,gokuL10,gohanL8:r2:a1 | A02:victory:trunksL11,gokuL10,gohanL8:r4:a1 | A03:victory:gokuL11:r4:a1 | RND_rocky_outskirts:victory:trunksL11,gohanL9:r3:a1 | A04:victory:vegetaL11:r13:a1 | A05:victory:vegetaL11:r10:a1 | RND_mountain_lab:victory:trunksL12,gohanL11,vegetaL12:r3:a1 | A06:victory:trunksL12,gohanL11,vegetaL12:r4:a1 | A07:victory:trunksL13,gohanL11,vegetaL13:r3:a1 | A08:victory:trunksL13,gohanL12,vegetaL13:r3:a1 | C01:victory:trunksL14,gohanL12,vegetaL13:r5:a1 | RND_gingertown:victory:trunksL14,gohanL13,vegetaL14:r3:a1 | RND_rocky_outskirts:victory:trunksL15,gohanL13,vegetaL14:r4:a2 | C02:victory:piccoloL13:r16:a1 | C03:victory:trunksL15,gohanL14,vegetaL15:r5:a1 | H01:victory:piccoloL14:r9:a1 | H02:victory:android16L16:r9:a1 | H03:victory:trunksL17,gohanL15,vegetaL16:r4:a1 | T01:victory:vegetaL17,trunksL17:r4:a1 | T02:victory:vegetaL17:r12:a1 | RND_rocky_outskirts:victory:trunksL18,gohanL17,vegetaL18:r2:a3 | T03:victory:vegetaL18:r3:a1 | T04:victory:trunksL18:r3:a1 | R01:victory:gokuL17,gohanL18:r11:a1 | R02:victory:trunksL19,gohanL18,vegetaL19:r5:a1 | G01:victory:gokuL19:r5:a1 | G02:victory:gohanL19:r3:a1 | G03:victory:vegetaL20,piccoloL19,trunksL20:r4:a1 | G04:victory:gohanL20:r4:a1 | G05:victory:gohanL21:r14:a1 | G06:victory:gohanL21:r4:a1 | G07:victory:gohanL22:r2:a1
+
+ [32m✓[39m tests/integration/simulation.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 541[2mms[22m[39m
+   [33m[2m✓[22m[39m natural progression simulation[2m > [22mattentive guard: fresh save to credits without cheats [33m 539[2mms[22m[39m
+ [32m✓[39m tests/integration/mksave.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 923[2mms[22m[39m
+   [33m[2m✓[22m[39m writes saves at selected story beats [33m 921[2mms[22m[39m
+ [32m✓[39m tests/unit/audio.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 1842[2mms[22m[39m
+   [33m[2m✓[22m[39m audio definitions[2m > [22mhas a track for every music key with sane data [33m 1801[2mms[22m[39m
+ [32m✓[39m tests/integration/policies.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 5207[2mms[22m[39m
+   [33m[2m✓[22m[39m natural progression simulation[2m > [22mattentive guard: fresh save to credits without cheats [33m 495[2mms[22m[39m
+   [33m[2m✓[22m[39m policy matrix [33m 4708[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m11 passed[39m[22m[90m (11)[39m
+[2m      Tests [22m [1m[32m578 passed[39m[22m[90m (578)[39m
+[2m   Start at [22m 16:18:23
+[2m   Duration [22m 7.29s[2m (transform 3.51s, setup 0ms, collect 10.16s, tests 9.84s, environment 4ms, prepare 2.53s)[22m
+

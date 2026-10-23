@@ -1,0 +1,22 @@
+[2s] raf frames in 300ms: 19 hidden=false
+[2s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[32s] raf frames in 300ms: 14 hidden=false
+[32s] diag {"screen":"battle","overlay":null,"phase":"anim","round":5,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[38s] beat 26 done -> now 27 (completed 27) map=cell_games_arena battles=1
+[63s] raf frames in 300ms: 14 hidden=false
+[63s] diag {"screen":"battle","overlay":null,"phase":"anim","round":6,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[94s] raf frames in 300ms: 13 hidden=false
+[94s] diag {"screen":"battle","overlay":null,"phase":"input","round":13,"cur":"h:gohan","tut":false,"paused":false,"guard":false,"cmd":true,"dlg":false,"script":true,"cut":null}
+[126s] raf frames in 300ms: 7 hidden=false
+[126s] diag {"screen":"cutscene","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":{"id":"goku_sacrifice","step":12,"kind":"caption","now":11446.299999999977,"paused":false,"active":true,"visible":true,"fps":17.421613404682795}}
+[156s] raf frames in 300ms: 7 hidden=false
+[156s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[185s] raf frames in 300ms: 10 hidden=false
+[185s] diag {"screen":"battle","overlay":null,"phase":"guard","round":1,"cur":null,"tut":false,"paused":false,"guard":true,"cmd":false,"dlg":false,"script":true,"cut":null}
+[217s] raf frames in 300ms: 13 hidden=false
+[217s] diag {"screen":"cutscene","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":true,"script":true,"cut":{"id":"trunks_departure","step":4,"kind":"say","now":529.8900000000169,"paused":false,"active":true,"visible":true,"fps":17.145587193324708}}
+[221s] beat 27 done -> now 30 (completed 30) map=capsule_corp battles=4
+[221s] STORY COMPLETE
+[221s] FINAL {"beat":30,"completed":30,"flags":["p01_done","p01_cleared","warning_delivered","medicine_received","three_years_training","goku_sick","android19_sighted","android19_defeated","vegeta_ssj_unlocked","gero_fled","lab_door_open","lab_security_down","androids_awakened","android18_seen","cell_imperfect_seen","piccolo_kami_merged","cell_named","gingertown_evacuated","piccolo_vs_17","android16_met","cell_absorbed_17","vegeta_ascended_unlocked","trunks_ultra_unlocked","trunks_ssj_unlocked","vegeta_vs_semi","cell_perfect","cell_games_announced","gohan_ssj_unlocked","goku_ssj_unlocked","goku_recovered","teamwork_exam_done","ponr_accepted","games_started","android16_destroyed","gohan_ssj2_unlocked","goku_sacrifice","cell_super_perfect","cell_final_defeated","credits_seen","postgame_unlocked"],"stats":{"playMs":4629.770000000008,"battlesWon":34,"battlesLost":0,"randomBattles":5,"turns":607,"perfectGuards":262,"goodGuards":128,"rageArts":25,"stepsTaken":771,"itemsUsed":6}}
+[221s] page errors: []
+[221s] external requests: []

@@ -1,0 +1,1147 @@
+[
+ {
+  "scene": "title",
+  "w": 1024,
+  "h": 600,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 7
+ },
+ {
+  "scene": "title-nosave",
+  "w": 1024,
+  "h": 600,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 6
+ },
+ {
+  "scene": "title-loading",
+  "w": 1024,
+  "h": 600,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-newgame",
+  "w": 1024,
+  "h": 600,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 7
+ },
+ {
+  "scene": "title-options",
+  "w": 1024,
+  "h": 600,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 7
+ },
+ {
+  "scene": "world",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-status",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-party",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-abilities",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-items",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-equipment",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-journal",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-options",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-save",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "shop",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "travel",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "save",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "options",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "help",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "credits",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "confirm",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue-narrator",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "choice",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "card",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "caption",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "toast",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-input",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-skills",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1
+ },
+ {
+  "scene": "battle-target",
+  "w": 1024,
+  "h": 600,
+  "clipped": [
+   "cmd-title:Attack → Cell Probe",
+   "ellipsis:Attack → Cell Probe"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1,
+  "targetHint": "e:1:cell-probe"
+ },
+ {
+  "scene": "battle-guard",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-reduced",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-anim",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-tutorial",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "rewards",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "defeat",
+  "w": 1024,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "_errors",
+  "w": 1024,
+  "h": 600,
+  "errors": [
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "externalRequests": []
+ },
+ {
+  "scene": "title",
+  "w": 1280,
+  "h": 720,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-nosave",
+  "w": 1280,
+  "h": 720,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-loading",
+  "w": 1280,
+  "h": 720,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-newgame",
+  "w": 1280,
+  "h": 720,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-options",
+  "w": 1280,
+  "h": 720,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "world",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-status",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-party",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-abilities",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-items",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-equipment",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-journal",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-options",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-save",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "shop",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "travel",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "save",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "options",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "help",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "credits",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "confirm",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue-narrator",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "choice",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "card",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "caption",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "toast",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-input",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-skills",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1
+ },
+ {
+  "scene": "battle-target",
+  "w": 1280,
+  "h": 720,
+  "clipped": [
+   "cmd-title:Attack → Cell Probe",
+   "ellipsis:Attack → Cell Probe"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1,
+  "targetHint": "e:1:cell-probe"
+ },
+ {
+  "scene": "battle-guard",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-reduced",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-anim",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-tutorial",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "rewards",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "defeat",
+  "w": 1280,
+  "h": 720,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "_errors",
+  "w": 1280,
+  "h": 720,
+  "errors": [],
+  "externalRequests": []
+ },
+ {
+  "scene": "title",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-nosave",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-loading",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-newgame",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-options",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [
+   "sr-only:Attack of the Saiyans II"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "world",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-status",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-party",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-abilities",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-items",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-equipment",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-journal",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-options",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-save",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "shop",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "travel",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "save",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "options",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "help",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "credits",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "confirm",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue-narrator",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "choice",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "card",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "caption",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "toast",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-input",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-skills",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1
+ },
+ {
+  "scene": "battle-target",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [
+   "cmd-title:Attack → Cell Probe",
+   "ellipsis:Attack → Cell Probe"
+  ],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1,
+  "targetHint": "e:1:cell-probe"
+ },
+ {
+  "scene": "battle-guard",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-reduced",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-anim",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-tutorial",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "rewards",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "defeat",
+  "w": 1920,
+  "h": 1080,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "_errors",
+  "w": 1920,
+  "h": 1080,
+  "errors": [],
+  "externalRequests": []
+ }
+]

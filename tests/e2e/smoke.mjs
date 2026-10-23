@@ -1,0 +1,13 @@
+import { launch, shot, snap, waitFor } from './lib.mjs';
+const t = await launch();
+const { page } = t;
+await waitFor(page, () => window.__AOTS__ && window.__AOTS__.snapshot().assetsReady);
+await page.getByRole('button', { name: /new game/i }).first().click();
+await page.getByRole('button', { name: /^Normal/ }).first().click();
+await waitFor(page, () => window.__AOTS__.snapshot().screen === 'world', 20000);
+await page.waitForTimeout(1500);
+await shot(page, 'world-start');
+const s = await snap(page);
+console.log(JSON.stringify({ screen: s.screen, dialogue: !!s.dialogue, scriptActive: s.scriptActive, world: await page.evaluate(() => window.__AOTS__.worldDebug()) }));
+console.log('errors', t.errors);
+await t.close();

@@ -1,0 +1,23 @@
+[6s] raf frames in 300ms: 13 hidden=false
+[6s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[32s] raf frames in 300ms: 15 hidden=false
+[32s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[48s] beat 10 done -> now 11 (completed 11) map=gingertown battles=1
+[62s] raf frames in 300ms: 13 hidden=false
+[62s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[93s] raf frames in 300ms: 14 hidden=false
+[93s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[121s] beat 11 done -> now 12 (completed 12) map=lookout battles=1
+[123s] raf frames in 300ms: 13 hidden=false
+[123s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[153s] raf frames in 300ms: 13 hidden=false
+[153s] diag {"screen":"battle","overlay":null,"phase":"anim","round":11,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[162s] beat 12 done -> now 13 (completed 13) map=gingertown battles=2
+[183s] raf frames in 300ms: 13 hidden=false
+[183s] diag {"screen":"battle","overlay":null,"phase":"anim","round":5,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[187s] beat 13 done -> now 14 (completed 14) map=gingertown battles=3
+[214s] raf frames in 300ms: 13 hidden=false
+[214s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[242s] FINAL {"beat":14,"completed":14,"flags":["p01_done","p01_cleared","warning_delivered","medicine_received","three_years_training","goku_sick","android19_sighted","android19_defeated","vegeta_ssj_unlocked","gero_fled","lab_door_open","lab_security_down","androids_awakened","android18_seen","cell_imperfect_seen","piccolo_kami_merged","cell_named","gingertown_evacuated"],"stats":{"playMs":85139.63000000006,"battlesWon":15,"battlesLost":0,"randomBattles":2,"turns":265,"perfectGuards":85,"goodGuards":31,"rageArts":8,"stepsTaken":473,"itemsUsed":2}}
+[242s] page errors: []
+[242s] external requests: []

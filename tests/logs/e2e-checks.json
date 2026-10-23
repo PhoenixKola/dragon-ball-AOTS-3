@@ -1,0 +1,77 @@
+[
+ {
+  "name": "corrupt slot0 recovers from backup; garbage slot1 flagged corrupt; empty slot2",
+  "ok": true,
+  "detail": "{\"0\":\"recovered\",\"1\":\"corrupt\",\"2\":\"empty\",\"auto\":\"empty\"}"
+ },
+ {
+  "name": "title survives corrupt data without crashing",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "foreign/legacy namespaces untouched",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Continue loads the recovered save (beat 10)",
+  "ok": true,
+  "detail": "{\"beat\":10,\"map\":\"capsule_corp\"}"
+ },
+ {
+  "name": "manual save to slot 2 succeeds",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "save slot 2 listed after hard reload",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "state identical after reload",
+  "ok": true,
+  "detail": "{\"before\":{\"beat\":17,\"zeni\":3534,\"map\":\"capsule_corp\",\"party\":[\"trunks\",\"gohan\",\"vegeta\"]},\"after\":{\"beat\":17,\"zeni\":3534,\"map\":\"capsule_corp\",\"party\":[\"trunks\",\"gohan\",\"vegeta\"]}}"
+ },
+ {
+  "name": "no horizontal page scroll at 1024x600",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "FPS reported at 1024x600 (software GL in headless Chrome; not a hardware benchmark)",
+  "ok": true,
+  "detail": "51 fps"
+ },
+ {
+  "name": "no horizontal page scroll at 1280x720",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "FPS reported at 1280x720 (software GL in headless Chrome; not a hardware benchmark)",
+  "ok": true,
+  "detail": "52 fps"
+ },
+ {
+  "name": "no horizontal page scroll at 1920x1080",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "FPS reported at 1920x1080 (software GL in headless Chrome; not a hardware benchmark)",
+  "ok": true,
+  "detail": "51 fps"
+ },
+ {
+  "name": "settings persist (reduced motion, mute, guard assist)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "completed-story save loads; credits flag set; Goku remains away in canon",
+  "ok": true,
+  "detail": "{\"beat\":30,\"credits\":true,\"away\":[\"goku\",\"trunks\"]}"
+ }
+]

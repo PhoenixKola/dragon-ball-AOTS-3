@@ -1,0 +1,128 @@
+[4s] raf frames in 300ms: 6 hidden=false
+[4s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[32s] raf frames in 300ms: 17 hidden=false
+[32s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[42s] beat 0 done -> now 1 (completed 1) map=landing_future battles=1
+[62s] raf frames in 300ms: 19 hidden=false
+[62s] diag {"screen":"battle","overlay":null,"phase":"anim","round":8,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[89s] beat 1 done -> now 2 (completed 2) map=capsule_corp battles=2
+[92s] raf frames in 300ms: 15 hidden=false
+[92s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[122s] raf frames in 300ms: 20 hidden=false
+[122s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[128s] beat 2 done -> now 3 (completed 3) map=south_city battles=3
+[152s] raf frames in 300ms: 20 hidden=false
+[152s] diag {"screen":"battle","overlay":null,"phase":"input","round":3,"cur":"h:trunks","tut":false,"paused":false,"guard":false,"cmd":true,"dlg":false,"script":true,"cut":null}
+[169s] beat 3 done -> now 4 (completed 4) map=rocky_outskirts battles=4
+[182s] raf frames in 300ms: 16 hidden=false
+[182s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[206s] beat 4 done -> now 5 (completed 5) map=rocky_outskirts battles=6
+[213s] raf frames in 300ms: 19 hidden=false
+[213s] diag {"screen":"cutscene","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":true,"script":true,"cut":{"id":"vegeta_ssj_reveal","step":10,"kind":"say","now":3886.5000000000036,"paused":false,"active":true,"visible":true,"fps":54.844995706832094}}
+[240s] beat 5 done -> now 6 (completed 6) map=rocky_outskirts battles=7
+[243s] raf frames in 300ms: 17 hidden=false
+[243s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[273s] raf frames in 300ms: 19 hidden=false
+[273s] diag {"screen":"battle","overlay":null,"phase":"anim","round":11,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[279s] beat 6 done -> now 7 (completed 7) map=mountain_lab battles=8
+[304s] raf frames in 300ms: 14 hidden=false
+[304s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[332s] beat 7 done -> now 8 (completed 8) map=lab_inner battles=10
+[334s] raf frames in 300ms: 14 hidden=false
+[334s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[364s] raf frames in 300ms: 17 hidden=false
+[364s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[378s] beat 8 done -> now 9 (completed 9) map=lab_inner battles=12
+[395s] raf frames in 300ms: 17 hidden=false
+[395s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[413s] beat 9 done -> now 10 (completed 10) map=capsule_corp battles=13
+[425s] raf frames in 300ms: 13 hidden=false
+[425s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[452s] beat 10 done -> now 11 (completed 11) map=gingertown battles=14
+[455s] raf frames in 300ms: 20 hidden=false
+[455s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[485s] raf frames in 300ms: 17 hidden=false
+[485s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[515s] raf frames in 300ms: 18 hidden=false
+[515s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[542s] beat 11 done -> now 12 (completed 12) map=lookout battles=15
+[550s] raf frames in 300ms: 13 hidden=false
+[550s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[577s] beat 12 done -> now 13 (completed 13) map=gingertown battles=16
+[580s] raf frames in 300ms: 14 hidden=false
+[580s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[610s] raf frames in 300ms: 19 hidden=false
+[610s] diag {"screen":"battle","overlay":null,"phase":"anim","round":4,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[620s] beat 13 done -> now 14 (completed 14) map=gingertown battles=18
+[640s] raf frames in 300ms: 18 hidden=false
+[640s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[670s] raf frames in 300ms: 20 hidden=false
+[670s] diag {"screen":"battle","overlay":null,"phase":"anim","round":8,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[685s] beat 14 done -> now 15 (completed 15) map=android_island battles=19
+[700s] raf frames in 300ms: 19 hidden=false
+[700s] diag {"screen":"battle","overlay":null,"phase":"anim","round":7,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[712s] beat 15 done -> now 16 (completed 16) map=android_island battles=20
+[733s] raf frames in 300ms: 17 hidden=false
+[733s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":true,"script":true,"cut":null}
+[733s] beat 16 done -> now 17 (completed 17) map=capsule_corp battles=21
+[763s] raf frames in 300ms: 17 hidden=false
+[763s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":true,"script":true,"cut":null}
+[764s] beat 17 done -> now 18 (completed 18) map=time_chamber battles=22
+[793s] raf frames in 300ms: 18 hidden=false
+[793s] diag {"screen":"battle","overlay":null,"phase":"ended","round":3,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[823s] raf frames in 300ms: 18 hidden=false
+[823s] diag {"screen":"battle","overlay":null,"phase":"anim","round":15,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[854s] raf frames in 300ms: 19 hidden=false
+[854s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[877s] beat 18 done -> now 21 (completed 21) map=capsule_corp battles=26
+[884s] raf frames in 300ms: 16 hidden=false
+[884s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[914s] raf frames in 300ms: 19 hidden=false
+[914s] diag {"screen":"battle","overlay":null,"phase":"anim","round":6,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[925s] beat 21 done -> now 22 (completed 22) map=time_chamber battles=27
+[944s] raf frames in 300ms: 18 hidden=false
+[944s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[968s] beat 22 done -> now 23 (completed 23) map=capsule_corp battles=28
+[977s] raf frames in 300ms: 15 hidden=false
+[977s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[1007s] raf frames in 300ms: 15 hidden=false
+[1007s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1037s] raf frames in 300ms: 16 hidden=false
+[1037s] diag {"screen":"battle","overlay":null,"phase":"anim","round":6,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1067s] raf frames in 300ms: 18 hidden=false
+[1067s] diag {"screen":"battle","overlay":null,"phase":"anim","round":14,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1097s] raf frames in 300ms: 19 hidden=false
+[1097s] diag {"screen":"battle","overlay":null,"phase":"ended","round":3,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1127s] raf frames in 300ms: 18 hidden=false
+[1127s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1158s] raf frames in 300ms: 18 hidden=false
+[1158s] diag {"screen":"battle","overlay":null,"phase":"anim","round":3,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1188s] raf frames in 300ms: 17 hidden=false
+[1188s] diag {"screen":"battle","overlay":null,"phase":"anim","round":9,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1194s] DEFEAT -> retry
+[1219s] raf frames in 300ms: 18 hidden=false
+[1219s] diag {"screen":"battle","overlay":null,"phase":"anim","round":5,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1237s] DEFEAT -> retry
+[1249s] raf frames in 300ms: 18 hidden=false
+[1249s] diag {"screen":"battle","overlay":null,"phase":"anim","round":3,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1277s] DEFEAT -> retry
+[1279s] raf frames in 300ms: 18 hidden=false
+[1279s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1309s] raf frames in 300ms: 19 hidden=false
+[1309s] diag {"screen":"battle","overlay":null,"phase":"anim","round":8,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1322s] DEFEAT -> retry
+[1339s] raf frames in 300ms: 18 hidden=false
+[1339s] diag {"screen":"battle","overlay":null,"phase":"anim","round":4,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1365s] DEFEAT -> retry
+[1369s] raf frames in 300ms: 18 hidden=false
+[1369s] diag {"screen":"battle","overlay":null,"phase":"anim","round":1,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1400s] raf frames in 300ms: 19 hidden=false
+[1400s] diag {"screen":"battle","overlay":null,"phase":"anim","round":7,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1410s] DEFEAT -> retry
+[1430s] raf frames in 300ms: 18 hidden=false
+[1430s] diag {"screen":"battle","overlay":null,"phase":"anim","round":5,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1453s] DEFEAT -> retry
+[1460s] raf frames in 300ms: 19 hidden=false
+[1460s] diag {"screen":"battle","overlay":null,"phase":"anim","round":2,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[1490s] raf frames in 300ms: 18 hidden=false
+[1490s] diag {"screen":"battle","overlay":null,"phase":"anim","round":9,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}

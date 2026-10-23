@@ -1,0 +1,410 @@
+[
+ {
+  "pol": "attentive",
+  "seed": 1,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "attentive",
+  "seed": 2,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "attentive",
+  "seed": 3,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "attentive",
+  "seed": 4,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "attentive",
+  "seed": 5,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "attentive",
+  "seed": 6,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "average",
+  "seed": 1,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "average",
+  "seed": 2,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "average",
+  "seed": 3,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "average",
+  "seed": 4,
+  "completed": 30,
+  "total": 30,
+  "defeats": 1,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "average",
+  "seed": 5,
+  "completed": 30,
+  "total": 30,
+  "defeats": 1,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 22,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "average",
+  "seed": 6,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 22,
+   "gohan": 23,
+   "vegeta": 22,
+   "piccolo": 21,
+   "trunks": 23,
+   "krillin": 21,
+   "tien": 21
+  }
+ },
+ {
+  "pol": "noguard_normal",
+  "seed": 1,
+  "completed": 27,
+  "total": 30,
+  "defeats": 13,
+  "failed": "Error: Too many defeats; stuck at G05",
+  "level": {
+   "goku": 20,
+   "gohan": 21,
+   "vegeta": 21,
+   "piccolo": 20,
+   "trunks": 21,
+   "krillin": 19,
+   "tien": 19
+  }
+ },
+ {
+  "pol": "noguard_normal",
+  "seed": 2,
+  "completed": 27,
+  "total": 30,
+  "defeats": 13,
+  "failed": "Error: Too many defeats; stuck at G05",
+  "level": {
+   "goku": 20,
+   "gohan": 21,
+   "vegeta": 21,
+   "piccolo": 20,
+   "trunks": 21,
+   "krillin": 19,
+   "tien": 19
+  }
+ },
+ {
+  "pol": "noguard_normal",
+  "seed": 3,
+  "completed": 27,
+  "total": 30,
+  "defeats": 13,
+  "failed": "Error: Too many defeats; stuck at G05",
+  "level": {
+   "goku": 20,
+   "gohan": 21,
+   "vegeta": 21,
+   "piccolo": 20,
+   "trunks": 21,
+   "krillin": 19,
+   "tien": 19
+  }
+ },
+ {
+  "pol": "noguard_normal",
+  "seed": 4,
+  "completed": 27,
+  "total": 30,
+  "defeats": 13,
+  "failed": "Error: Too many defeats; stuck at G05",
+  "level": {
+   "goku": 20,
+   "gohan": 21,
+   "vegeta": 21,
+   "piccolo": 20,
+   "trunks": 21,
+   "krillin": 19,
+   "tien": 19
+  }
+ },
+ {
+  "pol": "noguard_normal",
+  "seed": 5,
+  "completed": 27,
+  "total": 30,
+  "defeats": 13,
+  "failed": "Error: Too many defeats; stuck at G05",
+  "level": {
+   "goku": 20,
+   "gohan": 21,
+   "vegeta": 21,
+   "piccolo": 20,
+   "trunks": 21,
+   "krillin": 19,
+   "tien": 19
+  }
+ },
+ {
+  "pol": "noguard_normal",
+  "seed": 6,
+  "completed": 27,
+  "total": 30,
+  "defeats": 13,
+  "failed": "Error: Too many defeats; stuck at G05",
+  "level": {
+   "goku": 20,
+   "gohan": 21,
+   "vegeta": 21,
+   "piccolo": 20,
+   "trunks": 21,
+   "krillin": 19,
+   "tien": 19
+  }
+ },
+ {
+  "pol": "noguard_easy",
+  "seed": 1,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 23,
+   "gohan": 24,
+   "vegeta": 24,
+   "piccolo": 23,
+   "trunks": 24,
+   "krillin": 22,
+   "tien": 22
+  }
+ },
+ {
+  "pol": "noguard_easy",
+  "seed": 2,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 23,
+   "gohan": 24,
+   "vegeta": 24,
+   "piccolo": 23,
+   "trunks": 24,
+   "krillin": 22,
+   "tien": 22
+  }
+ },
+ {
+  "pol": "noguard_easy",
+  "seed": 3,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 23,
+   "gohan": 24,
+   "vegeta": 24,
+   "piccolo": 23,
+   "trunks": 24,
+   "krillin": 22,
+   "tien": 22
+  }
+ },
+ {
+  "pol": "noguard_easy",
+  "seed": 4,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 23,
+   "gohan": 24,
+   "vegeta": 24,
+   "piccolo": 23,
+   "trunks": 24,
+   "krillin": 22,
+   "tien": 22
+  }
+ },
+ {
+  "pol": "noguard_easy",
+  "seed": 5,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 23,
+   "gohan": 24,
+   "vegeta": 24,
+   "piccolo": 23,
+   "trunks": 24,
+   "krillin": 22,
+   "tien": 22
+  }
+ },
+ {
+  "pol": "noguard_easy",
+  "seed": 6,
+  "completed": 30,
+  "total": 30,
+  "defeats": 0,
+  "failed": null,
+  "level": {
+   "goku": 23,
+   "gohan": 24,
+   "vegeta": 24,
+   "piccolo": 23,
+   "trunks": 24,
+   "krillin": 22,
+   "tien": 22
+  }
+ }
+]

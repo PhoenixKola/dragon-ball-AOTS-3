@@ -1,0 +1,4 @@
+
+> attack-of-the-saiyans-3-cell-saga@1.0.0-rc.1 lint
+> eslint src tests tools --max-warnings 0
+

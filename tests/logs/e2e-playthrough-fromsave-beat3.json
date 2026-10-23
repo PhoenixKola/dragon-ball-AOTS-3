@@ -1,0 +1,377 @@
+{
+ "policy": "attentive",
+ "final": {
+  "beat": 30,
+  "completed": 30,
+  "flags": [
+   "p01_done",
+   "p01_cleared",
+   "warning_delivered",
+   "medicine_received",
+   "three_years_training",
+   "goku_sick",
+   "android19_sighted",
+   "android19_defeated",
+   "vegeta_ssj_unlocked",
+   "gero_fled",
+   "lab_door_open",
+   "lab_security_down",
+   "androids_awakened",
+   "android18_seen",
+   "cell_imperfect_seen",
+   "piccolo_kami_merged",
+   "cell_named",
+   "gingertown_evacuated",
+   "piccolo_vs_17",
+   "android16_met",
+   "cell_absorbed_17",
+   "vegeta_ascended_unlocked",
+   "trunks_ultra_unlocked",
+   "trunks_ssj_unlocked",
+   "vegeta_vs_semi",
+   "cell_perfect",
+   "cell_games_announced",
+   "gohan_ssj_unlocked",
+   "goku_ssj_unlocked",
+   "goku_recovered",
+   "teamwork_exam_done",
+   "ponr_accepted",
+   "games_started",
+   "android16_destroyed",
+   "gohan_ssj2_unlocked",
+   "goku_sacrifice",
+   "cell_super_perfect",
+   "cell_final_defeated",
+   "credits_seen",
+   "postgame_unlocked"
+  ],
+  "stats": {
+   "playMs": 334232.09333334136,
+   "battlesWon": 31,
+   "battlesLost": 1,
+   "randomBattles": 2,
+   "turns": 599,
+   "perfectGuards": 336,
+   "goodGuards": 40,
+   "rageArts": 23,
+   "stepsTaken": 0,
+   "itemsUsed": 4
+  }
+ },
+ "beatLog": [
+  {
+   "beat": 3,
+   "levels": {
+    "goku": 11,
+    "gohan": 9,
+    "vegeta": 11,
+    "piccolo": 9,
+    "trunks": 11,
+    "krillin": 8,
+    "tien": 8
+   },
+   "t": 49
+  },
+  {
+   "beat": 4,
+   "levels": {
+    "goku": 11,
+    "gohan": 9,
+    "vegeta": 11,
+    "piccolo": 10,
+    "trunks": 12,
+    "krillin": 8,
+    "tien": 8
+   },
+   "t": 88
+  },
+  {
+   "beat": 5,
+   "levels": {
+    "goku": 11,
+    "gohan": 10,
+    "vegeta": 11,
+    "piccolo": 10,
+    "trunks": 12,
+    "krillin": 9,
+    "tien": 9
+   },
+   "t": 117
+  },
+  {
+   "beat": 6,
+   "levels": {
+    "goku": 12,
+    "gohan": 10,
+    "vegeta": 12,
+    "piccolo": 11,
+    "trunks": 12,
+    "krillin": 10,
+    "tien": 10
+   },
+   "t": 157
+  },
+  {
+   "beat": 7,
+   "levels": {
+    "goku": 12,
+    "gohan": 11,
+    "vegeta": 12,
+    "piccolo": 11,
+    "trunks": 13,
+    "krillin": 10,
+    "tien": 10
+   },
+   "t": 203
+  },
+  {
+   "beat": 8,
+   "levels": {
+    "goku": 13,
+    "gohan": 12,
+    "vegeta": 13,
+    "piccolo": 12,
+    "trunks": 13,
+    "krillin": 11,
+    "tien": 11
+   },
+   "t": 236
+  },
+  {
+   "beat": 9,
+   "levels": {
+    "goku": 13,
+    "gohan": 12,
+    "vegeta": 13,
+    "piccolo": 12,
+    "trunks": 14,
+    "krillin": 11,
+    "tien": 11
+   },
+   "t": 265
+  },
+  {
+   "beat": 10,
+   "levels": {
+    "goku": 13,
+    "gohan": 13,
+    "vegeta": 14,
+    "piccolo": 13,
+    "trunks": 14,
+    "krillin": 12,
+    "tien": 12
+   },
+   "t": 307
+  },
+  {
+   "beat": 11,
+   "levels": {
+    "goku": 13,
+    "gohan": 13,
+    "vegeta": 14,
+    "piccolo": 13,
+    "trunks": 14,
+    "krillin": 12,
+    "tien": 12
+   },
+   "t": 380
+  },
+  {
+   "beat": 12,
+   "levels": {
+    "goku": 14,
+    "gohan": 14,
+    "vegeta": 14,
+    "piccolo": 13,
+    "trunks": 15,
+    "krillin": 12,
+    "tien": 12
+   },
+   "t": 424
+  },
+  {
+   "beat": 13,
+   "levels": {
+    "goku": 14,
+    "gohan": 14,
+    "vegeta": 15,
+    "piccolo": 14,
+    "trunks": 15,
+    "krillin": 13,
+    "tien": 13
+   },
+   "t": 465
+  },
+  {
+   "beat": 14,
+   "levels": {
+    "goku": 15,
+    "gohan": 15,
+    "vegeta": 15,
+    "piccolo": 15,
+    "trunks": 16,
+    "krillin": 13,
+    "tien": 13
+   },
+   "t": 531
+  },
+  {
+   "beat": 15,
+   "levels": {
+    "goku": 15,
+    "gohan": 15,
+    "vegeta": 16,
+    "piccolo": 15,
+    "trunks": 16,
+    "krillin": 14,
+    "tien": 14
+   },
+   "t": 558
+  },
+  {
+   "beat": 16,
+   "levels": {
+    "goku": 16,
+    "gohan": 16,
+    "vegeta": 16,
+    "piccolo": 15,
+    "trunks": 17,
+    "krillin": 14,
+    "tien": 14
+   },
+   "t": 582
+  },
+  {
+   "beat": 17,
+   "levels": {
+    "goku": 16,
+    "gohan": 16,
+    "vegeta": 17,
+    "piccolo": 16,
+    "trunks": 17,
+    "krillin": 15,
+    "tien": 15
+   },
+   "t": 622
+  },
+  {
+   "beat": 18,
+   "levels": {
+    "goku": 17,
+    "gohan": 17,
+    "vegeta": 18,
+    "piccolo": 17,
+    "trunks": 18,
+    "krillin": 16,
+    "tien": 16
+   },
+   "t": 754
+  },
+  {
+   "beat": 21,
+   "levels": {
+    "goku": 18,
+    "gohan": 18,
+    "vegeta": 19,
+    "piccolo": 18,
+    "trunks": 19,
+    "krillin": 17,
+    "tien": 17
+   },
+   "t": 801
+  },
+  {
+   "beat": 22,
+   "levels": {
+    "goku": 18,
+    "gohan": 19,
+    "vegeta": 19,
+    "piccolo": 18,
+    "trunks": 20,
+    "krillin": 17,
+    "tien": 17
+   },
+   "t": 851
+  },
+  {
+   "beat": 23,
+   "levels": {
+    "goku": 22,
+    "gohan": 22,
+    "vegeta": 22,
+    "piccolo": 21,
+    "trunks": 22,
+    "krillin": 21,
+    "tien": 21
+   },
+   "t": 1125
+  }
+ ],
+ "errors": [],
+ "externalRequests": [],
+ "minutes": 18.756916666666665,
+ "log": [
+  "[2s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[32s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":1,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[49s] beat 3 done -> now 4 (completed 4) map=rocky_outskirts battles=1",
+  "[62s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[88s] beat 4 done -> now 5 (completed 5) map=rocky_outskirts battles=3",
+  "[92s] diag {\"screen\":\"cutscene\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":true,\"script\":true}",
+  "[117s] beat 5 done -> now 6 (completed 6) map=rocky_outskirts battles=4",
+  "[122s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[152s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":true,\"script\":true}",
+  "[157s] beat 6 done -> now 7 (completed 7) map=mountain_lab battles=5",
+  "[183s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":1,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[203s] beat 7 done -> now 8 (completed 8) map=lab_inner battles=6",
+  "[213s] diag {\"screen\":\"cutscene\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":true,\"script\":true}",
+  "[236s] beat 8 done -> now 9 (completed 9) map=lab_inner battles=7",
+  "[243s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":1,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[265s] beat 9 done -> now 10 (completed 10) map=capsule_corp battles=8",
+  "[275s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[305s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":true,\"script\":true}",
+  "[307s] beat 10 done -> now 11 (completed 11) map=gingertown battles=9",
+  "[336s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[366s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[380s] beat 11 done -> now 12 (completed 12) map=lookout battles=9",
+  "[396s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":1,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[424s] beat 12 done -> now 13 (completed 13) map=gingertown battles=10",
+  "[426s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[448s] DEFEAT -> retry",
+  "[456s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":4,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[465s] beat 13 done -> now 14 (completed 14) map=gingertown battles=12",
+  "[486s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":1,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[516s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"input\",\"round\":7,\"cur\":\"h:piccolo\",\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":true,\"dlg\":false,\"script\":true}",
+  "[531s] beat 14 done -> now 15 (completed 15) map=android_island battles=13",
+  "[546s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"input\",\"round\":7,\"cur\":\"h:android16\",\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":true,\"dlg\":false,\"script\":true}",
+  "[558s] beat 15 done -> now 16 (completed 16) map=android_island battles=14",
+  "[576s] diag {\"screen\":\"cutscene\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":true,\"script\":true}",
+  "[582s] beat 16 done -> now 17 (completed 17) map=capsule_corp battles=15",
+  "[607s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":1,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[622s] beat 17 done -> now 18 (completed 18) map=time_chamber battles=16",
+  "[637s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[667s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[697s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":10,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[727s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":3,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[754s] beat 18 done -> now 21 (completed 21) map=capsule_corp battles=20",
+  "[757s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[787s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"input\",\"round\":7,\"cur\":\"h:gohan\",\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":true,\"dlg\":false,\"script\":true}",
+  "[801s] beat 21 done -> now 22 (completed 22) map=time_chamber battles=21",
+  "[817s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[847s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":7,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[851s] beat 22 done -> now 23 (completed 23) map=capsule_corp battles=22",
+  "[879s] diag {\"screen\":\"world\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":false}",
+  "[909s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":5,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[939s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"guard\",\"round\":3,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":true,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[969s] diag {\"screen\":\"cutscene\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":true,\"script\":true}",
+  "[999s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":1,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[1029s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"guard\",\"round\":7,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":true,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[1060s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":13,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[1090s] diag {\"screen\":\"battle\",\"overlay\":null,\"phase\":\"anim\",\"round\":3,\"cur\":null,\"tut\":false,\"paused\":false,\"guard\":false,\"cmd\":false,\"dlg\":false,\"script\":true}",
+  "[1120s] diag {\"screen\":\"cutscene\",\"overlay\":null,\"tut\":false,\"guard\":false,\"cmd\":false,\"dlg\":true,\"script\":true}",
+  "[1125s] beat 23 done -> now 30 (completed 30) map=capsule_corp battles=29",
+  "[1125s] STORY COMPLETE",
+  "[1125s] FINAL {\"beat\":30,\"completed\":30,\"flags\":[\"p01_done\",\"p01_cleared\",\"warning_delivered\",\"medicine_received\",\"three_years_training\",\"goku_sick\",\"android19_sighted\",\"android19_defeated\",\"vegeta_ssj_unlocked\",\"gero_fled\",\"lab_door_open\",\"lab_security_down\",\"androids_awakened\",\"android18_seen\",\"cell_imperfect_seen\",\"piccolo_kami_merged\",\"cell_named\",\"gingertown_evacuated\",\"piccolo_vs_17\",\"android16_met\",\"cell_absorbed_17\",\"vegeta_ascended_unlocked\",\"trunks_ultra_unlocked\",\"trunks_ssj_unlocked\",\"vegeta_vs_semi\",\"cell_perfect\",\"cell_games_announced\",\"gohan_ssj_unlocked\",\"goku_ssj_unlocked\",\"goku_recovered\",\"teamwork_exam_done\",\"ponr_accepted\",\"games_started\",\"android16_destroyed\",\"gohan_ssj2_unlocked\",\"goku_sacrifice\",\"cell_super_perfect\",\"cell_final_defeated\",\"credits_seen\",\"postgame_unlocked\"],\"stats\":{\"playMs\":334232.09333334136,\"battlesWon\":31,\"battlesLost\":1,\"randomBattles\":2,\"turns\":599,\"perfectGuards\":336,\"goodGuards\":40,\"rageArts\":23,\"stepsTaken\":0,\"itemsUsed\":4}}",
+  "[1125s] page errors: []",
+  "[1125s] external requests: []"
+ ]
+}

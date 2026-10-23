@@ -1,0 +1,20 @@
+
+> attack-of-the-saiyans-3-cell-saga@1.0.0-rc.1 build
+> tsc --noEmit && vite build
+
+[36mvite v6.3.5 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 92 modules transformed.
+rendering chunks...
+[33m[plugin vite:reporter] 
+(!) E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/data/items.ts is dynamically imported by E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/app/session.ts but also statically imported by E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/app/controller.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/components/helpers.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/components/menu.tsx, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/components/screens.tsx, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/components/shop.tsx, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/combat/commands.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/combat/engine.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/combat/fighters.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/combat/policy.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/systems/progression.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/systems/questRuntime.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/systems/storyRuntime.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/systems/validate.ts, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/data/enemies.ts is dynamically imported by E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/scenes/BattleScene.ts but also statically imported by E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/combat/engine.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/combat/fighters.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/engine/world/sim.ts, E:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell/src/systems/progression.ts, dynamic import will not move module into another chunk.
+[39m
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m    0.57 kB[22m[1m[22m[2m │ gzip:   0.35 kB[22m
+[2mdist/[22m[35massets/index-qb4ZQBsj.css  [39m[1m[2m   23.31 kB[22m[1m[22m[2m │ gzip:   5.67 kB[22m
+[2mdist/[22m[36massets/index-Dsi7ARpI.js   [39m[1m[2m  824.10 kB[22m[1m[22m[2m │ gzip: 215.10 kB[22m
+[2mdist/[22m[36massets/phaser-0YPJO2g1.js  [39m[1m[2m1,481.77 kB[22m[1m[22m[2m │ gzip: 339.84 kB[22m
+[32m✓ built in 53.36s[39m

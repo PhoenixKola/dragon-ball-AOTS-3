@@ -1,0 +1,6 @@
+icons audited: 167
+registry frames checked: 989; actors 48, worlds 12, vfx 35
+actor idle quality counts: {'procedural_fallback': 18, 'genuine': 29, 'derived': 1}
+frames touching their PNG edge (clipped candidates, >6 edge px): 0
+orphan PNGs under public/assets not referenced by the registry: 0
+ERRORS: 0  WARNINGS: 0

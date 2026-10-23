@@ -1,0 +1,16 @@
+PASS corrupt slot0 recovers from backup; garbage slot1 flagged corrupt; empty slot2 {"0":"recovered","1":"corrupt","2":"empty","auto":"empty"}
+PASS title survives corrupt data without crashing 
+PASS foreign/legacy namespaces untouched 
+PASS Continue loads the recovered save (beat 10) {"beat":10,"map":"capsule_corp"}
+PASS manual save to slot 2 succeeds 
+PASS save slot 2 listed after hard reload 
+PASS state identical after reload {"before":{"beat":17,"zeni":3534,"map":"capsule_corp","party":["trunks","gohan","vegeta"]},"after":{"beat":17,"zeni":3534,"map":"capsule_corp","party":["trunks","gohan","vegeta"]}}
+PASS no horizontal page scroll at 1024x600 
+PASS FPS reported at 1024x600 (software GL in headless Chrome; not a hardware benchmark) 51 fps
+PASS no horizontal page scroll at 1280x720 
+PASS FPS reported at 1280x720 (software GL in headless Chrome; not a hardware benchmark) 52 fps
+PASS no horizontal page scroll at 1920x1080 
+PASS FPS reported at 1920x1080 (software GL in headless Chrome; not a hardware benchmark) 51 fps
+PASS settings persist (reduced motion, mute, guard assist) 
+PASS completed-story save loads; credits flag set; Goku remains away in canon {"beat":30,"credits":true,"away":["goku","trunks"]}
+15/15 checks passed

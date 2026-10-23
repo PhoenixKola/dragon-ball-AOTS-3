@@ -1,0 +1,13 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mE:/Programming/Projects/0. Extra/attack-of-the-saiyans-3-cell[39m
+
+ [32m✓[39m tests/unit/audio.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 867[2mms[22m[39m
+   [33m[2m✓[22m[39m audio definitions[2m > [22mhas a track for every music key with sane data [33m 833[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+[2m   Start at [22m 14:09:51
+[2m   Duration [22m 1.50s[2m (transform 101ms, setup 0ms, collect 200ms, tests 867ms, environment 0ms, prepare 141ms)[22m
+
+---TSC
+---ESLINT

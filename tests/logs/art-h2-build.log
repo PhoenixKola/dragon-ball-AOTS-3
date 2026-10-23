@@ -1,0 +1,32 @@
+[handoff] android-16 <- villains_bosses/android_16.png
+[handoff] android-17 <- villains_bosses/android_17.png
+[handoff] android-18 <- villains_bosses/android_18.png
+[handoff] android-19 <- villains_bosses/android_19.png
+[handoff] android-20 <- villains_bosses/android_20_dr_gero.png
+[handoff] king-cold <- villains_bosses/king_cold.png
+[handoff] mecha-frieza <- villains_bosses/mecha_frieza.png
+[handoff] cell-imperfect <- villains_bosses/imperfect_cell.png
+[handoff] cell-semi-perfect <- villains_bosses/semi_perfect_cell.png
+[handoff] cell-perfect <- villains_bosses/perfect_cell.png
+[handoff] recon-probe <- regular_enemies/recon_probe_drone.png
+[handoff] drain-drone <- regular_enemies/ki_drain_drone_and_security_grid.png
+[handoff] security-grid <- regular_enemies/ki_drain_drone_and_security_grid.png
+[handoff] armored-sentinel <- regular_enemies/armored_android_sentinel.png
+[handoff] training-sentinel <- regular_enemies/armored_android_sentinel.png
+[handoff] cell-husk <- regular_enemies/cell_bioform_android.png
+[handoff] cell-probe <- regular_enemies/cell_husk_bio_bug.png
+[handoff] chamber-guardian <- regular_enemies/time_chamber_guardian_and_absorbed_shadow.png
+[handoff] absorbed-shadow <- regular_enemies/time_chamber_guardian_and_absorbed_shadow.png
+[h2] npc bulma <- npcs/bulma.png frames/dir=[3, 3, 3, 3]
+[h2] npc chi-chi <- npcs/chi_chi.png frames/dir=[3, 3, 3, 3]
+[h2] npc yamcha <- npcs/yamcha.png frames/dir=[3, 3, 3, 3]
+[h2] npc king-kai <- npcs/king_kai.png frames/dir=[3, 4, 3, 3]
+[h2] npc mr-satan <- npcs/mr_satan.png frames/dir=[3, 3, 3, 3]
+[h2] npc researcher <- npcs/capsule_corp_scientist.png frames/dir=[3, 3, 3, 3]
+[h2] npc civilian <- npcs/civilian_frightened.png frames/dir=[3, 3, 3, 3]
+[h2] npc civilian-apron <- npcs/civilian_pink_apron.png frames/dir=[3, 3, 3, 3]
+[h2] npc announcer <- npcs/cell_games_announcer.png frames/dir=[3, 3, 3, 3]
+[h2] gohan-wounded <- heroes/story_variants/gohan_wounded_arm_story_variant.png
+[handoff2] done 84.2s
+pruned 0 unreferenced PNGs
+registry written: 50 actors, 12 worlds, 35 vfx, 84 skill icons, 37 item icons

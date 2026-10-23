@@ -1,0 +1,45 @@
+{
+  "name": "attack-of-the-saiyans-3-cell-saga",
+  "version": "1.0.0-rc.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests tools --max-warnings 0",
+    "test": "vitest run",
+    "test:e2e": "node tests/e2e/run.mjs",
+    "art:build": "python tools/build_art.py",
+    "art:audit": "python tools/audit_assets.py",
+    "audit:runtime": "node tools/audit_runtime_assets.mjs",
+    "sim": "vitest run tests/integration/simulation.test.ts",
+    "start": "node tools/serve-dist.mjs",
+    "package": "python tools/package_release.py",
+    "electron": "electron .",
+    "pack:win": "node tools/pack_windows.mjs"
+  },
+  "dependencies": {
+    "phaser": "3.90.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@electron/packager": "^18.3.6",
+    "@eslint/js": "9.36.0",
+    "@types/node": "22.15.3",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react": "4.6.0",
+    "electron": "^38.2.2",
+    "eslint": "9.36.0",
+    "playwright-core": "1.55.0",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.44.0",
+    "vite": "6.3.5",
+    "vitest": "3.2.4"
+  },
+  "main": "electron/main.cjs",
+  "description": "Attack of the Saiyans III - Cell Saga (private fan-made offline JRPG)",
+  "author": "AOTS3 fan project"
+}

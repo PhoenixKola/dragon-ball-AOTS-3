@@ -1,0 +1,28 @@
+[2s] raf frames in 300ms: 19 hidden=false
+[2s] diag {"screen":"world","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":false,"script":false,"cut":null}
+[17s] JITTER G04 h:gohan idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[17s] JITTER G04 e:0:cell-junior idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[17s] JITTER G04 e:1:cell-junior idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[17s] JITTER G04 e:2:cell-junior idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[33s] raf frames in 300ms: 14 hidden=false
+[33s] diag {"screen":"battle","overlay":null,"phase":"anim","round":5,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[38s] beat 26 done -> now 27 (completed 27) map=cell_games_arena battles=1
+[41s] JITTER G05 h:gohan idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[41s] JITTER G05 e:0:cell-perfect idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[63s] raf frames in 300ms: 15 hidden=false
+[63s] diag {"screen":"battle","overlay":null,"phase":"anim","round":6,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[93s] raf frames in 300ms: 17 hidden=false
+[93s] diag {"screen":"battle","overlay":null,"phase":"ended","round":12,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[107s] JITTER G06 h:gohan idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[107s] JITTER G06 e:0:cell-super-perfect idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[123s] raf frames in 300ms: 15 hidden=false
+[123s] diag {"screen":"battle","overlay":null,"phase":"anim","round":4,"cur":null,"tut":false,"paused":false,"guard":false,"cmd":false,"dlg":false,"script":true,"cut":null}
+[131s] JITTER G07 h:gohan idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[131s] JITTER G07 e:0:cell-super-perfect idle maxYstep=0.20 maxXoffHome=0.0 heightVar=0 tex=1
+[154s] raf frames in 300ms: 14 hidden=false
+[154s] diag {"screen":"cutscene","overlay":null,"tut":false,"guard":false,"cmd":false,"dlg":true,"script":true,"cut":{"id":"trunks_departure","step":4,"kind":"say","now":494.81000000002973,"paused":false,"active":true,"visible":true,"fps":35.88359085010083}}
+[158s] beat 27 done -> now 30 (completed 30) map=capsule_corp battles=4
+[158s] STORY COMPLETE
+[159s] FINAL {"beat":30,"completed":30,"flags":["p01_done","p01_cleared","warning_delivered","medicine_received","three_years_training","goku_sick","android19_sighted","android19_defeated","vegeta_ssj_unlocked","gero_fled","lab_door_open","lab_security_down","androids_awakened","android18_seen","cell_imperfect_seen","piccolo_kami_merged","cell_named","gingertown_evacuated","piccolo_vs_17","android16_met","cell_absorbed_17","vegeta_ascended_unlocked","trunks_ultra_unlocked","trunks_ssj_unlocked","vegeta_vs_semi","cell_perfect","cell_games_announced","gohan_ssj_unlocked","goku_ssj_unlocked","goku_recovered","teamwork_exam_done","ponr_accepted","games_started","android16_destroyed","gohan_ssj2_unlocked","goku_sacrifice","cell_super_perfect","cell_final_defeated","credits_seen","postgame_unlocked"],"stats":{"playMs":2723.089999999995,"battlesWon":34,"battlesLost":0,"randomBattles":5,"turns":598,"perfectGuards":271,"goodGuards":127,"rageArts":24,"stepsTaken":771,"itemsUsed":5}}
+[159s] page errors: []
+[159s] external requests: []

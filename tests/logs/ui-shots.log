@@ -1,0 +1,20 @@
+111 checks, 19 flagged
+{"scene":"title","w":1024,"h":600,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":7}
+{"scene":"title-nosave","w":1024,"h":600,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":6}
+{"scene":"title-loading","w":1024,"h":600,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-newgame","w":1024,"h":600,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":7}
+{"scene":"title-options","w":1024,"h":600,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":7}
+{"scene":"battle-target","w":1024,"h":600,"clipped":["cmd-title:Attack → Cell Probe","ellipsis:Attack → Cell Probe"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":1,"targetHint":"e:1:cell-probe"}
+{"scene":"_errors","w":1024,"h":600,"errors":["Failed to load resource: the server responded with a status of 404 (Not Found)"],"externalRequests":[]}
+{"scene":"title","w":1280,"h":720,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-nosave","w":1280,"h":720,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-loading","w":1280,"h":720,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-newgame","w":1280,"h":720,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-options","w":1280,"h":720,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"battle-target","w":1280,"h":720,"clipped":["cmd-title:Attack → Cell Probe","ellipsis:Attack → Cell Probe"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":1,"targetHint":"e:1:cell-probe"}
+{"scene":"title","w":1920,"h":1080,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-nosave","w":1920,"h":1080,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-loading","w":1920,"h":1080,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-newgame","w":1920,"h":1080,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"title-options","w":1920,"h":1080,"clipped":["sr-only:Attack of the Saiyans II"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":0}
+{"scene":"battle-target","w":1920,"h":1080,"clipped":["cmd-title:Attack → Cell Probe","ellipsis:Attack → Cell Probe"],"hscroll":false,"vscroll":false,"overflowing":[],"buttons":1,"targetHint":"e:1:cell-probe"}

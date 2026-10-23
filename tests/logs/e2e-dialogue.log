@@ -1,0 +1,15 @@
+--- opening cutscene (real new game) ---
+PASS  opening cutscene produced 3 clickable dialogue lines
+PASS  opening cutscene did not soft-lock
+PASS  script finished and world is free after the opening cutscene
+--- mouse-only click-through (16 lines) ---
+PASS  16 mouse clicks-pairs: each line completes on click 1 and advances exactly one line on click 2
+--- keyboard (Enter, Space, E, Z) ---
+PASS  keyboard confirm keys complete then advance one line at a time
+--- rapid double click after completion advances ONE line ---
+PASS  double click advanced exactly one line (id 33 -> 34)
+--- skip (K) never soft-locks ---
+PASS  skip closed the whole chain
+PASS  world is free after skip
+PASS  no page errors (none)
+RESULT: ALL PASSED
