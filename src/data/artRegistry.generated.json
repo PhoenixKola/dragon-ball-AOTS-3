@@ -17442,6 +17442,26 @@
    "visible": 23212,
    "w": 232
   },
+  "pickup": {
+    "bbox": [
+      5,
+      3,
+      59,
+      62
+    ],
+    "displayHeight": 30,
+    "facing": "front",
+    "feet": [
+      32,
+      62
+    ],
+    "h": 64,
+    "note": "copy of ui/items/healing_capsule.png, used for ground pickups",
+    "path": "assets/objects/pickup.png",
+    "quality": "derived",
+    "visible": 1956,
+    "w": 64
+  },
   "save": {
    "bbox": [
     0,
@@ -23498,6 +23518,14 @@
      "path": "assets/worlds/south_city/props/fence.png",
      "solid": true,
      "w": 25
+    },
+    "fountain": {
+      "footH": 1,
+      "footW": 2,
+      "h": 42,
+      "path": "assets/worlds/south_city/props/fountain.png",
+      "solid": true,
+      "w": 50
     },
     "hedge": {
      "footH": 1,

@@ -222,7 +222,10 @@ export class WorldScene extends Phaser.Scene {
       case 'terminal': return this.marker(e, 0x9aa6b8, '');
       case 'lever': return this.marker(e, 0xd9b04a, '');
       case 'sign': return this.marker(e, 0xa87a4a, '');
-      case 'pickup': return this.marker(e, 0xffe14d, '');
+      case 'pickup': {
+        const img = this.objectImage('pickup', (e as PointEntity).x, (e as PointEntity).y + 4, 30);
+        return img ? { e, obj: img } : this.marker(e, 0xffe14d, '');
+      }
       case 'door': {
         const d = e as PointEntity;
         const r = this.add2(this.add.rectangle(d.x, d.y, (d.w ?? 1) * TILE, (d.h ?? 1) * TILE, 0x2b2f3a).setOrigin(0, 0).setStrokeStyle(2, 0x9aa6b8).setDepth(d.y + 30));

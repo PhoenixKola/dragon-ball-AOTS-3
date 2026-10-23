@@ -11,17 +11,17 @@
  "itemsWithoutIcon": [],
  "unresolvedProps": [
   "landing_future:ship",
-  "south_city:fountain",
   "gingertown:timemachine",
   "android_island:pavilion"
  ],
- "publicPngs": 1611,
- "publicPngsUnreferencedByRegistry": 57,
+ "publicPngs": 1613,
+ "publicPngsUnreferencedByRegistry": 58,
  "unusedSample": [
   "assets/objects/chest-closed.png",
   "assets/objects/chest-open.png",
   "assets/objects/flyer.png",
   "assets/objects/heal.png",
+  "assets/objects/pickup.png",
   "assets/objects/save.png",
   "assets/objects/shop.png",
   "assets/title/cell_saga_title_screen.png",
@@ -46,7 +46,6 @@
   "assets/ui/icons/status-absorbLock.png",
   "assets/ui/icons/status-accUp.png",
   "assets/ui/icons/status-adapted.png",
-  "assets/ui/icons/status-atkDown.png",
-  "assets/ui/icons/status-atkUp.png"
+  "assets/ui/icons/status-atkDown.png"
  ]
 }
