@@ -175,6 +175,16 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       const sc = Math.max(W / img.width, 1);
       img.setScale(sc);
       this.bg.push(img);
+      const top = horizon - img.displayHeight;
+      if (top > 0) {
+        const strips = 64;
+        const sw = W / strips;
+        for (let i = 0; i < strips; i++) {
+          const px = Math.min(img.width - 1, Math.floor(((i + 0.5) * sw - (W - img.displayWidth) / 2) / sc));
+          const c = this.textures.getPixel(Math.max(0, px), 0, bdKey);
+          this.bg.push(this.add.rectangle(i * sw, 0, sw + 1, top + 1, c ? c.color : 0x20304f).setOrigin(0, 0).setDepth(0));
+        }
+      }
     } else {
       this.bg.push(this.add.rectangle(W / 2, horizon / 2, W, horizon, 0x20304f).setDepth(0));
     }
