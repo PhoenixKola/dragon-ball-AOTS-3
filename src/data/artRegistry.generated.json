@@ -17402,6 +17402,26 @@
    "visible": 2811,
    "w": 66
   },
+  "flyer": {
+   "bbox": [
+    0,
+    0,
+    54,
+    30
+   ],
+   "displayHeight": 34,
+   "facing": "front",
+   "feet": [
+    27,
+    30
+   ],
+   "h": 30,
+   "note": "copy of the Capsule Corp hovercar prop, used for the Capsule Flyer travel point",
+   "path": "assets/objects/flyer.png",
+   "quality": "derived",
+   "visible": 1150,
+   "w": 54
+  },
   "heal": {
    "bbox": [
     0,

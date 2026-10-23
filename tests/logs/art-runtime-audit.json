@@ -15,11 +15,12 @@
   "gingertown:timemachine",
   "android_island:pavilion"
  ],
- "publicPngs": 1610,
- "publicPngsUnreferencedByRegistry": 56,
+ "publicPngs": 1611,
+ "publicPngsUnreferencedByRegistry": 57,
  "unusedSample": [
   "assets/objects/chest-closed.png",
   "assets/objects/chest-open.png",
+  "assets/objects/flyer.png",
   "assets/objects/heal.png",
   "assets/objects/save.png",
   "assets/objects/shop.png",
@@ -46,7 +47,6 @@
   "assets/ui/icons/status-accUp.png",
   "assets/ui/icons/status-adapted.png",
   "assets/ui/icons/status-atkDown.png",
-  "assets/ui/icons/status-atkUp.png",
-  "assets/ui/icons/status-barrier.png"
+  "assets/ui/icons/status-atkUp.png"
  ]
 }

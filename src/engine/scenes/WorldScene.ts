@@ -211,7 +211,14 @@ export class WorldScene extends Phaser.Scene {
       case 'save': return this.building(e, 'save', 0x4aa8ff, 'SAVE');
       case 'heal': return this.building(e, 'heal', 0x4ae08a, 'HEAL');
       case 'shop': return this.building(e, 'shop', 0xff9a3a, 'SHOP');
-      case 'travel': return this.marker(e, 0xb06aff, 'FLYER');
+      case 'travel': {
+        const x = (e as PointEntity).x;
+        const y = (e as PointEntity).y;
+        const img = this.objectImage('flyer', x, y + 4, 34);
+        if (!img) return this.marker(e, 0xb06aff, 'FLYER');
+        const label = this.add2(this.add.text(x, y - img.displayHeight - 2, 'FLYER', { fontFamily: 'monospace', fontSize: '10px', color: '#ffffff', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1).setDepth(y + 2));
+        return { e, obj: img, label };
+      }
       case 'terminal': return this.marker(e, 0x9aa6b8, '');
       case 'lever': return this.marker(e, 0xd9b04a, '');
       case 'sign': return this.marker(e, 0xa87a4a, '');

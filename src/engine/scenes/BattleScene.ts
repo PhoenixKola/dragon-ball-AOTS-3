@@ -148,7 +148,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     prot.forEach((f, i) => this.addSlot(f, 90 + i * 60, 640));
     const n = enemies.length;
     enemies.forEach((f, i) => {
-      const x = n === 1 ? 760 : 560 + (i % 3) * 130 + (i >= 3 ? 50 : 0);
+      const x = n === 1 ? 760 : 700 + (i % 3) * 120 + (i >= 3 ? 50 : 0);
       const y = n === 1 ? 560 : 545 + ((i % 3) - 1) * 42 + (i >= 3 ? 40 : 0);
       this.addSlot(f, x, y);
     });
@@ -158,7 +158,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     await Promise.all([...new Set(fighters.map((f) => f.actor))].map((a) => ensureActor(this, a, 'battle')));
     const n = fighters.length;
     fighters.forEach((f, i) => {
-      const x = n === 1 ? 760 : 560 + (i % 3) * 130 + (i >= 3 ? 50 : 0);
+      const x = n === 1 ? 760 : 700 + (i % 3) * 120 + (i >= 3 ? 50 : 0);
       const y = n === 1 ? 560 : 545 + ((i % 3) - 1) * 42 + (i >= 3 ? 40 : 0);
       this.addSlot(f, x, y);
     });
