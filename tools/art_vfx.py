@@ -88,6 +88,21 @@ add('crescent-purple', 'slash', [('ML', 95), ('ML', 96), ('ML', 99), ('ML', 119)
 def build_vfx(reg, log):
     for id_, spec in VFX.items():
         frames = []
+        if id_ == 'regen':
+            # Animate the installed healing glyph itself instead of presenting
+            # unrelated source-sheet variants as motion. Keep a fixed pivot.
+            source = grab('MC', 60).convert('RGBA')
+            canvas = (120, 144)
+            for n, (scale, opacity) in enumerate(((0.55, 120), (0.7, 190), (0.85, 240), (1, 255), (1.08, 145), (1.15, 0))):
+                im = Image.new('RGBA', canvas)
+                glyph = source.resize((round(source.width * scale), round(source.height * scale)), Image.Resampling.NEAREST)
+                glyph.putalpha(glyph.getchannel('A').point(lambda a: a * opacity // 255))
+                im.alpha_composite(glyph, ((canvas[0] - glyph.width) // 2, canvas[1] - glyph.height - 2))
+                if opacity:
+                    frames.append(save_frame(im, f'vfx/{id_}/{n}.png', 'derived', 'right', 'healing glyph MC#60; scaled/faded temporal frame', trim=False))
+            reg['vfx'][id_] = dict(id=id_, frames=frames, fps=14, loop=False, family='status', quality='derived', note='temporal_growth: derived from existing healing glyph')
+            log(f'[vfx] {id_}: {len(frames)} derived temporal frames')
+            continue
         for n, (k, i) in enumerate(spec['picks']):
             im = grab(k, i)
             if spec['fx']:

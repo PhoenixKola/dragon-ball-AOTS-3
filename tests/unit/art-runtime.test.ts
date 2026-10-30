@@ -23,6 +23,14 @@ function pngSize(file: string): [number, number] {
 const report: Record<string, unknown> = {};
 
 describe('runtime art integration audit', () => {
+  it('regen is an actual transparent, fixed-canvas temporal cue', () => {
+    const cue = registry.vfx.regen;
+    expect(cue.note).toContain('temporal_growth');
+    expect(cue.frames.length).toBe(5);
+    expect(new Set(cue.frames.map((f) => `${f.w}x${f.h}`))).toEqual(new Set(['120x144']));
+    expect(new Set(cue.frames.map((f) => readFileSync(png(f.path)).toString('base64'))).size).toBe(5);
+    for (const f of cue.frames) expect(readFileSync(png(f.path))[25]).toBe(6);
+  });
   it('every registry frame exists on disk with the recorded size and visible pixels', () => {
     let frames = 0;
     const bad: string[] = [];

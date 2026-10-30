@@ -17321,7 +17321,7 @@
    "provisional": false
   }
  },
- "generatedAt": "2026-10-23T14:15:45+00:00",
+ "generatedAt": "2026-10-30T00:08:15+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -20266,108 +20266,108 @@
   },
   "regen": {
    "family": "status",
-   "fps": 10,
+   "fps": 14,
    "frames": [
     {
      "bbox": [
-      1,
-      1,
+      37,
+      87,
+      45,
+      54
+     ],
+     "facing": "right",
+     "feet": [
+      60,
+      141
+     ],
+     "h": 144,
+     "note": "healing glyph MC#60; scaled/faded temporal frame",
+     "path": "assets/vfx/regen/0.png",
+     "quality": "derived",
+     "visible": 1503,
+     "w": 120
+    },
+    {
+     "bbox": [
+      31,
+      72,
+      57,
+      69
+     ],
+     "facing": "right",
+     "feet": [
+      60,
+      141
+     ],
+     "h": 144,
+     "note": "healing glyph MC#60; scaled/faded temporal frame",
+     "path": "assets/vfx/regen/1.png",
+     "quality": "derived",
+     "visible": 2395,
+     "w": 120
+    },
+    {
+     "bbox": [
+      25,
+      57,
+      70,
+      84
+     ],
+     "facing": "right",
+     "feet": [
+      60,
+      141
+     ],
+     "h": 144,
+     "note": "healing glyph MC#60; scaled/faded temporal frame",
+     "path": "assets/vfx/regen/2.png",
+     "quality": "derived",
+     "visible": 3561,
+     "w": 120
+    },
+    {
+     "bbox": [
+      18,
+      42,
       83,
       99
      ],
      "facing": "right",
      "feet": [
-      44,
-      100
+      60,
+      141
      ],
-     "h": 101,
-     "note": "multicolor-techniques.png comp#60",
-     "path": "assets/vfx/regen/0.png",
-     "quality": "genuine",
-     "visible": 4954,
-     "w": 85
-    },
-    {
-     "bbox": [
-      1,
-      1,
-      100,
-      137
-     ],
-     "facing": "right",
-     "feet": [
-      52,
-      138
-     ],
-     "h": 139,
-     "note": "multicolor-techniques.png comp#61",
-     "path": "assets/vfx/regen/1.png",
-     "quality": "genuine",
-     "visible": 8811,
-     "w": 102
-    },
-    {
-     "bbox": [
-      1,
-      1,
-      110,
-      124
-     ],
-     "facing": "right",
-     "feet": [
-      56,
-      125
-     ],
-     "h": 126,
-     "note": "multicolor-techniques.png comp#62",
-     "path": "assets/vfx/regen/2.png",
-     "quality": "genuine",
-     "visible": 8832,
-     "w": 112
-    },
-    {
-     "bbox": [
-      1,
-      1,
-      113,
-      139
-     ],
-     "facing": "right",
-     "feet": [
-      56,
-      140
-     ],
-     "h": 141,
-     "note": "multicolor-techniques.png comp#70",
+     "h": 144,
+     "note": "healing glyph MC#60; scaled/faded temporal frame",
      "path": "assets/vfx/regen/3.png",
-     "quality": "genuine",
-     "visible": 10233,
-     "w": 115
+     "quality": "derived",
+     "visible": 4954,
+     "w": 120
     },
     {
      "bbox": [
-      1,
-      1,
-      113,
-      138
+      15,
+      34,
+      90,
+      107
      ],
      "facing": "right",
      "feet": [
-      58,
-      139
+      61,
+      141
      ],
-     "h": 140,
-     "note": "multicolor-techniques.png comp#71",
+     "h": 144,
+     "note": "healing glyph MC#60; scaled/faded temporal frame",
      "path": "assets/vfx/regen/4.png",
-     "quality": "genuine",
-     "visible": 10373,
-     "w": 115
+     "quality": "derived",
+     "visible": 5811,
+     "w": 120
     }
    ],
    "id": "regen",
    "loop": false,
-   "note": "variants_not_sequence: green heal glows",
-   "quality": "genuine"
+   "note": "temporal_growth: derived from existing healing glyph",
+   "quality": "derived"
   },
   "slash": {
    "family": "slash",
