@@ -10,9 +10,9 @@ Semantic names with no good match on a map are marked (none); the map should ski
 
 ## android_island
 
-Tropical island + Red-Ribbon-style bunker ruins; two backdrop strips.
+Tropical island + Red-Ribbon-style bunker ruins; two backdrop strips. Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1, backdrop-2
+Backdrops: backdrop-handoff-cove, backdrop-handoff-bunker-coast
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -32,7 +32,7 @@ Tiles: edge, floor, floor2, path, wall, water
 | building_b | `bunker_wall_b` | 47x50 | 1x2 | yes |
 | building_big | `cliff_big` | 90x84 | 3x1 | yes |
 | house | (none) | | | |
-| fountain | `fountain` | 199x206 | 3x3 | yes |
+| fountain | (none) | | | |
 | timemachine | `cell_pod` | 102x88 | 3x1 | yes |
 | ship | `cell_pod` | 102x88 | 3x1 | yes |
 | pod | `cell_pod` | 102x88 | 3x1 | yes |
@@ -68,6 +68,7 @@ Tiles: edge, floor, floor2, path, wall, water
 | `mailbox_button_red` | 20x20 | 1x1 | yes |
 | `palm` | 53x76 | 1x1 | yes |
 | `palm_small` | 34x33 | 1x1 | yes |
+| `pavilion` | 215x208 | 4x3 | no |
 | `pillar_ruin` | 35x59 | 1x1 | yes |
 | `pillars_broken` | 37x55 | 1x2 | yes |
 | `pipe` | 46x31 | 1x1 | yes |
@@ -82,9 +83,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## capsule_corp
 
-Capsule Corporation grounds; hub.
+Capsule Corporation grounds; hub. Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas.
 
-Backdrops: backdrop-1
+Backdrops: backdrop-handoff-courtyard
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -149,9 +150,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## cell_games_approach
 
-Cell Games approach: festival tents, banners, trucks. Shares source sheet with the arena (documented reuse).
+Cell Games approach: festival tents, banners, trucks. Shares source sheet with the arena (documented reuse). Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1
+Backdrops: backdrop-handoff-approach
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -228,9 +229,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## cell_games_arena
 
-Cell Games arena: ring tiles from the real tile block, stands, obelisks. Shares source sheet with the approach (documented reuse).
+Cell Games arena: ring tiles from the real tile block, stands, obelisks. Shares source sheet with the approach (documented reuse). Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1
+Backdrops: backdrop-handoff-arena
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -299,9 +300,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## gingertown
 
-Ruined suburb; three backdrop strips.
+Ruined suburb; three backdrop strips. Ground tiles refined from the regional handoff atlas.
 
-Backdrops: backdrop-1, backdrop-2, backdrop-3
+Backdrops: backdrop-battle, backdrop-2, backdrop-3
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -361,6 +362,7 @@ Tiles: edge, floor, floor2, path, wall, water
 | `mailbox_red` | 15x26 | 1x1 | yes |
 | `rock` | 21x14 | 1x1 | yes |
 | `ruin` | 101x69 | 3x1 | yes |
+| `timemachine` | 160x194 | 3x2 | yes |
 | `trashcan` | 15x28 | 1x1 | yes |
 | `trashcan_b` | 18x38 | 1x1 | yes |
 | `tree` | 46x59 | 1x1 | yes |
@@ -370,9 +372,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## lab_inner
 
-Gero laboratory interior; floor tiles are cut from the 4x4 metal-floor block (genuine tile grid).
+Gero laboratory interior; floor tiles are cut from the 4x4 metal-floor block (genuine tile grid). Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1, backdrop-2
+Backdrops: backdrop-handoff-research-floor
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -446,9 +448,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## landing_future
 
-Wasteland plateau theme; backdrop strip holds 4 weather/time variants (day, noon, storm, sunset).
+Wasteland plateau theme; backdrop strip holds 4 weather/time variants (day, noon, storm, sunset). Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-day, backdrop-noon, backdrop-storm, backdrop-sunset
+Backdrops: backdrop-handoff-day, backdrop-handoff-late-day, backdrop-handoff-storm, backdrop-handoff-sunset
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -501,6 +503,7 @@ Tiles: edge, floor, floor2, path, wall, water
 | `rock_pile` | 44x25 | 1x1 | yes |
 | `rock_small` | 28x22 | 1x1 | no |
 | `ruin_pillar` | 15x57 | 1x1 | yes |
+| `ship` | 320x164 | 6x4 | yes |
 | `sign` | 19x33 | 1x1 | yes |
 | `stump` | 12x20 | 1x1 | yes |
 | `tree` | 40x58 | 1x1 | yes |
@@ -509,9 +512,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## lookout
 
-Kami's Lookout. Shares one source sheet with time_chamber (documented reuse); sky-and-clouds backdrop.
+Kami's Lookout. Shares one source sheet with time_chamber (documented reuse); sky-and-clouds backdrop. Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1
+Backdrops: backdrop-handoff-kami-palace
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -579,9 +582,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## mountain_lab
 
-Gero mountain exterior; backdrop is the lab gate vista (also contains the lab gate).
+Gero mountain exterior; backdrop is the lab gate vista (also contains the lab gate). Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1
+Backdrops: backdrop-handoff-lab-entrance, backdrop-handoff-snow-range
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -653,9 +656,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## rocky_outskirts
 
-Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk).
+Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk). Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1, backdrop-2, backdrop-3, backdrop-4, backdrop-5, backdrop-6
+Backdrops: backdrop-handoff-day, backdrop-handoff-day-alt, backdrop-handoff-highland, backdrop-handoff-sunset, backdrop-handoff-storm, backdrop-handoff-dusk
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -720,9 +723,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## south_city
 
-Ruined city streets; two backdrop strips (intact skyline / ruined skyline).
+Ruined city streets; two backdrop strips (intact skyline / ruined skyline). Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas.
 
-Backdrops: backdrop-1, backdrop-2
+Backdrops: backdrop-handoff-intact, backdrop-handoff-ruined
 
 Tiles: edge, floor, floor2, path, wall, water
 
@@ -772,6 +775,7 @@ Tiles: edge, floor, floor2, path, wall, water
 | `cone` | 14x20 | 1x1 | no |
 | `crate` | 19x24 | 1x1 | yes |
 | `fence` | 25x25 | 1x1 | yes |
+| `fountain` | 199x206 | 3x3 | yes |
 | `hedge` | 46x22 | 1x1 | yes |
 | `hover_pod` | 54x38 | 2x1 | yes |
 | `lamp` | 19x68 | 1x1 | yes |
@@ -791,9 +795,9 @@ Tiles: edge, floor, floor2, path, wall, water
 
 ## time_chamber
 
-Hyperbolic Time Chamber: white void floor; shares the lookout source sheet (documented reuse); backdrop is the white-void panel.
+Hyperbolic Time Chamber: white void floor; shares the lookout source sheet (documented reuse); backdrop is the white-void panel. Battle panoramas curated from the regional handoff atlas.
 
-Backdrops: backdrop-1
+Backdrops: backdrop-handoff-white-void
 
 Tiles: edge, floor, floor2, path, wall, water
 

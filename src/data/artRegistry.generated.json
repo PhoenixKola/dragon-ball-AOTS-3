@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T12:23:08+00:00",
+ "generatedAt": "2026-11-05T12:47:17+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -20899,6 +20899,14 @@
      "solid": true,
      "w": 34
     },
+    "pavilion": {
+     "footH": 3,
+     "footW": 4,
+     "h": 208,
+     "path": "assets/worlds/android_island/props/pavilion.png",
+     "solid": false,
+     "w": 215
+    },
     "pillar_ruin": {
      "footH": 1,
      "footW": 1,
@@ -22021,6 +22029,14 @@
      "solid": true,
      "w": 101
     },
+    "timemachine": {
+     "footH": 2,
+     "footW": 3,
+     "h": 194,
+     "path": "assets/worlds/gingertown/props/timemachine.png",
+     "solid": true,
+     "w": 160
+    },
     "trashcan": {
      "footH": 1,
      "footW": 1,
@@ -22568,6 +22584,14 @@
      "path": "assets/worlds/landing_future/props/ruin_pillar.png",
      "solid": true,
      "w": 15
+    },
+    "ship": {
+     "footH": 4,
+     "footW": 6,
+     "h": 164,
+     "path": "assets/worlds/landing_future/props/ship.png",
+     "solid": true,
+     "w": 320
     },
     "sign": {
      "footH": 1,

@@ -1,9 +1,9 @@
-"""Curated regional-world extractions from the illustrated handoff atlases.
+"""Curated regional-world extractions from illustrated and generated handoffs.
 
 The legacy source sheets remain the source for the whole registry. This module
-overrides only Ginger Town ground textures, using documented source rectangles
-from its supplied regional atlas. Map geometry, objects, triggers and collision
-are deliberately outside this stage.
+adds documented regional ground tiles, battle panoramas, atlas props and
+transparent generated landmark candidates. Map geometry, triggers and
+collision are deliberately outside this stage.
 """
 from __future__ import annotations
 
@@ -107,6 +107,12 @@ HANDOFF_GROUND_TILES = {
     ),
 }
 
+GENERATED_WORLD_PROPS = {
+    'landing_future': ('future_landing_scout_ship.png', 'ship', 320, 6, 4, True),
+    'gingertown': ('gingertown_time_machine.png', 'timemachine', 160, 3, 2, True),
+    'android_island': ('android_island_pavilion.png', 'pavilion', 215, 4, 3, False),
+}
+
 
 def asphalt_tile(atlas: Image.Image) -> Image.Image:
     """Build a calm, seamless street fill from Ginger Town's asphalt palette."""
@@ -155,6 +161,23 @@ def opaque_ground(crop: Image.Image) -> Image.Image:
             painted |= take
     rgba[..., 3] = 255
     return Image.fromarray(rgba, 'RGBA')
+
+
+def generated_prop(source: Path, width: int) -> Image.Image:
+    """Trim generated transparent padding and size a sprite for its world footprint."""
+    im = Image.open(source).convert('RGBA')
+    alpha = np.array(im.getchannel('A'))
+    # The generator may add faint transparent ambience. Remove only the very
+    # soft fringe; preserve anti-aliased object edges and the feet/shadow.
+    alpha[alpha < 24] = 0
+    im.putalpha(Image.fromarray(alpha, 'L'))
+    mask = Image.fromarray(np.where(alpha >= 32, 255, 0).astype(np.uint8), 'L')
+    bbox = mask.getbbox()
+    if not bbox:
+        raise ValueError(f'generated prop has no visible pixels: {source}')
+    im = im.crop(bbox)
+    height = max(1, round(im.height * width / im.width))
+    return im.resize((width, height), Image.Resampling.LANCZOS)
 
 
 def build(reg: dict, log=print) -> dict:
@@ -278,4 +301,19 @@ def build(reg: dict, log=print) -> dict:
         path=frame['path'], w=frame['w'], h=frame['h'], footW=3, footH=3, solid=True,
     )
     log('[world handoff] south_city: fountain plaza prop integrated')
+
+    for map_id, (filename, prop, width, foot_w, foot_h, solid) in GENERATED_WORLD_PROPS.items():
+        source = ROOT / 'art' / 'handoff' / 'generated_world_props' / filename
+        image = generated_prop(source, width)
+        frame = save_frame(
+            image,
+            f'worlds/{map_id}/props/{prop}.png',
+            'derived',
+            'front',
+            f'AI-generated transparent candidate in art/handoff/generated_world_props/{filename}; trimmed and fitted to {width}px width',
+        )
+        reg['worlds'][map_id]['props'][prop] = dict(
+            path=frame['path'], w=frame['w'], h=frame['h'], footW=foot_w, footH=foot_h, solid=solid,
+        )
+        log(f'[world handoff] {map_id}: generated {prop} landmark integrated')
     return reg

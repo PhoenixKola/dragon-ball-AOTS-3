@@ -7,12 +7,8 @@
  "vfxIdsUsed": 29,
  "vfxWithoutArt": [],
  "itemsWithoutIcon": [],
- "unresolvedProps": [
-  "landing_future:ship",
-  "gingertown:timemachine",
-  "android_island:pavilion"
- ],
- "publicPngs": 1623,
+ "unresolvedProps": [],
+ "publicPngs": 1626,
  "publicPngsUnreferencedByRegistry": 56,
  "unusedSample": [
   "assets/objects/chest-closed.png",

@@ -25,7 +25,10 @@
 [world handoff] capsule_corp: 2 overworld ground tiles integrated
 [world handoff] south_city: 1 overworld ground tiles integrated
 [world handoff] south_city: fountain plaza prop integrated
-[worlds] done 15.6s
+[world handoff] landing_future: generated ship landmark integrated
+[world handoff] gingertown: generated timemachine landmark integrated
+[world handoff] android_island: generated pavilion landmark integrated
+[worlds] done 19.4s
 [cinematics] trunks_arrival: 1672x941
 [cinematics] cell_absorbs_17: 1672x941
 [cinematics] cell_absorbs_18: 1672x941
