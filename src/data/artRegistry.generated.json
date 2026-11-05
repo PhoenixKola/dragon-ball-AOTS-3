@@ -23304,7 +23304,7 @@
     }
    ],
    "mapId": "rocky_outskirts",
-   "note": "Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk). Battle panoramas curated from the regional handoff atlas.",
+   "note": "Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk). Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas.",
    "props": {
     "bush": {
      "footH": 1,

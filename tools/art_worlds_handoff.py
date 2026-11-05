@@ -88,10 +88,18 @@ HANDOFF_BACKDROPS = {
 
 FULL_STAGE_BACKDROPS = {'lookout', 'time_chamber'}
 
-# Overworld map ground improvements currently curated for the most repetitive
-# paved hubs. Rectangles are inset inside their atlas samples to avoid adjacent
-# sprites, painted cell borders and transparent gutters.
+# Overworld map ground improvements curated from each region's atlas. Rectangles
+# are inset inside their samples to avoid adjacent sprites, painted cell borders
+# and transparent gutters.
 HANDOFF_GROUND_TILES = {
+    'rocky_outskirts': (
+        'rocky_outskirts_tileset.png',
+        {
+            'floor': (272, 16, 336, 80),
+            'floor2': (160, 116, 224, 180),
+            'path': (24, 636, 88, 700),
+        },
+    ),
     'capsule_corp': (
         'capsule_corp_tileset.png',
         {
