@@ -44,6 +44,26 @@ HANDOFF_BACKDROPS = {
         [(17, 822, 707, 235), (735, 822, 697, 235)],
         ['intact', 'ruined'],
     ),
+    'capsule_corp': (
+        'capsule_corp_tileset.png',
+        [(14, 895, 950, 180)],
+        ['courtyard'],
+    ),
+    'android_island': (
+        'android_island_tileset.png',
+        [(15, 831, 698, 242), (735, 831, 698, 242)],
+        ['cove', 'bunker-coast'],
+    ),
+    'cell_games_approach': (
+        'cell_games_approach_and_arena_tileset.png',
+        [(14, 880, 684, 188)],
+        ['approach'],
+    ),
+    'cell_games_arena': (
+        'cell_games_approach_and_arena_tileset.png',
+        [(721, 810, 713, 262)],
+        ['arena'],
+    ),
 }
 
 

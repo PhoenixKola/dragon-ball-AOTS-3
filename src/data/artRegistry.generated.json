@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T11:56:25+00:00",
+ "generatedAt": "2026-11-05T12:06:19+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -20725,43 +20725,43 @@
      "bbox": [
       0,
       0,
-      692,
-      246
+      1440,
+      499
      ],
      "facing": "front",
      "feet": [
-      346,
-      246
+      720,
+      499
      ],
-     "h": 246,
-     "note": "battle backdrop; crop of android-island.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/android_island/backdrop-1.png",
+     "h": 499,
+     "note": "panorama crop 15,831,698,242 from art/handoff/worlds/android_island_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/android_island/backdrop-handoff-cove.png",
      "quality": "genuine",
-     "visible": 170232,
-     "w": 692
+     "visible": 718560,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      692,
-      246
+      1440,
+      499
      ],
      "facing": "front",
      "feet": [
-      346,
-      246
+      720,
+      499
      ],
-     "h": 246,
-     "note": "battle backdrop; crop of android-island.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/android_island/backdrop-2.png",
+     "h": 499,
+     "note": "panorama crop 735,831,698,242 from art/handoff/worlds/android_island_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/android_island/backdrop-handoff-bunker-coast.png",
      "quality": "genuine",
-     "visible": 170232,
-     "w": 692
+     "visible": 718560,
+     "w": 1440
     }
    ],
    "mapId": "android_island",
-   "note": "Tropical island + Red-Ribbon-style bunker ruins; two backdrop strips.",
+   "note": "Tropical island + Red-Ribbon-style bunker ruins; two backdrop strips. Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "boulders": {
      "footH": 1,
@@ -21005,24 +21005,24 @@
      "bbox": [
       0,
       0,
-      941,
-      188
+      1440,
+      273
      ],
      "facing": "front",
      "feet": [
-      470,
-      188
+      720,
+      273
      ],
-     "h": 188,
-     "note": "battle backdrop; crop of capsule-corporation.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/capsule_corp/backdrop-1.png",
+     "h": 273,
+     "note": "panorama crop 14,895,950,180 from art/handoff/worlds/capsule_corp_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/capsule_corp/backdrop-handoff-courtyard.png",
      "quality": "genuine",
-     "visible": 176908,
-     "w": 941
+     "visible": 393120,
+     "w": 1440
     }
    ],
    "mapId": "capsule_corp",
-   "note": "Capsule Corporation grounds; hub.",
+   "note": "Capsule Corporation grounds; hub. Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "bench": {
      "footH": 1,
@@ -21226,24 +21226,24 @@
      "bbox": [
       0,
       0,
-      678,
-      199
+      1440,
+      396
      ],
      "facing": "front",
      "feet": [
-      339,
-      199
+      720,
+      396
      ],
-     "h": 199,
-     "note": "battle backdrop; crop of cell-games-approach-and-arena.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/cell_games_approach/backdrop-1.png",
+     "h": 396,
+     "note": "panorama crop 14,880,684,188 from art/handoff/worlds/cell_games_approach_and_arena_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/cell_games_approach/backdrop-handoff-approach.png",
      "quality": "genuine",
-     "visible": 134922,
-     "w": 678
+     "visible": 570240,
+     "w": 1440
     }
    ],
    "mapId": "cell_games_approach",
-   "note": "Cell Games approach: festival tents, banners, trucks. Shares source sheet with the arena (documented reuse).",
+   "note": "Cell Games approach: festival tents, banners, trucks. Shares source sheet with the arena (documented reuse). Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "banner_blue": {
      "footH": 1,
@@ -21543,24 +21543,24 @@
      "bbox": [
       0,
       0,
-      707,
-      269
+      1440,
+      529
      ],
      "facing": "front",
      "feet": [
-      354,
-      269
+      720,
+      529
      ],
-     "h": 269,
-     "note": "battle backdrop; crop of cell-games-approach-and-arena.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/cell_games_arena/backdrop-1.png",
+     "h": 529,
+     "note": "panorama crop 721,810,713,262 from art/handoff/worlds/cell_games_approach_and_arena_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/cell_games_arena/backdrop-handoff-arena.png",
      "quality": "genuine",
-     "visible": 190183,
-     "w": 707
+     "visible": 761760,
+     "w": 1440
     }
    ],
    "mapId": "cell_games_arena",
-   "note": "Cell Games arena: ring tiles from the real tile block, stands, obelisks. Shares source sheet with the approach (documented reuse).",
+   "note": "Cell Games arena: ring tiles from the real tile block, stands, obelisks. Shares source sheet with the approach (documented reuse). Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "announcer_stage": {
      "footH": 1,

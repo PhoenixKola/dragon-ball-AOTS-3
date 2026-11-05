@@ -14,7 +14,11 @@
 [world handoff] landing_future: 4 regional battle panoramas integrated
 [world handoff] rocky_outskirts: 6 regional battle panoramas integrated
 [world handoff] south_city: 2 regional battle panoramas integrated
-[worlds] done 13.5s
+[world handoff] capsule_corp: 1 regional battle panoramas integrated
+[world handoff] android_island: 2 regional battle panoramas integrated
+[world handoff] cell_games_approach: 1 regional battle panoramas integrated
+[world handoff] cell_games_arena: 1 regional battle panoramas integrated
+[worlds] done 14.8s
 [cinematics] trunks_arrival: 1672x941
 [cinematics] cell_absorbs_17: 1672x941
 [cinematics] cell_absorbs_18: 1672x941
@@ -24,4 +28,4 @@
 [cinematics] android16_destruction: 1672x941
 [atmosphere] gingertown mist: native-generated transparent overlay
 [world extra] gingertown battle backdrop: 1672x941
-pruned 14 unreferenced PNGs
+pruned 19 unreferenced PNGs
