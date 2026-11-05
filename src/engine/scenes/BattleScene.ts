@@ -4,7 +4,7 @@ import { actorKey, getActor, getVfx, getWorld, needsFlip, registry } from '../as
 import type { BattleStage, Clock } from '../combat/director';
 import type { BattleEvent, ClipId, FormId, GuardGrade, StatusKind } from '../../types';
 import { audio } from '../audio';
-import { resolvePresentationClip } from '../combat/presentation';
+import { resolvePresentationClip, shouldAnimateVfxFrames } from '../combat/presentation';
 import { ensureActor, ensureMap, ensureVfx } from './loader';
 import { HEROES } from '../../data/heroes';
 
@@ -419,17 +419,36 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       const beam = v!.family === 'beam' && (clip === 'beam' || clip === 'special');
       const disc = clip === 'disc' || v!.family === 'slash';
       const img = this.add.image(x0, y0, key).setDepth(800).setOrigin(0, 0.5);
+      let frameTimer: Phaser.Time.TimerEvent | undefined;
       const dist = Math.hypot(x1 - x0, y1 - y0);
       img.setRotation(Math.atan2(y1 - y0, x1 - x0));
       if (beam) {
         // Keep the generated beam head intact and add a narrow, palette-matched
         // energy body behind it; stretching the head made beams look like ribbons.
         img.setOrigin(0.5).setScale(0.18, 0.42);
+        const animateHead = shouldAnimateVfxFrames(v!.note, this.opts.reducedMotion) && v!.frames.length > 1 && !this.fast;
+        if (animateHead) {
+          let frame = 0;
+          frameTimer = this.time.addEvent({
+            // Fit the full ordered growth sequence inside the existing travel window
+            // so the impact timing stays unchanged and no authored head frame is skipped.
+            delay: Math.max(1, travel / v!.frames.length),
+            repeat: v!.frames.length - 1,
+            callback: () => {
+              if (!img.scene) return;
+              frame = Math.min(frame + 1, v!.frames.length - 1);
+              const frameKey = `vfx:${v!.id}:${frame}`;
+              if (this.textures.exists(frameKey)) img.setTexture(frameKey);
+            },
+          });
+          img.once('destroy', () => frameTimer?.remove(false));
+        }
         const core = this.add.rectangle(x0, y0, dist, 5, 0xdaf6ff, 0.88).setDepth(799).setOrigin(0, 0.5).setRotation(img.rotation).setScale(0.01, 1);
         this.tweens.add({
           targets: img, x: x1, y: y1, duration: travel, ease: 'Sine.easeIn',
           onStart: () => this.tweens.add({ targets: core, scaleX: 1, duration: travel * 0.55, ease: 'Sine.easeOut' }),
           onComplete: () => {
+            frameTimer?.remove(false);
             finish();
             this.tweens.add({ targets: img, alpha: 0, duration: this.fast ? 1 : 120, onComplete: () => img.destroy() });
             this.tweens.add({ targets: core, alpha: 0, duration: this.fast ? 1 : 120, onComplete: () => core.destroy() });
@@ -465,7 +484,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     }
     const img = this.add.image(x, y, keys[0]).setDepth(810).setScale(scale * 2).setFlipX(flip);
     // frames marked variants_not_sequence play as a short pulse (never a fake smooth animation)
-    const ordered = (v.note?.includes('ordered_growth') || v.note?.includes('temporal_sequence')) && !this.opts.reducedMotion;
+    const ordered = shouldAnimateVfxFrames(v.note, this.opts.reducedMotion);
     const seq = ordered ? keys : [keys[0]];
     let i = 0;
     const step = () => {
