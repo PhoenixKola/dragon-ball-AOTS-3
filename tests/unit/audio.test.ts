@@ -43,7 +43,7 @@ describe('audio definitions', () => {
   });
 
   it('has an SFX definition for every key', () => {
-    expect(SFX_KEYS.length).toBe(36);
+    expect(SFX_KEYS.length).toBe(39);
     for (const k of SFX_KEYS) {
       const d = SFX_DEFS[k];
       expect(d, k).toBeTruthy();

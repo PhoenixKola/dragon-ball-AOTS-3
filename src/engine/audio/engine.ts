@@ -1,7 +1,7 @@
 import { SFX_DEFS, sfxDuration } from './sfx';
 import { buildTrack } from './tracks';
 import { collectDue, finishFade, initialMusicState, planMusic, VoiceLimiter, type MusicState, type SeqCursor } from './logic';
-import type { AudioSettings, MusicKey, NoteEvent, SfxKey, TrackDef } from './types';
+import type { AmbientKey, AudioSettings, MusicKey, NoteEvent, SfxKey, TrackDef } from './types';
 
 const LOOKAHEAD = 0.15;
 const TICK_MS = 25;
@@ -9,6 +9,14 @@ const DEFAULT_FADE = 0.9;
 
 interface Playing {
   key: MusicKey; track: TrackDef; gain: GainNode; cursor: SeqCursor; loopStart: number; timer: ReturnType<typeof setInterval> | null;
+}
+interface AmbientVoice {
+  key: Exclude<AmbientKey, null>;
+  source: AudioBufferSourceNode;
+  filter: BiquadFilterNode;
+  gain: GainNode;
+  hum?: OscillatorNode;
+  humGain?: GainNode;
 }
 
 type CtxCtor = new () => AudioContext;
@@ -31,6 +39,8 @@ export class AudioEngine {
   private unlocked = false;
   private visHandler: (() => void) | null = null;
   private gestureHandler: (() => void) | null = null;
+  private ambient: AmbientVoice | null = null;
+  private wantedAmbient: AmbientKey = null;
 
   get available(): boolean { return this.ctx !== null; }
 
@@ -99,6 +109,7 @@ export class AudioEngine {
     this.unlocked = true;
     if (this.ctx.state === 'suspended' && !this.manualSuspend) void this.ctx.resume().catch(() => undefined);
     if (this.wantMusic && !this.playing.has(this.wantMusic)) this.startMusic(this.wantMusic, DEFAULT_FADE);
+    if (this.wantedAmbient && this.ambient?.key !== this.wantedAmbient) this.startAmbient(this.wantedAmbient);
   }
 
   setSettings(s: Partial<AudioSettings>): void {
@@ -111,6 +122,77 @@ export class AudioEngine {
     this.applySettings();
   }
   getSettings(): AudioSettings { return { ...this.settings }; }
+
+  /** Quiet, offline region bed. It follows the music bus and crossfades on map changes. */
+  playAmbient(key: AmbientKey): void {
+    this.wantedAmbient = key;
+    if (this.ambient?.key === key) return;
+    if (this.ambient) this.fadeAmbient(this.ambient);
+    this.ambient = null;
+    if (!key || !this.ensureContext() || !this.unlocked || !this.ctx || !this.musicBus || !this.noiseBuf) return;
+    this.startAmbient(key);
+  }
+
+  private startAmbient(key: Exclude<AmbientKey, null>): void {
+    if (!this.ctx || !this.musicBus || !this.noiseBuf || !this.unlocked) return;
+    const ctx = this.ctx;
+    const source = ctx.createBufferSource();
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+    const profile: Record<Exclude<AmbientKey, null>, { filter: BiquadFilterType; hz: number; q: number; level: number; hum?: number }> = {
+      'open-wind': { filter: 'lowpass', hz: 520, q: 0.5, level: 0.010 },
+      'quiet-air': { filter: 'lowpass', hz: 360, q: 0.45, level: 0.005 },
+      'abandoned-city': { filter: 'bandpass', hz: 680, q: 0.55, level: 0.007 },
+      'lab-hum': { filter: 'lowpass', hz: 850, q: 0.65, level: 0.005, hum: 55 },
+      shoreline: { filter: 'bandpass', hz: 1200, q: 0.4, level: 0.008 },
+      'chamber-void': { filter: 'lowpass', hz: 230, q: 0.4, level: 0.003, hum: 82 },
+      'arena-wind': { filter: 'lowpass', hz: 430, q: 0.5, level: 0.006 },
+    };
+    const p = profile[key];
+    source.buffer = this.noiseBuf;
+    source.loop = true;
+    filter.type = p.filter;
+    filter.frequency.value = p.hz;
+    filter.Q.value = p.q;
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.musicBus);
+    source.start();
+    gain.gain.linearRampToValueAtTime(p.level, ctx.currentTime + 0.8);
+    const voice: AmbientVoice = { key, source, filter, gain };
+    if (p.hum) {
+      const hum = ctx.createOscillator();
+      const humGain = ctx.createGain();
+      hum.type = 'sine';
+      hum.frequency.value = p.hum;
+      humGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      humGain.gain.linearRampToValueAtTime(0.0022, ctx.currentTime + 1);
+      hum.connect(humGain);
+      humGain.connect(this.musicBus);
+      hum.start();
+      voice.hum = hum;
+      voice.humGain = humGain;
+    }
+    this.ambient = voice;
+  }
+
+  private fadeAmbient(voice: AmbientVoice): void {
+    if (!this.ctx) return;
+    const at = this.ctx.currentTime;
+    voice.gain.gain.cancelScheduledValues(at);
+    voice.gain.gain.setValueAtTime(Math.max(0.0001, voice.gain.gain.value), at);
+    voice.gain.gain.linearRampToValueAtTime(0.0001, at + 0.55);
+    if (voice.humGain) {
+      voice.humGain.gain.cancelScheduledValues(at);
+      voice.humGain.gain.setValueAtTime(Math.max(0.0001, voice.humGain.gain.value), at);
+      voice.humGain.gain.linearRampToValueAtTime(0.0001, at + 0.55);
+    }
+    setTimeout(() => {
+      try { voice.source.stop(); voice.source.disconnect(); } catch { /* already stopped */ }
+      try { voice.filter.disconnect(); voice.gain.disconnect(); voice.hum?.stop(); voice.humGain?.disconnect(); } catch { /* already disconnected */ }
+    }, 650);
+  }
 
   private applySettings(): void {
     if (!this.ctx || !this.master || !this.musicBus || !this.sfxBus) return;

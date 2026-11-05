@@ -46,6 +46,34 @@ export const SPECS: Record<MusicKey, Spec> = {
   epilogue: S({ root: 48, mode: 'major', bpm: 80, bars: 16, prog: [0, 4, 5, 2], pad: true, bass: 'root', drums: 'none', arp: 'pluck', lead: 'melodic', seed: 199, mood: 'Gentle hopeful C major farewell' }),
 };
 
+// Authored four-bar melodic identities (scale degrees above each bar's chord;
+// -1 is a rest). Repeating these motifs gives each location a recognizable
+// theme while bass, harmony and percussion still develop around it.
+const THEMES: Record<MusicKey, readonly number[]> = {
+  title:      [0,-1,2,4,3,-1,2,-1,0,2,4,-1,6,4,2,-1],
+  hub:        [0,2,-1,4,2,-1,1,2,4,-1,2,0,1,-1,2,-1],
+  tension:    [0,-1,-1,2,-1,1,0,-1,4,-1,2,-1,1,0,-1,-1],
+  mystery:    [0,-1,-1,1,-1,-1,3,-1,2,-1,-1,1,0,-1,-1,-1],
+  androidBoss:[0,1,3,-1,4,3,1,-1,0,1,4,-1,6,4,3,-1],
+  training:   [0,2,4,2,0,-1,2,4,5,4,2,0,2,4,5,-1],
+  cellGames:  [0,-1,2,3,4,-1,3,2,0,2,4,-1,6,4,3,-1],
+  perfectCell:[0,1,3,4,3,1,0,-1,0,3,4,6,4,3,1,-1],
+  awakening:  [0,2,3,5,4,3,2,-1,0,2,4,6,5,4,3,-1],
+  finalBeam:  [0,2,4,5,7,6,4,-1,0,2,4,7,9,7,5,-1],
+  victory:    [0,-1,2,4,6,-1,4,2,0,2,4,-1,7,6,4,0],
+  credits:    [0,-1,2,4,3,-1,2,-1,4,2,0,-1,1,2,0,-1],
+  battle:     [0,2,4,-1,3,2,0,-1,4,3,2,-1,6,4,3,-1],
+  bossBattle: [0,1,3,-1,4,3,1,-1,0,3,4,6,4,3,1,-1],
+  sacrifice:  [0,-1,-1,2,-1,3,-1,-1,4,-1,3,-1,2,-1,0,-1],
+  lab:        [0,-1,2,-1,1,3,-1,2,0,-1,4,-1,3,1,-1,-1],
+  island:     [0,2,4,-1,5,4,2,-1,0,2,5,-1,4,2,1,-1],
+  lookout:    [0,-1,2,4,-1,5,4,-1,2,-1,4,6,5,-1,2,-1],
+  chamber:    [0,-1,-1,2,-1,3,-1,2,0,-1,-1,4,-1,3,-1,-1],
+  city:       [0,2,-1,4,3,2,-1,1,0,-1,2,4,5,4,2,-1],
+  wasteland:  [0,-1,1,-1,3,-1,2,-1,0,-1,4,-1,3,1,-1,-1],
+  epilogue:   [0,-1,2,4,5,-1,4,-1,2,4,6,-1,5,4,2,-1],
+};
+
 function mulberry(seed: number) {
   let s = seed >>> 0;
   return () => {
@@ -70,21 +98,7 @@ export function buildTrack(key: MusicKey): TrackDef {
     ev.push({ t, d: Math.min(d, total - t), f: hz ? m : midiToHz(m), v, g });
   };
   const chord = (d: number) => [d, d + 2, d + 4];
-  const density = { none: 0, sparse: 0.35, melodic: 0.7, heroic: 0.6 }[sp.lead];
-  const mkPhrase = (): { b: number; d: number; len: number }[] => {
-    const out: { b: number; d: number; len: number }[] = [];
-    let cur = 7 + Math.floor(rnd() * 3), b = 0;
-    while (b < 16) {
-      const len = sp.lead === 'heroic' ? (rnd() < 0.5 ? 2 : 1) : rnd() < 0.5 ? 1 : 0.5;
-      if (rnd() < density) {
-        cur = Math.max(4, Math.min(13, cur + Math.round((rnd() - 0.5) * 4)));
-        out.push({ b, d: cur, len: Math.max(0.5, len) });
-      }
-      b += Math.max(0.5, len);
-    }
-    return out;
-  };
-  const phraseA = mkPhrase(), phraseB = mkPhrase();
+  const theme = THEMES[key];
 
   for (let i = 0; i < sp.bars; i++) {
     const t0 = i * bar;
@@ -117,13 +131,15 @@ export function buildTrack(key: MusicKey): TrackDef {
     }
     if (sp.lead !== 'none') {
       const block = Math.floor(i / 4) % 4;
-      const phrase = block === 2 ? phraseB : phraseA;
-      const local = (i % 4) * 4;
-      for (const n of phrase) {
-        if (n.b >= local && n.b < local + 4) {
-          const dd = n.d + (block === 3 ? 1 : 0) + (root === 5 || root === 6 ? -1 : 0);
-          add(t0 + (n.b - local) * beat, n.len * beat * 0.95, deg(dd, 0), 'lead', 0.1 * cresc);
-        }
+      const localBeat = (i % 4) * 4;
+      for (let beatInBar = 0; beatInBar < 4; beatInBar++) {
+        const slot = localBeat + beatInBar;
+        const motifSlot = block === 2 ? (slot + 4) % theme.length : slot;
+        const relativeDegree = theme[motifSlot];
+        if (relativeDegree < 0) continue;
+        const cadenceLift = block === 3 && slot === 14 ? 2 : 0;
+        const duration = beat * (beatInBar === 0 ? 0.88 : beatInBar % 2 === 1 ? 0.58 : 0.72);
+        add(t0 + beatInBar * beat, duration, deg(root + relativeDegree + cadenceLift, 0), 'lead', 0.085 * cresc);
       }
     }
     const q = beat / 4;

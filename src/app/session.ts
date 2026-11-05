@@ -6,6 +6,7 @@ import { speakerOf } from '../data/speakers';
 import { Battle, type BattleSetup } from '../engine/combat/engine';
 import { BattleDirector, type DirectorHost } from '../engine/combat/director';
 import { audio } from '../engine/audio';
+import type { AmbientKey } from '../engine/audio/types';
 import { heroActorId } from '../engine/assets';
 import { BattleScene } from '../engine/scenes/BattleScene';
 import { CutsceneScene } from '../engine/scenes/CutsceneScene';
@@ -23,6 +24,17 @@ import { GameController, type BattleKind, type ControllerHost } from './controll
 import {
   DEFAULT_SETTINGS, SETTINGS_KEY, bindApi, uiStore, type BattleView, type Overlay, type SessionApi, type Settings, type UISnapshot,
 } from './store';
+
+function ambientForMap(mapId: string): AmbientKey {
+  if (['landing_future', 'rocky_outskirts', 'mountain_lab', 'cell_games_approach'].includes(mapId)) return 'open-wind';
+  if (['capsule_corp', 'lookout'].includes(mapId)) return 'quiet-air';
+  if (['south_city', 'gingertown'].includes(mapId)) return 'abandoned-city';
+  if (mapId === 'lab_inner') return 'lab-hum';
+  if (mapId === 'android_island') return 'shoreline';
+  if (mapId === 'time_chamber') return 'chamber-void';
+  if (mapId === 'cell_games_arena') return 'arena-wind';
+  return null;
+}
 
 function safeStorage(): StorageLike {
   try {
@@ -235,6 +247,7 @@ export class Session implements SessionApi, ControllerHost {
     try {
       await this.world.loadMap(state, this.sim);
       audio.playMusic(MAPS[state.mapId].music as never);
+      audio.playAmbient(ambientForMap(state.mapId));
       this.stateChanged();
       await new Promise<void>((r) => requestAnimationFrame(() => r()));
     } finally {
@@ -411,6 +424,7 @@ export class Session implements SessionApi, ControllerHost {
     const def = CUTSCENES[id];
     if (!def) return;
     this.scriptBegin();
+    audio.playAmbient(null);
     this.game.scene.sleep('World');
     uiStore.patch({ screen: 'cutscene' });
     this.game.scene.start('Cutscene');
@@ -427,7 +441,10 @@ export class Session implements SessionApi, ControllerHost {
     this.game.scene.stop('Cutscene');
     this.game.scene.wake('World');
     uiStore.patch({ screen: 'world', caption: null });
-    if (this.state) audio.playMusic(MAPS[this.state.mapId].music as never);
+    if (this.state) {
+      audio.playMusic(MAPS[this.state.mapId].music as never);
+      audio.playAmbient(ambientForMap(this.state.mapId));
+    }
   }
 
   private async sceneReady(ok: () => boolean): Promise<void> {
@@ -451,10 +468,12 @@ export class Session implements SessionApi, ControllerHost {
     else cam.resetFX();
     audio.sfx('door');
     audio.playMusic(MAPS[map].music as never);
+    audio.playAmbient(ambientForMap(map));
     this.stateChanged();
   }
   music(key: string) {
     audio.playMusic(key as never);
+    if (this.state) audio.playAmbient(ambientForMap(this.state.mapId));
   }
   sfx(key: string) {
     audio.sfx(key as never);
@@ -638,6 +657,7 @@ export class Session implements SessionApi, ControllerHost {
     if (this.encountersEnabled === false && kind === 'random') void 0;
     this.scriptBegin();
     audio.playMusic((stage.music || 'battle') as never);
+    audio.playAmbient(null);
     audio.sfx('boss-in');
     this.game.scene.sleep('World');
     this.game.scene.start('Battle', { mapId: stage.backdrop, stageId: stage.id });
@@ -666,7 +686,10 @@ export class Session implements SessionApi, ControllerHost {
     this.game.scene.stop('Battle');
     this.game.scene.wake('World');
     uiStore.patch({ screen: 'world', battle: null });
-    if (this.state) audio.playMusic(MAPS[state.mapId].music as never);
+    if (this.state) {
+      audio.playMusic(MAPS[state.mapId].music as never);
+      audio.playAmbient(ambientForMap(state.mapId));
+    }
     return battle;
   }
 
