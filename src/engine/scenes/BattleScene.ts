@@ -318,7 +318,9 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       }
       case 'beam': case 'blast': case 'barrage': case 'disc': case 'special': {
         this.setPose(s, clip === 'beam' || clip === 'special' ? 'special' : 'attack', 900);
-        this.playVfx('charge', s.img.x + att * 30, s.homeY - s.img.displayHeight * 0.55, 0.9);
+        const beam = getVfx(vfx)?.family === 'beam' && (clip === 'beam' || clip === 'special');
+        // Keep the charge cue readable without covering the actor or signature beam head.
+        this.playVfx('charge', s.img.x + att * 30, s.homeY - s.img.displayHeight * 0.55, beam ? 0.48 : 0.9);
         await this.wait(190);
         if (target) await this.projectile(vfx, s, target, visualClip);
         break;
@@ -443,7 +445,8 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
           });
           img.once('destroy', () => frameTimer?.remove(false));
         }
-        const core = this.add.rectangle(x0, y0, dist, 5, 0xdaf6ff, 0.88).setDepth(799).setOrigin(0, 0.5).setRotation(img.rotation).setScale(0.01, 1);
+        const coreColor = v!.id.includes('yellow') ? 0xffe07a : v!.id.includes('red') ? 0xff9a88 : 0xc9f0ff;
+        const core = this.add.rectangle(x0, y0, dist, 5, coreColor, 0.88).setDepth(799).setOrigin(0, 0.5).setRotation(img.rotation).setScale(0.01, 1);
         this.tweens.add({
           targets: img, x: x1, y: y1, duration: travel, ease: 'Sine.easeIn',
           onStart: () => this.tweens.add({ targets: core, scaleX: 1, duration: travel * 0.55, ease: 'Sine.easeOut' }),
