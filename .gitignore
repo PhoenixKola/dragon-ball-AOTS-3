@@ -20,6 +20,12 @@ art/patch/
 # generated test evidence that is large or regenerable
 tests/logs/screens/
 tests/logs/saves/
+# Root-level test logs/reports and scratch captures are local run output.
+# Historical root-level artifacts already tracked in Git stay as the recorded baseline.
+tests/logs/*.log
+tests/logs/*.json
+tests/logs/*.png
+tests/logs/*.jpg
 # Generated contact sheets/lineups are large local review aids; the compact
 # curated before/after set lives under docs/overhaul-evidence instead.
 docs/art-evidence/*
