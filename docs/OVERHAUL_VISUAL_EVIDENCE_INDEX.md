@@ -14,7 +14,7 @@ This index preserves a concise before/after review set for the M0 baseline and a
 |---|---|---|---|
 | Title | [`before/title-ui-only.png`](overhaul-evidence/before/title-ui-only.png) | [`after/title.png`](overhaul-evidence/after/title.png) | Before image is UI-harness-only; current image is a real fresh-game Phaser capture. |
 | Opening dialogue | [`before/opening-dialogue.png`](overhaul-evidence/before/opening-dialogue.png) | [`after/opening-dialogue.png`](overhaul-evidence/after/opening-dialogue.png) | Both are real game screens; current capture is on a fresh Normal route. |
-| Exploration | [`before/opening-world.png`](overhaul-evidence/before/opening-world.png) | [`after/opening-world.png`](overhaul-evidence/after/opening-world.png) | Real map view before and after; expanded map set is in `tests/logs/screens/playthrough/map-*.png`. |
+| Exploration | [`before/opening-world.png`](overhaul-evidence/before/opening-world.png) | [`after/opening-world.png`](overhaul-evidence/after/opening-world.png), [all 12 regional maps](overhaul-evidence/after/world-maps/) | Twelve actual Phaser map captures are preserved under `after/world-maps/`. The six terrain-final review shots use an earned-save visual fixture; they inspect art and interactions only, not campaign progression. The full set was also captured during fresh Normal progression. |
 | Menu / abilities | [`before/abilities-menu.png`](overhaul-evidence/before/abilities-menu.png) | [`after/main-menu.png`](overhaul-evidence/after/main-menu.png) | Actual menu panel; wider coverage is in the 3-viewport `docs/ui-evidence/menu-*.png` set. |
 | Battle input | [`before/battle-input-pre-balance.png`](overhaul-evidence/before/battle-input-pre-balance.png) | [`after/battle-input.png`](overhaul-evidence/after/battle-input.png) | Before shows Attack `+3 Ki` / Guard `+8 Ki`; current P01 is a fresh-game capture after the offensive resource rebalance. |
 | Target selection | [`before/target-selection-ui-only.png`](overhaul-evidence/before/target-selection-ui-only.png) | [`after/target-selection.png`](overhaul-evidence/after/target-selection.png) | Before is overlay-only; after shows the live P01 Phaser target marker and HP rows. |
@@ -44,6 +44,28 @@ This index preserves a concise before/after review set for the M0 baseline and a
 | Compact reduced-motion battle | [`after/gohan-cell-reduced-motion-compact.png`](overhaul-evidence/after/gohan-cell-reduced-motion-compact.png) | Real G05 battle at 1024x600 with reduced motion enabled; HUD and both combatants remain visible. |
 | Android 19 Ki absorption | [`after/android-19-absorbs-galick-gun.png`](overhaul-evidence/after/android-19-absorbs-galick-gun.png) | Fresh Normal New Game reaches the real A04 encounter; Vegeta fires Galick Gun while Android 19's absorption stance is active. The visible green drain cue and ABSORBED callout appear at impact while Android 19 remains at 446 HP. |
 | Remaining pilot beats | [`after/guard-perfect.png`](overhaul-evidence/after/guard-perfect.png), [`after/guard-miss.png`](overhaul-evidence/after/guard-miss.png), [`after/target-selection.png`](overhaul-evidence/after/target-selection.png), [`after/miss-evasion-contact.png`](overhaul-evidence/after/miss-evasion-contact.png), [`after/father-son-finale-in-game.png`](overhaul-evidence/after/father-son-finale-in-game.png), [`after/cell-absorbs-18-in-game.png`](overhaul-evidence/after/cell-absorbs-18-in-game.png) | Real guard success/failure, target move, enemy evade/hit response, Father-Son Kamehameha and a story-triggered Cell mini-cutscene complete the capture matrix. |
+
+
+## Batch D: twelve-region map review
+
+Each image is a 1280 by 720 render from the production Phaser scene. The fresh Normal progression reached beat 23 and captured all twelve regions after the first local movement (27 wins, 1 retry defeat), with 0 page errors and 0 external requests. Six final ground-treatment images were refreshed with an earned-save map-view fixture after the last terrain edits; the fixture changed only map/position for visual review and is not used as story-completion evidence.
+
+| Region | Capture |
+|---|---|
+| Future Landing | [`landing_future.png`](overhaul-evidence/after/world-maps/landing_future.png) |
+| Capsule Corporation | [`capsule_corp.png`](overhaul-evidence/after/world-maps/capsule_corp.png) |
+| South City | [`south_city.png`](overhaul-evidence/after/world-maps/south_city.png) |
+| Rocky Outskirts | [`rocky_outskirts.png`](overhaul-evidence/after/world-maps/rocky_outskirts.png) |
+| Mountain Lab | [`mountain_lab.png`](overhaul-evidence/after/world-maps/mountain_lab.png) |
+| Android Laboratory | [`lab_inner.png`](overhaul-evidence/after/world-maps/lab_inner.png) |
+| Ginger Town | [`gingertown.png`](overhaul-evidence/after/world-maps/gingertown.png) |
+| Kami's Lookout | [`lookout.png`](overhaul-evidence/after/world-maps/lookout.png) |
+| Android Island | [`android_island.png`](overhaul-evidence/after/world-maps/android_island.png) |
+| Room of Spirit and Time | [`time_chamber.png`](overhaul-evidence/after/world-maps/time_chamber.png) |
+| Cell Games Approach | [`cell_games_approach.png`](overhaul-evidence/after/world-maps/cell_games_approach.png) |
+| Cell Games Arena | [`cell_games_arena.png`](overhaul-evidence/after/world-maps/cell_games_arena.png) |
+
+Chest persistence was exercised in the real Phaser scene: opened `ch_ro1`, saved to slot 0, reloaded, and verified the state remained empty. The rendered after-load view is [`chest-open-after-load.png`](overhaul-evidence/after/world-maps/chest-open-after-load.png); browser errors and external requests were both zero.
 
 ## Generated-art technical review
 

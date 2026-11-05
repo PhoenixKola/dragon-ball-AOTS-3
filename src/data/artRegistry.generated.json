@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T19:23:14+00:00",
+ "generatedAt": "2026-11-05T21:32:26+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -17427,6 +17427,26 @@
    "visible": 2811,
    "w": 66
   },
+  "flyer": {
+   "bbox": [
+    46,
+    3,
+    187,
+    177
+   ],
+   "displayHeight": 62,
+   "facing": "front",
+   "feet": [
+    139,
+    180
+   ],
+   "h": 186,
+   "note": "native Codex-generated Capsule Flyer; replaces missing purple travel marker; pending human art review",
+   "path": "assets/objects/flyer.png",
+   "quality": "genuine",
+   "visible": 19586,
+   "w": 275
+  },
   "heal": {
    "bbox": [
     0,
@@ -17486,6 +17506,26 @@
    "quality": "genuine",
    "visible": 21511,
    "w": 210
+  },
+  "sign": {
+   "bbox": [
+    0,
+    8,
+    80,
+    135
+   ],
+   "displayHeight": 48,
+   "facing": "front",
+   "feet": [
+    40,
+    143
+   ],
+   "h": 144,
+   "note": "native Codex-generated overworld guidance sign; replaces geometric sign stand-ins; pending human art review",
+   "path": "assets/objects/sign.png",
+   "quality": "genuine",
+   "visible": 5608,
+   "w": 96
   }
  },
  "skillIcons": {
@@ -21191,7 +21231,7 @@
     }
    ],
    "mapId": "android_island",
-   "note": "Tropical island + Red-Ribbon-style bunker ruins; two backdrop strips. Battle panoramas curated from the regional handoff atlas.",
+   "note": "Tropical island + Red-Ribbon-style bunker ruins; two backdrop strips. Battle panoramas curated from the regional handoff atlas. Native-generated floor ground variations integrated; source is pending human review.",
    "props": {
     "boulders": {
      "footH": 1,
@@ -21428,6 +21468,14 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/android_island/tiles/native-floor-0.png",
+     "assets/worlds/android_island/tiles/native-floor-1.png",
+     "assets/worlds/android_island/tiles/native-floor-2.png",
+     "assets/worlds/android_island/tiles/native-floor-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/android_island/tiles/edge.png",
     "floor": "assets/worlds/android_island/tiles/floor.png",
@@ -21460,7 +21508,7 @@
     }
    ],
    "mapId": "capsule_corp",
-   "note": "Capsule Corporation grounds; hub. Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas.",
+   "note": "Capsule Corporation grounds; hub. Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas. Native-generated floor2 ground variations integrated; source is pending human review. Native-generated floor ground variations integrated; source is pending human review. Native-generated path ground variations integrated; source is pending human review.",
    "props": {
     "bench": {
      "footH": 1,
@@ -21649,11 +21697,29 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/capsule_corp/tiles/native-floor-0.png",
+     "assets/worlds/capsule_corp/tiles/native-floor-1.png",
+     "assets/worlds/capsule_corp/tiles/native-floor-2.png",
+     "assets/worlds/capsule_corp/tiles/native-floor-3.png"
+    ],
+    "floor2": [
+     "assets/worlds/capsule_corp/tiles/native-floor2-1.png",
+     "assets/worlds/capsule_corp/tiles/native-floor2-2.png",
+     "assets/worlds/capsule_corp/tiles/native-floor2-3.png"
+    ],
+    "path": [
+     "assets/worlds/capsule_corp/tiles/native-path-1.png",
+     "assets/worlds/capsule_corp/tiles/native-path-2.png",
+     "assets/worlds/capsule_corp/tiles/native-path-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/capsule_corp/tiles/edge.png",
     "floor": "assets/worlds/capsule_corp/tiles/floor.png",
-    "floor2": "assets/worlds/capsule_corp/tiles/floor2.png",
-    "path": "assets/worlds/capsule_corp/tiles/path.png",
+    "floor2": "assets/worlds/capsule_corp/tiles/native-floor2-0.png",
+    "path": "assets/worlds/capsule_corp/tiles/native-path-0.png",
     "wall": "assets/worlds/capsule_corp/tiles/wall.png",
     "water": "assets/worlds/capsule_corp/tiles/water.png"
    }
@@ -21998,7 +22064,7 @@
     }
    ],
    "mapId": "cell_games_arena",
-   "note": "Cell Games arena: ring tiles from the real tile block, stands, obelisks. Shares source sheet with the approach (documented reuse). Battle panoramas curated from the regional handoff atlas.",
+   "note": "Cell Games arena: ring tiles from the real tile block, stands, obelisks. Shares source sheet with the approach (documented reuse). Battle panoramas curated from the regional handoff atlas. Native-generated floor ground variations integrated; source is pending human review.",
    "props": {
     "announcer_stage": {
      "footH": 1,
@@ -22219,10 +22285,22 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/cell_games_arena/tiles/native-floor-1.png",
+     "assets/worlds/cell_games_arena/tiles/native-floor-2.png",
+     "assets/worlds/cell_games_arena/tiles/native-floor-3.png"
+    ],
+    "floor2": [
+     "assets/worlds/cell_games_arena/tiles/native-floor-1.png",
+     "assets/worlds/cell_games_arena/tiles/native-floor-2.png",
+     "assets/worlds/cell_games_arena/tiles/native-floor-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/cell_games_arena/tiles/edge.png",
-    "floor": "assets/worlds/cell_games_arena/tiles/floor.png",
-    "floor2": "assets/worlds/cell_games_arena/tiles/floor2.png",
+    "floor": "assets/worlds/cell_games_arena/tiles/native-floor-0.png",
+    "floor2": "assets/worlds/cell_games_arena/tiles/native-floor-0.png",
     "path": "assets/worlds/cell_games_arena/tiles/path.png",
     "wall": "assets/worlds/cell_games_arena/tiles/wall.png",
     "water": "assets/worlds/cell_games_arena/tiles/water.png"
@@ -22569,7 +22647,7 @@
     }
    ],
    "mapId": "lab_inner",
-   "note": "Gero laboratory interior; floor tiles are cut from the 4x4 metal-floor block (genuine tile grid). Battle panoramas curated from the regional handoff atlas.",
+   "note": "Gero laboratory interior; floor tiles are cut from the 4x4 metal-floor block (genuine tile grid). Battle panoramas curated from the regional handoff atlas. Native-generated path ground variations integrated; source is pending human review.",
    "props": {
     "android_pod": {
      "footH": 1,
@@ -22838,11 +22916,28 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/lab_inner/tiles/native-path-1.png",
+     "assets/worlds/lab_inner/tiles/native-path-2.png",
+     "assets/worlds/lab_inner/tiles/native-path-3.png"
+    ],
+    "floor2": [
+     "assets/worlds/lab_inner/tiles/native-path-1.png",
+     "assets/worlds/lab_inner/tiles/native-path-2.png",
+     "assets/worlds/lab_inner/tiles/native-path-3.png"
+    ],
+    "path": [
+     "assets/worlds/lab_inner/tiles/native-path-1.png",
+     "assets/worlds/lab_inner/tiles/native-path-2.png",
+     "assets/worlds/lab_inner/tiles/native-path-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/lab_inner/tiles/edge.png",
-    "floor": "assets/worlds/lab_inner/tiles/floor.png",
-    "floor2": "assets/worlds/lab_inner/tiles/floor2.png",
-    "path": "assets/worlds/lab_inner/tiles/path.png",
+    "floor": "assets/worlds/lab_inner/tiles/native-path-0.png",
+    "floor2": "assets/worlds/lab_inner/tiles/native-path-0.png",
+    "path": "assets/worlds/lab_inner/tiles/native-path-0.png",
     "wall": "assets/worlds/lab_inner/tiles/wall.png",
     "water": "assets/worlds/lab_inner/tiles/water.png"
    }
@@ -23124,7 +23219,7 @@
     }
    ],
    "mapId": "lookout",
-   "note": "Kami's Lookout. Shares one source sheet with time_chamber (documented reuse); sky-and-clouds backdrop. Battle panoramas curated from the regional handoff atlas.",
+   "note": "Kami's Lookout. Shares one source sheet with time_chamber (documented reuse); sky-and-clouds backdrop. Battle panoramas curated from the regional handoff atlas. Native-generated water ground variations integrated; source is pending human review.",
    "props": {
     "balustrade": {
      "footH": 1,
@@ -23337,6 +23432,14 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "water": [
+     "assets/worlds/lookout/tiles/native-water-0.png",
+     "assets/worlds/lookout/tiles/native-water-1.png",
+     "assets/worlds/lookout/tiles/native-water-2.png",
+     "assets/worlds/lookout/tiles/native-water-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/lookout/tiles/edge.png",
     "floor": "assets/worlds/lookout/tiles/floor.png",
@@ -23388,7 +23491,7 @@
     }
    ],
    "mapId": "mountain_lab",
-   "note": "Gero mountain exterior; backdrop is the lab gate vista (also contains the lab gate). Battle panoramas curated from the regional handoff atlas.",
+   "note": "Gero mountain exterior; backdrop is the lab gate vista (also contains the lab gate). Battle panoramas curated from the regional handoff atlas. Native-generated floor2 ground variations integrated; source is pending human review.",
    "props": {
     "barrel_blue": {
      "footH": 1,
@@ -23641,10 +23744,22 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/mountain_lab/tiles/native-floor2-1.png",
+     "assets/worlds/mountain_lab/tiles/native-floor2-2.png",
+     "assets/worlds/mountain_lab/tiles/native-floor2-3.png"
+    ],
+    "floor2": [
+     "assets/worlds/mountain_lab/tiles/native-floor2-1.png",
+     "assets/worlds/mountain_lab/tiles/native-floor2-2.png",
+     "assets/worlds/mountain_lab/tiles/native-floor2-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/mountain_lab/tiles/edge.png",
-    "floor": "assets/worlds/mountain_lab/tiles/floor.png",
-    "floor2": "assets/worlds/mountain_lab/tiles/floor2.png",
+    "floor": "assets/worlds/mountain_lab/tiles/native-floor2-0.png",
+    "floor2": "assets/worlds/mountain_lab/tiles/native-floor2-0.png",
     "path": "assets/worlds/mountain_lab/tiles/path.png",
     "wall": "assets/worlds/mountain_lab/tiles/wall.png",
     "water": "assets/worlds/mountain_lab/tiles/water.png"
@@ -23768,7 +23883,7 @@
     }
    ],
    "mapId": "rocky_outskirts",
-   "note": "Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk). Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas.",
+   "note": "Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk). Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas. Native-generated floor ground variations integrated; source is pending human review.",
    "props": {
     "bush": {
      "footH": 1,
@@ -23957,10 +24072,22 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/rocky_outskirts/tiles/native-floor-1.png",
+     "assets/worlds/rocky_outskirts/tiles/native-floor-2.png",
+     "assets/worlds/rocky_outskirts/tiles/native-floor-3.png"
+    ],
+    "floor2": [
+     "assets/worlds/rocky_outskirts/tiles/native-floor-1.png",
+     "assets/worlds/rocky_outskirts/tiles/native-floor-2.png",
+     "assets/worlds/rocky_outskirts/tiles/native-floor-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/rocky_outskirts/tiles/edge.png",
-    "floor": "assets/worlds/rocky_outskirts/tiles/floor.png",
-    "floor2": "assets/worlds/rocky_outskirts/tiles/floor2.png",
+    "floor": "assets/worlds/rocky_outskirts/tiles/native-floor-0.png",
+    "floor2": "assets/worlds/rocky_outskirts/tiles/native-floor-0.png",
     "path": "assets/worlds/rocky_outskirts/tiles/path.png",
     "wall": "assets/worlds/rocky_outskirts/tiles/wall.png",
     "water": "assets/worlds/rocky_outskirts/tiles/water.png"
@@ -24269,7 +24396,7 @@
     }
    ],
    "mapId": "time_chamber",
-   "note": "Hyperbolic Time Chamber: white void floor; shares the lookout source sheet (documented reuse); backdrop is the white-void panel. Battle panoramas curated from the regional handoff atlas.",
+   "note": "Hyperbolic Time Chamber: white void floor; shares the lookout source sheet (documented reuse); backdrop is the white-void panel. Battle panoramas curated from the regional handoff atlas. Native-generated floor ground variations integrated; source is pending human review.",
    "props": {
     "arch_door": {
      "footH": 1,
@@ -24402,11 +24529,28 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/time_chamber/tiles/native-floor-1.png",
+     "assets/worlds/time_chamber/tiles/native-floor-2.png",
+     "assets/worlds/time_chamber/tiles/native-floor-3.png"
+    ],
+    "floor2": [
+     "assets/worlds/time_chamber/tiles/native-floor-1.png",
+     "assets/worlds/time_chamber/tiles/native-floor-2.png",
+     "assets/worlds/time_chamber/tiles/native-floor-3.png"
+    ],
+    "path": [
+     "assets/worlds/time_chamber/tiles/native-floor-1.png",
+     "assets/worlds/time_chamber/tiles/native-floor-2.png",
+     "assets/worlds/time_chamber/tiles/native-floor-3.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/time_chamber/tiles/edge.png",
-    "floor": "assets/worlds/time_chamber/tiles/floor.png",
-    "floor2": "assets/worlds/time_chamber/tiles/floor2.png",
-    "path": "assets/worlds/time_chamber/tiles/path.png",
+    "floor": "assets/worlds/time_chamber/tiles/native-floor-0.png",
+    "floor2": "assets/worlds/time_chamber/tiles/native-floor-0.png",
+    "path": "assets/worlds/time_chamber/tiles/native-floor-0.png",
     "wall": "assets/worlds/time_chamber/tiles/wall.png",
     "water": "assets/worlds/time_chamber/tiles/water.png"
    }

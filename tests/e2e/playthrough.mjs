@@ -6,6 +6,7 @@ import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { launch, shot, snap } from './lib.mjs';
 
 const POLICY = process.env.POLICY || 'attentive';
+const CAPTURE_MAPS_ONLY = process.env.CAPTURE_MAPS_ONLY === '1';
 const PROB = { attentive: [0.55, 0.35], average: [0.15, 0.45], occasional: [0.1, 0.25], noguard: [0, 0] }[POLICY] || [0.55, 0.35];
 const MAX_MIN = Number(process.env.MAX_MIN || 40);
 const t0 = Date.now();
@@ -42,6 +43,7 @@ let pilotG05 = 0;
 const shotBattles = new Set();
 const jitterDone = new Set();
 const seenMaps = new Set();
+let pendingMapCapture = null;
 const seenKeyframes = new Set();
 const beatLog = [];
 // Match the headless WorldBot's ordinary supply stops on the no-guard route.
@@ -258,7 +260,13 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
   }
   if (game.beat >= 30 && !process.env.POSTGAME) { L('STORY COMPLETE'); break; }
   if (process.env.POSTGAME && game.postgame.records.SIM_JUNIORS) { L('POSTGAME SIM CLEARED ' + JSON.stringify(game.postgame.records)); break; }
-  if (!seenMaps.has(game.mapId)) { seenMaps.add(game.mapId); await shot(page, `map-${game.mapId}`, 'tests/logs/screens/playthrough'); }
+  if (!seenMaps.has(game.mapId)) {
+    seenMaps.add(game.mapId);
+    // Wait for the asynchronous Phaser map textures and eased camera follow to
+    // settle before preserving the first moving gameplay frame.
+    await page.waitForTimeout(900);
+    pendingMapCapture = game.mapId;
+  }
   const visit = `${game.mapId}:${game.beat}`;
   const shopId = POLICY === 'noguard' ? SHOPS[game.mapId] : null;
   const goal = shopId && !shopped.has(visit)
@@ -283,9 +291,19 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
   };
   if (goal.kind === 'walk') {
     const d = await page.evaluate(([x, y]) => window.__AOTS__.dirTo(x, y), [goal.x, goal.y]);
-    if (!d || d.blocked) { L('blocked walking: ' + JSON.stringify(goal)); stuck += 10; await release(); await page.waitForTimeout(100); continue; }
+    if (!d || d.blocked) {
+      L('blocked walking: ' + JSON.stringify(goal)); stuck += 10; await release(); await page.waitForTimeout(100);
+      if (pendingMapCapture) { await shot(page, `map-${pendingMapCapture}`, 'tests/logs/screens/playthrough'); pendingMapCapture = null; }
+      continue;
+    }
     await setKeys(keysFor(d));
     await page.waitForTimeout(70);
+    if (pendingMapCapture) {
+      await page.waitForTimeout(160);
+      await shot(page, `map-${pendingMapCapture}`, 'tests/logs/screens/playthrough');
+      pendingMapCapture = null;
+      if (CAPTURE_MAPS_ONLY && seenMaps.size === 12) { L(`ALL TWELVE MAPS CAPTURED: ${[...seenMaps].join(', ')}`); break; }
+    }
     continue;
   }
   if (goal.kind === 'interact') {
@@ -296,6 +314,12 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
       const d = await page.evaluate(([x, y]) => window.__AOTS__.dirTo(x, y), [sp.x, sp.y]);
       await setKeys(keysFor(d));
       await page.waitForTimeout(70);
+      if (pendingMapCapture) {
+        await page.waitForTimeout(160);
+        await shot(page, `map-${pendingMapCapture}`, 'tests/logs/screens/playthrough');
+        pendingMapCapture = null;
+        if (CAPTURE_MAPS_ONLY && seenMaps.size === 12) { L(`ALL TWELVE MAPS CAPTURED: ${[...seenMaps].join(', ')}`); break; }
+      }
       continue;
     }
     await release();
@@ -303,6 +327,11 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
     await page.keyboard.down(toward);
     await page.waitForTimeout(90);
     await page.keyboard.up(toward);
+    if (pendingMapCapture) {
+      await shot(page, `map-${pendingMapCapture}`, 'tests/logs/screens/playthrough');
+      pendingMapCapture = null;
+      if (CAPTURE_MAPS_ONLY && seenMaps.size === 12) { L(`ALL TWELVE MAPS CAPTURED: ${[...seenMaps].join(', ')}`); break; }
+    }
     await page.keyboard.press('KeyE');
     await page.waitForTimeout(250);
     const s2 = await snap(page);
@@ -325,4 +354,4 @@ L('external requests: ' + JSON.stringify(external));
 mkdirSync('tests/logs', { recursive: true });
 writeFileSync(`tests/logs/e2e-playthrough-${POLICY}.json`, JSON.stringify({ policy: POLICY, final, beatLog, errors: t.errors, externalRequests: external, minutes: (Date.now() - t0) / 60000, log }, null, 1));
 await t.close();
-process.exit(final.beat >= 30 || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_ABSORB && absorbCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) ? 0 : 1);
+process.exit(final.beat >= 30 || (CAPTURE_MAPS_ONLY && seenMaps.size === 12 && !t.errors.length && !external.length) || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_ABSORB && absorbCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) ? 0 : 1);

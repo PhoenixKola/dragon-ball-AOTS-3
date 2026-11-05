@@ -12,6 +12,7 @@ import { BEAT_INDEX } from '../../data/story';
 
 const ALIAS = aliasJson as Record<string, Record<string, string>>;
 const TILE = 32;
+const FOLLOW_LERP = 0.18;
 type TileClass = 'floor' | 'floor2' | 'path' | 'wall' | 'water' | 'edge';
 const TILE_KEYS: Record<string, TileClass> = { '.': 'floor', ',': 'floor2', '=': 'path', '#': 'wall', '~': 'water', ':': 'edge' };
 const TILE_FALLBACK: Record<string, number> = { '.': 0x6a7a56, ',': 0x627250, '=': 0x9a8a6a, '#': 0x3a3a48, '~': 0x2a5a9a, ':': 0x7a7a6a };
@@ -94,7 +95,9 @@ export class WorldScene extends Phaser.Scene {
     this.buildSurvivorFollower(sim);
     this.buildWeather(sim);
     this.cameras.main.setBounds(0, 0, map.width * TILE, map.height * TILE);
-    this.cameras.main.startFollow(this.player!, true, 1, 1);
+    // Keep the camera round-pixel crisp while easing just enough to avoid a
+    // hard snap when the player changes direction or enters a new map.
+    this.cameras.main.startFollow(this.player!, true, FOLLOW_LERP, FOLLOW_LERP);
     this.cameras.main.centerOn(sim.px, sim.py - 16);
     this.loading = false;
   }
@@ -246,20 +249,31 @@ export class WorldScene extends Phaser.Scene {
       case 'travel': {
         const x = (e as PointEntity).x;
         const y = (e as PointEntity).y;
-        const img = this.objectImage('flyer', x, y + 4, 34);
+        const img = this.objectImage('flyer', x, y + 4, registry.objects?.flyer?.displayHeight ?? 48)
+          ?? this.worldPropImage(['capsule_car', 'hovercar', 'truck'], x, y + 4, 44);
         if (!img) return this.marker(e, 0xb06aff, 'FLYER');
-        const label = this.add2(this.add.text(x, y - img.displayHeight - 2, 'FLYER', { fontFamily: 'monospace', fontSize: '10px', color: '#ffffff', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1).setDepth(y + 2));
+        const label = this.add2(this.add.text(x, y - img.displayHeight - 2, (e as PointEntity).label ?? 'CAPSULE FLYER', { fontFamily: 'monospace', fontSize: '10px', color: '#ffffff', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1).setDepth(y + 2));
         return { e, obj: img, label };
       }
-      case 'terminal': return this.marker(e, 0x9aa6b8, '');
-      case 'lever': return this.marker(e, 0xd9b04a, '');
-      case 'sign': return this.marker(e, 0xa87a4a, '');
+      case 'terminal': return this.interactiveProp(e, ['terminal', 'computer', 'console', 'machine'], 38, 0x9aa6b8);
+      case 'lever': return this.interactiveProp(e, ['lever', 'console', 'machine', 'terminal'], 38, 0xd9b04a);
+      case 'sign': {
+        const p = e as PointEntity;
+        const img = this.mapId === 'lab_inner'
+          ? this.worldPropImage(['wall_panel', 'wall_terminal'], p.x, p.y + 4, 42)
+          : this.objectImage('sign', p.x, p.y + 4, registry.objects?.sign?.displayHeight ?? 44)
+            ?? this.worldPropImage(['sign'], p.x, p.y + 4, 42);
+        return img ? { e, obj: img } : this.marker(e, 0xa87a4a, '');
+      }
       case 'pickup': {
-        const img = this.objectImage('pickup', (e as PointEntity).x, (e as PointEntity).y + 4, 30);
-        return img ? { e, obj: img } : this.marker(e, 0xffe14d, '');
+        const p = e as PointEntity;
+        const img = this.worldPropImage(['crate', 'chest', 'crate_green', 'crate_yellow', 'crate_red'], p.x, p.y + 4, 34);
+        return img ? { e, obj: img, label: this.entityLabel(p, img, p.label ?? 'SUPPLIES') } : this.marker(e, 0xffe14d, '');
       }
       case 'door': {
         const d = e as PointEntity;
+        const img = this.worldPropImage(['lab_gate', 'wall_door', 'elevator_door', 'lab_gate_open'], d.x + ((d.w ?? 1) * TILE) / 2, d.y + ((d.h ?? 1) * TILE), 46);
+        if (img) return { e, obj: img };
         const r = this.add2(this.add.rectangle(d.x, d.y, (d.w ?? 1) * TILE, (d.h ?? 1) * TILE, 0x2b2f3a).setOrigin(0, 0).setStrokeStyle(2, 0x9aa6b8).setDepth(d.y + 30));
         return { e, obj: r };
       }
@@ -276,6 +290,33 @@ export class WorldScene extends Phaser.Scene {
     const img = this.add2(this.add.image(x, y, tex).setOrigin(o.feet[0] / o.w, o.feet[1] / o.h).setDepth(y));
     img.setScale(displayH / o.h);
     return img;
+  }
+
+  /** Use the current region's illustrated map prop for a visible interaction. */
+  private worldPropImage(candidates: string[], x: number, y: number, displayH: number): Phaser.GameObjects.Image | null {
+    const props = getWorld(this.mapId)?.props;
+    for (const name of candidates) {
+      const ref = props?.[name];
+      const key = `prop:${this.mapId}:${name}`;
+      if (!ref || !this.textures.exists(key)) continue;
+      const img = this.add2(this.add.image(x, y, key).setOrigin(0.5, 1).setDepth(y));
+      img.setScale(displayH / Math.max(1, ref.h));
+      return img;
+    }
+    return null;
+  }
+
+  private entityLabel(e: PointEntity, img: Phaser.GameObjects.Image, fallback = ''): Phaser.GameObjects.Text | undefined {
+    const text = e.label?.trim() || fallback.trim();
+    if (!text) return undefined;
+    return this.add2(this.add.text(e.x, e.y - img.displayHeight - 2, text, { fontFamily: 'monospace', fontSize: '10px', color: '#ffffff', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1).setDepth(e.y + 2));
+  }
+
+  private interactiveProp(e: Entity, candidates: string[], height: number, color: number): Visual {
+    const p = e as PointEntity;
+    const img = this.worldPropImage(candidates, p.x, p.y + 4, height);
+    if (!img) return this.marker(e, color, p.label ?? '');
+    return { e, obj: img, label: this.entityLabel(p, img, p.label ?? '') };
   }
 
   private building(e: Entity, key: string, color: number, text: string): Visual {
