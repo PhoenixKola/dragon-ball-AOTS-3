@@ -20,7 +20,10 @@ art/patch/
 # generated test evidence that is large or regenerable
 tests/logs/screens/
 tests/logs/saves/
-docs/art-evidence/_tmp_*
+# Generated contact sheets/lineups are large local review aids; the compact
+# curated before/after set lives under docs/overhaul-evidence instead.
+docs/art-evidence/*
+!docs/art-evidence/MAP_ART_INDEX.md
 tests/tmp/
 
 # local/editor files

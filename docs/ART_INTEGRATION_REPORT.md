@@ -1,6 +1,6 @@
 # Art integration report
 
-Reproducible: `python tools/build_art.py` (heroes ~75s). Inputs: `art/source` (bundle copy). Outputs: `public/assets/**`, `src/data/artRegistry.generated.json` (schema `src/data/artTypes.ts`).
+Reproducible: `python tools/build_art.py` (heroes ~75s). Inputs: `art/source` (bundle copy). Outputs: `public/assets/**`, `src/data/artRegistry.generated.json` (schema `src/data/artTypes.ts`). Generated contact sheets and proportion lineups under `docs/art-evidence/` are local review aids and are intentionally excluded from GitHub source ZIPs; the compact curated capture set is indexed in `docs/OVERHAUL_VISUAL_EVIDENCE_INDEX.md`.
 
 ## Method
 
@@ -113,7 +113,7 @@ revive_seed, antidote, power_charm, guard_charm, anti_drain_charm, speed_charm, 
 
 - `python tools/audit_assets_bundle.py` -> tests/logs/art-audit.log (426 files, 0 errors; integrity only).
 - `python tools/audit_assets.py` -> tests/logs/art-runtime-audit.log (955 registry frames: files exist, sizes, visible>0, feet in bbox, no approved flags, 48 required actors, 12 worlds, 84 icons, no orphan PNGs).
-- Contact sheets in docs/art-evidence/ were viewed for heroes, enemies, NPCs, all 12 worlds and VFX.
+- Local generated contact sheets were viewed for heroes, enemies, NPCs, all 12 worlds and VFX.
 
 ## Known visual issues
 - SSJ/Kami hero battle poses touch the PNG edge (source cell clipping) - sprites may look cut at limbs/hair/aura.
