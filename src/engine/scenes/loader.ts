@@ -72,6 +72,7 @@ export function mapAssetList(mapId: string): { key: string; path: string }[] {
   for (const [cls, path] of Object.entries(w.tiles)) if (path) out.push({ key: `tile:${mapId}:${cls}`, path });
   for (const [name, p] of Object.entries(w.props)) out.push({ key: `prop:${mapId}:${name}`, path: p.path });
   w.backdrops.forEach((b, i) => out.push({ key: `bd:${mapId}:${i}`, path: b.path }));
+  if (w.weatherOverlay) out.push({ key: `weather:${mapId}`, path: w.weatherOverlay });
   return out;
 }
 export const ensureMap = (scene: Phaser.Scene, mapId: string) => loadImages(scene, mapAssetList(mapId));

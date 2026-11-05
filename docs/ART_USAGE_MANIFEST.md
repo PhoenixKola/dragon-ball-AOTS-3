@@ -4,7 +4,7 @@
 
 The generated registry (`src/data/artRegistry.generated.json`) is the authority for individual frame provenance, quality, and `provisional` / `approved` flags. The pipeline now applies `art/handoff`, `art/handoff2`, and `art/patch` in `tools/build_art.py`. The earlier summary table below records the first handoff pass and is retained for its technical notes; its claims that NPC, villain, regular-enemy, and base-hero replacement sheets are **not integrated** are superseded. Those sheets were integrated in the RC2 pass described in `FINAL_PASS_NOTES.md`.
 
-Current remaining gaps: world tiles and VFX have not had the handoff replacement pass; landing-security is derived from the armored sentinel; Gohan's wounded battle poses use the handoff sheet but the overworld walk reuses Gohan base; painted cutscene frames are absent. Registry entries still have `approved=false` pending human art review. Source quality (`genuine` or `derived`) and human approval are separate fields.
+Current remaining gaps: NPC/enemy handoff sheets and curated actor sheets are integrated; the 12-region tile sets still use the existing source-bundle-derived treatment and most VFX still come from source-bundle variant sheets. Landing-security remains derived from the armored sentinel; Gohan's wounded battle poses use the handoff sheet but the overworld walk reuses base Gohan. Seven native-generated story keyframes are now integrated; other cutscenes remain actor/VFX choreography. Registry entries still have `approved=false` pending human art review. Source quality (`genuine` or `derived`) and human approval are separate fields.
 
 | Category | Source (art/handoff) | Registry output | Status |
 |---|---|---|---|
@@ -12,11 +12,11 @@ Current remaining gaps: world tiles and VFX have not had the handoff replacement
 | Item icons (37 ids) | ui_and_icons/item_icon_atlas.png | itemIcons -> assets/ui/items | cut per natural row segment (atlas is not a uniform grid) |
 | uiIcons (46) | skill_status atlas, compact_combat_ui_atlas, targeting atlas | status-<kind> (all 32 StatusKinds), cmd-*, cursor-* | seal = lock glyph, atkDown/defDown/spdDown derived (flip/red badge) |
 | Hero forms | heroes/forms + story_variants | gohan-ssj, gohan-ssj2, gohan-training, vegeta-ascended, trunks-ultra, goku-weakened, cell-junior, cell-super-perfect | genuine crops of handoff sheets (replaced derived art) |
-| Base heroes, other actors, NPCs, minions | art/source bundle + procedural (unchanged) | unchanged | NOT yet replaced by handoff sheets |
-| Worlds, VFX | art/source bundle (unchanged) | unchanged | NOT yet re-done from handoff worlds/ vfx/ |
-| cinematics/storyboard | reference only | not shipped | - |
+| Base heroes, other actors, NPCs, minions | art/handoff + art/handoff2, with source-bundle fallback actors | `heroes`, `npcs`, `enemies` | handoff sheets integrated; explicit procedural fallbacks remain for missing actors |
+| Worlds, VFX | art/source bundle; generated Ginger Town battle stage | `worlds`, `vfx` | world tile sets remain derived; VFX include temporal sequences and variant pulses |
+| Cinematics/storyboard | native-generated candidate keyframes | `assets/cinematics/*` | 7 wide candidate stills integrated; remaining scenes use in-engine direction; human review pending |
 
-Other handoff sheets (npcs, villains_bosses, regular_enemies, heroes/base, worlds, vfx) are not integrated in this pass; see docs/MISSING_OR_PROVISIONAL_ART.md.
+See `docs/MISSING_OR_PROVISIONAL_ART.md` for remaining derived and fallback art.
 
 ## Patch pass (art/patch/art/**, tools/art_patch.py)
 

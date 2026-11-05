@@ -184,7 +184,7 @@ export class BattleDirector {
     const slot = Math.max(1, heroes.findIndex((h) => h.uid === p.targetUid) + 1);
     if (!this.tutorialsSeen.has('tut:guard') && this.host.settings().showTutorials) {
       this.tutorialsSeen.add('tut:guard');
-      this.pushView({ phase: 'guard', tutorial: 'Active Guard: when an enemy attack is about to land on a fighter, press that fighter\'s number key (1/2/3 — or X/Y/RB on a gamepad, or the on-screen button) just as the ring closes. Good = half damage, Perfect = almost none. It also builds Rage!' });
+      this.pushView({ phase: 'guard', tutorial: 'Active Guard: time one press for the targeted fighter as the ring closes. One successful guard covers that enemy move’s full multi-hit combo. Good cuts damage and Perfect nearly stops it; both build Rage. You can also attack, use support, or Defend on your own turn.' });
       await this.host.tutorial('tut:guard', '');
       this.pushView({ tutorial: null });
     }

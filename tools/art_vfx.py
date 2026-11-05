@@ -64,6 +64,7 @@ add('slash', 'slash', [('ML', 54), ('ML', 55), ('ML', 56), ('ML', 57)], note='or
 add('impact-hit', 'impact', [('ML', 106), ('ML', 107), ('ML', 108), ('ML', 109)], note='variants_not_sequence: blue hit-stars')
 add('impact-big', 'impact', [('BP', 6), ('BP', 20), ('BP', 33)], note='variants_not_sequence: blue/gold/purple big bursts')
 add('explosion', 'impact', [('AS', 80), ('AS', 81), ('AS', 79), ('AS', 78), ('AS', 68)], fps=12, note='ordered_growth (approx): fire explosions small->large')
+add('burst', 'impact', [('AS', 80), ('AS', 81), ('AS', 79), ('AS', 78), ('AS', 68)], fps=12, note='ordered_growth (approx): shared fire-burst sequence for wide-area Ki techniques')
 # --- auras / status
 add('aura-base', 'aura', [('BP', 121), ('BP', 122), ('BP', 119), ('BP', 120)], fps=10, loop=True, note='variants_not_sequence: blue ground flare')
 add('aura-ssj', 'aura', [('DB', 11), ('DB', 0), ('DB', 1), ('DB', 2)], fps=10, loop=True, note='variants_not_sequence: gold flame flares')

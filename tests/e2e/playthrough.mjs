@@ -6,7 +6,7 @@ import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { launch, shot, snap } from './lib.mjs';
 
 const POLICY = process.env.POLICY || 'attentive';
-const PROB = { attentive: [0.55, 0.35], average: [0.15, 0.45], noguard: [0, 0] }[POLICY] || [0.55, 0.35];
+const PROB = { attentive: [0.55, 0.35], average: [0.15, 0.45], occasional: [0.1, 0.25], noguard: [0, 0] }[POLICY] || [0.55, 0.35];
 const MAX_MIN = Number(process.env.MAX_MIN || 40);
 const t0 = Date.now();
 const t = await launch({ width: 1280, height: 720, port: 4181 });
@@ -38,6 +38,7 @@ let inBattle = false;
 const shotBattles = new Set();
 const jitterDone = new Set();
 const seenMaps = new Set();
+const seenKeyframes = new Set();
 const beatLog = [];
 // Match the headless WorldBot's ordinary supply stops on the no-guard route.
 // Purchases go through the shop UI, so this profile exercises the same economy as a player.
@@ -166,6 +167,15 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
     const label = s.choice.choices[idx >= 0 ? idx : s.choice.choices.length - 1];
     await page.getByRole('button', { name: new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').slice(0, 24)) }).first().click();
     continue;
+  }
+  if (s.screen === 'cutscene') {
+    const cut = await page.evaluate(() => window.__AOTS__.cutDebug());
+    const frameKey = `${cut.id}:${cut.step}`;
+    if (cut.kind === 'keyframe' && !seenKeyframes.has(frameKey)) {
+      seenKeyframes.add(frameKey);
+      await page.waitForTimeout(350);
+      await shot(page, `keyframe-${cut.id}-step-${String(cut.step).padStart(2, '0')}`, 'tests/logs/screens/playthrough');
+    }
   }
   if (s.card || s.screen === 'cutscene' || s.scriptActive || (await page.evaluate(() => window.__AOTS__.busy()))) { await release(); await page.waitForTimeout(150); continue; }
   const game = s.game;

@@ -1,3 +1,7 @@
+# 5 November 2026 status note
+
+The entries below describe historical RC1/RC2 evidence. They are not final acceptance of the requested complete gameplay/visual overhaul. See POLISH_RELEASE_REPORT.md for the current preview changes, executed checks and open gates.
+
 # Final acceptance matrix (RC1)
 
 Legend: **PASS (executed and evidenced)**, **PARTIAL**, **FAIL**, **BLOCKED**, **NOT RUN**. "Complete" is deliberately **not** claimed: art is provisional and several verification gates were not run.
@@ -36,3 +40,12 @@ Legend: **PASS (executed and evidenced)**, **PARTIAL**, **FAIL**, **BLOCKED**, *
 | 30 | No commit/push/deploy; original Namek project untouched | PASS | no git actions; Namek only read as reference |
 
 **Verdict:** a complete, playable offline RC with real exploration, 29 fights, the Cell Games finale and credits, verified by tests, a deterministic simulation and a real-browser run — but with provisional art throughout, and with Windows launcher, hardware gamepad, audio listening and human playtesting still to be done by a person. Not called "final".
+# 5 November 2026 status note
+
+The entries below describe historical RC1/RC2 evidence. They are not final acceptance of the requested complete gameplay/visual overhaul. See `POLISH_RELEASE_REPORT.md` for the current preview changes, executed checks and open gates.
+
+## Current delta (5 November 2026)
+
+Seven candidate cinematic keyframes are now integrated (Trunks arrival, Android 17 and 18 absorptions, Android 16 destruction, SSJ2 awakening, Goku sacrifice, Father-Son finale). Cinematic rows below are historical baseline statuses; this asset addition does **not** close the full cinematic direction or human approval gates. Runtime asset audit now covers 1,623 paths with no missing or invalid PNGs; the 1,050-frame art audit has zero errors or warnings. The overall overhaul remains incomplete; see `POLISH_RELEASE_REPORT.md` and `KNOWN_LIMITATIONS.md`.
+
+Historical row 30 predates the owner's later instruction to push each completed batch. Batch commits/pushes are now authorized; nothing is deployed, and the Namek project remains untouched.

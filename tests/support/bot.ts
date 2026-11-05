@@ -24,6 +24,7 @@ export interface GuardPolicy {
 export const POLICIES: Record<string, GuardPolicy> = {
   attentive: { name: 'attentive', perfect: 0.55, good: 0.35, difficulty: 'normal' },
   average: { name: 'average', perfect: 0.15, good: 0.45, difficulty: 'normal' },
+  occasional: { name: 'occasional', perfect: 0.1, good: 0.25, difficulty: 'normal' },
   noguard_easy: { name: 'noguard_easy', perfect: 0, good: 0, difficulty: 'easy' },
   noguard_normal: { name: 'noguard_normal', perfect: 0, good: 0, difficulty: 'normal' },
 };

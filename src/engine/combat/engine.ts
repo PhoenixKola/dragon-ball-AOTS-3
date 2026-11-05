@@ -52,6 +52,8 @@ interface HitSpec {
   noRedirect?: boolean;
   damageMod?: number;
   unguarded?: boolean;
+  /** One timing check covers every hit in a single enemy move against each defender. */
+  guardBatch?: number;
 }
 interface HitResult {
   dmg: number;
@@ -95,6 +97,8 @@ export class Battle {
   private guardIn: GuardGrade | undefined;
   private waitingInput = false;
   private nextEnemyIndex = 0;
+  private guardBatchSeq = 0;
+  private readonly guardBatchGrades = new Map<string, GuardGrade>();
   private readonly p: number;
   private actionRageGain = new Map<string, number>();
   private lastGrade: GuardGrade = 'none';
@@ -1008,7 +1012,13 @@ export class Battle {
     }
     let grade: GuardGrade = 'none';
     if (tgt.isHero && att.team === 'enemy' && spec.guardable !== false && !spec.unguarded) {
-      grade = yield { attackerUid: att.uid, targetUid: tgt.uid, hitIndex: spec.hitIndex, hits: spec.hits, label: spec.label, guardable: true };
+      const batchKey = spec.guardBatch === undefined ? undefined : `${spec.guardBatch}:${tgt.uid}`;
+      const sharedGrade = batchKey ? this.guardBatchGrades.get(batchKey) : undefined;
+      if (sharedGrade !== undefined) grade = sharedGrade;
+      else {
+        grade = yield { attackerUid: att.uid, targetUid: tgt.uid, hitIndex: spec.hitIndex, hits: spec.hits, label: spec.label, guardable: true };
+        if (batchKey) this.guardBatchGrades.set(batchKey, grade);
+      }
       this.lastGrade = grade;
       if (grade === 'perfect') this.stats.guardsPerfect++;
       else if (grade === 'good') this.stats.guardsGood++;
@@ -1317,6 +1327,8 @@ export class Battle {
     }
     const bonus = (m.power ?? 1) * (this.difficulty === 'easy' ? 1 : 1);
     const hits = m.hits;
+    const guardBatch = this.guardBatchSeq++;
+    this.guardBatchGrades.clear();
     const struck: Fighter[] = [];
     let total = 0;
     for (let i = 0; i < hits.length; i++) {
@@ -1336,7 +1348,7 @@ export class Battle {
       for (const t of tgts) {
         if (!t.alive) continue;
         const isGrab = m.special === 'absorbGrab';
-        const r = yield* this.hit(f, t, { mult: hits[i] * bonus, element: m.element, pierce: m.pierce, hitIndex: i, hits: hits.length, vfx: m.vfx ?? (m.element === 'ki' ? 'ball-red' : 'impact-hit'), label: m.name });
+        const r = yield* this.hit(f, t, { mult: hits[i] * bonus, element: m.element, pierce: m.pierce, hitIndex: i, hits: hits.length, vfx: m.vfx ?? (m.element === 'ki' ? 'ball-red' : 'impact-hit'), label: m.name, guardBatch });
         if (r.landed) {
           struck.push(r.target);
           total += r.dmg;

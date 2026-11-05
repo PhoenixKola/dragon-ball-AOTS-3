@@ -63,6 +63,9 @@ for aid, a in reg['actors'].items():
     if a['provisional'] and not a.get('fallbackReason') and a['battle']['idle']['quality'] != 'genuine':
         warns.append(f'provisional actor without fallbackReason: {aid}')
 for wid, w in reg['worlds'].items():
+    if w.get('weatherOverlay'):
+        seen_paths.add(w['weatherOverlay'])
+        if not (PUB / w['weatherOverlay']).exists(): errors.append(f'missing weather overlay {wid}')
     for cls, pth in w['tiles'].items():
         seen_paths.add(pth)
         if not (PUB / pth).exists(): errors.append(f'missing tile {wid}/{cls}')
@@ -73,6 +76,11 @@ for grp in ('skillIcons', 'itemIcons', 'uiFrames', 'uiIcons'):
     for k, pth in reg[grp].items():
         seen_paths.add(pth)
         if not (PUB / pth).exists(): errors.append(f'missing {grp}/{k}')
+for key, item in reg.get('cinematics', {}).items():
+    seen_paths.add(item['path'])
+    p = PUB / item['path']
+    if not p.exists(): errors.append(f'missing cinematic {key}')
+    elif Image.open(p).size != (item['w'], item['h']): errors.append(f'cinematic size mismatch {key}')
 # ---- icon audit: 64x64, 1px border empty, one dominant component, no secondary >3% touching the border
 from collections import deque
 def comps(m):

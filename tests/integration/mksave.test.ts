@@ -14,7 +14,7 @@ it('writes saves at selected story beats', async () => {
   const host = new HeadlessHost(state, pol, 1);
   const bot = new WorldBot(new GameController(state, world, host), host);
   mkdirSync('tests/logs/saves', { recursive: true });
-  const marks = [3, 10, 17, 23, 26, 29];
+  const marks = [3, 10, 11, 17, 23, 25, 26, 29];
   while (state.beat < 30) {
     if (marks.includes(state.beat)) writeFileSync(`tests/logs/saves/beat-${state.beat}.json`, pack(state, 1700000000000 + state.beat));
     await bot.playNextBeat();

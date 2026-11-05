@@ -53,6 +53,7 @@ export type CutStep =
   | { t: 'music'; key: string }
   | { t: 'card'; text: string; sub?: string }
   | { t: 'backdrop'; map: string }
+  | { t: 'keyframe'; path: string; ms: number }
   | { t: 'caption'; text: string };
 
 export interface CutsceneDef {
@@ -61,7 +62,7 @@ export interface CutsceneDef {
   backdrop: string;
   music: string;
   steps: CutStep[];
-  /** true if the painted art for this sequence is missing (placeholder choreography) */
+  /** true while any major visual beat in this sequence remains provisional */
   provisionalArt: boolean;
 }
 

@@ -1,16 +1,20 @@
 # Known limitations (honest list)
 
+## 5 November 2026 polish preview update
+
+Seven native-generated story keyframes now cover Trunks arrival, both Android absorptions, Android 16 destruction, SSJ2 awakening, Goku sacrifice, and the Father-Son finale. Other cutscenes and many VFX still use provisional poses or single representative variant pulses. The global overhaul requested in the master brief is **not complete**. A 35%-guard Normal simulation policy reached credits in six seeds (five with zero defeats, one with four); no-guard Normal still stalls at G05. Human art, audio, controller, clean-PC, and gameplay sign-offs remain. See `POLISH_RELEASE_REPORT.md` for exact checks and open gates.
+
 ## Art (the biggest caveat)
 - **Nothing is human-approved.** All art is candidate material from the supplied bundle plus tool-generated derived/procedural stand-ins. See `MISSING_OR_PROVISIONAL_ART.md` and `ART_INTEGRATION_REPORT.md`.
-- Missing or derived forms: Gohan SSJ/SSJ2/wounded/training, Goku weakened, Vegeta Ascended, Trunks Ultra, Super Perfect Cell, Cell Junior, all minion enemies and all NPCs/portraits other than heroes are derived or procedural (flagged `derived` / `procedural_fallback` in the registry). They are not painted final art.
-- Cutscenes are in-engine choreography (poses, VFX, flashes, camera shake) over the candidate frames; there are no painted cutscene frames. Every cutscene definition carries `provisionalArt: true`.
-- VFX sheets mostly contain variants, not temporal sequences; the runtime plays those as a short pulse. VFX hit markers are the engine's own `hit` events, not authored clip timestamps.
+- Handoff/patch integration supplies genuine cropped art for major hero forms, main Cell forms, many enemies and named NPCs, but derived/procedural fallbacks remain (including landing security, some minor enemies/NPCs and wounded Gohan overworld walk). Genuine source pixels are not the same as human-approved final art.
+- Cutscenes use in-engine choreography plus seven integrated candidate keyframes; remaining beats are pose/VFX direction. Every cutscene definition carries `provisionalArt: true` until reviewed.
+- Some VFX families have true temporal frames; others are variant collections displayed as one representative pulse. VFX hit markers follow engine `hit` events rather than authored clip timestamps.
 - Skill icons (84) were re-sliced in RC2 (clean single icons); their mapping to techniques is by visual similarity, not artist-verified.
 - The 13 duplicate-frame slots were replaced by labelled derived stand-ins where feasible; a few may remain visually identical.
 - Heroes/NPC overworld sprites are small candidate frames; there is no 4-way walk animation for procedural NPCs beyond their stand-in cycle.
 
 ## Gameplay and balance
-- Balance is verified only by deterministic bot simulation and one real-browser bot run, not by human playtesting. Normal difficulty with **no Active Guard at all** cannot beat the late Cell fights (wall at G05 in simulation); Easy with no guarding can. Normal with average/attentive guarding completes in every simulated seed.
+- Balance is verified by deterministic simulations plus selected late-game browser runs, not human playtesting. Normal with **no Active Guard at all** still reaches a late Cell wall at G05; Easy with no guarding clears six seeds. A Normal policy that lands a guard 35% of the time completes six seeds (five with zero defeats, one with four), and average/attentive policies complete all six. This reduces guard dependence but does not establish human balance.
 - Random encounters are intentionally sparse; the story XP curve is calibrated so that the bots stay roughly level with the stage power. Heavy over-levelling from grinding is possible and not capped except by the level cap (40).
 - Enemy HP for forced 1–2 hero fights is scaled down (x0.5 / x0.75) so solo story fights are finishable.
 - The Super Perfect Cell final uses a staged finisher (survive to the opening, then the Father–Son Kamehameha command); it is a committed single action, not a free-form timing mini-game.

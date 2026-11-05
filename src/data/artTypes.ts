@@ -54,6 +54,8 @@ export interface WorldArt {
   props: Record<string, { path: string; w: number; h: number; footW: number; footH: number; solid: boolean }>;
   quality: ArtQuality;
   note: string;
+  /** Optional transparent atmosphere sprite loaded with the map. */
+  weatherOverlay?: string;
 }
 
 export interface VfxArt {
@@ -82,4 +84,6 @@ export interface ArtRegistry {
   objects?: Record<string, FrameRef & { displayHeight: number }>;
   /** opaque full-screen title illustration, path relative to site root */
   title?: { path: string; w: number; h: number };
+  /** Original story keyframes, indexed by stable story beat. */
+  cinematics?: Record<string, { path: string; w: number; h: number; quality: ArtQuality; approved: boolean; provenance: string }>;
 }

@@ -87,7 +87,7 @@ describe('runtime art integration audit', () => {
     for (const h of HERO_IDS) for (const f of ['base', 'ssj', 'ssj2', 'ascended', 'ultra'] as const) expect(heroActorId(h, f, {}).startsWith(h)).toBe(true);
   });
 
-  it('all 84 skills have an icon file; every skill/combo/rage vfx id exists or has a runtime graphics fallback', () => {
+  it('all 84 skills have an icon and a registered VFX family; combos and rage arts do too', () => {
     let icons = 0;
     for (const s of SKILL_LIST.filter((x) => x.hero !== 'android16')) {
       const p = registry.skillIcons[s.id];
@@ -100,8 +100,7 @@ describe('runtime art integration audit', () => {
     const noArt = [...vfxIds].filter((v) => !registry.vfx[v]);
     report.vfxIdsUsed = vfxIds.size;
     report.vfxWithoutArt = noArt;
-    // missing ids render a Phaser-graphics burst (BattleScene.playVfx); they must be few
-    expect(noArt.length).toBeLessThanOrEqual(8);
+    expect(noArt).toEqual([]);
     // semantic sanity: ids with "variants_not_sequence" are never advertised as smooth animation
     for (const v of Object.values(registry.vfx)) expect(v.frames.length).toBeGreaterThan(0);
   });
@@ -154,10 +153,12 @@ describe('runtime art integration audit', () => {
       Object.values(w.tiles).forEach(add);
       Object.values(w.props).forEach((p) => add(p.path));
       w.backdrops.forEach((b) => add(b.path));
+      add(w.weatherOverlay);
     }
     Object.values(registry.skillIcons).forEach(add);
     Object.values(registry.itemIcons).forEach(add);
     Object.values(registry.uiFrames).forEach(add);
+    Object.values(registry.cinematics ?? {}).forEach((c) => add(c.path));
     const all: string[] = [];
     const walk = (d: string) => {
       for (const n of readdirSync(d)) {

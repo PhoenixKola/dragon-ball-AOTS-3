@@ -27,7 +27,7 @@
  {
   "name": "keyboard movement works",
   "ok": true,
-  "detail": "{\"map\":\"landing_future\",\"x\":278.7673799999995,\"y\":688,\"facing\":\"right\"}"
+  "detail": "{\"map\":\"landing_future\",\"x\":278.77327999999926,\"y\":688,\"facing\":\"right\"}"
  },
  {
   "name": "save slot 1",
@@ -41,8 +41,8 @@
  },
  {
   "name": "no page errors",
-  "ok": false,
-  "detail": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  "ok": true,
+  "detail": ""
  },
  {
   "name": "security defaults (contextIsolation, sandbox, no nodeIntegration)",
@@ -61,7 +61,7 @@
  },
  {
   "name": "no page errors after relaunch",
-  "ok": false,
-  "detail": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  "ok": true,
+  "detail": ""
  }
 ]

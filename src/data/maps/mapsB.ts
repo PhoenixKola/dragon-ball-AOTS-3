@@ -94,9 +94,17 @@ function ginger(): MapDef {
   m.speckle('.', ',', 5);
   m.hpath(15, 1, 44, 3, '=').vpath(22, 3, 27, 3, '=').fill(18, 12, 10, 9, '=').vpath(10, 3, 15, 2, '=').vpath(36, 15, 27, 2, '=');
   m.fill(3, 3, 6, 6, '#').fill(12, 3, 6, 6, '#').fill(26, 3, 6, 6, '#').fill(34, 3, 8, 6, '#').fill(3, 20, 8, 6, '#').fill(12, 22, 7, 5, '#').fill(26, 21, 8, 6, '#').fill(38, 21, 6, 6, '#');
-  m.prop('house', 3, 5, 3, 3).prop('house', 6, 5, 3, 3).prop('house', 12, 5, 3, 3).prop('house', 15, 5, 3, 3).prop('house', 26, 5, 3, 3).prop('house', 29, 5, 3, 3).prop('house', 34, 5, 3, 3).prop('house', 38, 5, 3, 3);
-  m.prop('house', 3, 21, 3, 3).prop('house', 7, 21, 3, 3).prop('house', 12, 23, 3, 3).prop('house', 15, 23, 3, 3).prop('house', 26, 22, 3, 3).prop('house', 30, 22, 3, 3).prop('house', 38, 22, 3, 3);
+  // Ginger Town is evacuated and damaged: vary the remaining house silhouettes
+  // and leave open, broken lots between them instead of repeating one house sprite.
+  m.prop('house', 3, 5, 3, 3).prop('building_a', 12, 5, 3, 3).prop('building_b', 26, 5, 3, 3).prop('building_big', 34, 5, 3, 3);
+  m.prop('building_b', 3, 21, 3, 3).prop('house', 12, 23, 3, 3).prop('building_big', 26, 22, 3, 3).prop('building_a', 38, 22, 3, 3);
   m.row('lamp', 2, 14, 11, 4).prop('timemachine', 22, 10, 3, 2).prop('crate', 8, 15).prop('rubble', 32, 18, 2, 1);
+  // Empty streets still show the evacuation's aftermath. These are decorative
+  // only; the authored walking grid, encounters and quest approach stay intact.
+  m.prop('car_beige', 18, 11, 2, 1, false).prop('car_red', 31, 12, 2, 1, false);
+  m.prop('dead_tree', 24, 11, 1, 1, false).prop('trashcan', 20, 12, 1, 1, false);
+  m.prop('rock', 34, 12, 1, 1, false).prop('bush_small', 40, 10, 1, 1, false);
+  m.prop('fence', 4, 10, 2, 1, false).prop('fence', 13, 10, 2, 1, false);
   m.e(
     exit('gt_to_ro', 0, 14, 2, 4, { map: 'rocky_outskirts', x: 46, y: 19, facing: 'left' }),
     exit('gt_to_island', 44, 14, 2, 4, { map: 'android_island', x: 2, y: 14, facing: 'right' }, { requires: 'done:C03', lockedText: 'The evacuation road is still in danger. Finish what is happening in town first.' }),

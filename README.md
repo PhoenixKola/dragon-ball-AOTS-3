@@ -1,6 +1,8 @@
-# Attack of the Saiyans III — The Cell Saga (release candidate 1)
+# Attack of the Saiyans III — The Cell Saga (local polish preview)
 
 Private, offline, fan-made JRPG: React 19 + TypeScript (strict) + Phaser 3 + Vite. No network access at runtime.
+
+The November 2026 overhaul is in progress. See `docs/POLISH_RELEASE_REPORT.md` and `docs/KNOWN_LIMITATIONS.md` before treating this preview as a finished release.
 
 ## Run
 - **Player package:** extract, double-click `START_GAME.bat` (bundles `runtime\node.exe`).

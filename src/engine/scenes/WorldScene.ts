@@ -43,6 +43,7 @@ export class WorldScene extends Phaser.Scene {
   private walkT = 0;
   private lastPlayerActor = '';
   private weather?: Phaser.GameObjects.Rectangle[];
+  private mist?: Phaser.GameObjects.Image[];
   private exitArrows: Phaser.GameObjects.Text[] = [];
   private t = 0;
   loading = false;
@@ -91,6 +92,7 @@ export class WorldScene extends Phaser.Scene {
     this.visuals = [];
     this.exitArrows = [];
     this.weather = undefined;
+    this.mist = undefined;
     this.player = undefined;
   }
 
@@ -102,12 +104,23 @@ export class WorldScene extends Phaser.Scene {
   private buildTerrain(sim: WorldSim) {
     const map = sim.map;
     const rt = this.add2(this.add.renderTexture(0, 0, map.width * TILE, map.height * TILE).setOrigin(0, 0).setDepth(0));
+    const mapSeed = [...map.id].reduce((h, ch) => (Math.imul(h, 31) + ch.charCodeAt(0)) >>> 0, 7);
     for (let y = 0; y < map.height; y++) {
       for (let x = 0; x < map.width; x++) {
         const ch = map.tiles[y][x];
         const key = `tile:${map.id}:${TILE_KEYS[ch] ?? 'floor'}`;
-        if (this.textures.exists(key)) rt.draw(key, x * TILE, y * TILE);
-        else rt.fill(TILE_FALLBACK[ch] ?? 0x555555, 1, x * TILE, y * TILE, TILE, TILE);
+        if (this.textures.exists(key)) {
+          // The original world sheets are seamless square textures. Orient each
+          // tile deterministically so the authored texture keeps its palette and
+          // detail without forming a visible 32px checkerboard across a whole map.
+          const tileClass = TILE_KEYS[ch] ?? 'floor';
+          const hash = (Math.imul(x + 1, 0x45d9f3b) ^ Math.imul(y + 3, 0x119de1f3) ^ mapSeed) >>> 0;
+          const tile = this.make.image({ key, x: (x + 0.5) * TILE, y: (y + 0.5) * TILE, add: false });
+          const organicGround = ['floor', 'floor2', 'water'].includes(tileClass);
+          tile.setOrigin(0.5).setRotation(organicGround ? (hash & 3) * Math.PI / 2 : 0).setFlipX(organicGround && (hash & 4) !== 0);
+          rt.draw(tile);
+          tile.destroy();
+        } else rt.fill(TILE_FALLBACK[ch] ?? 0x555555, 1, x * TILE, y * TILE, TILE, TILE);
       }
     }
     // soft shading on blocking tiles' bottom edge for depth
@@ -191,7 +204,7 @@ export class WorldScene extends Phaser.Scene {
         const img = this.add2(this.add.image(n.x, n.y, 'act:none').setOrigin(0.5, 1));
         this.setOw(img, n.actor, (n.facing ?? 'down') as Facing, 'idle');
         const shadow = this.add2(this.add.ellipse(n.x, n.y - 1, 24, 8, 0x000000, 0.3).setDepth(2));
-        const label = this.add2(this.add.text(n.x, n.y - img.displayHeight - 4, n.story ? '!' : '', { fontFamily: 'monospace', fontSize: '16px', color: '#ffe14d', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1));
+        const label = this.add2(this.add.text(n.x, n.y - img.displayHeight - 4, n.story ? '!' : '', { fontFamily: 'monospace', fontSize: '16px', color: '#ffe14d', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1).setDepth(n.y + 2));
         return { e, obj: img, label, shadow };
       }
       case 'foe': {
@@ -199,7 +212,7 @@ export class WorldScene extends Phaser.Scene {
         const img = this.add2(this.add.image(f.x, f.y, 'act:none').setOrigin(0.5, 1));
         this.setOw(img, f.actor, 'down', 'idle');
         const shadow = this.add2(this.add.ellipse(f.x, f.y - 1, 40, 10, 0x000000, 0.35).setDepth(2));
-        const label = this.add2(this.add.text(f.x, f.y - img.displayHeight - 4, f.story ? '!!' : '!', { fontFamily: 'monospace', fontSize: '16px', color: '#ff6a5a', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1));
+        const label = this.add2(this.add.text(f.x, f.y - img.displayHeight - 4, f.story ? '!!' : '!', { fontFamily: 'monospace', fontSize: '16px', color: '#ff6a5a', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5, 1).setDepth(f.y + 2));
         return { e, obj: img, label, shadow };
       }
       case 'chest': {
@@ -278,7 +291,12 @@ export class WorldScene extends Phaser.Scene {
     const m = sim.map;
     const rects: Phaser.GameObjects.Rectangle[] = [];
     if (m.light === 'dim') rects.push(this.add2(this.add.rectangle(0, 0, m.width * TILE, m.height * TILE, 0x000820, 0.22).setOrigin(0, 0).setDepth(9000)));
-    if (m.weather === 'mist' || m.weather === 'dust') {
+    if (m.weather === 'mist' && this.textures.exists(`weather:${m.id}`)) {
+      const key = `weather:${m.id}`;
+      const xs = [m.width * TILE * 0.2, m.width * TILE * 0.52, m.width * TILE * 0.82];
+      const ys = [m.height * TILE * 0.3, m.height * TILE * 0.56, m.height * TILE * 0.78];
+      this.mist = xs.map((x, i) => this.add2(this.add.image(x, ys[i], key).setScale(0.28).setAlpha(0.19).setDepth(9001)));
+    } else if (m.weather === 'mist' || m.weather === 'dust') {
       for (let i = 0; i < 6; i++) rects.push(this.add2(this.add.rectangle(Phaser.Math.Between(0, m.width * TILE), Phaser.Math.Between(0, m.height * TILE), 220, 60, m.weather === 'mist' ? 0xcfd8e6 : 0xd9b98a, 0.07).setDepth(9001)));
     }
     this.weather = rects;
@@ -315,7 +333,8 @@ export class WorldScene extends Phaser.Scene {
         v.label?.setPosition(fx, fy - (v.obj as Phaser.GameObjects.Image).displayHeight - 4 + (reducedMotion ? 0 : Math.sin(this.t / 200) * 2));
         v.shadow?.setPosition(fx, fy - 1);
       } else if (v.e.kind === 'npc') {
-        (v.obj as Phaser.GameObjects.Image).setDepth((v.e as NpcEntity).y);
+        // Entity coordinates are pixels; use the same feet-plane units as props and the player.
+        (v.obj as Phaser.GameObjects.Image).setDepth(v.obj.y);
         const n = v.e as NpcEntity;
         const marker = n.story && sim.state.beat === BEAT_INDEX[n.story] ? '!' : '';
         if (v.label && v.label.text !== marker) v.label.setText(marker);
@@ -341,6 +360,9 @@ export class WorldScene extends Phaser.Scene {
         if (r.x > sim.map.width * TILE + 120) r.x = -120;
         if (r.x < -120) r.x = sim.map.width * TILE + 120;
       }
+    });
+    if (this.mist && !reducedMotion) this.mist.forEach((img, i) => {
+      img.x += 0.004 * Math.min(dt, 50) * (i % 2 ? 1 : -1);
     });
     // prompt
     const tgt = blocked ? null : sim.interactTarget();

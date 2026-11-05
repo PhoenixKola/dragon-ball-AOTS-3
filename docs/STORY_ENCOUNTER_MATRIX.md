@@ -31,6 +31,6 @@ Beats are strictly ordered; every battle is reached by walking to its trigger en
 | 24 | G02 Gohan Steps Up | 7 | cell_games_arena | survive (3 rounds) | Perfect Cell | gohan | 17 | story XP only 520/0 | — |
 | 25 | G03 The Cell Juniors | 7 | cell_games_arena | survive (4 rounds) | Cell Junior, Cell Junior, Cell Junior | vegeta, piccolo, trunks | 19 | story XP only 560/0 | android16_destroyed, gohan_ssj2_unlocked |
 | 26 | G04 Super Saiyan 2 | 7 | cell_games_arena | win | Cell Junior, Cell Junior, Cell Junior | gohan | 21 | 820/600 | — |
-| 27 | G05 Gohan vs Perfect Cell | 7 | cell_games_arena | threshold (<0.3) | Perfect Cell | gohan | 21 | 900/640 | goku_sacrifice |
+| 27 | G05 Gohan vs Perfect Cell | 7 | cell_games_arena | threshold (<0.5) | Perfect Cell | gohan | 21 | 900/640 | goku_sacrifice |
 | 28 | G06 Super Perfect Cell | 7 | cell_games_arena | survive (4 rounds) | Super Perfect Cell | gohan | 22 | story XP only 700/0 | cell_super_perfect |
 | 29 | G07 Father–Son Kamehameha | 7 | cell_games_arena | finisher | Super Perfect Cell | gohan | 22 | 1200/1000 | cell_final_defeated, credits_seen, postgame_unlocked |

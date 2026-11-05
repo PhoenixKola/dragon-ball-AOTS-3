@@ -1,0 +1,9 @@
+# Gameplay balance notes - active pass
+
+The first balance batch keeps battle simulation deterministic and leaves story IDs, save format, skill resources, and the 7-hero roster unchanged. It reduces pressure from repetitive defense inputs in three targeted ways: one Active Guard timing input now covers a defender's full multi-hit enemy move; Android 17, Android 18, and Perfect Cell no longer receive a second full action every round; and G05's threshold now matches its stated 50% objective, shortening the solo push without changing the story outcome. The Active Guard tutorial explains that Defend, attacks, and support choices remain available.
+
+**Measured policy result:** a natural-progression Normal policy with 10% perfect, 25% good, and 65% missed guards cleared all six deterministic seeds. Five routes had zero defeats; one had four. Average (15% perfect / 45% good) and attentive policies cleared all six seeds; no-guard Easy cleared all six. No-guard Normal still stalls at G05. This shows the bot can complete Normal without frequent successful guards; it is not proof of human play feel. A new Android 18 regression confirms one timed press covers all three Rapid Kicks hits.
+
+No global enemy-damage scalar was reduced. Next, improve the remaining no-guard Normal G05 wall using its solo encounter pressure and real healing/skill options, then retest at several imperfect-guard levels and inspect the scene in the browser. Keep logs in `tests/logs/sim-policy-matrix.json`. Human play feel remains pending.
+
+A real-browser late-campaign run from the legitimate beat-25 save also reached credits with this 35% guard-success profile: five mandatory fights, 34 total wins, zero defeats, and zero page errors or external requests. This is a late-game integration check, not a fresh-start human playtest.

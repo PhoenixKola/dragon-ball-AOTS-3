@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { uiStore, type FighterView, type GuardCue } from '../../app/store';
-import { actorKey, getActor, getVfx, getWorld, needsFlip } from '../assets';
+import { actorKey, getActor, getVfx, getWorld, needsFlip, registry } from '../assets';
 import type { BattleStage, Clock } from '../combat/director';
 import type { BattleEvent, ClipId, FormId, GuardGrade, StatusKind } from '../../types';
 import { audio } from '../audio';
@@ -55,7 +55,8 @@ interface Slot {
   view: FighterView;
   img: Phaser.GameObjects.Image;
   shadow: Phaser.GameObjects.Ellipse;
-  aura: Phaser.GameObjects.Ellipse;
+  aura: Phaser.GameObjects.Image;
+  auraKey: string;
   homeX: number;
   homeY: number;
   baseScale: number;
@@ -66,7 +67,7 @@ interface Slot {
   engaged: boolean;
 }
 
-const AURA: Partial<Record<FormId | 'sparking' | 'rage', number>> = { ssj: 0xffe14d, ssj2: 0xfff27a, ascended: 0xffc23b, ultra: 0xff9a2b, sparking: 0x6fe1ff };
+const AURA_VFX: Partial<Record<FormId | 'sparking', string>> = { ssj: 'aura-ssj', ssj2: 'aura-ssj2', ascended: 'aura-ascended', ultra: 'aura-ultra', sparking: 'aura-sparking' };
 
 export class BattleScene extends Phaser.Scene implements BattleStage {
   clock = new SceneClock();
@@ -80,6 +81,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
   private opts = { reducedMotion: false, shake: 1, battleSpeed: 1 as number };
   private mapId = 'capsule_corp';
   private dim = false;
+  private pendingAnimations = new Set<() => void>();
 
   constructor() {
     super('Battle');
@@ -102,6 +104,8 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     this.ring = this.add.graphics().setDepth(900);
     this.events.on('shutdown', () => {
       this.isReady = false;
+      this.clock.flush();
+      for (const finish of [...this.pendingAnimations]) finish();
       this.slots.clear();
       this.bg = [];
     });
@@ -119,18 +123,23 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       s.shadow.setPosition(s.img.x, s.homeY + 4);
       s.aura.setPosition(s.img.x, s.homeY - s.img.displayHeight * 0.45);
       const aur = this.auraFor(s.view);
-      s.aura.setVisible(!!aur && s.alive);
-      if (aur) {
-        s.aura.setFillStyle(aur, 0.22 + (this.opts.reducedMotion ? 0 : 0.08 * Math.sin(sec * 7)));
-        s.aura.setSize(s.img.displayWidth * 0.8, s.img.displayHeight * 1.1);
+      s.aura.setVisible(!!aur && s.alive && this.textures.exists(`vfx:${aur}:0`));
+      if (aur && this.textures.exists(`vfx:${aur}:0`)) {
+        if (s.auraKey !== aur) {
+          s.auraKey = aur;
+          s.aura.setTexture(`vfx:${aur}:0`);
+        }
+        const frame = getVfx(aur)?.frames[0];
+        if (frame) s.aura.setScale((s.img.displayWidth * 1.35) / frame.w, (s.img.displayHeight * 1.25) / frame.h);
+        s.aura.setAlpha(this.opts.reducedMotion ? 0.42 : 0.48 + 0.06 * Math.sin(sec * 3.2 + s.bobPhase));
       }
     }
     this.drawRing(now);
   }
 
-  private auraFor(v: FighterView): number | null {
-    if (v.sparking > 0) return AURA.sparking!;
-    if (v.form !== 'base') return AURA[v.form] ?? null;
+  private auraFor(v: FighterView): string | null {
+    if (v.sparking > 0) return AURA_VFX.sparking!;
+    if (v.form !== 'base') return AURA_VFX[v.form] ?? null;
     return null;
   }
 
@@ -140,7 +149,9 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     this.buildBackground();
     const actors = new Set(fighters.map((f) => f.actor));
     await Promise.all([...actors].map((a) => ensureActor(this, a, 'battle')));
-    await ensureVfx(this, ['impact-hit', 'impact-big', 'explosion', 'beam-blue', 'beam-yellow', 'beam-purple', 'beam-gold', 'beam-green', 'beam-red', 'ball-blue', 'ball-yellow', 'ball-purple', 'ball-red', 'ball-green', 'slash', 'disc', 'spiral', 'flare', 'barrier', 'teleport', 'regen', 'absorb', 'lightning', 'charge', 'father-son', 'aura-ssj', 'aura-ssj2']);
+    // Every skill, combo, boss move and status effect references the registry. Loading
+    // that complete set prevents quiet fallback to a blue orb for unlisted skills.
+    await ensureVfx(this, Object.keys(registry.vfx));
     const allies = fighters.filter((f) => f.team === 'ally' && !f.isProtectee);
     const enemies = fighters.filter((f) => f.team === 'enemy');
     const prot = fighters.filter((f) => f.isProtectee);
@@ -171,8 +182,9 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     const bdKey = `bd:${this.mapId}:0`;
     const horizon = 430;
     if (this.textures.exists(bdKey)) {
-      const img = this.add.image(W / 2, horizon, bdKey).setOrigin(0.5, 1).setDepth(0);
-      const sc = Math.max(W / img.width, 1);
+      const fullStage = w?.backdrops[0]?.note?.includes('battle-stage');
+      const img = this.add.image(W / 2, fullStage ? H / 2 : horizon, bdKey).setOrigin(0.5, fullStage ? 0.5 : 1).setDepth(0);
+      const sc = fullStage ? W / img.width : Math.max(W / img.width, 1);
       img.setScale(sc);
       this.bg.push(img);
       const top = horizon - img.displayHeight;
@@ -230,9 +242,10 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
 
   private addSlot(v: FighterView, x: number, y: number) {
     const shadow = this.add.ellipse(x, y + 4, 80, 18, 0x000000, 0.35).setDepth(10);
-    const aura = this.add.ellipse(x, y - 60, 90, 140, 0xffffff, 0.2).setDepth(11).setVisible(false);
+    const initialAura = this.textures.exists('vfx:aura-ssj:0') ? 'vfx:aura-ssj:0' : actorKey(v.actor, 'idle');
+    const aura = this.add.image(x, y - 60, initialAura).setDepth(11).setVisible(false).setBlendMode(Phaser.BlendModes.ADD);
     const img = this.add.image(x, y, actorKey(v.actor, 'idle')).setDepth(20 + y / 10);
-    const s: Slot = { uid: v.uid, view: v, img, shadow, aura, homeX: x, homeY: y, baseScale: 1, pose: 'idle', poseUntil: 0, bobPhase: Math.random() * 6, alive: v.alive, engaged: false };
+    const s: Slot = { uid: v.uid, view: v, img, shadow, aura, auraKey: '', homeX: x, homeY: y, baseScale: 1, pose: 'idle', poseUntil: 0, bobPhase: Math.random() * 6, alive: v.alive, engaged: false };
     this.slots.set(v.uid, s);
     this.applyFrame(s, v.alive ? 'idle' : 'ko');
     if (!v.alive) this.setPose(s, 'ko');
@@ -252,7 +265,9 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       return;
     }
     return new Promise((resolve) => {
-      this.tweens.add({ targets, ...props, duration: dur, ease, onComplete: () => resolve() });
+      const finish = () => { this.pendingAnimations.delete(finish); resolve(); };
+      this.pendingAnimations.add(finish);
+      this.tweens.add({ targets, ...props, duration: dur, ease, onComplete: finish });
     });
   }
 
@@ -263,6 +278,10 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     audio.sfx(sfx as never);
     const att = s.view.team === 'ally' ? 1 : -1;
     const target = (targetUid ? this.slots.get(targetUid) : undefined) ?? this.nearestFoe(s);
+    if (vfx === 'father-son' && target) {
+      await this.fatherSonKamehameha(s, target);
+      return;
+    }
     switch (clip) {
       case 'melee': case 'sword': case 'teleport': {
         if (!target) {
@@ -316,6 +335,32 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     }
   }
 
+  /** Bespoke finale staging: Goku's spirit joins Gohan, then the beam reaches
+   * Cell before the authoritative finisher hit is emitted by the combat engine. */
+  private async fatherSonKamehameha(gohan: Slot, cell: Slot): Promise<void> {
+    this.setPose(gohan, 'special', 1800);
+    const gokuActor = 'goku-ssj';
+    await ensureActor(this, gokuActor, 'battle');
+    const art = getActor(gokuActor);
+    const frame = art?.battle.special ?? art?.battle.idle;
+    const key = actorKey(gokuActor, frame === art?.battle.special ? 'special' : 'idle');
+    const spirit = this.add.image(gohan.img.x - 64, gohan.homeY + 8, this.textures.exists(key) ? key : actorKey(gokuActor, 'idle'))
+      .setDepth(gohan.img.depth - 1).setAlpha(0).setTint(0x9edfff);
+    if (frame) spirit.setOrigin(frame.feet[0] / frame.w, frame.feet[1] / frame.h).setScale(art!.displayHeight / Math.max(1, frame.bbox[3]));
+    else spirit.setOrigin(0.5, 1).setScale(gohan.baseScale);
+    const zoom = this.cameras.main.zoom;
+    if (!this.opts.reducedMotion) await this.tween(this.cameras.main, { zoom: zoom * 1.035 }, 300);
+    this.playVfx('aura-ssj2', gohan.img.x - 16, gohan.homeY - gohan.img.displayHeight * 0.45, 1.6);
+    this.playVfx('charge', gohan.img.x + 54, gohan.homeY - gohan.img.displayHeight * 0.55, 1.2);
+    await this.tween(spirit, { alpha: 0.34, x: gohan.img.x - 84 }, 260, 'Sine.easeOut');
+    await this.wait(this.opts.reducedMotion ? 100 : 280);
+    await this.projectile('father-son', gohan, cell, 'special');
+    this.playVfx('explosion', cell.homeX, cell.homeY - cell.img.displayHeight * 0.45, 1.7);
+    await this.tween(spirit, { alpha: 0 }, this.opts.reducedMotion ? 100 : 260);
+    spirit.destroy();
+    if (!this.opts.reducedMotion) await this.tween(this.cameras.main, { zoom }, 220);
+  }
+
   private nearestFoe(s: Slot): Slot | undefined {
     const foes = [...this.slots.values()].filter((o) => o.view.team !== s.view.team && o.alive && !o.view.isProtectee);
     return foes[0];
@@ -331,24 +376,35 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     const key = v ? `vfx:${v.id}:0` : '';
     const travel = this.fast ? 1 : 230 / this.opts.battleSpeed;
     return new Promise((resolve) => {
+      const finish = () => { this.pendingAnimations.delete(finish); resolve(); };
+      this.pendingAnimations.add(finish);
       if (!key || !this.textures.exists(key)) {
         const g = this.add.circle(x0, y0, 18, 0x8fd7ff).setDepth(800);
-        this.tweens.add({ targets: g, x: x1, y: y1, duration: travel, ease: 'Sine.easeIn', onComplete: () => { g.destroy(); resolve(); } });
+        this.tweens.add({ targets: g, x: x1, y: y1, duration: travel, ease: 'Sine.easeIn', onComplete: () => { g.destroy(); finish(); } });
         return;
       }
+      const beam = v!.family === 'beam' && (clip === 'beam' || clip === 'special');
+      const disc = clip === 'disc' || v!.family === 'slash';
       const img = this.add.image(x0, y0, key).setDepth(800).setOrigin(0, 0.5);
       const dist = Math.hypot(x1 - x0, y1 - y0);
       img.setRotation(Math.atan2(y1 - y0, x1 - x0));
-      const beam = v!.family === 'beam' && clip === 'beam';
       if (beam) {
-        img.setScale(0.01, 2);
+        // Keep the generated beam head intact and add a narrow, palette-matched
+        // energy body behind it; stretching the head made beams look like ribbons.
+        img.setOrigin(0.5).setScale(0.18, 0.42);
+        const core = this.add.rectangle(x0, y0, dist, 5, 0xdaf6ff, 0.88).setDepth(799).setOrigin(0, 0.5).setRotation(img.rotation).setScale(0.01, 1);
         this.tweens.add({
-          targets: img, scaleX: Math.max(1, dist / img.width), duration: travel, ease: 'Sine.easeIn',
-          onComplete: () => { resolve(); this.tweens.add({ targets: img, alpha: 0, duration: this.fast ? 1 : 260, onComplete: () => img.destroy() }); },
+          targets: img, x: x1, y: y1, duration: travel, ease: 'Sine.easeIn',
+          onStart: () => this.tweens.add({ targets: core, scaleX: 1, duration: travel * 0.55, ease: 'Sine.easeOut' }),
+          onComplete: () => {
+            finish();
+            this.tweens.add({ targets: img, alpha: 0, duration: this.fast ? 1 : 120, onComplete: () => img.destroy() });
+            this.tweens.add({ targets: core, alpha: 0, duration: this.fast ? 1 : 120, onComplete: () => core.destroy() });
+          },
         });
       } else {
-        img.setScale(2).setOrigin(0.5);
-        this.tweens.add({ targets: img, x: x1, y: y1, duration: travel, ease: 'Sine.easeIn', onComplete: () => { img.destroy(); resolve(); } });
+        img.setScale(disc ? 1.45 : 0.45).setOrigin(0.5);
+        this.tweens.add({ targets: img, x: x1, y: y1, scale: disc ? 1.65 : 1.05, rotation: img.rotation + (disc ? Math.PI * 2 : 0), duration: travel, ease: 'Sine.easeIn', onComplete: () => { img.destroy(); finish(); } });
       }
     });
   }
@@ -376,7 +432,8 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     }
     const img = this.add.image(x, y, keys[0]).setDepth(810).setScale(scale * 2).setFlipX(flip);
     // frames marked variants_not_sequence play as a short pulse (never a fake smooth animation)
-    const seq = v.note?.includes('variants_not_sequence') ? [keys[0]] : keys.slice(0, 6);
+    const ordered = v.note?.includes('ordered_growth') && !this.opts.reducedMotion;
+    const seq = ordered ? keys : [keys[0]];
     let i = 0;
     const step = () => {
       if (!img.scene) return;
@@ -385,7 +442,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
         return;
       }
       img.setTexture(seq[i++]);
-      this.time.delayedCall(this.fast ? 1 : 70, step);
+      this.time.delayedCall(this.fast ? 1 : ordered ? Math.max(35, 1000 / Math.max(1, v.fps) / this.opts.battleSpeed) : 70 / this.opts.battleSpeed, step);
     };
     step();
   }
@@ -420,7 +477,15 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     }
     const big = e.crit || e.dmg > t.view.maxHp * 0.18;
     this.setPose(t, e.guard === 'none' ? 'hurt' : 'guard', 420);
-    this.playVfx(e.vfx === 'father-son' ? 'father-son' : big ? 'impact-big' : 'impact-hit', t.homeX, t.homeY - t.img.displayHeight * 0.5, big ? 1.5 : 1);
+    // The action's authored VFX belongs to its own skill family. Add a separate
+    // impact burst only for critical/heavy contact, rather than replacing every
+    // technique with the same blue star.
+    const hitX = t.homeX;
+    const hitY = t.homeY - t.img.displayHeight * 0.5;
+    const authored = getVfx(e.vfx);
+    if (authored && ['impact', 'slash'].includes(authored.family)) this.playVfx(e.vfx, hitX, hitY, big ? 1.25 : 0.9);
+    else this.playVfx(e.vfx, hitX, hitY, big ? 1.15 : 0.8);
+    if (big && e.vfx !== 'father-son') this.playVfx('impact-big', hitX, hitY, 0.7);
     this.floatText(t, String(e.dmg), e.crit ? '#ffd24a' : e.guard === 'perfect' ? '#b8f5ff' : e.guard === 'good' ? '#d6f0ff' : t.view.team === 'ally' ? '#ff9a8a' : '#ffffff', e.crit);
     audio.sfx(e.crit ? 'hit-crit' : e.element === 'ki' ? 'hit-energy' : 'hit-melee');
     if (t.view.team === 'ally' && e.guard === 'none') audio.sfx('hurt');
@@ -489,14 +554,14 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     const s = this.slots.get(uid);
     if (s && on && ['stun', 'blind', 'seal'].includes(kind)) this.floatText(s, kind.toUpperCase(), '#ffd0f0', false, -30);
   }
-  async form(uid: string, _form: FormId, actor: string) {
+  async form(uid: string, form: FormId, actor: string) {
     const s = this.slots.get(uid);
     if (!s) return;
     audio.sfx('transform');
     await ensureActor(this, actor, 'battle');
     s.view = { ...s.view, actor };
     this.applyFrame(s, 'idle');
-    this.playVfx('aura-ssj', s.homeX, s.homeY - 70, 1.6);
+    this.playVfx(AURA_VFX[form] ?? 'aura-ssj', s.homeX, s.homeY - 70, form === 'ssj2' ? 1.9 : 1.6);
     if (!this.opts.reducedMotion) this.cameras.main.flash(220, 255, 240, 160);
   }
   async phase(uid: string, _text: string, actor?: string) {
@@ -616,7 +681,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     if (hs && hs.alive) {
       const bounce = this.opts.reducedMotion ? 0 : Math.sin(this.time.now / 130) * 6;
       const hx = hs.img.x;
-      const top = hs.homeY - hs.img.displayHeight - 18 + bounce;
+      const top = hs.img.y - hs.img.displayHeight - 18 + bounce;
       g.fillStyle(0xffd24a, 1).fillTriangle(hx - 13, top - 18, hx + 13, top - 18, hx, top + 4);
       g.lineStyle(3, 0x10131c, 1).strokeTriangle(hx - 13, top - 18, hx + 13, top - 18, hx, top + 4);
       g.lineStyle(3, 0xffd24a, 0.9).strokeEllipse(hx, hs.homeY + 4, hs.img.displayWidth * 0.9 + 14, 22);

@@ -1,3 +1,8 @@
-[troopers] landing-security <- armored-sentinel recolour (9 poses)
-[proportions] no battle height for: ['announcer', 'bulma', 'chi-chi', 'civilian', 'civilian-apron', 'kami', 'king-kai', 'mr-satan', 'researcher', 'yamcha']
+[cinematics] trunks_arrival: 1672x941
+[cinematics] cell_absorbs_17: 1672x941
+[cinematics] cell_absorbs_18: 1672x941
+[cinematics] gohan_ssj2_awakening: 1672x941
+[cinematics] goku_sacrifice: 1774x887
+[cinematics] father_son_finale: 1672x941
+[cinematics] android16_destruction: 1672x941
 pruned 0 unreferenced PNGs

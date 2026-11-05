@@ -75,6 +75,15 @@ def main():
     if want('proportions'):
         import art_proportions
         art_proportions.apply(reg, log)
+    if want('cinematics'):
+        import art_cinematics
+        art_cinematics.build(reg, log)
+    if want('atmosphere'):
+        import art_atmosphere
+        art_atmosphere.build(reg, log)
+    if want('worldextras'):
+        import art_worlds_extra
+        art_worlds_extra.build(reg, log)
     # prune files no longer referenced by the registry
     used = set()
     def walk(o):

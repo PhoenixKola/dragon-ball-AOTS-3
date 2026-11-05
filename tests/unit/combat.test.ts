@@ -81,7 +81,32 @@ describe('Active Guard', () => {
     expect(g).toBeLessThan(n);
     expect(GUARD_MULT.perfect).toBeLessThan(GUARD_MULT.good);
   });
-  it('every hit on a hero by an enemy produces a guard prompt (no permanently unguardable telegraphed hit)', () => {
+  it('guarding once covers the full hit string of one enemy move', () => {
+    let found = false;
+    for (let seed = 1; seed <= 40 && !found; seed++) {
+      const b = mkBattle({ heroes: [heroInit('goku', 25)], enemies: ['android-18'], seed, stage: { p: 25 } });
+      b.start();
+      let prompts = 0;
+      const volley: BattleEvent[] = [];
+      for (let i = 0; i < 160 && !b.ended; i++) {
+        if (b.phase === 'guard') {
+          if (b.pending?.label === 'Rapid Kicks') prompts++;
+          b.provideGuard('perfect');
+        } else if (b.phase === 'input') b.submit({ kind: 'defend' });
+        volley.push(...b.drainEvents().filter((e) => e.t === 'hit' && b.get(e.attacker)?.defId === 'android-18'));
+        const kicks = volley.filter((e): e is Extract<BattleEvent, { t: 'hit' }> => e.t === 'hit' && e.hits === 3);
+        if (kicks.length >= 3) {
+          expect(prompts).toBe(1);
+          expect(kicks.slice(-3).map((e) => e.hitIndex)).toEqual([0, 1, 2]);
+          expect(kicks.slice(-3).every((e) => e.guard === 'perfect')).toBe(true);
+          found = true;
+          break;
+        }
+      }
+    }
+    expect(found).toBe(true);
+  });
+  it('enemy hits remain guardable, while a multi-hit string no longer asks for a press on every hit', () => {
     const b = mkBattle({ enemies: ['recon-probe', 'recon-probe', 'recon-probe'], seed: 3 });
     b.start();
     let prompts = 0, heroHits = 0;

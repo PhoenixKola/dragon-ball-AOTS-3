@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import type { CutStep, CutsceneDef } from '../../types/script';
-import { actorKey, getActor, getVfx, needsFlip } from '../assets';
+import { actorKey, getActor, getVfx, getWorld, needsFlip } from '../assets';
 import { audio } from '../audio';
-import { ensureActor, ensureMap, ensureVfx } from './loader';
+import { ensureActor, ensureMap, ensureVfx, loadImages } from './loader';
 import { SceneClock } from './BattleScene';
 
 const W = 1280;
@@ -26,8 +26,8 @@ interface CA {
 }
 
 /**
- * Scripted in-engine cutscene player. Uses the same actor frames as battles; missing painted frames are choreographed
- * with poses, VFX, flashes and camera work (def.provisionalArt documents that no painted cutscene art exists).
+ * Scripted cutscene player. Battle actor frames drive in-engine beats; selected
+ * story keyframes supplement the still-provisional pose/VFX staging.
  */
 export class CutsceneScene extends Phaser.Scene {
   clock = new SceneClock(true);
@@ -52,7 +52,7 @@ export class CutsceneScene extends Phaser.Scene {
   create() {
     this.cameras.main.setBackgroundColor('#000000');
     this.isReady = true;
-    this.events.once('shutdown', () => (this.isReady = false));
+    this.events.once('shutdown', () => { this.isReady = false; this.clock.flush(); });
   }
 
   override update(_t: number, dt: number) {
@@ -70,8 +70,9 @@ export class CutsceneScene extends Phaser.Scene {
     this.bg = [];
     const bd = `bd:${mapId}:0`;
     if (this.textures.exists(bd)) {
-      const img = this.add.image(W / 2, 440, bd).setOrigin(0.5, 1).setDepth(0);
-      img.setScale(Math.max(W / img.width, 1));
+      const fullStage = getWorld(mapId)?.backdrops[0]?.note?.includes('battle-stage');
+      const img = this.add.image(W / 2, fullStage ? H / 2 : 440, bd).setOrigin(0.5, fullStage ? 0.5 : 1).setDepth(0);
+      img.setScale(fullStage ? W / img.width : Math.max(W / img.width, 1));
       this.bg.push(img);
     } else this.bg.push(this.add.rectangle(W / 2, 220, W, 440, 0x20304f));
     const tk = `tile:${mapId}:floor`;
@@ -84,6 +85,7 @@ export class CutsceneScene extends Phaser.Scene {
     this.actors.clear();
     audio.playMusic(def.music as never);
     await this.setBackdrop(def.backdrop);
+    await loadImages(this, def.steps.filter((step): step is Extract<CutStep, { t: 'keyframe' }> => step.t === 'keyframe').map((step) => ({ key: `cinematic:${step.path}`, path: step.path })));
     this.fade = this.add.rectangle(W / 2, H / 2, W, H, 0x000000, 1).setDepth(5000);
     this.tweens.add({ targets: this.fade, alpha: 0, duration: 350 });
     this.debug = { id: def.id, step: 0, kind: '' };
@@ -180,6 +182,23 @@ export class CutsceneScene extends Phaser.Scene {
       case 'music': audio.playMusic(st.key as never); return;
       case 'card': await this.host.card(st.text, st.sub); return;
       case 'backdrop': await this.setBackdrop(st.map); return;
+      case 'keyframe': {
+        if (fast) return;
+        this.host.caption(null);
+        const key = `cinematic:${st.path}`;
+        if (!this.textures.exists(key)) return;
+        const img = this.add.image(W / 2, H / 2, key).setDepth(4500);
+        img.setScale(Math.max(W / img.width, H / img.height));
+        if (this.host.reducedMotion()) {
+          await this.wait(st.ms);
+        } else {
+          img.setAlpha(0);
+          this.tweens.add({ targets: img, alpha: 1, duration: 250 });
+          await this.wait(st.ms);
+        }
+        img.destroy();
+        return;
+      }
       case 'caption': this.host.caption(st.text); if (!fast) await this.wait(Math.min(2600, 700 + st.text.length * 28)); return;
     }
   }
