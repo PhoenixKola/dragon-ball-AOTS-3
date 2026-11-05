@@ -17,5 +17,6 @@ it('policy matrix', async () => {
   expect(ok('attentive')).toBe(true);
   expect(ok('average')).toBe(true);
   expect(ok('occasional')).toBe(true);
+  expect(ok('noguard_normal')).toBe(true);
   expect(ok('noguard_easy')).toBe(true);
 }, 900000);

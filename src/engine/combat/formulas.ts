@@ -2,6 +2,8 @@ import { FORMS } from '../../data/heroes';
 import type { Fighter, GuardGrade, StatusKind } from '../../types';
 
 export const GUARD_MULT: Record<GuardGrade, number> = { perfect: 0.2, good: 0.55, none: 1 };
+/** Unguarded hits still get a small passive brace so Active Guard stays helpful, not mandatory. */
+export const PASSIVE_BRACE_MULT = 0.85;
 /** global tuning knob for incoming enemy damage against heroes */
 export const ENEMY_DMG = 0.78;
 export const EASY_ENEMY_DMG = 0.62;

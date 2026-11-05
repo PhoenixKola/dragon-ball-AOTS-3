@@ -14,7 +14,7 @@ function landing(): MapDef {
   m.row('rock', 10, 18, 3, 3).row('boulder', 18, 10, 3, 5, 2, 1).prop('rubble', 26, 10, 2, 1).prop('rubble', 12, 14, 2, 1).prop('rock', 20, 22).prop('rock', 6, 18);
   m.e(
     zone('intro', 3, 19, 6, 5, { script: [{ t: 'once', id: 'opening', steps: [{ t: 'cutscene', id: 'opening' }] }] }),
-    point('sign', 'sign_controls', 6, 19, { text: 'Move: WASD / arrows. Interact: E / Enter / Space. Menu: Tab. Troopers ahead — walk into them (or press E) to fight. Guard: press 1 when the ring closes.' }),
+    point('sign', 'sign_controls', 6, 19, { text: 'Move: WASD / arrows. Interact: E / Enter / Space. Menu: Tab. Troopers ahead — walk into them (or press E) to fight. Big, charged, and multi-hit attacks show a Guard timing ring; routine hits are braced automatically.' }),
     npc('wit1', 'Witness', 'civilian', 9, 21, [say('civilian', 'I saw the sky split open — and then a boy with a sword stepped out. Whoever he is, he\'s the only thing between us and those soldiers.')]),
     npc('wit2', 'Survivor', 'civilian', 14, 9, [say('civilian', 'Frieza\'s men have been on the plateau all morning. They took everything. Be careful — they have a ship further east.')], { facing: 'left' }),
     chest('ch_land1', 8, 10, { item: 'senzu_small', n: 2 }),

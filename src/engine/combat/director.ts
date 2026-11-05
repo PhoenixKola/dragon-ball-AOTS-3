@@ -184,7 +184,7 @@ export class BattleDirector {
     const slot = Math.max(1, heroes.findIndex((h) => h.uid === p.targetUid) + 1);
     if (!this.tutorialsSeen.has('tut:guard') && this.host.settings().showTutorials) {
       this.tutorialsSeen.add('tut:guard');
-      this.pushView({ phase: 'guard', tutorial: 'Active Guard: time one press for the targeted fighter as the ring closes. One successful guard covers that enemy move’s full multi-hit combo. Good cuts damage and Perfect nearly stops it; both build Rage. You can also attack, use support, or Defend on your own turn.' });
+      this.pushView({ phase: 'guard', tutorial: 'Active Guard: time one press for the targeted fighter as the ring closes. One successful guard covers that enemy move’s full multi-hit combo. Routine attacks are passively braced; save your focus for big, charged, and telegraphed moves. Good and Perfect guards reduce damage and build Rage.' });
       await this.host.tutorial('tut:guard', '');
       this.pushView({ tutorial: null });
     }

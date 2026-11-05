@@ -9,7 +9,7 @@ import type {
 import { buildEnemyFighter, buildHeroFighter, scaleEnemy, type HeroInit } from './fighters';
 import {
   accuracyOf, CRIT_CHANCE, CRIT_MULT, DEFEND_MULT, ENEMY_DMG, EASY_ENEMY_DMG, effAtk, effDef, effSpd, getStatus, GUARD_MULT, hasStatus, kiCost, mitigation, SPARKING_COST,
-  SPARKING_TURNS, statusPower,
+  PASSIVE_BRACE_MULT, SPARKING_TURNS, statusPower,
 } from './formulas';
 import { RAGE, rageDealt, rageTaken } from './rage';
 import { heroActorId } from '../assets';
@@ -1041,6 +1041,7 @@ export class Battle {
     if (tgt.defending) d *= DEFEND_MULT;
     if (cover) d *= 1 - cover;
     d *= GUARD_MULT[grade];
+    if (tgt.isHero && att.team === 'enemy' && grade === 'none') d *= PASSIVE_BRACE_MULT;
     if (tgt.isHero && tgt.sparkingTurns > 0) d *= 0.9;
     if (spec.damageMod) d *= spec.damageMod;
     if (tgt.isHero && att.team === 'enemy') d *= ENEMY_DMG * (this.difficulty === 'easy' ? EASY_ENEMY_DMG : 1);
@@ -1348,7 +1349,8 @@ export class Battle {
       for (const t of tgts) {
         if (!t.alive) continue;
         const isGrab = m.special === 'absorbGrab';
-        const r = yield* this.hit(f, t, { mult: hits[i] * bonus, element: m.element, pierce: m.pierce, hitIndex: i, hits: hits.length, vfx: m.vfx ?? (m.element === 'ki' ? 'ball-red' : 'impact-hit'), label: m.name, guardBatch });
+        const highRisk = !!m.charge || !!m.telegraph || m.special === 'absorbGrab' || hits.length > 1 || hits[i] * bonus >= 1.25;
+        const r = yield* this.hit(f, t, { mult: hits[i] * bonus, element: m.element, pierce: m.pierce, hitIndex: i, hits: hits.length, vfx: m.vfx ?? (m.element === 'ki' ? 'ball-red' : 'impact-hit'), label: m.name, guardBatch, guardable: highRisk });
         if (r.landed) {
           struck.push(r.target);
           total += r.dmg;

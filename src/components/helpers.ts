@@ -83,7 +83,7 @@ export const FLAG_NOTES: Record<string, string> = {
 
 export const DIFFICULTY_TEXT = {
   easy: 'Easy: enemies deal much less damage, extra XP, and a wider Active Guard window by default.',
-  normal: 'Normal: the intended challenge. Learn the Active Guard timing and spend Ki wisely.',
+  normal: 'Normal: the intended challenge. Charged, telegraphed, multi-hit and heavy attacks offer Active Guard; ordinary hits are passively braced.',
 };
 
 /* ------------------------------------------------------------------ icons: every entry always has a URL or a glyph */

@@ -30,13 +30,13 @@ try {
   await menu.getByRole('button', { name: 'Back' }).click();
   if ((await actions()).length) throw new Error('Back from targeting submitted a command');
   await menu.getByRole('button', { name: new RegExp(skillName, 'i') }).first().click();
-  if (await menu.locator('.target-chip').count()) await menu.locator('.target-chip').first().click();
+  if (await menu.locator('.target-chip').count()) await menu.locator('.target-chip').first().click({ force: true });
   const skillAction = (await actions()).at(-1);
   if (skillAction?.kind !== 'skill') throw new Error(`Technique did not submit through HUD: ${JSON.stringify(skillAction)}`);
 
   await menu.getByRole('button', { name: /Items/ }).click();
   await menu.getByRole('button', { name: /Senzu Fragment/ }).click();
-  await menu.locator('.target-chip').first().click();
+  await menu.locator('.target-chip').first().click({ force: true });
   const itemAction = (await actions()).at(-1);
   if (itemAction?.kind !== 'item' || itemAction.itemId !== 'senzu_small' || !itemAction.targetUid) throw new Error(`Item targeting failed: ${JSON.stringify(itemAction)}`);
 

@@ -5,7 +5,7 @@ import { RAGE_ARTS, SKILL_LIST } from '../../src/data/skills';
 import { ENEMIES } from '../../src/data/enemies';
 import { Battle } from '../../src/engine/combat/engine';
 import { GUARD_PRESETS, GuardTracker } from '../../src/engine/combat/guard';
-import { GUARD_MULT, effSpd, mitigation } from '../../src/engine/combat/formulas';
+import { GUARD_MULT, PASSIVE_BRACE_MULT, effSpd, mitigation } from '../../src/engine/combat/formulas';
 import { Rng } from '../../src/engine/combat/rng';
 import { chooseAction } from '../../src/engine/combat/policy';
 import { HERO_IDS, type BattleEvent, type HeroId } from '../../src/types';
@@ -80,6 +80,8 @@ describe('Active Guard', () => {
     expect(p).toBeLessThan(g);
     expect(g).toBeLessThan(n);
     expect(GUARD_MULT.perfect).toBeLessThan(GUARD_MULT.good);
+    expect(PASSIVE_BRACE_MULT).toBeGreaterThan(GUARD_MULT.good);
+    expect(PASSIVE_BRACE_MULT).toBeLessThan(1);
   });
   it('guarding once covers the full hit string of one enemy move', () => {
     let found = false;
@@ -106,7 +108,7 @@ describe('Active Guard', () => {
     }
     expect(found).toBe(true);
   });
-  it('enemy hits remain guardable, while a multi-hit string no longer asks for a press on every hit', () => {
+  it('telegraphed hits remain guardable while routine hits do not interrupt the turn flow', () => {
     const b = mkBattle({ enemies: ['recon-probe', 'recon-probe', 'recon-probe'], seed: 3 });
     b.start();
     let prompts = 0, heroHits = 0;
@@ -119,7 +121,7 @@ describe('Active Guard', () => {
       heroHits += hits(b.drainEvents()).filter((e) => b.get(e.target)?.isHero && !e.countered).length;
     }
     expect(prompts).toBeGreaterThan(0);
-    expect(heroHits).toBe(prompts);
+    expect(heroHits).toBeGreaterThan(prompts);
   });
 });
 
