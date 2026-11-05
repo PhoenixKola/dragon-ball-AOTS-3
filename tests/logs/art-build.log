@@ -11,7 +11,10 @@
 [world] cell_games_approach: 1 backdrops, 6 tiles, 35 props
 [world] cell_games_arena: 1 backdrops, 6 tiles, 27 props
 [world handoff] gingertown: 4 regional ground tiles integrated
-[worlds] done 13.0s
+[world handoff] landing_future: 4 regional battle panoramas integrated
+[world handoff] rocky_outskirts: 6 regional battle panoramas integrated
+[world handoff] south_city: 2 regional battle panoramas integrated
+[worlds] done 13.5s
 [cinematics] trunks_arrival: 1672x941
 [cinematics] cell_absorbs_17: 1672x941
 [cinematics] cell_absorbs_18: 1672x941
@@ -21,4 +24,4 @@
 [cinematics] android16_destruction: 1672x941
 [atmosphere] gingertown mist: native-generated transparent overlay
 [world extra] gingertown battle backdrop: 1672x941
-pruned 2 unreferenced PNGs
+pruned 14 unreferenced PNGs

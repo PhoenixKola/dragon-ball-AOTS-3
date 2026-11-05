@@ -80,6 +80,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
   private activeUid: string | null = null;
   private opts = { reducedMotion: false, shake: 1, battleSpeed: 1 as number };
   private mapId = 'capsule_corp';
+  private stageId = '';
   private dim = false;
   private pendingAnimations = new Set<() => void>();
 
@@ -91,8 +92,9 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     this.opts = o;
   }
 
-  init(data: { mapId: string }) {
+  init(data: { mapId: string; stageId?: string }) {
     this.mapId = data.mapId;
+    this.stageId = data.stageId ?? '';
   }
 
   /** true between create() and shutdown; the session waits for it instead of guessing a delay */
@@ -179,10 +181,14 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     for (const o of this.bg) o.destroy();
     this.bg = [];
     const w = getWorld(this.mapId);
-    const bdKey = `bd:${this.mapId}:0`;
+    const backdrops = w?.backdrops ?? [];
+    const fullStagePrimary = backdrops[0]?.note?.includes('battle-stage') ?? false;
+    const seed = [...this.stageId].reduce((h, ch) => (Math.imul(h, 31) + ch.charCodeAt(0)) >>> 0, 7);
+    const backdropIndex = fullStagePrimary || backdrops.length < 2 ? 0 : seed % backdrops.length;
+    const bdKey = `bd:${this.mapId}:${backdropIndex}`;
     const horizon = 430;
     if (this.textures.exists(bdKey)) {
-      const fullStage = w?.backdrops[0]?.note?.includes('battle-stage');
+      const fullStage = backdrops[backdropIndex]?.note?.includes('battle-stage');
       const img = this.add.image(W / 2, fullStage ? H / 2 : horizon, bdKey).setOrigin(0.5, fullStage ? 0.5 : 1).setDepth(0);
       const sc = fullStage ? W / img.width : Math.max(W / img.width, 1);
       img.setScale(sc);

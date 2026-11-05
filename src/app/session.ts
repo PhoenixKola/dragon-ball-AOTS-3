@@ -640,7 +640,7 @@ export class Session implements SessionApi, ControllerHost {
     audio.playMusic((stage.music || 'battle') as never);
     audio.sfx('boss-in');
     this.game.scene.sleep('World');
-    this.game.scene.start('Battle', { mapId: stage.backdrop });
+    this.game.scene.start('Battle', { mapId: stage.backdrop, stageId: stage.id });
     const scene = this.game.scene.getScene('Battle') as BattleScene;
     await this.sceneReady(() => scene.isReady);
     this.battleScene = scene;

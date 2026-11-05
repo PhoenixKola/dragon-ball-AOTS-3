@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T11:48:36+00:00",
+ "generatedAt": "2026-11-05T11:56:25+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -22400,81 +22400,81 @@
      "bbox": [
       0,
       0,
-      356,
-      300
+      1440,
+      517
      ],
      "facing": "front",
      "feet": [
-      178,
-      300
+      720,
+      517
      ],
-     "h": 300,
-     "note": "battle backdrop (day); crop of future-landing.png",
-     "path": "assets/worlds/landing_future/backdrop-day.png",
+     "h": 517,
+     "note": "panorama crop 11,776,362,130 from art/handoff/worlds/future_landing_site_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/landing_future/backdrop-handoff-day.png",
      "quality": "genuine",
-     "visible": 106800,
-     "w": 356
+     "visible": 744480,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      334,
-      300
+      1440,
+      544
      ],
      "facing": "front",
      "feet": [
-      167,
-      300
+      720,
+      544
      ],
-     "h": 300,
-     "note": "battle backdrop (noon); crop of future-landing.png",
-     "path": "assets/worlds/landing_future/backdrop-noon.png",
+     "h": 544,
+     "note": "panorama crop 383,776,344,130 from art/handoff/worlds/future_landing_site_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/landing_future/backdrop-handoff-late-day.png",
      "quality": "genuine",
-     "visible": 100200,
-     "w": 334
+     "visible": 783360,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      334,
-      300
+      1440,
+      529
      ],
      "facing": "front",
      "feet": [
-      167,
-      300
+      720,
+      529
      ],
-     "h": 300,
-     "note": "battle backdrop (storm); crop of future-landing.png",
-     "path": "assets/worlds/landing_future/backdrop-storm.png",
+     "h": 529,
+     "note": "panorama crop 734,776,354,130 from art/handoff/worlds/future_landing_site_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/landing_future/backdrop-handoff-storm.png",
      "quality": "genuine",
-     "visible": 100200,
-     "w": 334
+     "visible": 761760,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      340,
-      300
+      1440,
+      544
      ],
      "facing": "front",
      "feet": [
-      170,
-      300
+      720,
+      544
      ],
-     "h": 300,
-     "note": "battle backdrop (sunset); crop of future-landing.png",
-     "path": "assets/worlds/landing_future/backdrop-sunset.png",
+     "h": 544,
+     "note": "panorama crop 1090,776,344,130 from art/handoff/worlds/future_landing_site_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/landing_future/backdrop-handoff-sunset.png",
      "quality": "genuine",
-     "visible": 102000,
-     "w": 340
+     "visible": 783360,
+     "w": 1440
     }
    ],
    "mapId": "landing_future",
-   "note": "Wasteland plateau theme; backdrop strip holds 4 weather/time variants (day, noon, storm, sunset).",
+   "note": "Wasteland plateau theme; backdrop strip holds 4 weather/time variants (day, noon, storm, sunset). Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "bush": {
      "footH": 1,
@@ -23168,119 +23168,119 @@
      "bbox": [
       0,
       0,
-      472,
-      114
+      1440,
+      307
      ],
      "facing": "front",
      "feet": [
-      236,
-      114
+      720,
+      307
      ],
-     "h": 114,
-     "note": "battle backdrop; crop of rocky-outskirts.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/rocky_outskirts/backdrop-1.png",
+     "h": 307,
+     "note": "panorama crop 17,795,478,102 from art/handoff/worlds/rocky_outskirts_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/rocky_outskirts/backdrop-handoff-day.png",
      "quality": "genuine",
-     "visible": 53808,
-     "w": 472
+     "visible": 442080,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      447,
-      113
+      1440,
+      321
      ],
      "facing": "front",
      "feet": [
-      224,
-      113
+      720,
+      321
      ],
-     "h": 113,
-     "note": "battle backdrop; crop of rocky-outskirts.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/rocky_outskirts/backdrop-2.png",
+     "h": 321,
+     "note": "panorama crop 503,796,453,101 from art/handoff/worlds/rocky_outskirts_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/rocky_outskirts/backdrop-handoff-day-alt.png",
      "quality": "genuine",
-     "visible": 50511,
-     "w": 447
+     "visible": 462240,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      462,
-      113
+      1440,
+      311
      ],
      "facing": "front",
      "feet": [
-      231,
-      113
+      720,
+      311
      ],
-     "h": 113,
-     "note": "battle backdrop; crop of rocky-outskirts.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/rocky_outskirts/backdrop-3.png",
+     "h": 311,
+     "note": "panorama crop 964,796,468,101 from art/handoff/worlds/rocky_outskirts_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/rocky_outskirts/backdrop-handoff-highland.png",
      "quality": "genuine",
-     "visible": 52206,
-     "w": 462
+     "visible": 447840,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      459,
-      151
+      1440,
+      440
      ],
      "facing": "front",
      "feet": [
-      230,
-      151
+      720,
+      440
      ],
-     "h": 151,
-     "note": "battle backdrop; crop of rocky-outskirts.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/rocky_outskirts/backdrop-4.png",
+     "h": 440,
+     "note": "panorama crop 18,920,465,142 from art/handoff/worlds/rocky_outskirts_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/rocky_outskirts/backdrop-handoff-sunset.png",
      "quality": "genuine",
-     "visible": 69309,
-     "w": 459
+     "visible": 633600,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      453,
-      151
+      1440,
+      445
      ],
      "facing": "front",
      "feet": [
-      226,
-      151
+      720,
+      445
      ],
-     "h": 151,
-     "note": "battle backdrop; crop of rocky-outskirts.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/rocky_outskirts/backdrop-5.png",
+     "h": 445,
+     "note": "panorama crop 492,920,459,142 from art/handoff/worlds/rocky_outskirts_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/rocky_outskirts/backdrop-handoff-storm.png",
      "quality": "genuine",
-     "visible": 68403,
-     "w": 453
+     "visible": 640800,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      466,
-      151
+      1440,
+      433
      ],
      "facing": "front",
      "feet": [
-      233,
-      151
+      720,
+      433
      ],
-     "h": 151,
-     "note": "battle backdrop; crop of rocky-outskirts.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/rocky_outskirts/backdrop-6.png",
+     "h": 433,
+     "note": "panorama crop 960,920,472,142 from art/handoff/worlds/rocky_outskirts_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/rocky_outskirts/backdrop-handoff-dusk.png",
      "quality": "genuine",
-     "visible": 70366,
-     "w": 466
+     "visible": 623520,
+     "w": 1440
     }
    ],
    "mapId": "rocky_outskirts",
-   "note": "Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk).",
+   "note": "Rocky wasteland; backdrop strip holds six weather/time variants (3 day, sunset, storm, dusk). Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "bush": {
      "footH": 1,
@@ -23484,43 +23484,43 @@
      "bbox": [
       0,
       0,
-      701,
-      245
+      1440,
+      479
      ],
      "facing": "front",
      "feet": [
-      350,
-      245
+      720,
+      479
      ],
-     "h": 245,
-     "note": "battle backdrop; crop of south-city.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/south_city/backdrop-1.png",
+     "h": 479,
+     "note": "panorama crop 17,822,707,235 from art/handoff/worlds/south_city_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/south_city/backdrop-handoff-intact.png",
      "quality": "genuine",
-     "visible": 171745,
-     "w": 701
+     "visible": 689760,
+     "w": 1440
     },
     {
      "bbox": [
       0,
       0,
-      691,
-      245
+      1440,
+      486
      ],
      "facing": "front",
      "feet": [
-      346,
-      245
+      720,
+      486
      ],
-     "h": 245,
-     "note": "battle backdrop; crop of south-city.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/south_city/backdrop-2.png",
+     "h": 486,
+     "note": "panorama crop 735,822,697,235 from art/handoff/worlds/south_city_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/south_city/backdrop-handoff-ruined.png",
      "quality": "genuine",
-     "visible": 169295,
-     "w": 691
+     "visible": 699840,
+     "w": 1440
     }
    ],
    "mapId": "south_city",
-   "note": "Ruined city streets; two backdrop strips (intact skyline / ruined skyline).",
+   "note": "Ruined city streets; two backdrop strips (intact skyline / ruined skyline). Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "barrier": {
      "footH": 1,

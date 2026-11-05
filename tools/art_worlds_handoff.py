@@ -26,6 +26,26 @@ GINGER_TILES = {
     'edge': (32, 32, 96, 96),          # sidewalk / curb segment
 }
 
+# Scenic panels are curated from the handoff atlases' footer panoramas. These
+# retain separate weather/time variants where the source provides them.
+HANDOFF_BACKDROPS = {
+    'landing_future': (
+        'future_landing_site_tileset.png',
+        [(11, 776, 362, 130), (383, 776, 344, 130), (734, 776, 354, 130), (1090, 776, 344, 130)],
+        ['day', 'late-day', 'storm', 'sunset'],
+    ),
+    'rocky_outskirts': (
+        'rocky_outskirts_tileset.png',
+        [(17, 795, 478, 102), (503, 796, 453, 101), (964, 796, 468, 101), (18, 920, 465, 142), (492, 920, 459, 142), (960, 920, 472, 142)],
+        ['day', 'day-alt', 'highland', 'sunset', 'storm', 'dusk'],
+    ),
+    'south_city': (
+        'south_city_tileset.png',
+        [(17, 822, 707, 235), (735, 822, 697, 235)],
+        ['intact', 'ruined'],
+    ),
+}
+
 
 def asphalt_tile(atlas: Image.Image) -> Image.Image:
     """Build a calm, seamless street fill from Ginger Town's asphalt palette."""
@@ -87,4 +107,45 @@ def build(reg: dict, log=print) -> dict:
     world['tiles']['wall'] = world['tiles']['path']
     world['note'] += ' Ground tiles refined from the regional handoff atlas.'
     log('[world handoff] gingertown: 4 regional ground tiles integrated')
+
+    for map_id, (filename, panels, names) in HANDOFF_BACKDROPS.items():
+        sheet = Image.open(ROOT / 'art' / 'handoff' / 'worlds' / filename).convert('RGBA')
+        refs = []
+        for (x, y, w, h), name in zip(panels, names):
+            panorama = sheet.crop((x, y, x + w, y + h))
+            # Atlas panel gutters can be partially transparent. Extend painted
+            # edge colors over those gaps to keep battle backdrops opaque.
+            rgba = np.array(panorama)
+            painted = rgba[..., 3] >= 240
+            for _ in range(max(w, h)):
+                if painted.all():
+                    break
+                old = painted.copy()
+                for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                    shifted_mask = np.roll(old, (dy, dx), axis=(0, 1))
+                    shifted_pixels = np.roll(rgba, (dy, dx), axis=(0, 1))
+                    take = ~painted & shifted_mask
+                    rgba[take] = shifted_pixels[take]
+                    painted |= take
+            rgba[..., 3] = 255
+            panorama = Image.fromarray(rgba, 'RGBA')
+            # BattleScene keeps scenic strips at native size instead of
+            # scaling small textures to the viewport. Enlarge the panorama to
+            # a 1440px stage width in integer-preserving nearest-neighbor style.
+            stage_width = 1440
+            panorama = panorama.resize(
+                (stage_width, round(panorama.height * stage_width / panorama.width)),
+                Image.Resampling.NEAREST,
+            )
+            ref = save_frame(
+                panorama,
+                f'worlds/{map_id}/backdrop-handoff-{name}.png',
+                'genuine',
+                'front',
+                f'panorama crop {x},{y},{w},{h} from art/handoff/worlds/{filename}, nearest-neighbor enlarged to 1440px stage width',
+            )
+            refs.append(ref)
+        reg['worlds'][map_id]['backdrops'] = refs
+        reg['worlds'][map_id]['note'] += ' Battle panoramas curated from the regional handoff atlas.'
+        log(f'[world handoff] {map_id}: {len(refs)} regional battle panoramas integrated')
     return reg
