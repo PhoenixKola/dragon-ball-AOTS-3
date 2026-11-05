@@ -14,6 +14,7 @@ const ALIAS = aliasJson as Record<string, Record<string, string>>;
 const TILE = 32;
 const TILE_KEYS: Record<string, string> = { '.': 'floor', ',': 'floor2', '=': 'path', '#': 'wall', '~': 'water', ':': 'edge' };
 const TILE_FALLBACK: Record<string, number> = { '.': 0x6a7a56, ',': 0x627250, '=': 0x9a8a6a, '#': 0x3a3a48, '~': 0x2a5a9a, ':': 0x7a7a6a };
+const ORGANIC_PATH_MAPS = new Set(['gingertown', 'landing_future', 'rocky_outskirts', 'mountain_lab', 'android_island']);
 const FOLLOW_ZOOM = 2;
 
 interface Visual {
@@ -117,7 +118,8 @@ export class WorldScene extends Phaser.Scene {
           const hash = (Math.imul(x + 1, 0x45d9f3b) ^ Math.imul(y + 3, 0x119de1f3) ^ mapSeed) >>> 0;
           const tile = this.make.image({ key, x: (x + 0.5) * TILE, y: (y + 0.5) * TILE, add: false });
           const organicGround = ['floor', 'floor2', 'water'].includes(tileClass)
-            || (map.id === 'gingertown' && ['path', 'wall'].includes(tileClass));
+            || (tileClass === 'path' && ORGANIC_PATH_MAPS.has(map.id))
+            || (map.id === 'gingertown' && tileClass === 'wall');
           tile.setOrigin(0.5).setRotation(organicGround ? (hash & 3) * Math.PI / 2 : 0).setFlipX(organicGround && (hash & 4) !== 0);
           rt.draw(tile);
           tile.destroy();
