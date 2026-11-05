@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T17:13:43+00:00",
+ "generatedAt": "2026-11-05T19:23:14+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -17642,108 +17642,89 @@
  "vfx": {
   "absorb": {
    "family": "absorb",
-   "fps": 10,
+   "fps": 12,
    "frames": [
     {
      "bbox": [
-      1,
-      1,
-      242,
-      124
+      9,
+      8,
+      110,
+      112
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      130,
-      125
+      62,
+      120
      ],
-     "h": 126,
-     "note": "energy-overlays.png comp#84",
+     "h": 128,
+     "note": "native-generated source art/production/vfx/absorb-drain-source.png; transparent cell crop, nearest-neighbour fit, loose sparks phase",
      "path": "assets/vfx/absorb/0.png",
-     "quality": "genuine",
-     "visible": 16086,
-     "w": 244
+     "quality": "derived",
+     "visible": 3172,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      116,
-      108
+      11,
+      8,
+      105,
+      112
      ],
-     "facing": "right",
-     "feet": [
-      56,
-      109
-     ],
-     "h": 110,
-     "note": "energy-overlays.png comp#85",
-     "path": "assets/vfx/absorb/1.png",
-     "quality": "genuine",
-     "visible": 7607,
-     "w": 118
-    },
-    {
-     "bbox": [
-      1,
-      1,
-      119,
-      106
-     ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
       44,
-      107
+      120
      ],
-     "h": 108,
-     "note": "energy-overlays.png comp#86",
+     "h": 128,
+     "note": "native-generated source art/production/vfx/absorb-drain-source.png; transparent cell crop, nearest-neighbour fit, inward curl phase",
+     "path": "assets/vfx/absorb/1.png",
+     "quality": "derived",
+     "visible": 5516,
+     "w": 128
+    },
+    {
+     "bbox": [
+      9,
+      8,
+      110,
+      112
+     ],
+     "facing": "front",
+     "feet": [
+      69,
+      120
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/absorb-drain-source.png; transparent cell crop, nearest-neighbour fit, tight spiral phase",
      "path": "assets/vfx/absorb/2.png",
-     "quality": "genuine",
-     "visible": 7058,
-     "w": 121
+     "quality": "derived",
+     "visible": 8015,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      137,
-      99
+      8,
+      8,
+      111,
+      112
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      48,
-      100
+      80,
+      120
      ],
-     "h": 101,
-     "note": "energy-overlays.png comp#87",
+     "h": 128,
+     "note": "native-generated source art/production/vfx/absorb-drain-source.png; transparent cell crop, nearest-neighbour fit, contract and fade phase",
      "path": "assets/vfx/absorb/3.png",
-     "quality": "genuine",
-     "visible": 9194,
-     "w": 139
-    },
-    {
-     "bbox": [
-      1,
-      1,
-      135,
-      106
-     ],
-     "facing": "right",
-     "feet": [
-      71,
-      107
-     ],
-     "h": 108,
-     "note": "energy-overlays.png comp#88",
-     "path": "assets/vfx/absorb/4.png",
-     "quality": "genuine",
-     "visible": 9328,
-     "w": 137
+     "quality": "derived",
+     "visible": 3621,
+     "w": 128
     }
    ],
    "id": "absorb",
    "loop": false,
-   "note": "variants_not_sequence: green tentacle/slime absorb (Cell tail)",
-   "quality": "genuine"
+   "note": "temporal_sequence: four native-generated green drain-vortex phases; human art review pending",
+   "quality": "derived"
   },
   "aura-ascended": {
    "family": "aura",
@@ -18741,89 +18722,89 @@
   },
   "barrier": {
    "family": "status",
-   "fps": 8,
+   "fps": 14,
    "frames": [
     {
      "bbox": [
-      1,
-      1,
-      75,
-      144
+      37,
+      6,
+      53,
+      116
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      49,
-      145
+      66,
+      122
      ],
-     "h": 146,
-     "note": "multicolor-techniques.png comp#12",
+     "h": 128,
+     "note": "native-generated source art/production/vfx/barrier-formation-source.png; transparent cell crop, nearest-neighbour fit, forming rim phase",
      "path": "assets/vfx/barrier/0.png",
-     "quality": "genuine",
-     "visible": 7393,
-     "w": 77
+     "quality": "derived",
+     "visible": 2665,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      91,
-      144
+      36,
+      6,
+      56,
+      116
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      50,
-      145
+      77,
+      122
      ],
-     "h": 146,
-     "note": "multicolor-techniques.png comp#13",
+     "h": 128,
+     "note": "native-generated source art/production/vfx/barrier-formation-source.png; transparent cell crop, nearest-neighbour fit, closed shield phase",
      "path": "assets/vfx/barrier/1.png",
-     "quality": "genuine",
-     "visible": 10686,
-     "w": 93
+     "quality": "derived",
+     "visible": 5246,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      190,
-      146
+      26,
+      6,
+      76,
+      116
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      95,
-      147
+      68,
+      122
      ],
-     "h": 148,
-     "note": "multicolor-techniques.png comp#17",
+     "h": 128,
+     "note": "native-generated source art/production/vfx/barrier-formation-source.png; transparent cell crop, nearest-neighbour fit, impact pulse phase",
      "path": "assets/vfx/barrier/2.png",
-     "quality": "genuine",
-     "visible": 23162,
-     "w": 192
+     "quality": "derived",
+     "visible": 6260,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      206,
-      159
+      30,
+      6,
+      68,
+      116
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      105,
-      160
+      76,
+      122
      ],
-     "h": 161,
-     "note": "multicolor-techniques.png comp#18",
+     "h": 128,
+     "note": "native-generated source art/production/vfx/barrier-formation-source.png; transparent cell crop, nearest-neighbour fit, fractured hex sparks phase",
      "path": "assets/vfx/barrier/3.png",
-     "quality": "genuine",
-     "visible": 24384,
-     "w": 208
+     "quality": "derived",
+     "visible": 4051,
+     "w": 128
     }
    ],
    "id": "barrier",
    "loop": false,
-   "note": "variants_not_sequence: blue hex shield / dome",
-   "quality": "genuine"
+   "note": "temporal_sequence: four native-generated hex-shield formation, impact and break stages; human art review pending",
+   "quality": "derived"
   },
   "beam-blue": {
    "family": "beam",
@@ -19111,6 +19092,35 @@
    "loop": false,
    "note": "EO#19 genuine green head; EO#9 two green orbs (variants_not_sequence)",
    "quality": "genuine"
+  },
+  "beam-neo-tri": {
+   "family": "beam",
+   "fps": 14,
+   "frames": [
+    {
+     "bbox": [
+      6,
+      24,
+      116,
+      80
+     ],
+     "facing": "right",
+     "feet": [
+      42,
+      104
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/neo-tri-beam-source.png; alpha-cropped and nearest-neighbour fit to 116px inside centered 128px canvas",
+     "path": "assets/vfx/beam-neo-tri/0.png",
+     "quality": "derived",
+     "visible": 4499,
+     "w": 128
+    }
+   ],
+   "id": "beam-neo-tri",
+   "loop": false,
+   "note": "single_generated_sprite: three-pronged lime-gold Neo Tri-Beam head; human art review pending",
+   "quality": "derived"
   },
   "beam-purple": {
    "family": "beam",
@@ -20096,6 +20106,35 @@
    "note": "variants_not_sequence: Solar Flare star/glow",
    "quality": "genuine"
   },
+  "hellzone-grenade": {
+   "family": "ball",
+   "fps": 14,
+   "frames": [
+    {
+     "bbox": [
+      6,
+      11,
+      116,
+      105
+     ],
+     "facing": "right",
+     "feet": [
+      68,
+      116
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/hellzone-grenade-source.png; alpha-cropped and nearest-neighbour fit to 116px inside centered 128px canvas",
+     "path": "assets/vfx/hellzone-grenade/0.png",
+     "quality": "derived",
+     "visible": 7759,
+     "w": 128
+    }
+   ],
+   "id": "hellzone-grenade",
+   "loop": false,
+   "note": "single_generated_sprite: emerald ki grenade orb with orbiting sparks; human art review pending",
+   "quality": "derived"
+  },
   "impact-big": {
    "family": "impact",
    "fps": 14,
@@ -20545,6 +20584,168 @@
    "note": "ordered_growth: blue sword-slash arcs",
    "quality": "genuine"
   },
+  "special-beam-cannon": {
+   "family": "beam",
+   "fps": 30,
+   "frames": [
+    {
+     "bbox": [
+      16,
+      16,
+      95,
+      96
+     ],
+     "facing": "right",
+     "feet": [
+      54,
+      112
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 0 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/0.png",
+     "quality": "derived",
+     "visible": 5794,
+     "w": 128
+    },
+    {
+     "bbox": [
+      9,
+      4,
+      119,
+      103
+     ],
+     "facing": "right",
+     "feet": [
+      69,
+      107
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 45 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/1.png",
+     "quality": "derived",
+     "visible": 5783,
+     "w": 128
+    },
+    {
+     "bbox": [
+      16,
+      16,
+      96,
+      95
+     ],
+     "facing": "right",
+     "feet": [
+      80,
+      111
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 90 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/2.png",
+     "quality": "derived",
+     "visible": 5794,
+     "w": 128
+    },
+    {
+     "bbox": [
+      21,
+      9,
+      103,
+      119
+     ],
+     "facing": "right",
+     "feet": [
+      66,
+      128
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 135 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/3.png",
+     "quality": "derived",
+     "visible": 5782,
+     "w": 128
+    },
+    {
+     "bbox": [
+      17,
+      16,
+      95,
+      96
+     ],
+     "facing": "right",
+     "feet": [
+      60,
+      112
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 180 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/4.png",
+     "quality": "derived",
+     "visible": 5794,
+     "w": 128
+    },
+    {
+     "bbox": [
+      0,
+      21,
+      119,
+      103
+     ],
+     "facing": "right",
+     "feet": [
+      59,
+      124
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 225 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/5.png",
+     "quality": "derived",
+     "visible": 5783,
+     "w": 128
+    },
+    {
+     "bbox": [
+      16,
+      17,
+      96,
+      95
+     ],
+     "facing": "right",
+     "feet": [
+      74,
+      112
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 270 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/6.png",
+     "quality": "derived",
+     "visible": 5794,
+     "w": 128
+    },
+    {
+     "bbox": [
+      4,
+      0,
+      103,
+      119
+     ],
+     "facing": "right",
+     "feet": [
+      66,
+      119
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, 315 degree rotation",
+     "path": "assets/vfx/special-beam-cannon/7.png",
+     "quality": "derived",
+     "visible": 5783,
+     "w": 128
+    }
+   ],
+   "id": "special-beam-cannon",
+   "loop": false,
+   "note": "temporal_sequence: eight real angular frames from one native-generated green spiral projectile head; generated candidate; human art review pending",
+   "quality": "derived"
+  },
   "spiral": {
    "family": "beam",
    "fps": 16,
@@ -20611,6 +20812,235 @@
    "loop": true,
    "note": "variants_not_sequence: blue spirals (Special Beam Cannon corkscrew)",
    "quality": "genuine"
+  },
+  "spirit-bomb": {
+   "family": "ball",
+   "fps": 14,
+   "frames": [
+    {
+     "bbox": [
+      31,
+      30,
+      66,
+      67
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      97
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/spirit-bomb-source.png; alpha-cropped, nearest-neighbour fit and 62% scale/opacity charge growth",
+     "path": "assets/vfx/spirit-bomb/0.png",
+     "quality": "derived",
+     "visible": 3271,
+     "w": 128
+    },
+    {
+     "bbox": [
+      26,
+      25,
+      76,
+      78
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      103
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/spirit-bomb-source.png; alpha-cropped, nearest-neighbour fit and 72% scale/opacity charge growth",
+     "path": "assets/vfx/spirit-bomb/1.png",
+     "quality": "derived",
+     "visible": 4381,
+     "w": 128
+    },
+    {
+     "bbox": [
+      20,
+      19,
+      87,
+      89
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      108
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/spirit-bomb-source.png; alpha-cropped, nearest-neighbour fit and 82% scale/opacity charge growth",
+     "path": "assets/vfx/spirit-bomb/2.png",
+     "quality": "derived",
+     "visible": 5734,
+     "w": 128
+    },
+    {
+     "bbox": [
+      15,
+      14,
+      98,
+      99
+     ],
+     "facing": "front",
+     "feet": [
+      54,
+      113
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/spirit-bomb-source.png; alpha-cropped, nearest-neighbour fit and 92% scale/opacity charge growth",
+     "path": "assets/vfx/spirit-bomb/3.png",
+     "quality": "derived",
+     "visible": 7319,
+     "w": 128
+    },
+    {
+     "bbox": [
+      11,
+      10,
+      106,
+      108
+     ],
+     "facing": "front",
+     "feet": [
+      53,
+      118
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/spirit-bomb-source.png; alpha-cropped, nearest-neighbour fit and 100% scale/opacity charge growth",
+     "path": "assets/vfx/spirit-bomb/4.png",
+     "quality": "derived",
+     "visible": 8657,
+     "w": 128
+    },
+    {
+     "bbox": [
+      8,
+      7,
+      112,
+      114
+     ],
+     "facing": "front",
+     "feet": [
+      52,
+      121
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/spirit-bomb-source.png; alpha-cropped, nearest-neighbour fit and 106% scale/opacity charge growth",
+     "path": "assets/vfx/spirit-bomb/5.png",
+     "quality": "derived",
+     "visible": 9685,
+     "w": 128
+    }
+   ],
+   "id": "spirit-bomb",
+   "loop": false,
+   "note": "temporal_growth: six real scale/opacity stages of the native-generated Spirit Bomb; generated candidate; human art review pending",
+   "quality": "derived"
+  },
+  "telekinetic-pin": {
+   "family": "status",
+   "fps": 12,
+   "frames": [
+    {
+     "bbox": [
+      3,
+      5,
+      121,
+      117
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      122
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/telekinetic-pin-source.png; alpha-cropped, nearest-neighbour fit and restraint-ring closure stage 1",
+     "path": "assets/vfx/telekinetic-pin/0.png",
+     "quality": "derived",
+     "visible": 7150,
+     "w": 128
+    },
+    {
+     "bbox": [
+      8,
+      10,
+      112,
+      108
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      118
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/telekinetic-pin-source.png; alpha-cropped, nearest-neighbour fit and restraint-ring closure stage 2",
+     "path": "assets/vfx/telekinetic-pin/1.png",
+     "quality": "derived",
+     "visible": 6171,
+     "w": 128
+    },
+    {
+     "bbox": [
+      11,
+      13,
+      105,
+      102
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      115
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/telekinetic-pin-source.png; alpha-cropped, nearest-neighbour fit and restraint-ring closure stage 3",
+     "path": "assets/vfx/telekinetic-pin/2.png",
+     "quality": "derived",
+     "visible": 6148,
+     "w": 128
+    },
+    {
+     "bbox": [
+      9,
+      11,
+      110,
+      106
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      117
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/telekinetic-pin-source.png; alpha-cropped, nearest-neighbour fit and restraint-ring closure stage 4",
+     "path": "assets/vfx/telekinetic-pin/3.png",
+     "quality": "derived",
+     "visible": 6019,
+     "w": 128
+    },
+    {
+     "bbox": [
+      7,
+      9,
+      114,
+      110
+     ],
+     "facing": "front",
+     "feet": [
+      64,
+      119
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/telekinetic-pin-source.png; alpha-cropped, nearest-neighbour fit and restraint-ring closure stage 5",
+     "path": "assets/vfx/telekinetic-pin/4.png",
+     "quality": "derived",
+     "visible": 6325,
+     "w": 128
+    }
+   ],
+   "id": "telekinetic-pin",
+   "loop": false,
+   "note": "temporal_sequence: five restraint-ring closure/settle stages from the native-generated Telekinetic Pin glyph; generated candidate; human art review pending",
+   "quality": "derived"
   },
   "teleport": {
    "family": "teleport",

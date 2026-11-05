@@ -42,6 +42,7 @@ interface HitSpec {
   hitIndex: number;
   hits: number;
   vfx: string;
+  sfx?: string;
   label: string;
   skillId?: string;
   atkOverride?: number;
@@ -647,10 +648,10 @@ export class Battle {
           for (let i = 0; i < 3; i++) {
             const tt = t.alive ? t : this.rng.pick(this.opponents(f));
             if (!tt) break;
-            yield* this.hit(f, tt, { mult: 0.7, element: 'phys', hitIndex: i, hits: 3, vfx: 'impact-hit', label: 'Attack' });
+            yield* this.hit(f, tt, { mult: 0.7, element: 'phys', hitIndex: i, hits: 3, vfx: 'impact-hit', sfx: 'hit-melee', label: 'Attack' });
           }
         } else {
-          yield* this.hit(f, t, { mult: 1.0, element: 'phys', hitIndex: 0, hits: 1, vfx: 'impact-hit', label: 'Attack' });
+          yield* this.hit(f, t, { mult: 1.0, element: 'phys', hitIndex: 0, hits: 1, vfx: 'impact-hit', sfx: 'hit-melee', label: 'Attack' });
         }
         const gain = f.guest ? 0 : BASIC_ATTACK_KI_GAIN;
         const restored = Math.min(f.maxKi - f.ki, gain);
@@ -731,7 +732,7 @@ export class Battle {
         this.emit({ t: 'announce', uid: f.uid, text: 'FATHER–SON KAMEHAMEHA!' });
         this.emit({ t: 'clip', uid: f.uid, clip: 'special', vfx: 'father-son', sfx: 'beam' });
         for (const e of this.livingEnemies()) {
-          this.emit({ t: 'hit', attacker: f.uid, target: e.uid, dmg: e.hp, crit: true, hitIndex: 0, hits: 1, element: 'ki', guard: 'none', vfx: 'father-son' });
+          this.emit({ t: 'hit', attacker: f.uid, target: e.uid, dmg: e.hp, crit: true, hitIndex: 0, hits: 1, element: 'ki', guard: 'none', vfx: 'father-son', sfx: 'beam' });
           this.applyDamage(e, e.hp, f);
         }
         this.log('Gohan commits everything — the Father–Son Kamehameha overwhelms Cell!');
@@ -756,7 +757,7 @@ export class Battle {
     for (let i = 0; i < c.hits.length; i++) {
       for (const t of targets) {
         if (!t.alive) continue;
-        const r = yield* this.hit(f, t, { mult: c.hits[i], element: c.element, hitIndex: i, hits: c.hits.length, vfx: c.vfx, label: c.name, atkOverride: atk * (1 + 0.05 * (members.length - 1)), pierce: c.id === 'double_saiyan_blast' ? 0.3 : 0 });
+        const r = yield* this.hit(f, t, { mult: c.hits[i], element: c.element, hitIndex: i, hits: c.hits.length, vfx: c.vfx, sfx: 'hit-crit', label: c.name, atkOverride: atk * (1 + 0.05 * (members.length - 1)), pierce: c.id === 'double_saiyan_blast' ? 0.3 : 0 });
         if (r.landed) hitTargets.push(t);
       }
     }
@@ -819,13 +820,14 @@ export class Battle {
     }
     if (sk.chargeTurns && !opts.fromCharge && !opts.free) {
       f.charging = { skillId: sk.id, targetUid, turnsLeft: sk.chargeTurns };
-      this.emit({ t: 'clip', uid: f.uid, clip: 'charge', vfx: 'charge', sfx: 'charge' });
+      this.emit({ t: 'clip', uid: f.uid, clip: 'charge', vfx: 'charge', sfx: 'charge', skillId: sk.id });
       this.emit({ t: 'announce', uid: f.uid, text: `${sk.name}...` });
       this.log(`${f.name} gathers energy for ${sk.name}.`);
       return;
     }
     this.emit({ t: 'announce', uid: f.uid, text: sk.name });
-    this.emit({ t: 'clip', uid: f.uid, clip: sk.clip, vfx: sk.vfx, sfx: sk.sfx, skillId: sk.id, targetUid: sk.target === 'enemy' ? (targetUid && this.get(targetUid)?.alive && this.get(targetUid)?.team !== f.team ? targetUid : this.opponents(f)[0]?.uid) : sk.target === 'ally' || sk.target === 'anyAlly' ? targetUid : undefined, element: sk.element });
+    const clipTargetUids = sk.target === 'allEnemies' ? this.opponents(f).map((o) => o.uid) : undefined;
+    this.emit({ t: 'clip', uid: f.uid, clip: sk.clip, vfx: sk.vfx, sfx: sk.sfx, skillId: sk.id, targetUid: sk.target === 'enemy' ? (targetUid && this.get(targetUid)?.alive && this.get(targetUid)?.team !== f.team ? targetUid : this.opponents(f)[0]?.uid) : sk.target === 'ally' || sk.target === 'anyAlly' ? targetUid : undefined, targetUids: clipTargetUids, element: sk.element });
     const kind = sk.kind;
     let primary: Fighter[] = [];
     switch (sk.target) {
@@ -881,7 +883,7 @@ export class Battle {
           }
           const adapt = this.adaptMod(f, t, sk);
           const r: HitResult = yield* this.hit(f, t, {
-            mult, element: sk.element, pierce: sk.pierce, acc: sk.acc, critBonus: sk.crit && sk.crit > 0 ? sk.crit : undefined, hitIndex: i, hits: sk.hits.length, vfx: sk.vfx, label: sk.name, skillId: sk.id,
+            mult, element: sk.element, pierce: sk.pierce, acc: sk.acc, critBonus: sk.crit && sk.crit > 0 ? sk.crit : undefined, hitIndex: i, hits: sk.hits.length, vfx: sk.vfx, sfx: sk.sfx, label: sk.name, skillId: sk.id,
             forceCrit, noCounter: !!sk.tags?.includes('noCounter'), damageMod: adapt,
           });
           if (sk.crit === -1 && r.crit) void r;
@@ -901,7 +903,7 @@ export class Battle {
         const first = sk.hits[0] ?? 1;
         for (const o of this.opponents(f)) {
           if (o === primary[0]) continue;
-          yield* this.hit(f, o, { mult: first * sk.splash, element: sk.element, pierce: sk.pierce, hitIndex: 0, hits: 1, vfx: sk.vfx, label: `${sk.name} (splash)`, noCounter: true, noRedirect: true, skillId: sk.id });
+          yield* this.hit(f, o, { mult: first * sk.splash, element: sk.element, pierce: sk.pierce, hitIndex: 0, hits: 1, vfx: sk.vfx, sfx: sk.sfx, label: `${sk.name} (splash)`, noCounter: true, noRedirect: true, skillId: sk.id });
         }
       }
       const total = dealt.reduce((a, b) => a + b, 0);
@@ -997,7 +999,7 @@ export class Battle {
     if (ev && !ignoresEvade) {
       ev.power -= 1;
       if (ev.power <= 0) this.removeStatus(tgt, 'evade');
-      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'evaded', hitIndex: spec.hitIndex, hits: spec.hits });
+      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'evaded', hitIndex: spec.hitIndex, hits: spec.hits, element: spec.element, vfx: spec.vfx });
       this.log(`${tgt.name} evades ${att.name}'s ${spec.label}.`);
       const cs = getStatus(tgt, 'counter');
       if (cs && cs.meta === 'any' && !spec.noCounter && !spec.isCounter && att.alive) {
@@ -1008,7 +1010,7 @@ export class Battle {
     }
     const acc = accuracyOf(att, spec.acc ?? 0);
     if (this.rng.next() > acc) {
-      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'missed', hitIndex: spec.hitIndex, hits: spec.hits });
+      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'missed', hitIndex: spec.hitIndex, hits: spec.hits, element: spec.element, vfx: spec.vfx });
       this.log(`${att.name}'s ${spec.label} misses ${tgt.name}.`);
       return none;
     }
@@ -1018,7 +1020,7 @@ export class Battle {
       const sharedGrade = batchKey ? this.guardBatchGrades.get(batchKey) : undefined;
       if (sharedGrade !== undefined) grade = sharedGrade;
       else {
-        grade = yield { attackerUid: att.uid, targetUid: tgt.uid, hitIndex: spec.hitIndex, hits: spec.hits, label: spec.label, guardable: true };
+        grade = yield { attackerUid: att.uid, targetUid: tgt.uid, hitIndex: spec.hitIndex, hits: spec.hits, label: spec.label, guardable: true, element: spec.element, vfx: spec.vfx };
         if (batchKey) this.guardBatchGrades.set(batchKey, grade);
       }
       this.lastGrade = grade;
@@ -1054,14 +1056,14 @@ export class Battle {
       const heal = Math.max(1, Math.round(d * 0.6));
       const real = Math.min(tgt.maxHp - tgt.hp, heal);
       tgt.hp += real;
-      this.emit({ t: 'hit', attacker: att.uid, target: tgt.uid, dmg: 0, crit: false, hitIndex: spec.hitIndex, hits: spec.hits, element: spec.element, guard: grade, vfx: spec.vfx, absorbed: true });
+      this.emit({ t: 'hit', attacker: att.uid, target: tgt.uid, dmg: 0, crit: false, hitIndex: spec.hitIndex, hits: spec.hits, element: spec.element, guard: grade, vfx: spec.vfx, sfx: spec.sfx, skillId: spec.skillId, absorbed: true });
       this.emit({ t: 'heal', uid: tgt.uid, amount: real });
       this.log(`${tgt.name} absorbs the energy and recovers ${real} HP! Use physical attacks!`);
       return { dmg: 0, landed: true, crit: false, target: tgt, killed: false };
     }
     const dmg = Math.max(1, Math.round(d));
     const before = tgt.hp;
-    this.emit({ t: 'hit', attacker: att.uid, target: tgt.uid, dmg, crit, hitIndex: spec.hitIndex, hits: spec.hits, element: spec.element, guard: grade, vfx: spec.vfx, countered: spec.isCounter });
+    this.emit({ t: 'hit', attacker: att.uid, target: tgt.uid, dmg, crit, hitIndex: spec.hitIndex, hits: spec.hits, element: spec.element, guard: grade, vfx: spec.vfx, sfx: spec.sfx, skillId: spec.skillId, countered: spec.isCounter });
     const real = this.applyDamage(tgt, dmg, att);
     if (tgt.isHero) {
       this.stats.hitsTaken++;
@@ -1171,6 +1173,7 @@ export class Battle {
     }
     if (chance < 1 && this.rng.next() > chance) {
       this.log(`${t.name} resists ${ap.kind}.`);
+      this.emit({ t: 'resist', uid: t.uid, kind: ap.kind });
       return false;
     }
     const existing = t.statuses.find((s) => s.kind === ap.kind && (ap.kind !== 'cover' || s.source === extra.source));
@@ -1304,7 +1307,7 @@ export class Battle {
       this.log(`${f.name} ${m.telegraph}`);
     }
     this.emit({ t: 'announce', uid: f.uid, text: m.name });
-    this.emit({ t: 'clip', uid: f.uid, clip: m.element === 'ki' ? 'beam' : 'melee', vfx: m.vfx ?? (m.element === 'ki' ? 'beam-red' : 'impact-hit'), sfx: m.sfx ?? (m.element === 'ki' ? 'hit-energy' : 'hit-melee'), targetUid: targets[0]?.uid, element: m.element });
+    this.emit({ t: 'clip', uid: f.uid, clip: m.element === 'ki' ? 'beam' : 'melee', vfx: m.vfx ?? (m.element === 'ki' ? 'beam-red' : 'impact-hit'), sfx: m.sfx ?? (m.element === 'ki' ? 'hit-energy' : 'hit-melee'), targetUid: targets[0]?.uid, targetUids: m.target === 'all' ? targets.map((t) => t.uid) : undefined, element: m.element });
     switch (m.special) {
       case 'selfBarrier':
         this.applyStatus(f, { kind: 'barrier', turns: 3, power: Math.round(f.maxHp * 0.12) }, f);
@@ -1352,7 +1355,7 @@ export class Battle {
         if (!t.alive) continue;
         const isGrab = m.special === 'absorbGrab';
         const highRisk = !!m.charge || !!m.telegraph || m.special === 'absorbGrab' || hits.length > 1 || hits[i] * bonus >= 1.25;
-        const r = yield* this.hit(f, t, { mult: hits[i] * bonus, element: m.element, pierce: m.pierce, hitIndex: i, hits: hits.length, vfx: m.vfx ?? (m.element === 'ki' ? 'ball-red' : 'impact-hit'), label: m.name, guardBatch, guardable: highRisk });
+        const r = yield* this.hit(f, t, { mult: hits[i] * bonus, element: m.element, pierce: m.pierce, hitIndex: i, hits: hits.length, vfx: m.vfx ?? (m.element === 'ki' ? 'ball-red' : 'impact-hit'), sfx: m.sfx ?? (m.element === 'ki' ? 'hit-energy' : 'hit-melee'), label: m.name, guardBatch, guardable: highRisk });
         if (r.landed) {
           struck.push(r.target);
           total += r.dmg;

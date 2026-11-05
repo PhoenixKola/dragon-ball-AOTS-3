@@ -77,6 +77,9 @@ export interface SkillOption {
   ki: number;
   hpCost?: number;
   rageCost?: number;
+  chargeTurns?: number;
+  usesRemaining?: number;
+  battleLimit?: number;
   ok: boolean;
   reason?: string;
   /** 'enemy' | 'ally' | 'anyAlly' | 'none' */

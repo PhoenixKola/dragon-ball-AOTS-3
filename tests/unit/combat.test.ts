@@ -208,6 +208,14 @@ describe('formulas, turn order and targeting', () => {
 });
 
 describe('statuses', () => {
+  it('emits clear presentation feedback when a status is resisted', () => {
+    const b = started(mkBattle({ heroes: [heroInit('piccolo', 20)], enemies: ['landing-security'] }));
+    const enemy = b.livingEnemies()[0];
+    b.drainEvents();
+    expect(b.applyStatus(enemy, { kind: 'seal', turns: 2, chance: 0 })).toBe(false);
+    expect(b.drainEvents()).toContainEqual({ t: 'resist', uid: enemy.uid, kind: 'seal' });
+    expect(enemy.statuses.some((status) => status.kind === 'seal')).toBe(false);
+  });
   it('stun makes the victim lose exactly its turn; stunned enemies skip', () => {
     const b = started(mkBattle({ heroes: [heroInit('tien', 25)], enemies: ['landing-security'] }));
     const f = b.current!;

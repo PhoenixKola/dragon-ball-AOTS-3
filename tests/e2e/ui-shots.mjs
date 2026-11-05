@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { chromium } from 'playwright-core';
 
-const PORT = 5199;
+const PORT = Number(process.env.UI_SHOTS_PORT || 5278);
 const OUT = 'docs/ui-evidence';
 mkdirSync(OUT, { recursive: true });
 const vite = spawn(process.execPath, ['node_modules/vite/bin/vite.js', '--port', String(PORT), '--strictPort', '--host', '127.0.0.1'], { stdio: 'pipe' });
@@ -12,7 +12,7 @@ vite.stdout.on('data', (d) => { if (String(d).includes('Local')) ready = true; }
 vite.stderr.on('data', (d) => process.stderr.write(d));
 for (let i = 0; i < 100 && !ready; i++) await new Promise((r) => setTimeout(r, 200));
 
-const VIEWPORTS = [[1024, 600], [1280, 720], [1920, 1080]];
+const VIEWPORTS = [[900, 600], [1024, 600], [1280, 720], [1920, 1080]];
 const MENU_TABS = { 'menu-status': 'Status', 'menu-party': 'Party', 'menu-abilities': 'Abilities', 'menu-items': 'Items', 'menu-equipment': 'Equipment', 'menu-journal': 'Journal', 'menu-options': 'Options', 'menu-save': 'Save' };
 const SCENES = ['title', 'title-nosave', 'title-loading', 'title-newgame', 'title-options', 'world', ...Object.keys(MENU_TABS), 'shop', 'travel', 'save', 'options', 'help', 'credits', 'confirm', 'dialogue', 'dialogue-narrator', 'choice', 'card', 'caption', 'toast', 'battle-input', 'battle-skills', 'battle-target', 'battle-guard', 'battle-reduced', 'battle-anim', 'battle-tutorial', 'rewards', 'defeat'];
 

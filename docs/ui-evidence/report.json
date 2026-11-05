@@ -1,11 +1,377 @@
 [
  {
   "scene": "title",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-nosave",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 6
+ },
+ {
+  "scene": "title-loading",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "title-newgame",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 7
+ },
+ {
+  "scene": "title-options",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 7
+ },
+ {
+  "scene": "world",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-status",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-party",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-abilities",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-items",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-equipment",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-journal",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-options",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "menu-save",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "shop",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "travel",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "save",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "options",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "help",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "credits",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "confirm",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "dialogue-narrator",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "choice",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "card",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "caption",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "toast",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-input",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-skills",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1
+ },
+ {
+  "scene": "battle-target",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 1,
+  "targetHint": "e:1:cell-probe"
+ },
+ {
+  "scene": "battle-guard",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-reduced",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-anim",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "battle-tutorial",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "rewards",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "defeat",
+  "w": 900,
+  "h": 600,
+  "clipped": [],
+  "hscroll": false,
+  "vscroll": false,
+  "overflowing": [],
+  "buttons": 0
+ },
+ {
+  "scene": "_errors",
+  "w": 900,
+  "h": 600,
+  "errors": [],
+  "externalRequests": []
+ },
+ {
+  "scene": "title",
   "w": 1024,
   "h": 600,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -15,9 +381,7 @@
   "scene": "title-nosave",
   "w": 1024,
   "h": 600,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -27,9 +391,7 @@
   "scene": "title-loading",
   "w": 1024,
   "h": 600,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -39,9 +401,7 @@
   "scene": "title-newgame",
   "w": 1024,
   "h": 600,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -51,9 +411,7 @@
   "scene": "title-options",
   "w": 1024,
   "h": 600,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -303,10 +661,7 @@
   "scene": "battle-target",
   "w": 1024,
   "h": 600,
-  "clipped": [
-   "cmd-title:Attack → Cell Probe",
-   "ellipsis:Attack → Cell Probe"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -377,18 +732,14 @@
   "scene": "_errors",
   "w": 1024,
   "h": 600,
-  "errors": [
-   "Failed to load resource: the server responded with a status of 404 (Not Found)"
-  ],
+  "errors": [],
   "externalRequests": []
  },
  {
   "scene": "title",
   "w": 1280,
   "h": 720,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -398,9 +749,7 @@
   "scene": "title-nosave",
   "w": 1280,
   "h": 720,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -410,9 +759,7 @@
   "scene": "title-loading",
   "w": 1280,
   "h": 720,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -422,9 +769,7 @@
   "scene": "title-newgame",
   "w": 1280,
   "h": 720,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -434,9 +779,7 @@
   "scene": "title-options",
   "w": 1280,
   "h": 720,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -686,10 +1029,7 @@
   "scene": "battle-target",
   "w": 1280,
   "h": 720,
-  "clipped": [
-   "cmd-title:Attack → Cell Probe",
-   "ellipsis:Attack → Cell Probe"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -767,9 +1107,7 @@
   "scene": "title",
   "w": 1920,
   "h": 1080,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -779,9 +1117,7 @@
   "scene": "title-nosave",
   "w": 1920,
   "h": 1080,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -791,9 +1127,7 @@
   "scene": "title-loading",
   "w": 1920,
   "h": 1080,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -803,9 +1137,7 @@
   "scene": "title-newgame",
   "w": 1920,
   "h": 1080,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -815,9 +1147,7 @@
   "scene": "title-options",
   "w": 1920,
   "h": 1080,
-  "clipped": [
-   "sr-only:Attack of the Saiyans II"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],
@@ -1067,10 +1397,7 @@
   "scene": "battle-target",
   "w": 1920,
   "h": 1080,
-  "clipped": [
-   "cmd-title:Attack → Cell Probe",
-   "ellipsis:Attack → Cell Probe"
-  ],
+  "clipped": [],
   "hscroll": false,
   "vscroll": false,
   "overflowing": [],

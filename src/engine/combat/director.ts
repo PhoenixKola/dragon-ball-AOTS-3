@@ -1,5 +1,5 @@
 import type { BattleView, FighterView, GuardCue, Settings } from '../../app/store';
-import type { BattleAction, BattleEvent, ClipId, Element, Fighter, FormId, GuardGrade, StatusKind } from '../../types';
+import type { BattleAction, BattleEvent, ClipId, Element, Fighter, FormId, GuardGrade, PendingHit, StatusKind } from '../../types';
 import { buildCommands } from './commands';
 import { Battle } from './engine';
 import { GUARD_PRESETS, GuardTracker, widen, type GuardSettings } from './guard';
@@ -15,11 +15,13 @@ export interface BattleStage {
   setup(fighters: FighterView[]): Promise<void>;
   /** reinforcements joining mid-battle */
   spawn(fighters: FighterView[]): Promise<void>;
-  clip(uid: string, clip: ClipId, vfx: string, sfx: string, targetUid?: string, element?: Element): Promise<void>;
+  clip(uid: string, clip: ClipId, vfx: string, sfx: string, targetUid?: string, element?: Element, skillId?: string, targetUids?: string[]): Promise<void>;
   /** attacker starts moving toward the target; contact happens `ms` later */
   approach(attackerUid: string, targetUid: string, ms: number, label: string): void;
+  incomingCue(hit: PendingHit, ms: number): void;
   hit(e: Extract<BattleEvent, { t: 'hit' }>): Promise<void>;
   miss(e: Extract<BattleEvent, { t: 'miss' }>): Promise<void>;
+  resist(uid: string, kind: StatusKind): void;
   heal(uid: string, amount: number): Promise<void>;
   ki(uid: string, amount: number): Promise<void>;
   ko(uid: string): Promise<void>;
@@ -198,7 +200,8 @@ export class BattleDirector {
     this.tracker.clear(p.targetUid);
     this.pushView({ phase: 'guard', guard: cue, commands: null });
     this.stage.guardCue(cue);
-    this.stage.approach(p.attackerUid, p.targetUid, lead, p.label);
+    if (p.element === 'phys') this.stage.approach(p.attackerUid, p.targetUid, lead, p.label);
+    this.stage.incomingCue(p, lead);
     // wait until the cue closes, on the pausable battle clock (never on setTimeout cascades)
     while (this.clock.now() < closeAt) {
       await this.clock.wait(16);
@@ -257,7 +260,7 @@ export class BattleDirector {
         this.pushView({ banner: null });
         return;
       case 'clip':
-        await this.stage.clip(e.uid, e.clip, e.vfx, e.sfx, e.targetUid, e.element);
+        await this.stage.clip(e.uid, e.clip, e.vfx, e.sfx, e.targetUid, e.element, e.skillId, e.targetUids);
         return;
       case 'hit':
         await this.stage.hit(e);
@@ -266,6 +269,9 @@ export class BattleDirector {
       case 'miss':
         await this.stage.miss(e);
         await this.wait(200);
+        return;
+      case 'resist':
+        this.stage.resist(e.uid, e.kind);
         return;
       case 'heal':
         await this.stage.heal(e.uid, e.amount);

@@ -10,7 +10,7 @@ import { BEATS } from '../../src/data/story';
 import { COMBOS } from '../../src/data/items';
 import { HERO_IDS } from '../../src/types';
 import { registry } from '../../src/engine/assets';
-import { resolvePresentationClip } from '../../src/engine/combat/presentation';
+import { resolvePresentationClip, resolveSkillPresentationClip } from '../../src/engine/combat/presentation';
 
 // Generates the data-derived documentation. Runs as part of the normal suite so the docs can never drift from the data.
 describe('generate data-derived docs', () => {
@@ -48,13 +48,24 @@ describe('generate data-derived docs', () => {
     let p = '# Combat presentation map (generated)\n\n';
     p += `This map is generated from the authored data in \`src/data/skills.ts\`, the runtime VFX registry, and the presentation resolver. It covers **${coreSkills.length} / 84 core techniques** plus Rage Arts and team combos. “Visual clip” is the Phaser action family; registered VFX stay distinct by their own IDs.\n\n`;
     p += 'Frame labels distinguish authored temporal sequences from one-shot/variant artwork. This is an implementation inventory, not a human sign-off that every effect is visually perfect.\n\n';
-    p += '## Core techniques\n\n| ID | Hero | Technique | Kind / element | Clip → visual clip | Registered VFX | Hits / charge |\n|---|---|---|---|---|---|---|\n';
+    p += '## Phase timing contract\n\nBase timings are at battle speed 1x; playback durations scale with the selected battle speed. Melee clips coil and approach for about 260ms, resolve damage and authored sound at the hit event, then return to formation. Ranged casts show a 190ms cue; ordinary projectile travel is 230ms (360ms for Spirit Bomb), and contact feedback waits for arrival before displaying damage or playing the hit sound. Multi-hit techniques resolve contacts in authored order with a 90ms beat between engine events. Enemy Active Guard opens 880ms before impact at 1x; the telegraph marks its threatened target without moving that gameplay timestamp. Reduced motion and fast-forward shorten or skip presentation while combat outcomes stay deterministic.\n\n';
+    p += '## Core techniques\n\n| ID | Hero | Technique | Kind / element | Clip → visual clip | Registered VFX | Hits / charge | Phase timing at 1x |\n|---|---|---|---|---|---|---|---|\n';
     for (const skill of coreSkills) {
       const cue = registry.vfx[skill.vfx];
-      const cueLabel = cue ? `${skill.vfx} (${cue.family}, ${cue.frames.length} frame${cue.frames.length === 1 ? '' : 's'}${cue.note.includes('temporal_sequence') || cue.note.includes('temporal_growth') ? ', temporal' : ', pulse/variant'})` : `MISSING: ${skill.vfx}`;
+      const signature = skill.id === 'piccolo_1' ? 'generated emerald projectile with orbiting sparks' : skill.id === 'tien_2' ? 'generated three-pronged signature head' : skill.id === 'vegeta_3' ? 'charged growing blue sphere' : '';
+      const temporal = ['ordered_growth', 'temporal_sequence', 'temporal_growth'].some((kind) => cue?.note.includes(kind));
+      const cueLabel = cue ? `${skill.vfx} (${cue.family}, ${signature || `${cue.frames.length} frame${cue.frames.length === 1 ? '' : 's'}${temporal ? ', temporal' : ', pulse/variant'}`})` : `MISSING: ${skill.vfx}`;
       const hitCount = skill.hits.length ? `${skill.hits.length} hit${skill.hits.length === 1 ? '' : 's'}` : 'no damage hits';
       const charge = skill.chargeTurns ? `; ${skill.chargeTurns}T charge` : '';
-      p += `| ${skill.id} | ${HEROES[skill.hero as keyof typeof HEROES]?.name ?? skill.hero} | ${skill.name} | ${skill.kind} / ${skill.element} | ${skill.clip} → ${resolvePresentationClip(skill.clip, skill.element)} | ${cueLabel} | ${hitCount}${charge} |\n`;
+      const targets = skill.target === 'allEnemies' ? '; all enemies' : skill.target === 'randomEnemies' ? '; random targets' : '';
+      const hpCost = skill.hpCost ? `; ${Math.round(skill.hpCost * 100)}% max HP cost` : '';
+      const visualClip = resolveSkillPresentationClip(skill);
+      const timing = skill.hits.length === 0 ? '240ms stationary cue, authoritative status/heal result'
+        : skill.id === 'gohan_11' ? 'Finale staging, beam travel, then hit contact'
+          : ['melee', 'sword', 'teleport', 'heavy'].includes(visualClip) ? '260ms approach, hit contact, return-home recovery'
+            : ['beam', 'blast', 'barrage', 'disc', 'special'].includes(visualClip) ? `190ms cast cue, ${skill.id === 'goku_10' ? '360ms' : '230ms'} travel, hit contact${skill.hits.length > 1 ? ' + 90ms per-hit beat' : ''}`
+              : '240ms action cue, authoritative status/heal result';
+      p += `| ${skill.id} | ${HEROES[skill.hero as keyof typeof HEROES]?.name ?? skill.hero} | ${skill.name} | ${skill.kind} / ${skill.element} | ${skill.clip} → ${visualClip} | ${cueLabel} | ${hitCount}${charge}${targets}${hpCost} | ${timing} |\n`;
     }
     p += '\n## Rage Arts\n\n| ID | Hero | Technique | Element | Clip → visual clip | Registered VFX | Hits |\n|---|---|---|---|---|---|---|\n';
     for (const skill of Object.values(RAGE_ARTS)) {
@@ -67,8 +78,20 @@ describe('generate data-derived docs', () => {
       const cue = registry.vfx[combo.vfx];
       p += `| ${combo.id} | ${combo.name} | ${combo.members.join(' + ')} | ${combo.element} | ${clip} | ${combo.vfx} (${cue?.family ?? 'MISSING'}) | ${combo.hits.length} |\n`;
     }
-    p += '\n## Coverage gaps\n\n- All 84 authored core skills have an authored action clip and VFX ID; each registry reference and resolved clip is checked by the runtime presentation audit.\n- Physical generic `special` clips resolve to the close-range heavy clip. Ki generic `special` clips keep the ranged special clip. Explicitly authored beam, sword, disc, barrage, heal, buff, guard, flare and teleport clips remain intact.\n- Flare-family casts place single-target cues on the selected enemy; all-target status flares are distributed over living opponents.\n- The map records exactly which cues are genuine temporal sequences; remaining pulse/variant cues still need authored frame animation where the moment benefits from it. Family/signature quality and impact/audio phase timing still require visual rollout and review.\n';
-    p = p.replace('\n- The map records exactly which cues', '\n- Miss events preserve their hit position within multi-hit actions. Evades add a small motion-light sidestep, and an engaged melee attacker returns home after its final miss; a real P01 Phaser capture covers evade contact using a test-only evade status.\n- The map records exactly which cues');
+    p += [
+      '',
+      '## Coverage gaps',
+      '',
+      '- All 84 authored core skills have an authored action clip and VFX ID; each registry reference and resolved clip is checked by the runtime presentation audit.',
+      '- Physical generic special clips resolve to the close-range heavy clip. Ki generic special clips keep the ranged special clip. Authored beam, sword, disc, barrage, heal, buff, guard, flare and teleport clips remain intact.',
+      '- Flare-family casts place single-target cues on the selected enemy; all-target status flares are distributed over living opponents.',
+      '- Miss events preserve their hit position within multi-hit actions. Evades add a small motion-light sidestep, and a melee attacker returns home after its final miss; a real P01 Phaser capture covers evade contact using a test-only evade status.',
+      '- Resistance emits a presentation event and visible resisted callout. Enemy telegraphs stage a charge cue and mark their threatened target while preserving deterministic guard timing.',
+      '- Critical and heavy impacts, absorbed Ki, healing, guard grades, counters, buffs and status outcomes each retain separate visual feedback. Android 19 absorption uses a generated green temporal sequence; guard, counter and resistance use a generated hex-shield sequence.',
+      '- Signature VFX use dedicated cues for Piccolo Special Beam Cannon and Hellzone Grenade, Goku Spirit Bomb, Tien Neo Tri-Beam and Telekinetic Pin, Vegeta Final Flash, and Gohan Father-Son Kamehameha.',
+      '- Real Phaser evidence covers natural-route A04 absorption, Hellzone travel before damage, evade contact, guard feedback and pilot beam growth/contact beats. Remaining registered variants are deliberate single pulses or travel/rotation effects, not falsely presented as frame sequences. Human visual and play-feel approval remains pending.',
+      '',
+    ].join('\n');
     writeFileSync('docs/COMBAT_PRESENTATION_MAP.md', p);
 
     let t = '# Story and encounter matrix (generated)\n\nBeats are strictly ordered; every battle is reached by walking to its trigger entity on the listed map.\n\n| # | id | chapter | map | mode | enemies | team | p | rewards (XP/zeni) | flags set on success |\n|---|---|---|---|---|---|---|---|---|---|\n';

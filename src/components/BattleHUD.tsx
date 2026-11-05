@@ -165,6 +165,13 @@ function skillCostLabel(skill: Commands['skills'][number]): string {
   return costs.join(' + ') || 'Free';
 }
 
+function skillRowHint(skill: Commands['skills'][number]): string {
+  const notes = [skill.role];
+  if (skill.chargeTurns) notes.push(`Charge ${skill.chargeTurns} turn${skill.chargeTurns === 1 ? '' : 's'}`);
+  if (skill.battleLimit && skill.usesRemaining != null) notes.push(`${skill.usesRemaining}/${skill.battleLimit} uses left`);
+  return notes.filter(Boolean).join(' · ');
+}
+
 function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
   const ref = useRef<HTMLDivElement>(null);
   const [lvl, setLvl] = useState<Level>({ l: 'root' });
@@ -267,7 +274,7 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
           <Row key={r.key} icon={iconForCommand(r.key)} label={r.label} chip={r.chip} disabled={r.disabled} reason={r.reason} onClick={r.go} primary={r.primary} autofocus={i === 0} onHover={() => setInfo(r.disabled && r.reason ? r.reason : r.info)} />
         ))}
           {lvl.l === 'skills' && (c.skills.length === 0 ? <p className="hint pad">No techniques equipped.</p> : c.skills.map((s, i) => (
-          <Row key={s.id} icon={iconForSkill(s.id)} label={s.name} sub={s.role} disabled={!s.ok} reason={s.reason} autofocus={i === 0}
+          <Row key={s.id} icon={iconForSkill(s.id)} label={s.name} sub={skillRowHint(s)} disabled={!s.ok} reason={s.reason} autofocus={i === 0}
             chip={skillCostLabel(s)} onHover={() => setInfo(s.ok ? `${s.desc} ${s.tradeoff}` : (s.reason ?? ''))}
             onClick={() => choose({ kind: 'skill', skillId: s.id, label: s.name, element: SKILLS[s.id]?.element ?? 'phys' }, s.target === 'none' ? 'none' : s.target === 'enemy' ? 'enemy' : 'ally')} />
         )))}

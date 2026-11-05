@@ -16,10 +16,8 @@ try {
     for (const key of want) if (!held.has(key)) { await page.keyboard.down(key); held.add(key); }
   };
   let captured = { title: true, dialogue: false, world: false, menu: false, battle: false, target: false, techniques: false };
-  let lastState;
   for (let i = 0; i < 1800; i++) {
     const state = await page.evaluate(() => window.__AOTS__.snapshot());
-    lastState = { screen: state.screen, dialogue: !!state.dialogue, overlay: state.overlay, scriptActive: state.scriptActive, loading: state.loading, phase: state.battle?.phase };
     if (state.dialogue && !captured.dialogue) {
       await page.waitForTimeout(700);
       await shot(page, 'opening-dialogue', 'tests/logs/screens/evidence-after');

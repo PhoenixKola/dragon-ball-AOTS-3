@@ -309,8 +309,9 @@ export type BattleEvent =
   | { t: 'log'; text: string }
   | { t: 'announce'; uid: string; text: string }
   | { t: 'telegraph'; uid: string; text: string; targetUid?: string }
-  | { t: 'hit'; attacker: string; target: string; dmg: number; crit: boolean; hitIndex: number; hits: number; element: Element; guard: GuardGrade; vfx: string; miss?: boolean; absorbed?: boolean; countered?: boolean }
-  | { t: 'miss'; attacker: string; target: string; reason: string; hitIndex: number; hits: number }
+  | { t: 'hit'; attacker: string; target: string; dmg: number; crit: boolean; hitIndex: number; hits: number; element: Element; guard: GuardGrade; vfx: string; sfx?: string; skillId?: string; miss?: boolean; absorbed?: boolean; countered?: boolean }
+  | { t: 'miss'; attacker: string; target: string; reason: string; hitIndex: number; hits: number; element: Element; vfx: string }
+  | { t: 'resist'; uid: string; kind: StatusKind }
   | { t: 'heal'; uid: string; amount: number }
   | { t: 'ki'; uid: string; amount: number }
   | { t: 'status'; uid: string; kind: StatusKind; on: boolean }
@@ -322,7 +323,7 @@ export type BattleEvent =
   | { t: 'turn'; uid: string }
   | { t: 'round'; round: number }
   | { t: 'wave'; uids: string[] }
-  | { t: 'clip'; uid: string; clip: ClipId; vfx: string; sfx: string; skillId?: string; targetUid?: string; element?: Element }
+  | { t: 'clip'; uid: string; clip: ClipId; vfx: string; sfx: string; skillId?: string; targetUid?: string; targetUids?: string[]; element?: Element }
   | { t: 'snap'; uid: string; hp: number; maxHp: number; ki: number; maxKi: number; rage: number; alive: boolean; form: FormId; actor: string; name: string; sparking: number; charging: boolean }
   | { t: 'end'; outcome: 'victory' | 'defeat' | 'fled'; reason: string };
 
@@ -346,6 +347,8 @@ export interface PendingHit {
   label: string;
   /** whether this impact can be guarded at all */
   guardable: boolean;
+  element: Element;
+  vfx: string;
 }
 
 export type BattlePhase = 'input' | 'guard' | 'ended';

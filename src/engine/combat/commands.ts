@@ -15,7 +15,10 @@ export function buildCommands(b: Battle): Commands | null {
       const s = getSkill(id)!;
       const st = b.skillStatus(f, s);
       return {
-        id: s.id, name: s.name, desc: s.desc, ki: s.ki, hpCost: s.hpCost, rageCost: s.rageCost, ok: st.ok, reason: st.reason,
+        id: s.id, name: s.name, desc: s.desc, ki: s.ki, hpCost: s.hpCost, rageCost: s.rageCost,
+        chargeTurns: s.chargeTurns, battleLimit: s.battleLimit,
+        usesRemaining: s.battleLimit ? Math.max(0, s.battleLimit - (f.used[s.id] ?? 0)) : undefined,
+        ok: st.ok, reason: st.reason,
         target: s.target === 'enemy' ? 'enemy' : s.target === 'ally' ? 'ally' : s.target === 'anyAlly' ? 'anyAlly' : 'none', role: s.role, tradeoff: s.tradeoff, icon: s.id,
       } satisfies SkillOption;
     });

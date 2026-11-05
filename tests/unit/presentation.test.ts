@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { COMBOS } from '../../src/data/items';
 import { RAGE_ARTS, SKILL_LIST } from '../../src/data/skills';
 import { registry } from '../../src/engine/assets';
-import { resolvePresentationClip, shouldAnimateVfxFrames } from '../../src/engine/combat/presentation';
+import { resolvePresentationClip, resolveSkillPresentationClip, shouldAnimateVfxFrames } from '../../src/engine/combat/presentation';
 
 describe('combat presentation clip resolution', () => {
   it('turns physical authored specials into close-range heavy attacks', () => {
@@ -14,6 +14,15 @@ describe('combat presentation clip resolution', () => {
     expect(resolvePresentationClip('special')).toBe('special');
     expect(resolvePresentationClip('beam', 'ki')).toBe('beam');
     expect(resolvePresentationClip('melee', 'phys')).toBe('melee');
+  });
+
+  it('keeps self-targeted stance skills stationary instead of lunging at an enemy', () => {
+    const selfStances = SKILL_LIST.filter((skill) => skill.kind === 'stance' && skill.target === 'self');
+    expect(selfStances.length).toBeGreaterThan(0);
+    for (const skill of selfStances) {
+      expect(resolveSkillPresentationClip(skill), `${skill.id} ${skill.name}`).toMatch(/^(buff|guard)$/);
+    }
+    expect(resolveSkillPresentationClip({ kind: 'attack', target: 'enemy', clip: 'teleport', element: 'phys' })).toBe('teleport');
   });
 
   it('keeps every core skill, Rage Art, and combo connected to a registered effect', () => {

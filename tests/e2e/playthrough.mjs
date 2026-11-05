@@ -25,7 +25,7 @@ if (process.env.START_SAVE) {
   await page.getByRole('button', { name: new RegExp('^' + (POLICY === 'noguard' ? 'Easy' : 'Normal')) }).first().click();
 }
 await page.waitForFunction(() => window.__AOTS__.snapshot().screen !== 'title', null, { timeout: 20000 });
-await page.evaluate(({ capture, reducedMotion }) => window.__AOTS__.settings({ battleSpeed: capture ? 1 : 2, showTutorials: false, reducedMotion }), { capture: !!(process.env.CAPTURE_VFX || process.env.CAPTURE_PILOT), reducedMotion: process.env.PILOT_REDUCED_MOTION === '1' });
+await page.evaluate(({ capture, reducedMotion }) => window.__AOTS__.settings({ battleSpeed: capture ? 1 : 2, showTutorials: false, reducedMotion }), { capture: !!(process.env.CAPTURE_VFX || process.env.CAPTURE_PILOT || process.env.CAPTURE_HELLZONE || process.env.CAPTURE_ABSORB), reducedMotion: process.env.PILOT_REDUCED_MOTION === '1' });
 
 const held = new Set();
 const setKeys = async (want) => {
@@ -36,6 +36,8 @@ const release = () => setKeys(new Set());
 let battles = 0, lastBeat = -1, stuck = 0, lastPos = '';
 let inBattle = false;
 let impactCaptureDone = false;
+let hellzoneCaptureDone = false;
+let absorbCaptureDone = false;
 let pilotG05 = 0;
 const shotBattles = new Set();
 const jitterDone = new Set();
@@ -94,6 +96,39 @@ async function battleStep(s) {
     }
     let a = await page.evaluate(() => window.__AOTS__.advice());
     if (!a) { await page.waitForTimeout(50); return; }
+    if (process.env.CAPTURE_HELLZONE && b.stageId === 'C02' && !hellzoneCaptureDone) {
+      const targetUid = b.fighters.find((f) => f.team === 'enemy' && f.alive)?.uid;
+      const hpBefore = b.fighters.find((f) => f.uid === targetUid)?.hp;
+      if (!targetUid) throw new Error('C02 has no living Cell target for Hellzone Grenade capture');
+      const result = await page.evaluate((target) => window.__AOTS__.submit({ kind: 'skill', skillId: 'piccolo_1', targetUid: target }), targetUid);
+      if (!result.ok) throw new Error(`C02 Hellzone Grenade rejected: ${result.reason}`);
+      await page.waitForTimeout(540);
+      const shotState = await page.evaluate((uid) => {
+        const b = window.__AOTS__.snapshot().battle;
+        return { hp: b.fighters.find((f) => f.uid === uid)?.hp, phase: b.phase, banner: b.banner };
+      }, targetUid);
+      const hpAtCapture = shotState.hp;
+      if (hpAtCapture !== hpBefore) throw new Error(`C02 target took damage before grenade contact (${hpBefore} -> ${hpAtCapture})`);
+      await shot(page, 'hellzone-grenade-travel', 'tests/logs/screens/combat-vfx');
+      hellzoneCaptureDone = true;
+      L(`C02 Hellzone Grenade captured in travel; Cell HP ${hpAtCapture}; phase=${shotState.phase}; banner=${shotState.banner ?? 'none'}; errors=${t.errors.length}`);
+      return;
+    }
+    if (process.env.CAPTURE_ABSORB && b.stageId === 'A04' && !absorbCaptureDone) {
+      const target = b.fighters.find((f) => f.team === 'enemy' && f.alive && f.statuses.some((status) => status.kind === 'absorbing'));
+      if (target) {
+        const hpBefore = target.hp;
+        const result = await page.evaluate((uid) => window.__AOTS__.submit({ kind: 'skill', skillId: 'vegeta_0', targetUid: uid }), target.uid);
+        if (!result.ok) throw new Error(`A04 absorbed Galick Gun rejected: ${result.reason}`);
+        await page.waitForTimeout(700);
+        const hpAfter = await page.evaluate((uid) => window.__AOTS__.snapshot().battle.fighters.find((f) => f.uid === uid)?.hp, target.uid);
+        if (hpAfter !== hpBefore) throw new Error(`Android 19 lost HP while absorbing Ki (${hpBefore} -> ${hpAfter})`);
+        await shot(page, 'android-19-absorbs-galick-gun', 'tests/logs/screens/combat-vfx');
+        absorbCaptureDone = true;
+        L(`A04 Galick Gun visibly absorbed; Android 19 HP ${hpAfter}; errors=${t.errors.length}`);
+        return;
+      }
+    }
       if (process.env.CAPTURE_PILOT && b.stageId === 'G05' && pilotG05 < 3) {
         const targetUid = b.fighters.find((f) => f.team === 'enemy' && f.alive)?.uid;
         const planned = [
@@ -170,6 +205,8 @@ async function overlayStep(s) {
 let lastDiag = 0;
 while ((Date.now() - t0) / 60000 < MAX_MIN) {
   if (process.env.CAPTURE_PILOT && pilotG05 >= 3) break;
+  if (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone) break;
+  if (process.env.CAPTURE_ABSORB && absorbCaptureDone) break;
   if (process.env.CAPTURE_VFX && impactCaptureDone) break;
   const s = await snap(page);
   if (Date.now() - lastDiag > 30000) {
@@ -206,6 +243,9 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
     }
   }
   if (s.card || s.screen === 'cutscene' || s.scriptActive || (await page.evaluate(() => window.__AOTS__.busy()))) { await release(); await page.waitForTimeout(150); continue; }
+  // Scene/map transitions intentionally freeze movement. Do not let the
+  // navigation watchdog mistake a loading fade for a blocked route.
+  if (s.loading) { await release(); stuck = 0; await page.waitForTimeout(120); continue; }
   const game = s.game;
   if (!game) { await page.waitForTimeout(100); continue; }
   if (game.beat !== lastBeat) {
@@ -285,4 +325,4 @@ L('external requests: ' + JSON.stringify(external));
 mkdirSync('tests/logs', { recursive: true });
 writeFileSync(`tests/logs/e2e-playthrough-${POLICY}.json`, JSON.stringify({ policy: POLICY, final, beatLog, errors: t.errors, externalRequests: external, minutes: (Date.now() - t0) / 60000, log }, null, 1));
 await t.close();
-process.exit(final.beat >= 30 || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) ? 0 : 1);
+process.exit(final.beat >= 30 || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_ABSORB && absorbCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) ? 0 : 1);

@@ -1,10 +1,10 @@
-# AOTS3 overhaul execution checklist
+﻿# AOTS3 overhaul execution checklist
 
 This is the working source of truth for completing `aots3-cell-saga-codex-complete-gameplay-visual-experience-overhaul.md`. It separates the already playable RC baseline from the requested game-feel/art overhaul. Update a checkbox only when its evidence exists; human-only checks remain pending until a person does them.
 
 **Status key:** `DONE` = batch implementation and exit evidence complete; `ACTIVE` = current batch; `NEXT` = next batch; `QUEUED` = later batch; human-only approvals are tracked separately as `HUMAN / PENDING`.
 
-**Current overall status:** Batches A and B are complete with technical evidence. Batch C (combat feel and battle UI) is next. The complete visual/gameplay overhaul is not finished; art/gameplay/audio and human finish-quality gates remain. Do not translate test count, game feature coverage, or package availability into an overhaul-completion percentage.
+**Current overall status:** Batches A, B and C are complete with technical evidence. Batch D (twelve-region exploration and battle stages) is next. The complete visual/gameplay overhaul is not finished; art/gameplay/audio and human finish-quality gates remain. Do not translate test count, game feature coverage, or package availability into an overhaul-completion percentage.
 
 ## Batch sequence
 
@@ -12,15 +12,15 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 |---|---|---|---|
 | A. Baseline audit and art bible | M0 | DONE | Unified before/after set is indexed; the 30-beat Normal route completed with 34 wins, 0 defeats, 12 map captures, seven actual keyframe triggers, no browser errors and no external requests. Complete source/registry audits and the full rebuild pass. Human art approval is listed separately as pending. |
 | B. Ginger Town + Gohan vs Perfect Cell pilot | M1 | DONE | Native-generated evacuation shuttle, playable cellar rescue/follower/evacuation, atlas ground variation, coherent Cell Husk stage floor, captured/inspected quest flow and battle actions, and normal plus reduced-motion compact G05 views. |
-| C. Combat feel and battle UI | M2 | QUEUED | Battle presentation handles registered VFX, action-specific effect families, hit timing, lifecycle cleanup, beams and finale staging. More authored attack identity, animation, timing and UI refinement are queued. |
-| D. Twelve-region exploration and battle stages | M3 | QUEUED | All 12 regional battle backgrounds are integrated. Ginger Town has mist and varied props; Capsule Corp, Rocky Outskirts and South City have ground refinements; four generated landmark props and natural-path orientation variety are integrated. Region-wide content/depth work is queued. |
+| C. Combat feel and battle UI | M2 | DONE | All 84 core techniques, Rage Arts and combos resolve through the combat presentation map; event timing, outcome feedback, generated signature effects, HUD costs/restrictions/targets and viewport/input regressions pass. Human play-feel/art approval remains a separate pending sign-off. |
+| D. Twelve-region exploration and battle stages | M3 | NEXT | All 12 regional battle backgrounds are integrated. Ginger Town has mist and varied props; Capsule Corp, Rocky Outskirts and South City have ground refinements; four generated landmark props and natural-path orientation variety are integrated. Region-wide content/depth work is queued. |
 | E. Cinematics and story transitions | M3 | QUEUED | Seven candidate keyframes are integrated and captured at their real story beats. Shared framing/push and reduced-motion/skip behavior exist; remaining cutscenes and transition direction are queued. |
 | F. Audio, pacing, difficulty and QoL | M4 | QUEUED | Guard-light, no-guard and Easy balance routes have simulation evidence; offense now competes with guarding for Ki value. Original arrangement/mix work, listening approval, pacing and QoL are queued. |
 | G. Performance, release, campaign QA and sign-off | M5 | QUEUED | Browser build, Windows app folder and preview ZIPs are refreshed; Electron smoke passed 13/13; late routes have reached credits. Full release verification and human sign-offs are queued. |
 
 ## Acceptance ledger
 
-### M0 — Baseline, source, and art bible
+### M0 â€” Baseline, source, and art bible
 
 - [x] Inspect the AOTS3 working tree, baseline docs, runtime registry, real game screenshots and usable source art; keep Namek read-only.
 - [x] Record baseline defects and preserve existing deterministic combat, story, save namespace, map geometry and strong title/actor assets.
@@ -29,7 +29,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 - [x] Verify every current generation/refinement against installed AOTS3 identity references in-game; reject style/alpha/clipping defects. The pavilion v1 fringe was rejected and replaced by the captured v2; final registry/build audits are clean.
 - [x] Maintain candidate vs derived vs human-approved labels. **Human art approval remains separately HUMAN / PENDING.**
 
-### M1 — Real pilot slice: Ginger Town + Gohan vs Perfect Cell
+### M1 â€” Real pilot slice: Ginger Town + Gohan vs Perfect Cell
 
 - [x] Keep both slices in the actual game, real maps/encounters, real cutscenes and real battle engine.
 - [x] Add a native-generated Ginger Town battle panorama and drifting mist; retain generated sources and reproducible installation.
@@ -37,22 +37,22 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 - [x] Capture/inspect the complete pilot set: ordinary melee, multi-hit, charged beam, hit reaction, missed hit, guard result, target move, victory, exploration, dialogue, NPC interaction and relevant cutscene. Evidence is indexed in `docs/OVERHAUL_VISUAL_EVIDENCE_INDEX.md`.
 - [x] Refine Ginger Town's repetitive terrain/house composition and review Gohan vs Cell at the normal 1280x720 view and a reduced-motion 1024x600 compact view. Dialogue and escort captures show the text fully typed and the follower separated from the player at the shuttle.
 
-### M2 — Systemwide combat and interaction
+### M2 - Systemwide combat and interaction
 
-- [x] Keep hit timing, deterministic outcomes, target following, scene-clock cleanup, reduced motion and battle-speed behavior in the existing systems.
-- [x] Use the selected skill VFX family, typed registered VFX, beam travel and bespoke Father-Son staging; verify all 84 skill/combo/rage VFX registry references.
-- [x] Make a multi-hit enemy move one guard timing input per defender for its whole hit string; only charged, telegraphed, multi-hit or heavy attacks trigger Active Guard; routine hits receive a modest passive brace; reduce enemy double-turn frequency for Android 17, Android 18 and Perfect Cell.
-- [ ] Map all 84 skills to accurate action family and distinct signature cues; record phase timings and verify no damage/sound precedes contact.
-- [ ] Continue visual validation from `docs/COMBAT_PRESENTATION_MAP.md`: the generated map covers all 84 core techniques plus Rage Arts and combos, and tests verify every effect reference is registered. Physical generic specials now resolve to heavy presentation; flare cues target selected or all affected opponents. Per-skill family/signature correctness and phase timing remain incomplete.
-- [ ] Continue the all-skill presentation map: physical `special` clips now resolve to a close-range heavy animation; Ki specials retain projectile presentation. `flare` now uses its skill-authored VFX, countered physical hits lunge into contact, and aura-family attacks stage aura plus target impact. This is a partial family pass, not completion of all 84 mappings.
-- [ ] Complete melee anticipation, lane-aware approach, swing/contact, recoil, recovery and return; verify misses, immunity, criticals, counters, absorption, guard, heals, buffs and telegraphs. Miss events now carry hit index/count; evades sidestep, and the attacker recovers home after the last miss. Real P01 capture: `tests/logs/screens/combat-vfx/miss-evasion-contact.png`. Full multi-skill outcome coverage remains open.
-- [ ] Add truthful temporal clips for important variant-only VFX. Never treat unrelated variants as a sequence. The common `impact-hit` cue now uses a four-stage native-generated contact burst; beam projectile heads now advance through every authored ordered-growth frame during their existing travel window, while variant-only beams remain static and reduced motion suppresses frame cycling. A real fresh-game P01 Burning Attack capture at `tests/logs/screens/combat-vfx/beam-growth-travel.png` confirms the gold beam is visible before the displayed target HP changes, with 0 browser errors and 0 external requests. The beam charge cue was reduced to preserve Trunks' silhouette, and the beam core now follows the registered VFX palette. Most other variant-only VFX still remain single-frame pulses.
-- [ ] Refine battle command dock, statuses, costs, cooldown/disabled explanations and targeting affordances for keyboard, mouse and controller.
-- [ ] Continue HUD refinement: skill rows now label Ki/HP/Rage costs, combo rows show per-partner Ki, Rage and Sparking name their Rage costs, and target HP shows current/max. The focused browser test covers these cost labels and existing keyboard target/back/confirm paths; finish cooldown/disabled explanations, broader device/viewport QA and remaining dock/status polish.
-- [ ] Exercise title, settings, party, inventory, skills, journal, shops, save/load, rewards, defeat/retry, help and postgame UI at 1024x600, 1280x720, 1920x1080 and a narrow desktop size.
-- [ ] Regress dialogue click/typewriter double-dispatch, menus, focus, hit timing, guard cue windows and scene teardown.
+- [x] Keep deterministic hit timing, target following, scene-clock cleanup, reduced motion and battle-speed behavior in the existing systems. Damage numbers and authored hit sounds wait for authoritative contact; ranged projectiles resolve on arrival, and misses visibly overshoot.
+- [x] Map all 84 core techniques, seven Rage Arts and seven team combos to registered VFX and resolved action families. The generated map records each technique cue, hit/charge/target/cost data, phase timing at 1x and the temporal or one-shot status of the frame source.
+- [x] Keep action timing tied to battle speed and event phases: melee approach, ranged cue/travel/contact, serialized multi-hit beats, recovery and the 880ms Active Guard lead at 1x are documented in `docs/COMBAT_PRESENTATION_MAP.md`. Reduced-motion and skip paths do not alter deterministic outcomes.
+- [x] Add or retain distinct presentation for melee, ki, beams, sword/discs, counters, transformations, Rage, Sparking, status effects, heals, revives, regeneration, guards, enemy telegraphs, misses/evades, critical/heavy contacts, absorption and resisted status effects. Enemy telegraphs mark the threatened target while keeping its guard timestamp.
+- [x] Replace misleading variant cycling for important cues with truthful temporal effects: native-generated contact burst, Piccolo spiral projectile, Spirit Bomb growth, Telekinetic Pin closure, Cell absorption drain and hex barrier formation/impact/break. Hellzone Grenade and Neo Tri-Beam have distinct generated projectile heads. Other single-frame variants stay pulses or travel/rotation effects; they are not presented as authored frame animations.
+- [x] Finish the compact command dock: attack/guard Ki gain, technique/item/combo costs, charge turns, limited-use counts, per-partner combo cost, Rage costs, target HP and disabled reasons are explicit. The current skill model has limited uses and restrictions but no cooldown field, so no fictitious cooldown is shown.
+- [x] Verify mouse and keyboard battle commands/targeting, narrow-window dock placement, and all UI-harness scenes at 900x600, 1024x600, 1280x720 and 1920x1080. The 148-check viewport sweep reports zero clipping, overflow, central fight-lane obstruction, browser errors or external requests. Physical controller hardware review remains HUMAN / PENDING.
+- [x] Regress dialogue click/typewriter double dispatch, one-click completion versus second-click advance, rapid double clicks, skip, target selection, skill/item/back buttons and guard timing. Dialogue E2E reports all interaction cases passed; battle controls passed.
+- [x] Capture real outcomes: evasion and melee recovery; guard grades; Hellzone Grenade in flight before target HP changes; Android 19 absorbing Galick Gun at A04 with unchanged 446 HP; and beam/contact/pilot beats. Unit/integration checks cover determinism, criticals, counters, healing, status application/resistance and full skill data.
+- [x] Preserve scene lifecycle cleanup and existing seven story keyframes; all registered paths and generated sequence frames pass runtime and asset audits.
 
-### M3 — All maps, props and story cinematics
+Batch C technical checkpoint: **41 VFX families, 1,070 registered frames, 50 actors, 12 world regions and 1,653 valid runtime paths**; zero asset-audit warnings/errors and zero orphan runtime PNGs. Native-generated absorption and barrier source art is retained under `art/production/vfx/`, indexed in the provenance ledger and reproducibly sliced by `tools/art_vfx.py`. Typecheck, lint, all 591 unit/integration tests, controls, dialogue E2E, clean production build, viewport sweep, runtime-path audit and natural A04 absorption capture pass. Human art approval, controller hardware review and player feel acceptance remain HUMAN / PENDING, not automated passes.
+
+### M3 â€” All maps, props and story cinematics
 
 - [x] Keep all 12 map collision/layout/quest/story trigger contracts intact; Ginger Town now has atlas-derived grass, damaged-lot and curb tiles, a calm seamless asphalt fill, atmosphere, nonblocking prop variety and full battle-stage art. Its latest production capture is `tests/logs/screens/polish/gingertown-after.png` (browser errors: 0; external requests: 0).
 - [ ] Generate/refine and integrate coherent per-region layered art for the other 11 maps; verify seams, depth, feet anchors, paths, lighting, weather and NPC prompts in Phaser. Follow-up passes now cover Capsule Corp ground variants, Rocky Outskirts soil/path tiles, South City asphalt/fountain plaza, transparent generated props for the Future Landing scout ship, Ginger Town time machine, Android Island pavilion, Lab Interior broken incubation pod and Mountain Lab broken weather monitor, plus deterministic natural-path orientation variety in Ginger Town, Future Landing, Rocky Outskirts, Mountain Lab and Android Island. The Lab Interior prop was captured in Phaser using a test-only map fixture at `tests/logs/screens/world-refresh/lab-inner-broken-pod.png` (0 page errors, 0 external requests, 0 missing runtime props); the Mountain Lab monitor now has its own earned-save map fixture and capture at `tests/logs/screens/world-refresh/mountain-lab-broken-weather-monitor.png` (0 page errors, 0 external requests). Both decorative props remain walkable in collision tests. Nine regions still need coherent ground/prop passes and region-wide depth review. Landing Future and Rocky Outskirts were also inspected in real-browser captures with no browser errors.
@@ -63,7 +63,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 - [ ] Continue cinematic direction: the shared renderer now adds letterbox framing to authored scenes and a restrained push across existing candidate keyframes, with reduced-motion and skip paths. This does not count as direction of the remaining nine cutscenes or approval of the seven candidate stills.
 - [ ] Capture all 15 stories and major transitions in their real triggered story flow, not by injected campaign flags.
 
-### M4 — Audio, balance, pacing and QoL
+### M4 â€” Audio, balance, pacing and QoL
 
 - [x] Retain offline synthesized audio, gesture unlock, saved sliders and music crossfades; existing automated checks pass.
 - [x] Reduce guard repetition: one successful timing input covers a full enemy multi-hit move against one hero, and selected bosses no longer receive a second full action every round.
@@ -74,7 +74,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 - [ ] Consider optional accessible climax input and QoL assists, while preserving skip and timing accessibility.
 - [ ] Review original theme/effects in the actual app, set measured mix targets, align sound with impacts and preserve offline behavior. **Listening/mastering sign-off is human.**
 
-### M5 — Release, verification, and delivery
+### M5 â€” Release, verification, and delivery
 
 - [x] Current browser build, typecheck, lint, 580-test unit/integration suite, asset audit, runtime-path audit and late-story browser run pass at this checkpoint.
 - [x] Refresh Windows Electron folder, browser/source/art-source archives and checksum manifest; all four ZIPs pass integrity inspection; all 536 archived source checksums verify.

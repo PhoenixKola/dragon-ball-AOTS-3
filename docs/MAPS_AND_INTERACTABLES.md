@@ -112,7 +112,7 @@ Entities: exit ×1, save ×1, heal ×1, foe ×3, terminal ×2, chest ×1, sign �
 
 ## Ginger Town (`gingertown`, 46x30 tiles)
 
-Music mystery; encounters: gingertown; props 30.
+Music mystery; encounters: gingertown; props 31.
 
 Entities: exit ×2, save ×1, heal ×1, foe ×4, npc ×4, chest ×2
 

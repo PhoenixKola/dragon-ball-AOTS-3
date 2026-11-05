@@ -54,6 +54,11 @@ add('beam-red', 'beam', [('ML', 32), ('ML', 31), ('ML', 30), ('ML', 29), ('ML', 
 add('beam-white', 'beam', [('BP', 40), ('BP', 2), ('BP', 39)], quality='derived', note='derived: beam-blue frames desaturated to white-cyan; variants_not_sequence',
     fx=lambda im: hue_to(im, 190, 0.35, 1.25))
 add('spiral', 'beam', [('BP', 47), ('BP', 48), ('BP', 49)], fps=16, loop=True, note='variants_not_sequence: blue spirals (Special Beam Cannon corkscrew)')
+add('special-beam-cannon', 'beam', [], fps=30, loop=False, quality='derived', note='temporal_sequence: native-generated candidate Special Beam Cannon spiral head rotated through eight real angular frames; human art review pending')
+add('spirit-bomb', 'ball', [], fps=14, loop=False, quality='derived', note='temporal_growth: native-generated candidate Spirit Bomb sphere growing to launch scale; human art review pending')
+add('telekinetic-pin', 'status', [], fps=12, loop=False, quality='derived', note='temporal_sequence: native-generated candidate restraint rings close and settle around the pinned target; human art review pending')
+add('hellzone-grenade', 'ball', [], fps=14, loop=False, quality='derived', note='single_generated_sprite: emerald ki grenade with orbiting sparks; human art review pending')
+add('beam-neo-tri', 'beam', [], fps=14, loop=False, quality='derived', note='single_generated_sprite: three-pronged lime-gold beam tip for Neo Tri-Beam; human art review pending')
 add('ball-blue', 'ball', [('DB', 28), ('DB', 29), ('DB', 30), ('DB', 31), ('DB', 32)], note='ordered_growth: blue energy orb small->large')
 add('ball-yellow', 'ball', [('BP', 13), ('BP', 14), ('BP', 15)], note='ordered_growth: yellow orb small->large')
 add('ball-purple', 'ball', [('AS', 17), ('AS', 25), ('AS', 26), ('AS', 27)], note='ordered_growth: dark purple orb small->large')
@@ -89,6 +94,93 @@ add('crescent-purple', 'slash', [('ML', 95), ('ML', 96), ('ML', 99), ('ML', 119)
 def build_vfx(reg, log):
     for id_, spec in VFX.items():
         frames = []
+        if id_ == 'special-beam-cannon':
+            # A distinct generated green spiral head for Piccolo's signature
+            # technique. Crop the actual transparent bounds, normalize once
+            # with nearest-neighbour sampling, then make a true rotational
+            # sequence rather than cycling unrelated sheet variants.
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'special-beam-cannon-source.png'
+            source = Image.open(source_path).convert('RGBA')
+            bbox = source.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox()
+            if not bbox:
+                raise ValueError(f'{source_path} has no visible pixels')
+            sprite = source.crop(bbox)
+            scale = min(96 / sprite.width, 96 / sprite.height, 1)
+            sprite = sprite.resize((max(1, round(sprite.width * scale)), max(1, round(sprite.height * scale))), Image.Resampling.NEAREST)
+            centered = Image.new('RGBA', (128, 128))
+            centered.alpha_composite(sprite, ((128 - sprite.width) // 2, (128 - sprite.height) // 2))
+            for n in range(8):
+                rotated = centered.rotate(-45 * n, resample=Image.Resampling.NEAREST, expand=False)
+                frames.append(save_frame(
+                    rotated,
+                    f'vfx/{id_}/{n}.png',
+                    'derived',
+                    'right',
+                    f'native-generated source art/production/vfx/special-beam-cannon-source.png; transparent-bound crop, nearest-neighbour 96px fit, centered, {n * 45} degree rotation',
+                    trim=False,
+                ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=30, loop=False, family='beam', quality='derived',
+                note='temporal_sequence: eight real angular frames from one native-generated green spiral projectile head; generated candidate; human art review pending',
+            )
+            log(f'[vfx] {id_}: {len(frames)} native-generated rotational frames')
+            continue
+        if id_ == 'spirit-bomb':
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'spirit-bomb-source.png'
+            source = Image.open(source_path).convert('RGBA')
+            bbox = source.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox()
+            if not bbox:
+                raise ValueError(f'{source_path} has no visible pixels')
+            sprite = source.crop(bbox)
+            scale = min(108 / sprite.width, 108 / sprite.height, 1)
+            sprite = sprite.resize((max(1, round(sprite.width * scale)), max(1, round(sprite.height * scale))), Image.Resampling.NEAREST)
+            for n, (growth, opacity) in enumerate(((0.62, 135), (0.72, 175), (0.82, 215), (0.92, 255), (1.0, 255), (1.06, 255))):
+                canvas = Image.new('RGBA', (128, 128))
+                grown = sprite.resize((max(1, round(sprite.width * growth)), max(1, round(sprite.height * growth))), Image.Resampling.NEAREST)
+                grown.putalpha(grown.getchannel('A').point(lambda a, o=opacity: a * o // 255))
+                canvas.alpha_composite(grown, ((128 - grown.width) // 2, (128 - grown.height) // 2))
+                frames.append(save_frame(
+                    canvas,
+                    f'vfx/{id_}/{n}.png',
+                    'derived',
+                    'front',
+                    f'native-generated source art/production/vfx/spirit-bomb-source.png; alpha-cropped, nearest-neighbour fit and {growth:.0%} scale/opacity charge growth',
+                    trim=False,
+                ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=14, loop=False, family='ball', quality='derived',
+                note='temporal_growth: six real scale/opacity stages of the native-generated Spirit Bomb; generated candidate; human art review pending',
+            )
+            log(f'[vfx] {id_}: {len(frames)} native-generated growth frames')
+            continue
+        if id_ == 'telekinetic-pin':
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'telekinetic-pin-source.png'
+            source = Image.open(source_path).convert('RGBA')
+            bbox = source.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox()
+            if not bbox:
+                raise ValueError(f'{source_path} has no visible pixels')
+            sprite = source.crop(bbox)
+            scale = min(112 / sprite.width, 112 / sprite.height, 1)
+            sprite = sprite.resize((max(1, round(sprite.width * scale)), max(1, round(sprite.height * scale))), Image.Resampling.NEAREST)
+            for n, (growth, opacity) in enumerate(((1.08, 145), (1.0, 210), (0.94, 255), (0.98, 240), (1.02, 190))):
+                canvas = Image.new('RGBA', (128, 128))
+                glyph = sprite.resize((max(1, round(sprite.width * growth)), max(1, round(sprite.height * growth))), Image.Resampling.NEAREST)
+                glyph.putalpha(glyph.getchannel('A').point(lambda a, o=opacity: a * o // 255))
+                canvas.alpha_composite(glyph, ((128 - glyph.width) // 2, (128 - glyph.height) // 2))
+                frames.append(save_frame(
+                    canvas,
+                    f'vfx/{id_}/{n}.png',
+                    'derived',
+                    'front',
+                    f'native-generated source art/production/vfx/telekinetic-pin-source.png; alpha-cropped, nearest-neighbour fit and restraint-ring closure stage {n + 1}',
+                    trim=False,
+                ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=12, loop=False, family='status', quality='derived',
+                note='temporal_sequence: five restraint-ring closure/settle stages from the native-generated Telekinetic Pin glyph; generated candidate; human art review pending',
+            )
+            log(f'[vfx] {id_}: {len(frames)} native-generated restraint frames')
+            continue
         if id_ == 'impact-hit':
             # This native-generated four-stage contact burst is a real temporal
             # sequence. Each frame comes from its own transparent atlas cell;
@@ -124,6 +216,123 @@ def build_vfx(reg, log):
                 note='temporal_sequence: four native-generated contact stages (flash, expansion, break, fade); human art review pending',
             )
             log(f'[vfx] {id_}: {len(frames)} native-generated temporal frames')
+            continue
+        if id_ == 'hellzone-grenade':
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'hellzone-grenade-source.png'
+            source = Image.open(source_path).convert('RGBA')
+            alpha = source.getchannel('A')
+            bbox = alpha.point(lambda a: 255 if a > 24 else 0).getbbox()
+            if not bbox:
+                raise ValueError(f'{source_path} has no visible pixels')
+            sprite = source.crop(bbox)
+            scale = min(116 / sprite.width, 116 / sprite.height, 1)
+            sprite = sprite.resize((max(1, round(sprite.width * scale)), max(1, round(sprite.height * scale))), Image.Resampling.NEAREST)
+            centered = Image.new('RGBA', (128, 128))
+            centered.alpha_composite(sprite, ((128 - sprite.width) // 2, (128 - sprite.height) // 2))
+            frames.append(save_frame(
+                centered,
+                f'vfx/{id_}/0.png',
+                'derived',
+                'right',
+                'native-generated source art/production/vfx/hellzone-grenade-source.png; alpha-cropped and nearest-neighbour fit to 116px inside centered 128px canvas',
+                trim=False,
+            ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=14, loop=False, family='ball', quality='derived',
+                note='single_generated_sprite: emerald ki grenade orb with orbiting sparks; human art review pending',
+            )
+            log(f'[vfx] {id_}: one native-generated projectile frame')
+            continue
+        if id_ == 'beam-neo-tri':
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'neo-tri-beam-source.png'
+            source = Image.open(source_path).convert('RGBA')
+            bbox = source.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox()
+            if not bbox:
+                raise ValueError(f'{source_path} has no visible pixels')
+            sprite = source.crop(bbox)
+            scale = min(116 / sprite.width, 116 / sprite.height, 1)
+            sprite = sprite.resize((max(1, round(sprite.width * scale)), max(1, round(sprite.height * scale))), Image.Resampling.NEAREST)
+            centered = Image.new('RGBA', (128, 128))
+            centered.alpha_composite(sprite, ((128 - sprite.width) // 2, (128 - sprite.height) // 2))
+            frames.append(save_frame(
+                centered,
+                f'vfx/{id_}/0.png',
+                'derived',
+                'right',
+                'native-generated source art/production/vfx/neo-tri-beam-source.png; alpha-cropped and nearest-neighbour fit to 116px inside centered 128px canvas',
+                trim=False,
+            ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=14, loop=False, family='beam', quality='derived',
+                note='single_generated_sprite: three-pronged lime-gold Neo Tri-Beam head; human art review pending',
+            )
+            log(f'[vfx] {id_}: one native-generated signature beam frame')
+            continue
+        if id_ == 'barrier':
+            # Keep shield direction and motif coherent across time; each frame
+            # is an authored native-generated phase, not an unrelated variant.
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'barrier-formation-source.png'
+            source = Image.open(source_path).convert('RGBA')
+            if source.width % 4:
+                raise ValueError(f'{source_path} must contain four equal horizontal frames')
+            cell_w = source.width // 4
+            for n, phase in enumerate(('forming rim', 'closed shield', 'impact pulse', 'fractured hex sparks')):
+                cell = source.crop((n * cell_w, 0, (n + 1) * cell_w, source.height))
+                bbox = cell.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox()
+                if not bbox:
+                    raise ValueError(f'empty generated barrier frame {n}')
+                cell = cell.crop(bbox)
+                scale = min(116 / cell.width, 116 / cell.height, 1)
+                cell = cell.resize((max(1, round(cell.width * scale)), max(1, round(cell.height * scale))), Image.Resampling.NEAREST)
+                canvas = Image.new('RGBA', (128, 128))
+                canvas.alpha_composite(cell, ((128 - cell.width) // 2, (128 - cell.height) // 2))
+                frames.append(save_frame(
+                    canvas,
+                    f'vfx/{id_}/{n}.png',
+                    'derived',
+                    'front',
+                    f'native-generated source art/production/vfx/barrier-formation-source.png; transparent cell crop, nearest-neighbour fit, {phase} phase',
+                    trim=False,
+                ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=14, loop=False, family='status', quality='derived',
+                note='temporal_sequence: four native-generated hex-shield formation, impact and break stages; human art review pending',
+            )
+            log(f'[vfx] {id_}: {len(frames)} native-generated barrier frames')
+            continue
+        if id_ == 'absorb':
+            # Cell's energy absorption now uses four authored temporal cells,
+            # not five unrelated examples of legacy tail art. Preserve each
+            # generated phase as-is apart from transparent-bound cropping and
+            # nearest-neighbour normalization to a shared 128px canvas.
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'absorb-drain-source.png'
+            source = Image.open(source_path).convert('RGBA')
+            if source.width % 4:
+                raise ValueError(f'{source_path} must contain four equal horizontal frames')
+            cell_w = source.width // 4
+            for n, phase in enumerate(('loose sparks', 'inward curl', 'tight spiral', 'contract and fade')):
+                cell = source.crop((n * cell_w, 0, (n + 1) * cell_w, source.height))
+                bbox = cell.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox()
+                if not bbox:
+                    raise ValueError(f'empty generated absorption frame {n}')
+                cell = cell.crop(bbox)
+                scale = min(112 / cell.width, 112 / cell.height, 1)
+                cell = cell.resize((max(1, round(cell.width * scale)), max(1, round(cell.height * scale))), Image.Resampling.NEAREST)
+                canvas = Image.new('RGBA', (128, 128))
+                canvas.alpha_composite(cell, ((128 - cell.width) // 2, (128 - cell.height) // 2))
+                frames.append(save_frame(
+                    canvas,
+                    f'vfx/{id_}/{n}.png',
+                    'derived',
+                    'front',
+                    f'native-generated source art/production/vfx/absorb-drain-source.png; transparent cell crop, nearest-neighbour fit, {phase} phase',
+                    trim=False,
+                ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=12, loop=False, family='absorb', quality='derived',
+                note='temporal_sequence: four native-generated green drain-vortex phases; human art review pending',
+            )
+            log(f'[vfx] {id_}: {len(frames)} native-generated absorption frames')
             continue
         if id_ == 'regen':
             # Animate the installed healing glyph itself instead of presenting
