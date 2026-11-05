@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T12:06:19+00:00",
+ "generatedAt": "2026-11-05T12:10:54+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -22088,43 +22088,24 @@
      "bbox": [
       0,
       0,
-      952,
-      304
+      1440,
+      451
      ],
      "facing": "front",
      "feet": [
-      476,
-      304
+      720,
+      451
      ],
-     "h": 304,
-     "note": "battle backdrop; crop of gero-laboratory-interior.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/lab_inner/backdrop-1.png",
+     "h": 451,
+     "note": "panorama crop 12,772,952,298 from art/handoff/worlds/gero_lab_interior_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/lab_inner/backdrop-handoff-research-floor.png",
      "quality": "genuine",
-     "visible": 289408,
-     "w": 952
-    },
-    {
-     "bbox": [
-      0,
-      0,
-      277,
-      161
-     ],
-     "facing": "front",
-     "feet": [
-      138,
-      161
-     ],
-     "h": 161,
-     "note": "battle backdrop; crop of gero-laboratory-interior.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/lab_inner/backdrop-2.png",
-     "quality": "genuine",
-     "visible": 44597,
-     "w": 277
+     "visible": 649440,
+     "w": 1440
     }
    ],
    "mapId": "lab_inner",
-   "note": "Gero laboratory interior; floor tiles are cut from the 4x4 metal-floor block (genuine tile grid).",
+   "note": "Gero laboratory interior; floor tiles are cut from the 4x4 metal-floor block (genuine tile grid). Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "android_pod": {
      "footH": 1,
@@ -22646,24 +22627,24 @@
      "bbox": [
       0,
       0,
-      393,
-      321
+      1440,
+      1173
      ],
      "facing": "front",
      "feet": [
-      196,
-      321
+      720,
+      1173
      ],
-     "h": 321,
-     "note": "battle backdrop; crop of lookout-and-time-chamber.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/lookout/backdrop-1.png",
+     "h": 1173,
+     "note": "battle-stage crop 1054,63,350,285 from art/handoff/worlds/lookout_and_time_chamber_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/lookout/backdrop-handoff-kami-palace.png",
      "quality": "genuine",
-     "visible": 126153,
-     "w": 393
+     "visible": 1689120,
+     "w": 1440
     }
    ],
    "mapId": "lookout",
-   "note": "Kami's Lookout. Shares one source sheet with time_chamber (documented reuse); sky-and-clouds backdrop.",
+   "note": "Kami's Lookout. Shares one source sheet with time_chamber (documented reuse); sky-and-clouds backdrop. Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "balustrade": {
      "footH": 1,
@@ -22891,24 +22872,43 @@
      "bbox": [
       0,
       0,
-      1432,
-      252
+      1440,
+      560
      ],
      "facing": "front",
      "feet": [
-      716,
-      252
+      720,
+      560
      ],
-     "h": 252,
-     "note": "battle backdrop; crop of gero-mountain-exterior.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/mountain_lab/backdrop-1.png",
+     "h": 560,
+     "note": "panorama crop 8,788,700,272 from art/handoff/worlds/gero_mountain_exterior_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/mountain_lab/backdrop-handoff-lab-entrance.png",
      "quality": "genuine",
-     "visible": 360864,
-     "w": 1432
+     "visible": 806400,
+     "w": 1440
+    },
+    {
+     "bbox": [
+      0,
+      0,
+      1440,
+      510
+     ],
+     "facing": "front",
+     "feet": [
+      720,
+      510
+     ],
+     "h": 510,
+     "note": "panorama crop 748,810,678,240 from art/handoff/worlds/gero_mountain_exterior_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/mountain_lab/backdrop-handoff-snow-range.png",
+     "quality": "genuine",
+     "visible": 734400,
+     "w": 1440
     }
    ],
    "mapId": "mountain_lab",
-   "note": "Gero mountain exterior; backdrop is the lab gate vista (also contains the lab gate).",
+   "note": "Gero mountain exterior; backdrop is the lab gate vista (also contains the lab gate). Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "barrel_blue": {
      "footH": 1,
@@ -23756,24 +23756,24 @@
      "bbox": [
       0,
       0,
-      404,
-      293
+      1440,
+      974
      ],
      "facing": "front",
      "feet": [
-      202,
-      293
+      720,
+      974
      ],
-     "h": 293,
-     "note": "battle backdrop; crop of lookout-and-time-chamber.png (opaque_fill on rounded corners)",
-     "path": "assets/worlds/time_chamber/backdrop-1.png",
+     "h": 974,
+     "note": "battle-stage crop 1046,632,374,253 from art/handoff/worlds/lookout_and_time_chamber_tileset.png, nearest-neighbor enlarged to 1440px stage width",
+     "path": "assets/worlds/time_chamber/backdrop-handoff-white-void.png",
      "quality": "genuine",
-     "visible": 118372,
-     "w": 404
+     "visible": 1402560,
+     "w": 1440
     }
    ],
    "mapId": "time_chamber",
-   "note": "Hyperbolic Time Chamber: white void floor; shares the lookout source sheet (documented reuse); backdrop is the white-void panel.",
+   "note": "Hyperbolic Time Chamber: white void floor; shares the lookout source sheet (documented reuse); backdrop is the white-void panel. Battle panoramas curated from the regional handoff atlas.",
    "props": {
     "arch_door": {
      "footH": 1,

@@ -64,7 +64,29 @@ HANDOFF_BACKDROPS = {
         [(721, 810, 713, 262)],
         ['arena'],
     ),
+    'mountain_lab': (
+        'gero_mountain_exterior_tileset.png',
+        [(8, 788, 700, 272), (748, 810, 678, 240)],
+        ['lab-entrance', 'snow-range'],
+    ),
+    'lab_inner': (
+        'gero_lab_interior_tileset.png',
+        [(12, 772, 952, 298)],
+        ['research-floor'],
+    ),
+    'lookout': (
+        'lookout_and_time_chamber_tileset.png',
+        [(1054, 63, 350, 285)],
+        ['kami-palace'],
+    ),
+    'time_chamber': (
+        'lookout_and_time_chamber_tileset.png',
+        [(1046, 632, 374, 253)],
+        ['white-void'],
+    ),
 }
+
+FULL_STAGE_BACKDROPS = {'lookout', 'time_chamber'}
 
 
 def asphalt_tile(atlas: Image.Image) -> Image.Image:
@@ -162,10 +184,10 @@ def build(reg: dict, log=print) -> dict:
                 f'worlds/{map_id}/backdrop-handoff-{name}.png',
                 'genuine',
                 'front',
-                f'panorama crop {x},{y},{w},{h} from art/handoff/worlds/{filename}, nearest-neighbor enlarged to 1440px stage width',
+                f'{"battle-stage" if map_id in FULL_STAGE_BACKDROPS else "panorama"} crop {x},{y},{w},{h} from art/handoff/worlds/{filename}, nearest-neighbor enlarged to 1440px stage width',
             )
             refs.append(ref)
         reg['worlds'][map_id]['backdrops'] = refs
         reg['worlds'][map_id]['note'] += ' Battle panoramas curated from the regional handoff atlas.'
-        log(f'[world handoff] {map_id}: {len(refs)} regional battle panoramas integrated')
+        log(f'[world handoff] {map_id}: {len(refs)} regional battle backgrounds integrated')
     return reg
