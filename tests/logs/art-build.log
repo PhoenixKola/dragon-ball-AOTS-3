@@ -22,7 +22,10 @@
 [world handoff] lab_inner: 1 regional battle backgrounds integrated
 [world handoff] lookout: 1 regional battle backgrounds integrated
 [world handoff] time_chamber: 1 regional battle backgrounds integrated
-[worlds] done 15.0s
+[world handoff] capsule_corp: 2 overworld ground tiles integrated
+[world handoff] south_city: 1 overworld ground tiles integrated
+[world handoff] south_city: fountain plaza prop integrated
+[worlds] done 15.6s
 [cinematics] trunks_arrival: 1672x941
 [cinematics] cell_absorbs_17: 1672x941
 [cinematics] cell_absorbs_18: 1672x941

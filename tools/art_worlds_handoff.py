@@ -88,6 +88,25 @@ HANDOFF_BACKDROPS = {
 
 FULL_STAGE_BACKDROPS = {'lookout', 'time_chamber'}
 
+# Overworld map ground improvements currently curated for the most repetitive
+# paved hubs. Rectangles are inset inside their atlas samples to avoid adjacent
+# sprites, painted cell borders and transparent gutters.
+HANDOFF_GROUND_TILES = {
+    'capsule_corp': (
+        'capsule_corp_tileset.png',
+        {
+            'floor': (12, 12, 60, 60),
+            'floor2': (40, 120, 88, 168),
+        },
+    ),
+    'south_city': (
+        'south_city_tileset.png',
+        {
+            'path': 'asphalt',
+        },
+    ),
+}
+
 
 def asphalt_tile(atlas: Image.Image) -> Image.Image:
     """Build a calm, seamless street fill from Ginger Town's asphalt palette."""
@@ -102,6 +121,39 @@ def asphalt_tile(atlas: Image.Image) -> Image.Image:
     specks = rng.random((TILE, TILE)) < 0.045
     rgb[specks] = np.clip(base + rng.choice((-10, -6, 5, 8), (int(specks.sum()), 1)), 0, 255)
     rgba = np.dstack((rgb, np.full((TILE, TILE), 255, dtype=np.uint8)))
+    return Image.fromarray(rgba, 'RGBA')
+
+
+def sampled_asphalt(atlas: Image.Image, region: tuple[int, int, int, int], seed: int) -> Image.Image:
+    """Seamless, low-contrast asphalt fill sampled from a regional road atlas."""
+    x0, y0, x1, y1 = region
+    patch = np.array(atlas.crop((x0, y0, x1, y1)).convert('RGBA'))
+    rgb = patch[..., :3]
+    neutral = (patch[..., 3] > 220) & (rgb.max(axis=2) < 150) & ((rgb.max(axis=2) - rgb.min(axis=2)) < 42)
+    colors = rgb[neutral]
+    base = np.median(colors, axis=0) if len(colors) else np.array((74, 76, 86))
+    rng = np.random.default_rng(seed)
+    tile_rgb = np.clip(base + rng.normal(0, 3.0, (TILE, TILE, 1)), 0, 255).astype(np.uint8)
+    flecks = rng.random((TILE, TILE)) < 0.04
+    tile_rgb[flecks] = np.clip(base + rng.choice((-9, -5, 5, 8), (int(flecks.sum()), 1)), 0, 255)
+    return Image.fromarray(np.dstack((tile_rgb, np.full((TILE, TILE), 255, dtype=np.uint8))), 'RGBA')
+
+
+def opaque_ground(crop: Image.Image) -> Image.Image:
+    """Fill atlas transparency by propagating fully painted ground pixels."""
+    rgba = np.array(crop.convert('RGBA'))
+    painted = rgba[..., 3] >= 240
+    for _ in range(max(crop.width, crop.height)):
+        if painted.all():
+            break
+        old = painted.copy()
+        for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            shifted_mask = np.roll(old, (dy, dx), axis=(0, 1))
+            shifted_pixels = np.roll(rgba, (dy, dx), axis=(0, 1))
+            take = ~painted & shifted_mask
+            rgba[take] = shifted_pixels[take]
+            painted |= take
+    rgba[..., 3] = 255
     return Image.fromarray(rgba, 'RGBA')
 
 
@@ -190,4 +242,40 @@ def build(reg: dict, log=print) -> dict:
         reg['worlds'][map_id]['backdrops'] = refs
         reg['worlds'][map_id]['note'] += ' Battle panoramas curated from the regional handoff atlas.'
         log(f'[world handoff] {map_id}: {len(refs)} regional battle backgrounds integrated')
+
+    for map_id, (filename, tiles) in HANDOFF_GROUND_TILES.items():
+        sheet = Image.open(ROOT / 'art' / 'handoff' / 'worlds' / filename).convert('RGBA')
+        world = reg['worlds'][map_id]
+        for kind, region in tiles.items():
+            if region == 'asphalt':
+                image = sampled_asphalt(sheet, (96, 0, 156, 60), 211 + len(map_id))
+                quality = 'derived'
+                note = f'seamless low-contrast asphalt sampled from {filename} road palette'
+            else:
+                x0, y0, x1, y1 = region
+                image = sheet.crop((x0, y0, x1, y1)).resize((TILE, TILE), Image.Resampling.NEAREST)
+                image = opaque_ground(image)
+                quality = 'genuine'
+                note = f'inset ground crop {x0},{y0},{x1-x0},{y1-y0} from art/handoff/worlds/{filename}, reduced to 32px'
+            frame = save_frame(image, f'worlds/{map_id}/tiles/{kind}.png', quality, 'front', note)
+            world['tiles'][kind] = frame['path']
+        world['note'] += ' Selected overworld ground tiles curated from its regional handoff atlas.'
+        log(f'[world handoff] {map_id}: {len(tiles)} overworld ground tiles integrated')
+
+    # South City's fountain is already designed as a self-contained plaza
+    # centerpiece in the regional atlas. Keep its paving/planters with it so
+    # the square footprint reads as an intentional landmark on the road map.
+    south = Image.open(ROOT / 'art' / 'handoff' / 'worlds' / 'south_city_tileset.png').convert('RGBA')
+    fountain = south.crop((872, 236, 1071, 442))
+    frame = save_frame(
+        fountain,
+        'worlds/south_city/props/fountain.png',
+        'genuine',
+        'front',
+        'fountain plaza crop 872,236,199,206 from art/handoff/worlds/south_city_tileset.png',
+    )
+    reg['worlds']['south_city']['props']['fountain'] = dict(
+        path=frame['path'], w=frame['w'], h=frame['h'], footW=3, footH=3, solid=True,
+    )
+    log('[world handoff] south_city: fountain plaza prop integrated')
     return reg

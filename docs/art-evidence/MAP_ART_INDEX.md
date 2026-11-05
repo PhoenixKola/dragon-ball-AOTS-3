@@ -32,7 +32,7 @@ Tiles: edge, floor, floor2, path, wall, water
 | building_b | `bunker_wall_b` | 47x50 | 1x2 | yes |
 | building_big | `cliff_big` | 90x84 | 3x1 | yes |
 | house | (none) | | | |
-| fountain | (none) | | | |
+| fountain | `fountain` | 199x206 | 3x3 | yes |
 | timemachine | `cell_pod` | 102x88 | 3x1 | yes |
 | ship | `cell_pod` | 102x88 | 3x1 | yes |
 | pod | `cell_pod` | 102x88 | 3x1 | yes |

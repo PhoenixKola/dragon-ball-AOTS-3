@@ -9,11 +9,10 @@
  "itemsWithoutIcon": [],
  "unresolvedProps": [
   "landing_future:ship",
-  "south_city:fountain",
   "gingertown:timemachine",
   "android_island:pavilion"
  ],
- "publicPngs": 1622,
+ "publicPngs": 1623,
  "publicPngsUnreferencedByRegistry": 56,
  "unusedSample": [
   "assets/objects/chest-closed.png",

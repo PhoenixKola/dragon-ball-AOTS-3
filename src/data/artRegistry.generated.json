@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T12:10:54+00:00",
+ "generatedAt": "2026-11-05T12:23:08+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -21022,7 +21022,7 @@
     }
    ],
    "mapId": "capsule_corp",
-   "note": "Capsule Corporation grounds; hub. Battle panoramas curated from the regional handoff atlas.",
+   "note": "Capsule Corporation grounds; hub. Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas.",
    "props": {
     "bench": {
      "footH": 1,
@@ -23520,7 +23520,7 @@
     }
    ],
    "mapId": "south_city",
-   "note": "Ruined city streets; two backdrop strips (intact skyline / ruined skyline). Battle panoramas curated from the regional handoff atlas.",
+   "note": "Ruined city streets; two backdrop strips (intact skyline / ruined skyline). Battle panoramas curated from the regional handoff atlas. Selected overworld ground tiles curated from its regional handoff atlas.",
    "props": {
     "barrier": {
      "footH": 1,
@@ -23609,6 +23609,14 @@
      "path": "assets/worlds/south_city/props/fence.png",
      "solid": true,
      "w": 25
+    },
+    "fountain": {
+     "footH": 3,
+     "footW": 3,
+     "h": 206,
+     "path": "assets/worlds/south_city/props/fountain.png",
+     "solid": true,
+     "w": 199
     },
     "hedge": {
      "footH": 1,

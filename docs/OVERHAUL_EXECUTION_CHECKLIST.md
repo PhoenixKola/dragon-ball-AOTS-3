@@ -52,7 +52,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 ### M3 — All maps, props and story cinematics
 
 - [x] Keep all 12 map collision/layout/quest/story trigger contracts intact; Ginger Town now has atlas-derived grass, damaged-lot and curb tiles, a calm seamless asphalt fill, atmosphere, nonblocking prop variety and full battle-stage art. Its latest production capture is `tests/logs/screens/polish/gingertown-after.png` (browser errors: 0; external requests: 0).
-- [ ] Generate/refine and integrate coherent per-region layered art for the other 11 maps; verify seams, depth, feet anchors, paths, lighting, weather and NPC prompts in Phaser.
+- [ ] Generate/refine and integrate coherent per-region layered art for the other 11 maps; verify seams, depth, feet anchors, paths, lighting, weather and NPC prompts in Phaser. Follow-up ground pass now covers Capsule Corp ground variants and South City asphalt plus its previously missing fountain plaza; region-wide geometry, props and depth still need review.
 - [x] Integrate regional battle backgrounds across all 12 maps, with opaque scenic images and deterministic stage-ID variant selection where a region has multiple scenes. Handoff artwork is now integrated for Ginger Town, Future Landing (4 weather/time variants), Rocky Outskirts (6 variants), South City (intact/ruined), Capsule Corp, Android Island (2 variants), both Cell Games regions, Gero Mountain (2 views), Gero Lab, Kami's Lookout, and the Time Chamber. Human scene/contrast review remains pending.
 - [ ] Review save/heal/shop/chest state and sizing in all contexts, including chest persistence after save/load.
 - [x] Integrate candidate stills for Trunks defeating Frieza, Android 17/18 absorptions, Android 16 destruction, SSJ2 awakening, Goku sacrifice and Father-Son finale.
@@ -71,7 +71,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 
 ### M5 — Release, verification, and delivery
 
-- [x] Current browser build, typecheck, lint, 579-test unit/integration suite, asset audit, runtime-path audit and late-story browser run pass at this checkpoint.
+- [x] Current browser build, typecheck, lint, 580-test unit/integration suite, asset audit, runtime-path audit and late-story browser run pass at this checkpoint.
 - [x] Refresh Windows Electron folder, browser/source/art-source archives and checksum manifest; all four ZIPs pass integrity inspection; all 536 archived source checksums verify.
 - [x] Current Electron smoke: 13/13, including save persistence after relaunch in an isolated app-data directory.
 - [ ] Run a fresh, normal-progression New Game-to-credits browser playthrough on the final build; include an ordinary imperfect-guard Normal policy and a low-skill Easy policy.
