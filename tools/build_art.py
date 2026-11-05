@@ -59,6 +59,8 @@ def main():
     if want('worlds'):
         import art_worlds
         art_worlds.build_worlds(reg, log)
+        import art_worlds_handoff
+        art_worlds_handoff.build(reg, log)
         log(f'[worlds] done {time.time()-t0:.1f}s')
     if want('vfx'):
         import art_vfx

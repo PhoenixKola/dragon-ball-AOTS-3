@@ -1,0 +1,90 @@
+"""Curated regional-world extractions from the illustrated handoff atlases.
+
+The legacy source sheets remain the source for the whole registry. This module
+overrides only Ginger Town ground textures, using documented source rectangles
+from its supplied regional atlas. Map geometry, objects, triggers and collision
+are deliberately outside this stage.
+"""
+from __future__ import annotations
+
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+
+from art_lib import ROOT, save_frame
+
+
+ATLAS = ROOT / 'art' / 'handoff' / 'worlds' / 'ginger_town_tileset.png'
+TILE = 32
+
+# Regions are chosen from uninterrupted parts of the painted grass, cracked
+# asphalt and curb. 64 source pixels reduce to one 32px runtime map tile.
+GINGER_TILES = {
+    'floor': (35, 670, 99, 734),       # grass with a little scattered ground detail
+    'floor2': (140, 710, 204, 774),   # exposed brown earth in a destroyed garden plot
+    'edge': (32, 32, 96, 96),          # sidewalk / curb segment
+}
+
+
+def asphalt_tile(atlas: Image.Image) -> Image.Image:
+    """Build a calm, seamless street fill from Ginger Town's asphalt palette."""
+    patch = np.array(atlas.crop((224, 4, 240, 28)).convert('RGBA'))
+    colors = patch[(patch[..., 3] > 220) & (patch[..., :3].max(axis=2) < 135), :3]
+    base = np.median(colors, axis=0) if len(colors) else np.array((76, 78, 91))
+    rng = np.random.default_rng(87031)
+    grain = rng.normal(0, 3.2, (TILE, TILE, 1))
+    rgb = np.clip(base + grain, 0, 255).astype(np.uint8)
+    # Scattered, low-contrast aggregate keeps the surface from reading as flat
+    # fill while avoiding the atlas's curb and crack motifs repeating per tile.
+    specks = rng.random((TILE, TILE)) < 0.045
+    rgb[specks] = np.clip(base + rng.choice((-10, -6, 5, 8), (int(specks.sum()), 1)), 0, 255)
+    rgba = np.dstack((rgb, np.full((TILE, TILE), 255, dtype=np.uint8)))
+    return Image.fromarray(rgba, 'RGBA')
+
+
+def build(reg: dict, log=print) -> dict:
+    atlas = Image.open(ATLAS).convert('RGBA')
+    world = reg['worlds']['gingertown']
+    street = asphalt_tile(atlas)
+    frame = save_frame(
+        street,
+        'worlds/gingertown/tiles/path.png',
+        'derived',
+        'front',
+        'seamless 32px street texture using sampled asphalt colors from the handoff atlas; subtle seeded grain, with curb and crack motifs omitted',
+    )
+    world['tiles']['path'] = frame['path']
+    for kind, rect in GINGER_TILES.items():
+        tile = atlas.crop(rect).resize((TILE, TILE), Image.Resampling.NEAREST)
+        # Transparent atlas padding contains arbitrary RGB values. Propagate
+        # only fully painted neighboring pixels before making ground opaque,
+        # so partially transparent atlas seams cannot become dark map lines.
+        rgba = np.array(tile)
+        painted = rgba[..., 3] >= 240
+        for _ in range(TILE * 2):
+            if painted.all():
+                break
+            old = painted.copy()
+            for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                shifted_mask = np.roll(old, (dy, dx), axis=(0, 1))
+                shifted_pixels = np.roll(rgba, (dy, dx), axis=(0, 1))
+                take = ~painted & shifted_mask
+                rgba[take] = shifted_pixels[take]
+                painted |= take
+        rgba[..., 3] = 255
+        tile = Image.fromarray(rgba, 'RGBA')
+        frame = save_frame(
+            tile,
+            f'worlds/gingertown/tiles/{kind}.png',
+            'genuine',
+            'front',
+            f'64px crop {rect} from art/handoff/worlds/ginger_town_tileset.png, reduced 2:1 with nearest-neighbour sampling',
+        )
+        world['tiles'][kind] = frame['path']
+    # Foundation blocks under Ginger Town's house sprites share the same
+    # damaged street surface, rather than the legacy vine-covered wall tile.
+    world['tiles']['wall'] = world['tiles']['path']
+    world['note'] += ' Ground tiles refined from the regional handoff atlas.'
+    log('[world handoff] gingertown: 4 regional ground tiles integrated')
+    return reg

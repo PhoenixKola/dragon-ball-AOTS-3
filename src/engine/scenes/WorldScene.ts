@@ -116,7 +116,8 @@ export class WorldScene extends Phaser.Scene {
           const tileClass = TILE_KEYS[ch] ?? 'floor';
           const hash = (Math.imul(x + 1, 0x45d9f3b) ^ Math.imul(y + 3, 0x119de1f3) ^ mapSeed) >>> 0;
           const tile = this.make.image({ key, x: (x + 0.5) * TILE, y: (y + 0.5) * TILE, add: false });
-          const organicGround = ['floor', 'floor2', 'water'].includes(tileClass);
+          const organicGround = ['floor', 'floor2', 'water'].includes(tileClass)
+            || (map.id === 'gingertown' && ['path', 'wall'].includes(tileClass));
           tile.setOrigin(0.5).setRotation(organicGround ? (hash & 3) * Math.PI / 2 : 0).setFlipX(organicGround && (hash & 4) !== 0);
           rt.draw(tile);
           tile.destroy();

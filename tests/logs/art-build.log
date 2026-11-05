@@ -1,3 +1,17 @@
+[world] landing_future: 4 backdrops, 6 tiles, 19 props
+[world] capsule_corp: 1 backdrops, 6 tiles, 23 props
+[world] south_city: 2 backdrops, 6 tiles, 27 props
+[world] rocky_outskirts: 6 backdrops, 6 tiles, 23 props
+[world] mountain_lab: 1 backdrops, 6 tiles, 30 props
+[world] lab_inner: 2 backdrops, 6 tiles, 32 props
+[world] gingertown: 3 backdrops, 6 tiles, 27 props
+[world] android_island: 2 backdrops, 6 tiles, 28 props
+[world] lookout: 1 backdrops, 6 tiles, 26 props
+[world] time_chamber: 1 backdrops, 6 tiles, 16 props
+[world] cell_games_approach: 1 backdrops, 6 tiles, 35 props
+[world] cell_games_arena: 1 backdrops, 6 tiles, 27 props
+[world handoff] gingertown: 4 regional ground tiles integrated
+[worlds] done 13.0s
 [cinematics] trunks_arrival: 1672x941
 [cinematics] cell_absorbs_17: 1672x941
 [cinematics] cell_absorbs_18: 1672x941
@@ -5,4 +19,6 @@
 [cinematics] goku_sacrifice: 1774x887
 [cinematics] father_son_finale: 1672x941
 [cinematics] android16_destruction: 1672x941
-pruned 0 unreferenced PNGs
+[atmosphere] gingertown mist: native-generated transparent overlay
+[world extra] gingertown battle backdrop: 1672x941
+pruned 2 unreferenced PNGs

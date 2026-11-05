@@ -51,7 +51,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 
 ### M3 — All maps, props and story cinematics
 
-- [x] Keep all 12 map collision/layout/quest/story trigger contracts intact; Ginger Town now has an integrated atmosphere layer, nonblocking prop variety and full battle-stage art.
+- [x] Keep all 12 map collision/layout/quest/story trigger contracts intact; Ginger Town now has atlas-derived grass, damaged-lot and curb tiles, a calm seamless asphalt fill, atmosphere, nonblocking prop variety and full battle-stage art. Its latest production capture is `tests/logs/screens/polish/gingertown-after.png` (browser errors: 0; external requests: 0).
 - [ ] Generate/refine and integrate coherent per-region layered art for the other 11 maps; verify seams, depth, feet anchors, paths, lighting, weather and NPC prompts in Phaser.
 - [ ] Refresh the battle-stage backdrop for every region; retain opaque scenic formats and verify enemies/UI remain readable above them.
 - [ ] Review save/heal/shop/chest state and sizing in all contexts, including chest persistence after save/load.

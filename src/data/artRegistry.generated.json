@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T10:46:17+00:00",
+ "generatedAt": "2026-11-05T11:48:36+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -21851,7 +21851,7 @@
     }
    ],
    "mapId": "gingertown",
-   "note": "Ruined suburb; three backdrop strips.",
+   "note": "Ruined suburb; three backdrop strips. Ground tiles refined from the regional handoff atlas.",
    "props": {
     "billboard": {
      "footH": 1,
@@ -22077,7 +22077,7 @@
     "floor": "assets/worlds/gingertown/tiles/floor.png",
     "floor2": "assets/worlds/gingertown/tiles/floor2.png",
     "path": "assets/worlds/gingertown/tiles/path.png",
-    "wall": "assets/worlds/gingertown/tiles/wall.png",
+    "wall": "assets/worlds/gingertown/tiles/path.png",
     "water": "assets/worlds/gingertown/tiles/water.png"
    },
    "weatherOverlay": "assets/worlds/gingertown/mist.png"
