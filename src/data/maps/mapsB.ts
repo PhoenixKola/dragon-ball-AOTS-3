@@ -71,7 +71,7 @@ function labInner(): MapDef {
   // corridors and rooms
   m.fill(2, 2, 12, 8, '#').fill(26, 2, 12, 8, '#').fill(2, 14, 14, 6, '#').fill(24, 14, 14, 6, '#').fill(2, 22, 8, 4, '#').fill(30, 22, 8, 4, '#');
   m.fill(14, 2, 12, 5, '.');
-  m.prop('pod', 17, 3, 2, 2).prop('pod', 20, 3, 2, 2).prop('pod', 23, 3, 2, 2).prop('machine', 14, 12, 2, 2).prop('machine', 24, 12, 2, 2).row('pillar', 12, 16, 3, 7);
+  m.prop('pod_broken', 14, 3, 2, 2, false).prop('pod', 17, 3, 2, 2).prop('pod', 20, 3, 2, 2).prop('pod', 23, 3, 2, 2).prop('machine', 14, 12, 2, 2).prop('machine', 24, 12, 2, 2).row('pillar', 12, 16, 3, 7);
   m.e(
     exit('li_to_ml', 18, 25, 4, 3, { map: 'mountain_lab', x: 22, y: 10, facing: 'down' }),
     point('save', 'save_li', 16, 21, { label: 'Save Terminal' }),

@@ -138,6 +138,12 @@ describe('maps', () => {
   it('has the 12 blueprint regions', () => {
     expect(MAP_LIST.map((m) => m.id).sort()).toEqual(['android_island', 'capsule_corp', 'cell_games_approach', 'cell_games_arena', 'gingertown', 'lab_inner', 'landing_future', 'lookout', 'mountain_lab', 'rocky_outskirts', 'south_city', 'time_chamber']);
   });
+  it('adds the broken lab pod as a decorative, nonblocking prop', () => {
+    const pod = MAPS.lab_inner.props.find((p) => p.prop === 'pod_broken');
+    expect(pod).toMatchObject({ x: 14, y: 3, fw: 2, fh: 2, solid: false });
+    const grid = buildCollision(MAPS.lab_inner);
+    expect(bodyFree(grid, pod!.x * TILE + TILE / 2, (pod!.y + pod!.fh) * TILE - 2)).toBe(true);
+  });
   for (const m of MAP_LIST) {
     describe(m.id, () => {
       it('tile rows are well formed and entity ids are unique', () => {

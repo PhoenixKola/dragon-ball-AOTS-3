@@ -96,7 +96,7 @@ Entities: exit ×2, door ×1, save ×1, heal ×1, foe ×1, lever ×1, terminal �
 
 ## Android Laboratory (`lab_inner`, 40x28 tiles)
 
-Music lab; encounters: lab_inner; props 8.
+Music lab; encounters: lab_inner; props 9.
 
 Entities: exit ×1, save ×1, heal ×1, foe ×3, terminal ×2, chest ×1, sign ×1
 

@@ -119,6 +119,7 @@ GENERATED_WORLD_PROPS = {
     'landing_future': ('future_landing_scout_ship.png', 'ship', 320, 6, 4, True),
     'gingertown': ('gingertown_time_machine.png', 'timemachine', 160, 3, 2, True),
     'android_island': ('android_island_pavilion.png', 'pavilion', 215, 4, 3, False),
+    'lab_inner': ('lab_inner_broken_pod.png', 'pod_broken', 84, 2, 2, False),
 }
 
 

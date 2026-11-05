@@ -1,6 +1,6 @@
 # Missing or provisional art
 
-> **Inventory note:** This document retains older RC1/RC2 review findings; use `src/data/artRegistry.generated.json` as the current frame inventory. Twelve regional battle backgrounds, selected world ground and landmark refinements, and a four-frame generated `impact-hit` sequence are now integrated. Most VFX families still use non-sequential source variants, and several story forms/actors remain derived or provisional as listed below. No registry art has human approval yet (`approved=false`).
+> **Inventory note:** This document retains older RC1/RC2 review findings; use `src/data/artRegistry.generated.json` as the current frame inventory. Twelve regional battle backgrounds, selected world ground and landmark refinements (including the candidate broken Lab Interior incubation pod), and a four-frame generated `impact-hit` sequence are now integrated. Most VFX families still use non-sequential source variants, and several story forms/actors remain derived or provisional as listed below. No registry art has human approval yet (`approved=false`).
 
 Nothing in this project is human-approved (`approved=false` everywhere). Outcomes: **resolved-derived** (usable derived art, not authentic), **provisional-fallback** (tool-drawn or tinted stand-in), **partial** (some requested coverage is implemented, exit criteria remain), and **missing** (no art produced).
 

@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T13:19:26+00:00",
+ "generatedAt": "2026-11-05T14:15:32+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -22290,6 +22290,14 @@
      "path": "assets/worlds/lab_inner/props/platform_stairs.png",
      "solid": true,
      "w": 42
+    },
+    "pod_broken": {
+     "footH": 2,
+     "footW": 2,
+     "h": 134,
+     "path": "assets/worlds/lab_inner/props/pod_broken.png",
+     "solid": false,
+     "w": 84
     },
     "pod_pair": {
      "footH": 1,
