@@ -9,6 +9,8 @@ import { STAGES } from '../../src/data/stages';
 import { BEATS } from '../../src/data/story';
 import { COMBOS } from '../../src/data/items';
 import { HERO_IDS } from '../../src/types';
+import { registry } from '../../src/engine/assets';
+import { resolvePresentationClip } from '../../src/engine/combat/presentation';
 
 // Generates the data-derived documentation. Runs as part of the normal suite so the docs can never drift from the data.
 describe('generate data-derived docs', () => {
@@ -41,6 +43,32 @@ describe('generate data-derived docs', () => {
     s += '## Team combos\n\n| id | name | members | Ki each | effect |\n|---|---|---|---|---|\n';
     for (const c of COMBOS) s += `| ${c.id} | ${c.name} | ${c.members.join(' + ')} | ${c.kiCost} | ${c.desc} |\n`;
     writeFileSync('docs/ALL_84_SKILLS_MATRIX.md', s);
+
+    const coreSkills = SKILL_LIST.filter((skill) => skill.hero !== 'android16');
+    let p = '# Combat presentation map (generated)\n\n';
+    p += `This map is generated from the authored data in \`src/data/skills.ts\`, the runtime VFX registry, and the presentation resolver. It covers **${coreSkills.length} / 84 core techniques** plus Rage Arts and team combos. “Visual clip” is the Phaser action family; registered VFX stay distinct by their own IDs.\n\n`;
+    p += 'Frame labels distinguish authored temporal sequences from one-shot/variant artwork. This is an implementation inventory, not a human sign-off that every effect is visually perfect.\n\n';
+    p += '## Core techniques\n\n| ID | Hero | Technique | Kind / element | Clip → visual clip | Registered VFX | Hits / charge |\n|---|---|---|---|---|---|---|\n';
+    for (const skill of coreSkills) {
+      const cue = registry.vfx[skill.vfx];
+      const cueLabel = cue ? `${skill.vfx} (${cue.family}, ${cue.frames.length} frame${cue.frames.length === 1 ? '' : 's'}${cue.note.includes('temporal_sequence') || cue.note.includes('temporal_growth') ? ', temporal' : ', pulse/variant'})` : `MISSING: ${skill.vfx}`;
+      const hitCount = skill.hits.length ? `${skill.hits.length} hit${skill.hits.length === 1 ? '' : 's'}` : 'no damage hits';
+      const charge = skill.chargeTurns ? `; ${skill.chargeTurns}T charge` : '';
+      p += `| ${skill.id} | ${HEROES[skill.hero as keyof typeof HEROES]?.name ?? skill.hero} | ${skill.name} | ${skill.kind} / ${skill.element} | ${skill.clip} → ${resolvePresentationClip(skill.clip, skill.element)} | ${cueLabel} | ${hitCount}${charge} |\n`;
+    }
+    p += '\n## Rage Arts\n\n| ID | Hero | Technique | Element | Clip → visual clip | Registered VFX | Hits |\n|---|---|---|---|---|---|---|\n';
+    for (const skill of Object.values(RAGE_ARTS)) {
+      const cue = registry.vfx[skill.vfx];
+      p += `| ${skill.id} | ${HEROES[skill.hero as keyof typeof HEROES]?.name ?? skill.hero} | ${skill.name} | ${skill.element} | ${skill.clip} → ${resolvePresentationClip(skill.clip, skill.element)} | ${skill.vfx} (${cue?.family ?? 'MISSING'}) | ${skill.hits.length || '—'} |\n`;
+    }
+    p += '\n## Team combos\n\n| ID | Technique | Members | Element | Visual clip | Registered VFX | Hits |\n|---|---|---|---|---|---|---|\n';
+    for (const combo of COMBOS) {
+      const clip = combo.element === 'phys' ? 'heavy' : 'special';
+      const cue = registry.vfx[combo.vfx];
+      p += `| ${combo.id} | ${combo.name} | ${combo.members.join(' + ')} | ${combo.element} | ${clip} | ${combo.vfx} (${cue?.family ?? 'MISSING'}) | ${combo.hits.length} |\n`;
+    }
+    p += '\n## Coverage gaps\n\n- All 84 authored core skills have an authored action clip and VFX ID; each registry reference and resolved clip is checked by the runtime presentation audit.\n- Physical generic `special` clips resolve to the close-range heavy clip. Ki generic `special` clips keep the ranged special clip. Explicitly authored beam, sword, disc, barrage, heal, buff, guard, flare and teleport clips remain intact.\n- Flare-family casts place single-target cues on the selected enemy; all-target status flares are distributed over living opponents.\n- The map records exactly which cues are genuine temporal sequences; remaining pulse/variant cues still need authored frame animation where the moment benefits from it. Family/signature quality and impact/audio phase timing still require visual rollout and review.\n';
+    writeFileSync('docs/COMBAT_PRESENTATION_MAP.md', p);
 
     let t = '# Story and encounter matrix (generated)\n\nBeats are strictly ordered; every battle is reached by walking to its trigger entity on the listed map.\n\n| # | id | chapter | map | mode | enemies | team | p | rewards (XP/zeni) | flags set on success |\n|---|---|---|---|---|---|---|---|---|---|\n';
     BEATS.forEach((b, i) => {

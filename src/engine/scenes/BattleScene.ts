@@ -339,7 +339,18 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       }
       case 'flare':
         this.setPose(s, 'special', 700);
-        this.playVfx(vfx, s.img.x, s.homeY - s.img.displayHeight * 0.7, 2.2);
+        {
+          const authored = getVfx(vfx);
+          const cueTargets = target
+            ? [target]
+            : authored?.family === 'status'
+              ? [...this.slots.values()].filter((slot) => slot.alive && slot.view.team !== s.view.team)
+              : [];
+          const points = cueTargets.length ? cueTargets : [s];
+          for (const point of points) {
+            this.playVfx(vfx, point.img.x, point.homeY - point.img.displayHeight * 0.55, points.length > 1 ? 1.05 : 1.7);
+          }
+        }
         await this.wait(260);
         break;
       case 'charge':
