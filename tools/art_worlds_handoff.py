@@ -120,6 +120,7 @@ GENERATED_WORLD_PROPS = {
     'gingertown': ('gingertown_time_machine.png', 'timemachine', 160, 3, 2, True),
     'android_island': ('android_island_pavilion.png', 'pavilion', 215, 4, 3, False),
     'lab_inner': ('lab_inner_broken_pod.png', 'pod_broken', 84, 2, 2, False),
+    'mountain_lab': ('mountain_lab_broken_weather_monitor.png', 'sensor_broken', 64, 2, 2, False),
 }
 
 

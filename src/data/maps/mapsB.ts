@@ -42,7 +42,7 @@ function mountainLab(): MapDef {
   m.border('#', 2);
   m.speckle('.', ',', 5);
   m.fill(4, 2, 36, 6, '#').fill(14, 8, 16, 2, '=').vpath(20, 10, 28, 4, '=').hpath(15, 4, 40, 3, '=').fill(4, 20, 10, 6, '#').fill(30, 20, 10, 6, '#').fill(4, 10, 6, 4, '#').fill(34, 10, 6, 4, '#');
-  m.prop('lab_building', 14, 2, 16, 6).row('boulder', 8, 18, 2, 24, 2, 1).row('rock', 12, 12, 4, 6).prop('machine', 32, 17, 2, 2).prop('pod', 7, 16, 2, 2);
+  m.prop('lab_building', 14, 2, 16, 6).row('boulder', 8, 18, 2, 24, 2, 1).row('rock', 12, 12, 4, 6).prop('machine', 32, 17, 2, 2).prop('pod', 7, 16, 2, 2).prop('sensor_broken', 26, 16, 2, 2, false);
   m.e(
     exit('ml_to_ro', 20, 27, 4, 3, { map: 'rocky_outskirts', x: 24, y: 4, facing: 'down' }),
     exit('ml_to_inner', 20, 7, 4, 2, { map: 'lab_inner', x: 20, y: 23, facing: 'up' }, { requires: 'flag:lab_door_open', lockedText: 'The lab door is sealed. There must be a lever somewhere on the cliffs.' }),

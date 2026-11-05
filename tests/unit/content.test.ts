@@ -144,6 +144,12 @@ describe('maps', () => {
     const grid = buildCollision(MAPS.lab_inner);
     expect(bodyFree(grid, pod!.x * TILE + TILE / 2, (pod!.y + pod!.fh) * TILE - 2)).toBe(true);
   });
+  it('adds the broken weather monitor as a decorative, nonblocking mountain prop', () => {
+    const sensor = MAPS.mountain_lab.props.find((p) => p.prop === 'sensor_broken');
+    expect(sensor).toMatchObject({ x: 26, y: 16, fw: 2, fh: 2, solid: false });
+    const grid = buildCollision(MAPS.mountain_lab);
+    expect(bodyFree(grid, sensor!.x * TILE + TILE / 2, (sensor!.y + sensor!.fh) * TILE - 2)).toBe(true);
+  });
   for (const m of MAP_LIST) {
     describe(m.id, () => {
       it('tile rows are well formed and entity ids are unique', () => {

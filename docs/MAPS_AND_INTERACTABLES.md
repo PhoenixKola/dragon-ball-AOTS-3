@@ -79,7 +79,7 @@ Entities: exit ×3, save ×1, heal ×1, foe ×4, npc ×3, pickup ×1, chest ×2
 
 ## Mountain Lab (`mountain_lab`, 44x30 tiles)
 
-Music lab; encounters: mountain_lab; props 9.
+Music lab; encounters: mountain_lab; props 10.
 
 Entities: exit ×2, door ×1, save ×1, heal ×1, foe ×1, lever ×1, terminal ×1, pickup ×1, chest ×1, npc ×1
 

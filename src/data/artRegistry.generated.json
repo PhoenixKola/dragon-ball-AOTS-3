@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T14:15:32+00:00",
+ "generatedAt": "2026-11-05T14:32:30+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -23149,6 +23149,14 @@
      "path": "assets/worlds/mountain_lab/props/rock_b.png",
      "solid": true,
      "w": 33
+    },
+    "sensor_broken": {
+     "footH": 2,
+     "footW": 2,
+     "h": 78,
+     "path": "assets/worlds/mountain_lab/props/sensor_broken.png",
+     "solid": false,
+     "w": 64
     },
     "snow_peaks": {
      "footH": 1,
