@@ -1,8 +1,8 @@
 # Missing or provisional art
 
-> **RC2 update:** The table below is an RC1 backlog, not the current asset inventory. `FINAL_PASS_NOTES.md` records the RC2 handoff and patch integration, and `src/data/artRegistry.generated.json` is authoritative for each current frame. Gohan SSJ/SSJ2, Vegeta Ascended, Trunks Ultra, Goku weakened, Cell Junior, Super Perfect Cell, the listed NPCs, and most listed enemies now have handoff or patch frames. Landing security remains derived; wounded Gohan's overworld walk reuses base Gohan; worlds and VFX have not received the handoff replacement pass. The old icon-sliver finding below was addressed by the RC2 icon reslice. No registry art has human approval yet (`approved=false`).
+> **Inventory note:** This document retains older RC1/RC2 review findings; use `src/data/artRegistry.generated.json` as the current frame inventory. Twelve regional battle backgrounds, selected world ground and landmark refinements, and a four-frame generated `impact-hit` sequence are now integrated. Most VFX families still use non-sequential source variants, and several story forms/actors remain derived or provisional as listed below. No registry art has human approval yet (`approved=false`).
 
-Nothing in this project is human-approved (`approved=false` everywhere). Outcomes: **resolved-derived** (usable derived art, not authentic), **provisional-fallback** (tool-drawn or tinted stand-in), **missing** (no art produced).
+Nothing in this project is human-approved (`approved=false` everywhere). Outcomes: **resolved-derived** (usable derived art, not authentic), **provisional-fallback** (tool-drawn or tinted stand-in), **partial** (some requested coverage is implemented, exit criteria remain), and **missing** (no art produced).
 
 | class | id | requirement | outcome | detail |
 |---|---|---|---|---|
@@ -44,7 +44,7 @@ Nothing in this project is human-approved (`approved=false` everywhere). Outcome
 | story | cell-returns | Super Perfect Cell return cinematic | **missing** | no painted cutscene frames exist. Runtime must stage these with in-engine choreography (actors + vfx ids `absorb`, `teleport`, `aura-ssj2`, `father-son`, `lightning`, `explosion`); 05-story/REVIEW-ONLY was NOT used |
 | story | father-son-finale | Final struggle, wounded Gohan and Goku silhouette | **missing** | no painted cutscene frames exist. Runtime must stage these with in-engine choreography (actors + vfx ids `absorb`, `teleport`, `aura-ssj2`, `father-son`, `lightning`, `explosion`); 05-story/REVIEW-ONLY was NOT used |
 | story | trunks-departure-credits | Chronology-safe goodbye and credits | **missing** | no painted cutscene frames exist. Runtime must stage these with in-engine choreography (actors + vfx ids `absorb`, `teleport`, `aura-ssj2`, `father-son`, `lightning`, `explosion`); 05-story/REVIEW-ONLY was NOT used |
-| vfx | character-specific-markers | Per-skill animation semantic hit markers + clip timing not authored | **missing** | hit markers/clip timing are engine data (not art); 35 VFX ids registered, frames mostly `variants_not_sequence` |
+| vfx | character-specific-markers | Per-skill animation semantic hit markers + clip timing not authored | **partial** | common `impact-hit` now has a four-stage generated contact/expand/break/fade sequence; most of the 36 registered VFX ids still use source variants, and accurate per-skill cue/timing coverage remains open |
 | map | collision-maps | Actual navigable tilemap data, collision layers, transition markers, enemy placements | **missing** | art side supplies tiles/props/backdrops + MAP_ART_INDEX.md; collision/triggers are authored in src/data/maps by the engine |
 | audio | music-and-sfx | Original music and effects not included | **missing** | out of scope for the art pipeline; runtime synthesizes audio |
 

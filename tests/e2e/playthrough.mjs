@@ -25,7 +25,7 @@ if (process.env.START_SAVE) {
   await page.getByRole('button', { name: new RegExp('^' + (POLICY === 'noguard' ? 'Easy' : 'Normal')) }).first().click();
 }
 await page.waitForFunction(() => window.__AOTS__.snapshot().screen !== 'title', null, { timeout: 20000 });
-await page.evaluate(() => window.__AOTS__.settings({ battleSpeed: 2, showTutorials: false }));
+await page.evaluate((capture) => window.__AOTS__.settings({ battleSpeed: capture ? 1 : 2, showTutorials: false }), !!process.env.CAPTURE_VFX);
 
 const held = new Set();
 const setKeys = async (want) => {
@@ -35,6 +35,7 @@ const setKeys = async (want) => {
 const release = () => setKeys(new Set());
 let battles = 0, lastBeat = -1, stuck = 0, lastPos = '';
 let inBattle = false;
+let impactCaptureDone = false;
 const shotBattles = new Set();
 const jitterDone = new Set();
 const seenMaps = new Set();
@@ -90,8 +91,12 @@ async function battleStep(s) {
         L('JITTER ' + b.stageId + ' ' + uid + ' idle maxYstep=' + maxStep.toFixed(2) + ' maxXoffHome=' + maxDx.toFixed(1) + ' heightVar=' + hVar + ' tex=' + new Set(arr.map((q) => q.tex)).size);
       }
     }
-    const a = await page.evaluate(() => window.__AOTS__.advice());
+    let a = await page.evaluate(() => window.__AOTS__.advice());
     if (!a) { await page.waitForTimeout(50); return; }
+    if (process.env.CAPTURE_VFX && !impactCaptureDone) {
+      const targetUid = b.fighters.find((f) => f.team === 'enemy' && f.alive)?.uid;
+      if (targetUid) a = { kind: 'attack', targetUid };
+    }
     let ok = false;
     if (battles <= 2 && a.kind === 'attack') {
       try {
@@ -107,6 +112,11 @@ async function battleStep(s) {
       if (!r.ok) L('submit rejected: ' + r.reason + ' ' + JSON.stringify(a));
     }
     await page.waitForTimeout(30);
+    if (process.env.CAPTURE_VFX && !impactCaptureDone) {
+      impactCaptureDone = true;
+      await page.waitForTimeout(350);
+      await shot(page, 'impact-hit-temporal-check', 'tests/logs/screens/combat-vfx');
+    }
     return;
   }
   await page.waitForTimeout(40);
@@ -143,6 +153,7 @@ async function overlayStep(s) {
 
 let lastDiag = 0;
 while ((Date.now() - t0) / 60000 < MAX_MIN) {
+  if (process.env.CAPTURE_VFX && impactCaptureDone) break;
   const s = await snap(page);
   if (Date.now() - lastDiag > 30000) {
     lastDiag = Date.now();
@@ -257,4 +268,4 @@ L('external requests: ' + JSON.stringify(external));
 mkdirSync('tests/logs', { recursive: true });
 writeFileSync(`tests/logs/e2e-playthrough-${POLICY}.json`, JSON.stringify({ policy: POLICY, final, beatLog, errors: t.errors, externalRequests: external, minutes: (Date.now() - t0) / 60000, log }, null, 1));
 await t.close();
-process.exit(final.beat >= 30 ? 0 : 1);
+process.exit(final.beat >= 30 || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) ? 0 : 1);

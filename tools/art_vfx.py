@@ -4,7 +4,7 @@ unless the picked frames visibly grow/animate in order (those are marked 'ordere
 from __future__ import annotations
 import numpy as np
 from PIL import Image
-from art_lib import SRC, clean_alpha, components, frame_meta, save_frame, trim_pad
+from art_lib import ROOT, SRC, clean_alpha, components, frame_meta, save_frame, trim_pad
 from art_heroes import rgb_to_hsv, hsv_to_rgb
 
 VFX_SRC = SRC / '06-vfx' / 'source-sheets'
@@ -89,6 +89,42 @@ add('crescent-purple', 'slash', [('ML', 95), ('ML', 96), ('ML', 99), ('ML', 119)
 def build_vfx(reg, log):
     for id_, spec in VFX.items():
         frames = []
+        if id_ == 'impact-hit':
+            # This native-generated four-stage contact burst is a real temporal
+            # sequence. Each frame comes from its own transparent atlas cell;
+            # align the content to a common center and downscale with nearest.
+            source_path = ROOT / 'art' / 'handoff' / 'generated_vfx' / 'impact-blue-contact-4f.png'
+            source = Image.open(source_path).convert('RGBA')
+            if source.width % 4:
+                raise ValueError(f'{source_path} must contain four equal horizontal frames')
+            cell_w = source.width // 4
+            for n, label in enumerate(('contact flash', 'expanding star', 'breaking sparks', 'fading sparks')):
+                cell = source.crop((n * cell_w, 0, (n + 1) * cell_w, source.height))
+                bbox = cell.getchannel('A').point(lambda a: 255 if a > 24 else 0).getbbox()
+                if not bbox:
+                    raise ValueError(f'empty generated impact frame {n}')
+                x0, y0, x1, y1 = bbox
+                margin = 3
+                cell = cell.crop((max(0, x0 - margin), max(0, y0 - margin), min(cell.width, x1 + margin), min(cell.height, y1 + margin)))
+                scale = min(120 / cell.width, 120 / cell.height, 1)
+                size = (max(1, round(cell.width * scale)), max(1, round(cell.height * scale)))
+                cell = cell.resize(size, Image.Resampling.NEAREST)
+                canvas = Image.new('RGBA', (128, 128))
+                canvas.alpha_composite(cell, ((128 - cell.width) // 2, (128 - cell.height) // 2))
+                frames.append(save_frame(
+                    canvas,
+                    f'vfx/{id_}/{n}.png',
+                    'derived',
+                    'front',
+                    f'native-generated candidate; {label}; equal-cell crop from art/handoff/generated_vfx/impact-blue-contact-4f.png, nearest-neighbour downscale, centered',
+                    trim=False,
+                ))
+            reg['vfx'][id_] = dict(
+                id=id_, frames=frames, fps=14, loop=False, family='impact', quality='derived',
+                note='temporal_sequence: four native-generated contact stages (flash, expansion, break, fade); human art review pending',
+            )
+            log(f'[vfx] {id_}: {len(frames)} native-generated temporal frames')
+            continue
         if id_ == 'regen':
             # Animate the installed healing glyph itself instead of presenting
             # unrelated source-sheet variants as motion. Keep a fixed pivot.

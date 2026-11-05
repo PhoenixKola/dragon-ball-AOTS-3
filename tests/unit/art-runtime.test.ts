@@ -31,6 +31,14 @@ describe('runtime art integration audit', () => {
     expect(new Set(cue.frames.map((f) => readFileSync(png(f.path)).toString('base64'))).size).toBe(5);
     for (const f of cue.frames) expect(readFileSync(png(f.path))[25]).toBe(6);
   });
+  it('common melee impact is a true four-stage transparent temporal sequence', () => {
+    const cue = registry.vfx['impact-hit'];
+    expect(cue.note).toContain('temporal_sequence');
+    expect(cue.frames).toHaveLength(4);
+    expect(new Set(cue.frames.map((f) => `${f.w}x${f.h}`))).toEqual(new Set(['128x128']));
+    expect(new Set(cue.frames.map((f) => readFileSync(png(f.path)).toString('base64'))).size).toBe(4);
+    for (const f of cue.frames) expect(readFileSync(png(f.path))[25]).toBe(6);
+  });
   it('every registry frame exists on disk with the recorded size and visible pixels', () => {
     let frames = 0;
     const bad: string[] = [];

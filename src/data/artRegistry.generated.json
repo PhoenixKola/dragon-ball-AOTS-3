@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T12:47:17+00:00",
+ "generatedAt": "2026-11-05T13:19:26+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -20169,85 +20169,85 @@
    "frames": [
     {
      "bbox": [
-      1,
-      1,
-      113,
-      85
+      5,
+      7,
+      119,
+      114
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      42,
-      86
+      79,
+      121
      ],
-     "h": 87,
-     "note": "melee-hits-explosions.png comp#106",
+     "h": 128,
+     "note": "native-generated candidate; contact flash; equal-cell crop from art/handoff/generated_vfx/impact-blue-contact-4f.png, nearest-neighbour downscale, centered",
      "path": "assets/vfx/impact-hit/0.png",
-     "quality": "genuine",
-     "visible": 5203,
-     "w": 115
+     "quality": "derived",
+     "visible": 7240,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      90,
-      85
+      4,
+      14,
+      120,
+      100
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      25,
-      86
+      64,
+      114
      ],
-     "h": 87,
-     "note": "melee-hits-explosions.png comp#107",
+     "h": 128,
+     "note": "native-generated candidate; expanding star; equal-cell crop from art/handoff/generated_vfx/impact-blue-contact-4f.png, nearest-neighbour downscale, centered",
      "path": "assets/vfx/impact-hit/1.png",
-     "quality": "genuine",
-     "visible": 3404,
-     "w": 92
+     "quality": "derived",
+     "visible": 6438,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      102,
-      94
+      4,
+      9,
+      120,
+      109
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      49,
-      95
+      98,
+      118
      ],
-     "h": 96,
-     "note": "melee-hits-explosions.png comp#108",
+     "h": 128,
+     "note": "native-generated candidate; breaking sparks; equal-cell crop from art/handoff/generated_vfx/impact-blue-contact-4f.png, nearest-neighbour downscale, centered",
      "path": "assets/vfx/impact-hit/2.png",
-     "quality": "genuine",
-     "visible": 4522,
-     "w": 104
+     "quality": "derived",
+     "visible": 3329,
+     "w": 128
     },
     {
      "bbox": [
-      1,
-      1,
-      92,
-      80
+      4,
+      7,
+      120,
+      114
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      58,
-      81
+      74,
+      121
      ],
-     "h": 82,
-     "note": "melee-hits-explosions.png comp#109",
+     "h": 128,
+     "note": "native-generated candidate; fading sparks; equal-cell crop from art/handoff/generated_vfx/impact-blue-contact-4f.png, nearest-neighbour downscale, centered",
      "path": "assets/vfx/impact-hit/3.png",
-     "quality": "genuine",
-     "visible": 4189,
-     "w": 94
+     "quality": "derived",
+     "visible": 2618,
+     "w": 128
     }
    ],
    "id": "impact-hit",
    "loop": false,
-   "note": "variants_not_sequence: blue hit-stars",
-   "quality": "genuine"
+   "note": "temporal_sequence: four native-generated contact stages (flash, expansion, break, fade); human art review pending",
+   "quality": "derived"
   },
   "lightning": {
    "family": "status",

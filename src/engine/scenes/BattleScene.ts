@@ -438,7 +438,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     }
     const img = this.add.image(x, y, keys[0]).setDepth(810).setScale(scale * 2).setFlipX(flip);
     // frames marked variants_not_sequence play as a short pulse (never a fake smooth animation)
-    const ordered = v.note?.includes('ordered_growth') && !this.opts.reducedMotion;
+    const ordered = (v.note?.includes('ordered_growth') || v.note?.includes('temporal_sequence')) && !this.opts.reducedMotion;
     const seq = ordered ? keys : [keys[0]];
     let i = 0;
     const step = () => {
