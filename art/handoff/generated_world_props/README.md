@@ -6,7 +6,8 @@ These transparent sprites were generated with the built-in ImageGen workflow for
 |---|---|---:|---:|---|
 | `future_landing_scout_ship.png` | Future Landing `ship` | 320 px | 6 x 4, solid | Pearl-and-violet crescent scout cruiser with landing struts. |
 | `gingertown_time_machine.png` | Ginger Town `timemachine` | 160 px | 3 x 2, solid | Rose-trimmed capsule time machine with a glass canopy and visible landing feet. |
-| `android_island_pavilion.png` | Android Island `pavilion` | 215 px | 4 x 3, decorative | Weathered coastal research pavilion with broken stone and teal glass. |
+| `android_island_pavilion.png` (superseded) | Android Island `pavilion` | 215 px | 4 x 3, decorative | Rejected after visual inspection for saturated colored fringe on the transparent edge. |
+| `art/production/worlds/android-island-pavilion-v2.png` | Android Island `pavilion` | 215 px | 4 x 3, decorative | Clean-edge replacement; native ImageGen source SHA-256 `6f374f8329a32033a50303561f23e220e747dc5d9e4d03c9f8457833cb2a1b4d`. Real Phaser capture: `tests/logs/screens/world-refresh/android-island-pavilion-v2.png`. |
 | `lab_inner_broken_pod.png` | Lab Interior `pod_broken` | 84 px | 2 x 2, decorative | Cracked empty incubation capsule, detached cable and restrained green spill. Adds aftermath around the android assembly wing without changing collision. Source SHA-256: `1f6c8a1eba56c159c30713374eb28d09ed6ff7df542804d575035ef792b172b0`. |
 | `mountain_lab_broken_weather_monitor.png` | Mountain Lab `sensor_broken` | 64 px | 2 x 2, decorative | Snow-capped, cracked survey monitor with a bent antenna and dim amber status light, placed beside the east approach. Transparent native-generation candidate; source SHA-256: `2e9755f7713691ad4d38a00f881b7e700da4bbb35d5f4e47945f0fdd0b7563d2`. |
 

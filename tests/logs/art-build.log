@@ -22,13 +22,16 @@
 [world handoff] lab_inner: 1 regional battle backgrounds integrated
 [world handoff] lookout: 1 regional battle backgrounds integrated
 [world handoff] time_chamber: 1 regional battle backgrounds integrated
+[world handoff] rocky_outskirts: 3 overworld ground tiles integrated
 [world handoff] capsule_corp: 2 overworld ground tiles integrated
 [world handoff] south_city: 1 overworld ground tiles integrated
 [world handoff] south_city: fountain plaza prop integrated
 [world handoff] landing_future: generated ship landmark integrated
 [world handoff] gingertown: generated timemachine landmark integrated
 [world handoff] android_island: generated pavilion landmark integrated
-[worlds] done 19.4s
+[world handoff] lab_inner: generated pod_broken landmark integrated
+[world handoff] mountain_lab: generated sensor_broken landmark integrated
+[worlds] done 29.2s
 [cinematics] trunks_arrival: 1672x941
 [cinematics] cell_absorbs_17: 1672x941
 [cinematics] cell_absorbs_18: 1672x941

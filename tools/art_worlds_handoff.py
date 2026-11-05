@@ -116,11 +116,11 @@ HANDOFF_GROUND_TILES = {
 }
 
 GENERATED_WORLD_PROPS = {
-    'landing_future': ('future_landing_scout_ship.png', 'ship', 320, 6, 4, True),
-    'gingertown': ('gingertown_time_machine.png', 'timemachine', 160, 3, 2, True),
-    'android_island': ('android_island_pavilion.png', 'pavilion', 215, 4, 3, False),
-    'lab_inner': ('lab_inner_broken_pod.png', 'pod_broken', 84, 2, 2, False),
-    'mountain_lab': ('mountain_lab_broken_weather_monitor.png', 'sensor_broken', 64, 2, 2, False),
+    'landing_future': ('art/handoff/generated_world_props/future_landing_scout_ship.png', 'ship', 320, 6, 4, True),
+    'gingertown': ('art/handoff/generated_world_props/gingertown_time_machine.png', 'timemachine', 160, 3, 2, True),
+    'android_island': ('art/production/worlds/android-island-pavilion-v2.png', 'pavilion', 215, 4, 3, False),
+    'lab_inner': ('art/handoff/generated_world_props/lab_inner_broken_pod.png', 'pod_broken', 84, 2, 2, False),
+    'mountain_lab': ('art/handoff/generated_world_props/mountain_lab_broken_weather_monitor.png', 'sensor_broken', 64, 2, 2, False),
 }
 
 
@@ -313,14 +313,14 @@ def build(reg: dict, log=print) -> dict:
     log('[world handoff] south_city: fountain plaza prop integrated')
 
     for map_id, (filename, prop, width, foot_w, foot_h, solid) in GENERATED_WORLD_PROPS.items():
-        source = ROOT / 'art' / 'handoff' / 'generated_world_props' / filename
+        source = ROOT / filename
         image = generated_prop(source, width)
         frame = save_frame(
             image,
             f'worlds/{map_id}/props/{prop}.png',
             'derived',
             'front',
-            f'AI-generated transparent candidate in art/handoff/generated_world_props/{filename}; trimmed and fitted to {width}px width',
+            f'AI-generated transparent candidate in {filename}; trimmed and fitted to {width}px width',
         )
         reg['worlds'][map_id]['props'][prop] = dict(
             path=frame['path'], w=frame['w'], h=frame['h'], footW=foot_w, footH=foot_h, solid=solid,
