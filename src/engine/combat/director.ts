@@ -19,7 +19,7 @@ export interface BattleStage {
   /** attacker starts moving toward the target; contact happens `ms` later */
   approach(attackerUid: string, targetUid: string, ms: number, label: string): void;
   hit(e: Extract<BattleEvent, { t: 'hit' }>): Promise<void>;
-  miss(attacker: string, target: string, reason: string): Promise<void>;
+  miss(e: Extract<BattleEvent, { t: 'miss' }>): Promise<void>;
   heal(uid: string, amount: number): Promise<void>;
   ki(uid: string, amount: number): Promise<void>;
   ko(uid: string): Promise<void>;
@@ -264,7 +264,7 @@ export class BattleDirector {
         await this.wait(e.hits > 1 ? 90 : 160);
         return;
       case 'miss':
-        await this.stage.miss(e.attacker, e.target, e.reason);
+        await this.stage.miss(e);
         await this.wait(200);
         return;
       case 'heal':

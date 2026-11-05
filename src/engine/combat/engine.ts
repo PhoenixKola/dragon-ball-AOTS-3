@@ -997,7 +997,7 @@ export class Battle {
     if (ev && !ignoresEvade) {
       ev.power -= 1;
       if (ev.power <= 0) this.removeStatus(tgt, 'evade');
-      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'evaded' });
+      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'evaded', hitIndex: spec.hitIndex, hits: spec.hits });
       this.log(`${tgt.name} evades ${att.name}'s ${spec.label}.`);
       const cs = getStatus(tgt, 'counter');
       if (cs && cs.meta === 'any' && !spec.noCounter && !spec.isCounter && att.alive) {
@@ -1008,7 +1008,7 @@ export class Battle {
     }
     const acc = accuracyOf(att, spec.acc ?? 0);
     if (this.rng.next() > acc) {
-      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'missed' });
+      this.emit({ t: 'miss', attacker: att.uid, target: tgt.uid, reason: 'missed', hitIndex: spec.hitIndex, hits: spec.hits });
       this.log(`${att.name}'s ${spec.label} misses ${tgt.name}.`);
       return none;
     }

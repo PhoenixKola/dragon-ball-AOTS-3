@@ -575,11 +575,23 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     for (const s of this.slots.values()) s.img.setTint(this.activeUid && s.uid !== this.activeUid && s.view.team === 'ally' ? 0xb8bfd0 : 0xffffff);
   }
 
-  async miss(attacker: string, target: string, reason: string): Promise<void> {
-    const t = this.slots.get(target);
-    void attacker;
-    if (t) this.floatText(t, reason === 'evaded' ? 'EVADED' : 'MISS', '#cfd6e6');
-    audio.sfx('guard-miss');
+  async miss(e: Extract<BattleEvent, { t: 'miss' }>): Promise<void> {
+    const a = this.slots.get(e.attacker);
+    const t = this.slots.get(e.target);
+    if (t) this.floatText(t, e.reason === 'evaded' ? 'EVADED' : 'MISS', '#cfd6e6');
+    audio.sfx(e.reason === 'evaded' ? 'teleport' : 'guard-miss');
+    if (e.reason === 'evaded' && t?.alive && !t.engaged && !this.opts.reducedMotion) {
+      const startX = t.img.x;
+      const away = !a || t.img.x >= a.img.x ? 16 : -16;
+      await this.tween(t.img, { x: startX + away }, 80, 'Quad.easeOut');
+      if (t.img.scene) await this.tween(t.img, { x: startX }, 100, 'Sine.easeInOut');
+    }
+    const lastHit = e.hitIndex >= e.hits - 1;
+    if (lastHit && a?.engaged) {
+      a.engaged = false;
+      await this.tween(a.img, { x: a.homeX }, 190, 'Sine.easeOut');
+      if (a.img.scene) this.setPose(a, 'idle');
+    }
   }
   async heal(uid: string, amount: number) {
     const s = this.slots.get(uid);

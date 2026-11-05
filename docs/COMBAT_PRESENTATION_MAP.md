@@ -122,4 +122,5 @@ Frame labels distinguish authored temporal sequences from one-shot/variant artwo
 - All 84 authored core skills have an authored action clip and VFX ID; each registry reference and resolved clip is checked by the runtime presentation audit.
 - Physical generic `special` clips resolve to the close-range heavy clip. Ki generic `special` clips keep the ranged special clip. Explicitly authored beam, sword, disc, barrage, heal, buff, guard, flare and teleport clips remain intact.
 - Flare-family casts place single-target cues on the selected enemy; all-target status flares are distributed over living opponents.
+- Miss events preserve their hit position within multi-hit actions. Evades add a small motion-light sidestep, and an engaged melee attacker returns home after its final miss; a real P01 Phaser capture covers evade contact using a test-only evade status.
 - The map records exactly which cues are genuine temporal sequences; remaining pulse/variant cues still need authored frame animation where the moment benefits from it. Family/signature quality and impact/audio phase timing still require visual rollout and review.

@@ -63,6 +63,18 @@ describe('Offensive Ki economy', () => {
   });
 });
 
+describe('Miss presentation events', () => {
+  it('preserves hit position within a multi-hit sequence when a target evades', () => {
+    const b = started(mkBattle({ heroes: [heroInit('goku', 25)], enemies: ['recon-probe'], seed: 17 }));
+    const target = b.livingEnemies()[0];
+    target.statuses.push({ kind: 'evade', turns: 2, power: 2 });
+    b.drainEvents();
+    expect(b.submit({ kind: 'skill', skillId: 'goku_1', targetUid: target.uid }).ok).toBe(true);
+    const misses = b.drainEvents().filter((event): event is Extract<BattleEvent, { t: 'miss' }> => event.t === 'miss');
+    expect(misses.map(({ hitIndex, hits, reason }) => [hitIndex, hits, reason])).toEqual([[0, 4, 'evaded'], [1, 4, 'evaded']]);
+  });
+});
+
 describe('Active Guard', () => {
   it('grades presses by distance to impact and consumes them', () => {
     const g = new GuardTracker(GUARD_PRESETS.standard);

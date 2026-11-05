@@ -310,7 +310,7 @@ export type BattleEvent =
   | { t: 'announce'; uid: string; text: string }
   | { t: 'telegraph'; uid: string; text: string; targetUid?: string }
   | { t: 'hit'; attacker: string; target: string; dmg: number; crit: boolean; hitIndex: number; hits: number; element: Element; guard: GuardGrade; vfx: string; miss?: boolean; absorbed?: boolean; countered?: boolean }
-  | { t: 'miss'; attacker: string; target: string; reason: string }
+  | { t: 'miss'; attacker: string; target: string; reason: string; hitIndex: number; hits: number }
   | { t: 'heal'; uid: string; amount: number }
   | { t: 'ki'; uid: string; amount: number }
   | { t: 'status'; uid: string; kind: StatusKind; on: boolean }
