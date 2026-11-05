@@ -8,7 +8,7 @@ import type {
 } from '../../types';
 import { buildEnemyFighter, buildHeroFighter, scaleEnemy, type HeroInit } from './fighters';
 import {
-  accuracyOf, CRIT_CHANCE, CRIT_MULT, DEFEND_MULT, ENEMY_DMG, EASY_ENEMY_DMG, effAtk, effDef, effSpd, getStatus, GUARD_MULT, hasStatus, kiCost, mitigation, SPARKING_COST,
+  accuracyOf, BASIC_ATTACK_KI_GAIN, CRIT_CHANCE, CRIT_MULT, DEFEND_KI_GAIN, DEFEND_MULT, ENEMY_DMG, EASY_ENEMY_DMG, effAtk, effDef, effSpd, getStatus, GUARD_MULT, hasStatus, kiCost, mitigation, SPARKING_COST,
   PASSIVE_BRACE_MULT, SPARKING_TURNS, statusPower,
 } from './formulas';
 import { RAGE, rageDealt, rageTaken } from './rage';
@@ -652,18 +652,20 @@ export class Battle {
         } else {
           yield* this.hit(f, t, { mult: 1.0, element: 'phys', hitIndex: 0, hits: 1, vfx: 'impact-hit', label: 'Attack' });
         }
-        const gain = f.guest ? 0 : 3;
-        f.ki = Math.min(f.maxKi, f.ki + gain);
+        const gain = f.guest ? 0 : BASIC_ATTACK_KI_GAIN;
+        const restored = Math.min(f.maxKi - f.ki, gain);
+        f.ki += restored;
+        if (restored > 0) this.emit({ t: 'ki', uid: f.uid, amount: restored });
         break;
       }
       case 'defend': {
         f.defending = true;
-        f.ki = Math.min(f.maxKi, f.ki + 8);
+        f.ki = Math.min(f.maxKi, f.ki + DEFEND_KI_GAIN);
         this.emit({ t: 'clip', uid: f.uid, clip: 'guard', vfx: 'barrier', sfx: 'charge' });
-        this.emit({ t: 'ki', uid: f.uid, amount: 8 });
+        this.emit({ t: 'ki', uid: f.uid, amount: DEFEND_KI_GAIN });
         f.rageStreakDefend++;
         if (f.rageStreakDefend === 1) this.gainRage(f, RAGE.DEFEND_GAIN, 'defend');
-        this.log(`${f.name} defends (damage x${DEFEND_MULT}, +8 Ki).`);
+        this.log(`${f.name} defends (damage x${DEFEND_MULT}, +${DEFEND_KI_GAIN} Ki).`);
         return;
       }
       case 'skill': {

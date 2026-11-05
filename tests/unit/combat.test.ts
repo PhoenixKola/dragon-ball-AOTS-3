@@ -42,6 +42,27 @@ describe('RNG and determinism', () => {
   });
 });
 
+describe('Offensive Ki economy', () => {
+  it('makes a basic attack restore as much Ki as Guard while dealing damage', () => {
+    const attack = started(mkBattle({ heroes: [heroInit('goku', 20)], enemies: ['recon-probe'] }));
+    const attacker = attack.current!;
+    attacker.ki = 0;
+    const enemy = attack.livingEnemies()[0];
+    const hpBefore = enemy.hp;
+    expect(attack.submit({ kind: 'attack', targetUid: enemy.uid }).ok).toBe(true);
+    expect(attacker.ki).toBe(6);
+    expect(enemy.hp).toBeLessThan(hpBefore);
+    expect(attack.drainEvents().some((event) => event.t === 'ki' && event.uid === attacker.uid && event.amount === 6)).toBe(true);
+
+    const guard = started(mkBattle({ heroes: [heroInit('goku', 20)], enemies: ['recon-probe'] }));
+    const defender = guard.current!;
+    defender.ki = 0;
+    guard.drainEvents();
+    expect(guard.submit({ kind: 'defend' }).ok).toBe(true);
+    expect(guard.drainEvents().some((event) => event.t === 'ki' && event.uid === defender.uid && event.amount === 6)).toBe(true);
+  });
+});
+
 describe('Active Guard', () => {
   it('grades presses by distance to impact and consumes them', () => {
     const g = new GuardTracker(GUARD_PRESETS.standard);

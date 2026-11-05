@@ -24,6 +24,10 @@ try {
   const menu = page.getByRole('menu', { name: 'Battle commands' });
   const actions = () => page.evaluate(() => window.__battleSubmissions);
 
+  for (const [name, expected] of [[/^Attack/, '+6 Ki'], [/^Guard/, '+6 Ki']]) {
+    if (!(await menu.getByRole('button', { name }).filter({ hasText: expected }).count())) throw new Error(`${name} does not show ${expected}`);
+  }
+
   for (const label of ['100 Rage', '60 Rage']) {
     if (!(await menu.getByText(label, { exact: true }).count())) throw new Error(`Missing explicit resource label: ${label}`);
   }

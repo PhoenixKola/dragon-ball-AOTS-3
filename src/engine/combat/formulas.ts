@@ -8,6 +8,9 @@ export const PASSIVE_BRACE_MULT = 0.85;
 export const ENEMY_DMG = 0.78;
 export const EASY_ENEMY_DMG = 0.62;
 export const DEFEND_MULT = 0.55;
+/** Keep basic offense resource-viable so players need not defend just to afford techniques. */
+export const BASIC_ATTACK_KI_GAIN = 6;
+export const DEFEND_KI_GAIN = 6;
 export const CRIT_CHANCE = 0.07;
 export const CRIT_MULT = 1.5;
 export const BASE_ACCURACY = 0.95;

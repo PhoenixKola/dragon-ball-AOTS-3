@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { api, uiStore, useUI, type BattleView, type Commands, type FighterView } from '../app/store';
 import { GUARD_PRESETS } from '../engine/combat/guard';
+import { BASIC_ATTACK_KI_GAIN, DEFEND_KI_GAIN, DEFEND_MULT } from '../engine/combat/formulas';
 import { FORMS } from '../data/heroes';
 import { SKILLS } from '../data/skills';
 import type { BattleAction } from '../types';
@@ -242,9 +243,9 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
   }, [lvl.l, tuid, active, targetUids.join(",")]);
 
   const rootRows: { key: CommandKey; label: string; chip?: string; disabled?: boolean; reason?: string; info: string; go: () => void; primary?: boolean }[] = [
-    { key: 'attack', label: 'Attack', chip: '+3 Ki', info: 'Basic physical strike. Restores 3 Ki.', go: () => choose({ kind: 'attack', label: 'Attack', element: 'phys' }, 'enemy') },
+    { key: 'attack', label: 'Attack', chip: `+${BASIC_ATTACK_KI_GAIN} Ki`, info: `Basic physical strike. Restores ${BASIC_ATTACK_KI_GAIN} Ki.`, go: () => choose({ kind: 'attack', label: 'Attack', element: 'phys' }, 'enemy') },
     { key: 'skills', label: 'Techniques', chip: String(c.skills.length), info: 'Your four equipped techniques.', go: () => { setInfo(''); setLvl({ l: 'skills' }); } },
-    { key: 'defend', label: 'Guard', chip: '+8 Ki', info: 'Defend: take x0.55 damage until your next turn and restore 8 Ki.', go: () => submit({ kind: 'defend' }) },
+    { key: 'defend', label: 'Guard', chip: `+${DEFEND_KI_GAIN} Ki`, info: `Defend: take x${DEFEND_MULT} damage until your next turn and restore ${DEFEND_KI_GAIN} Ki.`, go: () => submit({ kind: 'defend' }) },
     { key: 'items', label: 'Items', chip: String(c.items.reduce((n, i) => n + i.count, 0)), disabled: c.items.length === 0, reason: 'No usable items', info: 'Use a consumable on an ally.', go: () => { setInfo(''); setLvl({ l: 'items' }); } },
     { key: 'combo', label: 'Combos', chip: String(c.combos.filter((x) => x.ok).length), disabled: c.combos.length === 0, reason: 'No combos for this fighter', info: 'Team attacks with a partner.', go: () => { setInfo(''); setLvl({ l: 'combos' }); } },
     { key: 'rage', label: 'Rage Art', chip: '100 Rage', disabled: !c.rage.ok, reason: c.rage.reason, info: `${c.rage.name}: ${c.rage.desc}`, go: () => choose({ kind: 'rage', label: c.rage.name, element: 'phys' }, c.rage.target === 'enemy' ? 'enemy' : 'none') },

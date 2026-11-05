@@ -120,6 +120,7 @@ export function HelpPanel() {
       </table>
       <h3>Active Guard</h3>
       <p>Charged, telegraphed, multi-hit and heavy enemy attacks show a timing ring. Press the targeted fighter's Guard key as it reaches the centre. Ordinary hits do not interrupt your turn flow, and missed timing still gets a small passive brace.</p>
+      <p>Basic Attack and Guard each restore 6 Ki. Attack also deals damage; Guard reduces incoming damage until your next turn.</p>
       <ul>
         <li><b>Perfect</b> (within ±{std.perfectMs} ms): damage x{GUARD_MULT.perfect}, big Rage gain (+{RAGE.GUARD_PERFECT}). Relaxed ±{rel.perfectMs} ms, Assist ±{asst.perfectMs} ms.</li>
         <li><b>Good</b> (within ±{std.goodMs} ms): damage x{GUARD_MULT.good}, +{RAGE.GUARD_GOOD} Rage. Relaxed ±{rel.goodMs} ms, Assist ±{asst.goodMs} ms.</li>
