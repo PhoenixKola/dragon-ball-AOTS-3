@@ -34,6 +34,7 @@ export class CutsceneScene extends Phaser.Scene {
   private actors = new Map<string, CA>();
   private bg: Phaser.GameObjects.GameObject[] = [];
   private fade?: Phaser.GameObjects.Rectangle;
+  private letterbox: Phaser.GameObjects.Rectangle[] = [];
   private host!: CutsceneHost;
   private backdropMap = '';
   /** debug: which cutscene/step is running (read by the e2e watchdog) */
@@ -83,6 +84,18 @@ export class CutsceneScene extends Phaser.Scene {
     this.host = host;
     this.clock = new SceneClock(true);
     this.actors.clear();
+    this.letterbox.forEach((bar) => bar.destroy());
+    const bars = [
+      this.add.rectangle(W / 2, 18, W, 36, 0x05060a).setDepth(4800),
+      this.add.rectangle(W / 2, H - 18, W, 36, 0x05060a).setDepth(4800),
+    ];
+    this.letterbox = bars;
+    if (host.skip()) bars.forEach((bar) => bar.setVisible(false));
+    else if (host.reducedMotion()) bars.forEach((bar) => bar.setScale(1, 1));
+    else {
+      bars.forEach((bar) => bar.setScale(1, 0));
+      this.tweens.add({ targets: bars, scaleY: 1, duration: 320, ease: 'Sine.easeOut' });
+    }
     audio.playMusic(def.music as never);
     await this.setBackdrop(def.backdrop);
     await loadImages(this, def.steps.filter((step): step is Extract<CutStep, { t: 'keyframe' }> => step.t === 'keyframe').map((step) => ({ key: `cinematic:${step.path}`, path: step.path })));
@@ -105,6 +118,8 @@ export class CutsceneScene extends Phaser.Scene {
     });
     for (const a of this.actors.values()) a.img.destroy();
     this.actors.clear();
+    this.letterbox.forEach((bar) => bar.destroy());
+    this.letterbox = [];
   }
 
   private pose(a: CA, state: string) {
@@ -188,12 +203,14 @@ export class CutsceneScene extends Phaser.Scene {
         const key = `cinematic:${st.path}`;
         if (!this.textures.exists(key)) return;
         const img = this.add.image(W / 2, H / 2, key).setDepth(4500);
-        img.setScale(Math.max(W / img.width, H / img.height));
+        const baseScale = Math.max(W / img.width, H / img.height);
+        img.setScale(baseScale);
         if (this.host.reducedMotion()) {
           await this.wait(st.ms);
         } else {
           img.setAlpha(0);
           this.tweens.add({ targets: img, alpha: 1, duration: 250 });
+          if (!this.host.skip()) this.tweens.add({ targets: img, scale: baseScale * 1.035, duration: st.ms, ease: 'Sine.easeInOut' });
           await this.wait(st.ms);
         }
         img.destroy();
