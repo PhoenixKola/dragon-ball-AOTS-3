@@ -50,6 +50,8 @@ export interface WorldArt {
   /** tile textures (square, tileSize px) keyed by semantic class */
   tileSize: number;
   tiles: Partial<Record<'floor' | 'floor2' | 'path' | 'wall' | 'water' | 'edge', string>>;
+  /** Optional hand-picked alternatives, selected deterministically per tile. */
+  tileVariants?: Partial<Record<'floor' | 'floor2' | 'path' | 'wall' | 'water' | 'edge', string[]>>;
   /** decorative props with footprint in tiles */
   props: Record<string, { path: string; w: number; h: number; footW: number; footH: number; solid: boolean }>;
   quality: ArtQuality;

@@ -70,6 +70,9 @@ export function mapAssetList(mapId: string): { key: string; path: string }[] {
   if (!w) return [];
   const out: { key: string; path: string }[] = [];
   for (const [cls, path] of Object.entries(w.tiles)) if (path) out.push({ key: `tile:${mapId}:${cls}`, path });
+  for (const [cls, paths] of Object.entries(w.tileVariants ?? {})) {
+    paths?.forEach((path, i) => out.push({ key: `tile:${mapId}:${cls}:variant:${i}`, path }));
+  }
   for (const [name, p] of Object.entries(w.props)) out.push({ key: `prop:${mapId}:${name}`, path: p.path });
   w.backdrops.forEach((b, i) => out.push({ key: `bd:${mapId}:${i}`, path: b.path }));
   if (w.weatherOverlay) out.push({ key: `weather:${mapId}`, path: w.weatherOverlay });

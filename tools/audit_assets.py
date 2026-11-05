@@ -69,6 +69,10 @@ for wid, w in reg['worlds'].items():
     for cls, pth in w['tiles'].items():
         seen_paths.add(pth)
         if not (PUB / pth).exists(): errors.append(f'missing tile {wid}/{cls}')
+    for cls, paths in w.get('tileVariants', {}).items():
+        for i, pth in enumerate(paths):
+            seen_paths.add(pth)
+            if not (PUB / pth).exists(): errors.append(f'missing tile variant {wid}/{cls}/{i}')
     for pn, pr in w['props'].items():
         seen_paths.add(pr['path'])
         if not (PUB / pr['path']).exists(): errors.append(f'missing prop {wid}/{pn}')

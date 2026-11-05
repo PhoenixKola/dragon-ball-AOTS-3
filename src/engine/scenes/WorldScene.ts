@@ -12,7 +12,8 @@ import { BEAT_INDEX } from '../../data/story';
 
 const ALIAS = aliasJson as Record<string, Record<string, string>>;
 const TILE = 32;
-const TILE_KEYS: Record<string, string> = { '.': 'floor', ',': 'floor2', '=': 'path', '#': 'wall', '~': 'water', ':': 'edge' };
+type TileClass = 'floor' | 'floor2' | 'path' | 'wall' | 'water' | 'edge';
+const TILE_KEYS: Record<string, TileClass> = { '.': 'floor', ',': 'floor2', '=': 'path', '#': 'wall', '~': 'water', ':': 'edge' };
 const TILE_FALLBACK: Record<string, number> = { '.': 0x6a7a56, ',': 0x627250, '=': 0x9a8a6a, '#': 0x3a3a48, '~': 0x2a5a9a, ':': 0x7a7a6a };
 const ORGANIC_PATH_MAPS = new Set(['gingertown', 'landing_future', 'rocky_outskirts', 'mountain_lab', 'android_island']);
 const FOLLOW_ZOOM = 2;
@@ -22,6 +23,15 @@ interface Visual {
   obj: Phaser.GameObjects.Image | Phaser.GameObjects.Container | Phaser.GameObjects.Rectangle;
   label?: Phaser.GameObjects.Text;
   shadow?: Phaser.GameObjects.Ellipse;
+}
+
+interface SurvivorFollower {
+  obj: Phaser.GameObjects.Image;
+  shadow: Phaser.GameObjects.Ellipse;
+  trail: Array<{ x: number; y: number; t: number }>;
+  nextSample: number;
+  walkT: number;
+  facing: Facing;
 }
 
 export interface WorldBridge {
@@ -40,6 +50,7 @@ export class WorldScene extends Phaser.Scene {
   private visuals: Visual[] = [];
   private player?: Phaser.GameObjects.Image;
   private playerShadow?: Phaser.GameObjects.Ellipse;
+  private survivorFollower?: SurvivorFollower;
   private mapId = '';
   private walkT = 0;
   private lastPlayerActor = '';
@@ -80,6 +91,7 @@ export class WorldScene extends Phaser.Scene {
     this.buildProps(sim);
     this.buildEntities(sim);
     this.buildPlayer(state, sim);
+    this.buildSurvivorFollower(sim);
     this.buildWeather(sim);
     this.cameras.main.setBounds(0, 0, map.width * TILE, map.height * TILE);
     this.cameras.main.startFollow(this.player!, true, 1, 1);
@@ -95,6 +107,7 @@ export class WorldScene extends Phaser.Scene {
     this.weather = undefined;
     this.mist = undefined;
     this.player = undefined;
+    this.survivorFollower = undefined;
   }
 
   private add2<T extends Phaser.GameObjects.GameObject>(o: T): T {
@@ -109,13 +122,15 @@ export class WorldScene extends Phaser.Scene {
     for (let y = 0; y < map.height; y++) {
       for (let x = 0; x < map.width; x++) {
         const ch = map.tiles[y][x];
-        const key = `tile:${map.id}:${TILE_KEYS[ch] ?? 'floor'}`;
+        const tileClass = TILE_KEYS[ch] ?? 'floor';
+        const variants = getWorld(map.id)?.tileVariants?.[tileClass] ?? [];
+        const hash = (Math.imul(x + 1, 0x45d9f3b) ^ Math.imul(y + 3, 0x119de1f3) ^ mapSeed) >>> 0;
+        const variant = variants.length ? hash % (variants.length + 1) : 0;
+        const key = variant ? `tile:${map.id}:${tileClass}:variant:${variant - 1}` : `tile:${map.id}:${tileClass}`;
         if (this.textures.exists(key)) {
           // The original world sheets are seamless square textures. Orient each
           // tile deterministically so the authored texture keeps its palette and
           // detail without forming a visible 32px checkerboard across a whole map.
-          const tileClass = TILE_KEYS[ch] ?? 'floor';
-          const hash = (Math.imul(x + 1, 0x45d9f3b) ^ Math.imul(y + 3, 0x119de1f3) ^ mapSeed) >>> 0;
           const tile = this.make.image({ key, x: (x + 0.5) * TILE, y: (y + 0.5) * TILE, add: false });
           const organicGround = ['floor', 'floor2', 'water'].includes(tileClass)
             || (tileClass === 'path' && ORGANIC_PATH_MAPS.has(map.id))
@@ -290,6 +305,20 @@ export class WorldScene extends Phaser.Scene {
     this.setOw(this.player, actor, sim.facing, 'idle');
   }
 
+  /** Ginger Town's rescued civilian follows the actual player route to the evacuation shuttle. */
+  private buildSurvivorFollower(sim: WorldSim) {
+    if (sim.map.id !== 'gingertown') return;
+    const x = sim.px - 30;
+    const y = sim.py;
+    const shadow = this.add2(this.add.ellipse(x, y - 1, 22, 7, 0x000000, 0.3).setDepth(2));
+    const obj = this.add2(this.add.image(x, y, 'act:none').setOrigin(0.5, 1));
+    this.setOw(obj, 'civilian', 'down', 'idle');
+    const active = !!sim.state.flags.ginger_cellar_free && !sim.state.flags.ginger_survivor_evacuated;
+    obj.setVisible(active);
+    shadow.setVisible(active);
+    this.survivorFollower = { obj, shadow, trail: [{ x, y, t: this.t }], nextSample: this.t, walkT: 0, facing: 'down' };
+  }
+
   private buildWeather(sim: WorldSim) {
     const m = sim.map;
     const rects: Phaser.GameObjects.Rectangle[] = [];
@@ -325,6 +354,7 @@ export class WorldScene extends Phaser.Scene {
     this.setOw(this.player, actor, sim.facing, step);
     this.player.setPosition(Math.round(sim.px), Math.round(sim.py)).setDepth(sim.py);
     this.playerShadow?.setPosition(sim.px, sim.py - 1);
+    this.updateSurvivorFollower(sim, dt, blocked);
     for (const v of this.visuals) {
       const active = sim.entityActive(v.e);
       (v.obj as Phaser.GameObjects.Image).setVisible(active);
@@ -370,6 +400,56 @@ export class WorldScene extends Phaser.Scene {
     // prompt
     const tgt = blocked ? null : sim.interactTarget();
     this.bridge.onPrompt(tgt ? this.promptFor(tgt, sim.state) : null);
+  }
+
+  private updateSurvivorFollower(sim: WorldSim, dt: number, blocked: boolean) {
+    const follower = this.survivorFollower;
+    if (!follower) return;
+    const active = !!sim.state.flags.ginger_cellar_free && !sim.state.flags.ginger_survivor_evacuated;
+    follower.obj.setVisible(active);
+    follower.shadow.setVisible(active);
+    if (!active) return;
+    const now = this.t;
+    if (!blocked && now >= follower.nextSample) {
+      follower.trail.push({ x: sim.px, y: sim.py, t: now });
+      follower.nextSample = now + 55;
+    }
+    while (follower.trail.length > 2 && follower.trail[1].t < now - 900) follower.trail.shift();
+    const targetT = now - 360;
+    let target = follower.trail[0];
+    for (let i = 1; i < follower.trail.length; i++) {
+      const next = follower.trail[i];
+      if (next.t >= targetT) {
+        const prev = follower.trail[i - 1];
+        const span = Math.max(1, next.t - prev.t);
+        const a = Phaser.Math.Clamp((targetT - prev.t) / span, 0, 1);
+        target = { x: Phaser.Math.Linear(prev.x, next.x, a), y: Phaser.Math.Linear(prev.y, next.y, a), t: targetT };
+        break;
+      }
+      target = next;
+    }
+    // Keep the rescuee close enough to read as following, but out of the
+    // player's silhouette when the player pauses at an objective or shuttle.
+    if (Math.hypot(target.x - sim.px, target.y - sim.py) < 38) {
+      const behind = { up: [0, 38], down: [0, -38], left: [38, 0], right: [-38, 0] }[sim.facing];
+      target = { ...target, x: sim.px + behind[0], y: sim.py + behind[1] };
+    }
+    const dx = target.x - follower.obj.x;
+    const dy = target.y - follower.obj.y;
+    const distance = Math.hypot(dx, dy);
+    const moving = distance > 3;
+    if (moving) {
+      const step = Math.min(distance, 155 * Math.min(dt, 50) / 1000);
+      follower.obj.x += dx / distance * step;
+      follower.obj.y += dy / distance * step;
+      follower.walkT += dt;
+      if (Math.abs(dx) > Math.abs(dy)) follower.facing = dx >= 0 ? 'right' : 'left';
+      else follower.facing = dy >= 0 ? 'down' : 'up';
+    }
+    const frame = moving ? Math.floor(follower.walkT / 150) % 3 : 'idle';
+    this.setOw(follower.obj, 'civilian', follower.facing, frame);
+    follower.obj.setPosition(Math.round(follower.obj.x), Math.round(follower.obj.y)).setDepth(follower.obj.y);
+    follower.shadow.setPosition(follower.obj.x, follower.obj.y - 1);
   }
 
   private promptFor(e: Entity, s: GameState): string {

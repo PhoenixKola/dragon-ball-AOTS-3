@@ -99,6 +99,7 @@ function ginger(): MapDef {
   m.prop('house', 3, 5, 3, 3).prop('building_a', 12, 5, 3, 3).prop('building_b', 26, 5, 3, 3).prop('building_big', 34, 5, 3, 3);
   m.prop('building_b', 3, 21, 3, 3).prop('house', 12, 23, 3, 3).prop('building_big', 26, 22, 3, 3).prop('building_a', 38, 22, 3, 3);
   m.row('lamp', 2, 14, 11, 4).prop('timemachine', 22, 10, 3, 2).prop('crate', 8, 15).prop('rubble', 32, 18, 2, 1);
+  m.prop('evacuation_shuttle', 38, 16, 3, 2, false);
   // Empty streets still show the evacuation's aftermath. These are decorative
   // only; the authored walking grid, encounters and quest approach stay intact.
   m.prop('car_beige', 18, 11, 2, 1, false).prop('car_red', 31, 12, 2, 1, false);
@@ -126,7 +127,7 @@ function ginger(): MapDef {
       ], [
         cond('quest:ginger_survivors=active && !opened:defeated:qf_ginger', [say('civilian', '(from the cellar) It\'s right outside! Please, hurry!')], [
           cond('quest:ginger_survivors=active', [
-            say('civilian', 'It\'s gone! You saved me. Please — take me to the truck at the east end; they\'re evacuating people.'),
+            say('civilian', 'It\'s gone! You saved me. I\'ll follow you — please, take me to the evacuation truck at the east end.'),
             { t: 'quest', id: 'ginger_survivors', op: 'progress', key: 'rescued' },
             { t: 'set', flag: 'ginger_cellar_free' },
             { t: 'hide', entity: 'q_cellar_voice' },
@@ -138,9 +139,10 @@ function ginger(): MapDef {
     npc('q_truck', 'Evacuation Driver', 'civilian', 42, 17, [
       cond('quest:ginger_survivors=active', [
         cond('flag:ginger_cellar_free', [
-          say('civilian', 'Another survivor? Hop in — we\'re getting you out of here. Thank you!'),
+          say('civilian', 'You brought them back safely. Everyone aboard — we\'re getting out of here. Thank you!'),
           { t: 'quest', id: 'ginger_survivors', op: 'progress', key: 'evac' },
           { t: 'quest', id: 'ginger_survivors', op: 'complete' },
+          { t: 'set', flag: 'ginger_survivor_evacuated' },
         ], [say('civilian', 'Find anyone still hiding? Bring them here and we\'ll take them out.')]),
       ], [say('civilian', 'We\'re moving everyone out as fast as we can.')]),
     ]),

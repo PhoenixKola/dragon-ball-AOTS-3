@@ -30,6 +30,19 @@ This index preserves a concise before/after review set for the M0 baseline and a
 | Credits | [`before/credits-ui-only.png`](overhaul-evidence/before/credits-ui-only.png) | `docs/ui-evidence/credits-1280x720.png` | Credits are HTML presentation; UI capture exists at 1024×600, 1280×720 and 1920×1080. No new credits redesign was part of M0. |
 | Postgame | [`before/postgame-world-render-limitation.png`](overhaul-evidence/before/postgame-world-render-limitation.png) | `tests/logs/screens/checks/postgame-world.png` | Current check uses an earned-progress test save; the black Phaser render limitation is recorded and this is not progression evidence. |
 
+## M1 pilot: Ginger Town rescue and Gohan vs Perfect Cell
+
+| Gameplay beat | Evidence | Review note |
+|---|---|---|
+| Ginger Town exploration | [`after/gingertown-evacuated-streets-pilot.png`](overhaul-evidence/after/gingertown-evacuated-streets-pilot.png) | Current map from the earned Normal save, with ruined lots, asphalt road and deterministic atlas floor variation. |
+| Cellar rescue / dialogue | [`after/gingertown-cellar-rescue.png`](overhaul-evidence/after/gingertown-cellar-rescue.png) | Actual quest start; full typed line captured in the world. |
+| Escort arrival and evacuation | [`after/gingertown-escort-at-shuttle.png`](overhaul-evidence/after/gingertown-escort-at-shuttle.png), [`after/gingertown-evacuation-dialogue.png`](overhaul-evidence/after/gingertown-evacuation-dialogue.png) | New generated shuttle is in-world; the rescued civilian visibly follows the route and the real driver interaction completes the quest. |
+| Cellar Guardian victory | [`after/gingertown-cell-husk-victory.png`](overhaul-evidence/after/gingertown-cell-husk-victory.png) | Actual optional fight through the battle engine, on the Ginger Town asphalt stage. |
+| Gohan vs Perfect Cell: melee and multi-hit | [`after/gohan-cell-melee-contact.png`](overhaul-evidence/after/gohan-cell-melee-contact.png), [`after/gohan-cell-dragon-rush-multi-hit.png`](overhaul-evidence/after/gohan-cell-dragon-rush-multi-hit.png) | Natural G05 route at 1280x720; Dragon Rush capture shows stacked contact damage and Cell's hit reaction. |
+| Gohan vs Perfect Cell: charged beam | [`after/gohan-cell-masenko-charge.png`](overhaul-evidence/after/gohan-cell-masenko-charge.png) | Gohan's Masenko is captured at its readable charged orb stage. |
+| Compact reduced-motion battle | [`after/gohan-cell-reduced-motion-compact.png`](overhaul-evidence/after/gohan-cell-reduced-motion-compact.png) | Real G05 battle at 1024x600 with reduced motion enabled; HUD and both combatants remain visible. |
+| Remaining pilot beats | [`after/guard-perfect.png`](overhaul-evidence/after/guard-perfect.png), [`after/guard-miss.png`](overhaul-evidence/after/guard-miss.png), [`after/target-selection.png`](overhaul-evidence/after/target-selection.png), [`after/miss-evasion-contact.png`](overhaul-evidence/after/miss-evasion-contact.png), [`after/father-son-finale-in-game.png`](overhaul-evidence/after/father-son-finale-in-game.png), [`after/cell-absorbs-18-in-game.png`](overhaul-evidence/after/cell-absorbs-18-in-game.png) | Real guard success/failure, target move, enemy evade/hit response, Father-Son Kamehameha and a story-triggered Cell mini-cutscene complete the capture matrix. |
+
 ## Generated-art technical review
 
 | Family | Source review | Phaser verification | Technical decision |

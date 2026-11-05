@@ -26,6 +26,13 @@ GINGER_TILES = {
     'edge': (32, 32, 96, 96),          # sidewalk / curb segment
 }
 
+# Distinct hand-painted variations from the same atlas regions reduce visible
+# floor repetition without introducing a mismatched palette.
+GINGER_TILE_VARIANTS = {
+    'floor': [(35, 770, 99, 834), (286, 740, 350, 804)],
+    'floor2': [(140, 750, 204, 814), (180, 710, 244, 774)],
+}
+
 # Scenic panels are curated from the handoff atlases' footer panoramas. These
 # retain separate weather/time variants where the source provides them.
 HANDOFF_BACKDROPS = {
@@ -115,13 +122,14 @@ HANDOFF_GROUND_TILES = {
     ),
 }
 
-GENERATED_WORLD_PROPS = {
-    'landing_future': ('art/handoff/generated_world_props/future_landing_scout_ship.png', 'ship', 320, 6, 4, True),
-    'gingertown': ('art/handoff/generated_world_props/gingertown_time_machine.png', 'timemachine', 160, 3, 2, True),
-    'android_island': ('art/production/worlds/android-island-pavilion-v2.png', 'pavilion', 215, 4, 3, False),
-    'lab_inner': ('art/handoff/generated_world_props/lab_inner_broken_pod.png', 'pod_broken', 84, 2, 2, False),
-    'mountain_lab': ('art/handoff/generated_world_props/mountain_lab_broken_weather_monitor.png', 'sensor_broken', 64, 2, 2, False),
-}
+GENERATED_WORLD_PROPS = [
+    ('landing_future', 'art/handoff/generated_world_props/future_landing_scout_ship.png', 'ship', 320, 6, 4, True),
+    ('gingertown', 'art/handoff/generated_world_props/gingertown_time_machine.png', 'timemachine', 160, 3, 2, True),
+    ('gingertown', 'art/production/worlds/gingertown-evacuation-shuttle.png', 'evacuation_shuttle', 160, 3, 2, False),
+    ('android_island', 'art/production/worlds/android-island-pavilion-v2.png', 'pavilion', 215, 4, 3, False),
+    ('lab_inner', 'art/handoff/generated_world_props/lab_inner_broken_pod.png', 'pod_broken', 84, 2, 2, False),
+    ('mountain_lab', 'art/handoff/generated_world_props/mountain_lab_broken_weather_monitor.png', 'sensor_broken', 64, 2, 2, False),
+]
 
 
 def asphalt_tile(atlas: Image.Image) -> Image.Image:
@@ -229,6 +237,34 @@ def build(reg: dict, log=print) -> dict:
             f'64px crop {rect} from art/handoff/worlds/ginger_town_tileset.png, reduced 2:1 with nearest-neighbour sampling',
         )
         world['tiles'][kind] = frame['path']
+    world['tileVariants'] = {}
+    for kind, regions in GINGER_TILE_VARIANTS.items():
+        paths = []
+        for i, rect in enumerate(regions):
+            tile = atlas.crop(rect).resize((TILE, TILE), Image.Resampling.NEAREST)
+            rgba = np.array(tile)
+            painted = rgba[..., 3] >= 240
+            for _ in range(TILE * 2):
+                if painted.all():
+                    break
+                old = painted.copy()
+                for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                    shifted_mask = np.roll(old, (dy, dx), axis=(0, 1))
+                    shifted_pixels = np.roll(rgba, (dy, dx), axis=(0, 1))
+                    take = ~painted & shifted_mask
+                    rgba[take] = shifted_pixels[take]
+                    painted |= take
+            rgba[..., 3] = 255
+            tile = Image.fromarray(rgba, 'RGBA')
+            frame = save_frame(
+                tile,
+                f'worlds/gingertown/tiles/{kind}-variant-{i}.png',
+                'genuine',
+                'front',
+                f'64px ground variation crop {rect} from art/handoff/worlds/ginger_town_tileset.png, reduced 2:1 with nearest-neighbour sampling',
+            )
+            paths.append(frame['path'])
+        world['tileVariants'][kind] = paths
     # Foundation blocks under Ginger Town's house sprites share the same
     # damaged street surface, rather than the legacy vine-covered wall tile.
     world['tiles']['wall'] = world['tiles']['path']
@@ -312,7 +348,7 @@ def build(reg: dict, log=print) -> dict:
     )
     log('[world handoff] south_city: fountain plaza prop integrated')
 
-    for map_id, (filename, prop, width, foot_w, foot_h, solid) in GENERATED_WORLD_PROPS.items():
+    for map_id, filename, prop, width, foot_w, foot_h, solid in GENERATED_WORLD_PROPS:
         source = ROOT / filename
         image = generated_prop(source, width)
         frame = save_frame(

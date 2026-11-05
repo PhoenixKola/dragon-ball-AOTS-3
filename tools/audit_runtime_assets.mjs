@@ -15,6 +15,7 @@ for (const actor of Object.values(registry.actors)) {
 }
 for (const world of Object.values(registry.worlds)) {
   Object.values(world.tiles).forEach(add);
+  Object.values(world.tileVariants ?? {}).flat().forEach(add);
   Object.values(world.props).forEach((prop) => add(prop.path));
   world.backdrops.forEach((frame) => add(frame.path));
   add(world.weatherOverlay);

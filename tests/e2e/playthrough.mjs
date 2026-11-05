@@ -9,7 +9,7 @@ const POLICY = process.env.POLICY || 'attentive';
 const PROB = { attentive: [0.55, 0.35], average: [0.15, 0.45], occasional: [0.1, 0.25], noguard: [0, 0] }[POLICY] || [0.55, 0.35];
 const MAX_MIN = Number(process.env.MAX_MIN || 40);
 const t0 = Date.now();
-const t = await launch({ width: 1280, height: 720, port: 4181 });
+const t = await launch({ width: Number(process.env.PILOT_WIDTH || 1280), height: Number(process.env.PILOT_HEIGHT || 720), port: 4181 });
 const { page } = t;
 const log = [];
 const L = (m) => { const line = `[${((Date.now() - t0) / 1000).toFixed(0)}s] ${m}`; console.log(line); log.push(line); };
@@ -25,7 +25,7 @@ if (process.env.START_SAVE) {
   await page.getByRole('button', { name: new RegExp('^' + (POLICY === 'noguard' ? 'Easy' : 'Normal')) }).first().click();
 }
 await page.waitForFunction(() => window.__AOTS__.snapshot().screen !== 'title', null, { timeout: 20000 });
-await page.evaluate((capture) => window.__AOTS__.settings({ battleSpeed: capture ? 1 : 2, showTutorials: false }), !!process.env.CAPTURE_VFX);
+await page.evaluate(({ capture, reducedMotion }) => window.__AOTS__.settings({ battleSpeed: capture ? 1 : 2, showTutorials: false, reducedMotion }), { capture: !!(process.env.CAPTURE_VFX || process.env.CAPTURE_PILOT), reducedMotion: process.env.PILOT_REDUCED_MOTION === '1' });
 
 const held = new Set();
 const setKeys = async (want) => {
@@ -36,6 +36,7 @@ const release = () => setKeys(new Set());
 let battles = 0, lastBeat = -1, stuck = 0, lastPos = '';
 let inBattle = false;
 let impactCaptureDone = false;
+let pilotG05 = 0;
 const shotBattles = new Set();
 const jitterDone = new Set();
 const seenMaps = new Set();
@@ -93,6 +94,21 @@ async function battleStep(s) {
     }
     let a = await page.evaluate(() => window.__AOTS__.advice());
     if (!a) { await page.waitForTimeout(50); return; }
+      if (process.env.CAPTURE_PILOT && b.stageId === 'G05' && pilotG05 < 3) {
+        const targetUid = b.fighters.find((f) => f.team === 'enemy' && f.alive)?.uid;
+        const planned = [
+          { action: { kind: 'attack', targetUid }, name: 'gohan-cell-basic-contact', delay: 330 },
+          { action: { kind: 'skill', skillId: 'gohan_1', targetUid }, name: 'gohan-cell-dragon-rush-multi-hit', delay: 850 },
+          { action: { kind: 'skill', skillId: 'gohan_0', targetUid }, name: 'gohan-cell-masenko-beam', delay: 405 },
+        ][pilotG05];
+        const result = await page.evaluate((act) => window.__AOTS__.submit(act), planned.action);
+        if (!result.ok) throw new Error(`G05 ${planned.name} rejected: ${result.reason}`);
+        await page.waitForTimeout(planned.delay);
+        await shot(page, `${planned.name}${process.env.PILOT_REDUCED_MOTION === '1' ? '-reduced-motion-compact' : ''}`, 'tests/logs/screens/pilot');
+        L(`G05 presentation capture ${pilotG05 + 1}/3: ${planned.name}`);
+        pilotG05++;
+        return;
+      }
     if (process.env.CAPTURE_VFX && !impactCaptureDone) {
       const targetUid = b.fighters.find((f) => f.team === 'enemy' && f.alive)?.uid;
       if (targetUid) a = { kind: 'attack', targetUid };
@@ -153,6 +169,7 @@ async function overlayStep(s) {
 
 let lastDiag = 0;
 while ((Date.now() - t0) / 60000 < MAX_MIN) {
+  if (process.env.CAPTURE_PILOT && pilotG05 >= 3) break;
   if (process.env.CAPTURE_VFX && impactCaptureDone) break;
   const s = await snap(page);
   if (Date.now() - lastDiag > 30000) {
@@ -268,4 +285,4 @@ L('external requests: ' + JSON.stringify(external));
 mkdirSync('tests/logs', { recursive: true });
 writeFileSync(`tests/logs/e2e-playthrough-${POLICY}.json`, JSON.stringify({ policy: POLICY, final, beatLog, errors: t.errors, externalRequests: external, minutes: (Date.now() - t0) / 60000, log }, null, 1));
 await t.close();
-process.exit(final.beat >= 30 || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) ? 0 : 1);
+process.exit(final.beat >= 30 || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) ? 0 : 1);

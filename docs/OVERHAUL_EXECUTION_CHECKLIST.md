@@ -4,14 +4,14 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 
 **Status key:** `DONE` = batch implementation and exit evidence complete; `ACTIVE` = current batch; `NEXT` = next batch; `QUEUED` = later batch; human-only approvals are tracked separately as `HUMAN / PENDING`.
 
-**Current overall status:** Batch A (baseline and art bible) is complete with technical evidence. Batch B (Ginger Town + Gohan vs. Perfect Cell pilot) is next. The complete visual/gameplay overhaul is not finished; art/gameplay/audio and human finish-quality gates remain. Do not translate test count, game feature coverage, or package availability into an overhaul-completion percentage.
+**Current overall status:** Batches A and B are complete with technical evidence. Batch C (combat feel and battle UI) is next. The complete visual/gameplay overhaul is not finished; art/gameplay/audio and human finish-quality gates remain. Do not translate test count, game feature coverage, or package availability into an overhaul-completion percentage.
 
 ## Batch sequence
 
 | Batch | Milestone | Status | Exit evidence |
 |---|---|---|---|
 | A. Baseline audit and art bible | M0 | DONE | Unified before/after set is indexed; the 30-beat Normal route completed with 34 wins, 0 defeats, 12 map captures, seven actual keyframe triggers, no browser errors and no external requests. Complete source/registry audits and the full rebuild pass. Human art approval is listed separately as pending. |
-| B. Ginger Town + Gohan vs Perfect Cell pilot | M1 | NEXT | Ginger Town mist/props/battle panorama and Cell Games presentation work exist; finish the full pilot experience, resolve remaining terrain repetition and make a content-heavy vertical slice. |
+| B. Ginger Town + Gohan vs Perfect Cell pilot | M1 | DONE | Native-generated evacuation shuttle, playable cellar rescue/follower/evacuation, atlas ground variation, coherent Cell Husk stage floor, captured/inspected quest flow and battle actions, and normal plus reduced-motion compact G05 views. |
 | C. Combat feel and battle UI | M2 | QUEUED | Battle presentation handles registered VFX, action-specific effect families, hit timing, lifecycle cleanup, beams and finale staging. More authored attack identity, animation, timing and UI refinement are queued. |
 | D. Twelve-region exploration and battle stages | M3 | QUEUED | All 12 regional battle backgrounds are integrated. Ginger Town has mist and varied props; Capsule Corp, Rocky Outskirts and South City have ground refinements; four generated landmark props and natural-path orientation variety are integrated. Region-wide content/depth work is queued. |
 | E. Cinematics and story transitions | M3 | QUEUED | Seven candidate keyframes are integrated and captured at their real story beats. Shared framing/push and reduced-motion/skip behavior exist; remaining cutscenes and transition direction are queued. |
@@ -34,8 +34,8 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 - [x] Keep both slices in the actual game, real maps/encounters, real cutscenes and real battle engine.
 - [x] Add a native-generated Ginger Town battle panorama and drifting mist; retain generated sources and reproducible installation.
 - [x] Improve the two major Cell Games moments with native-generated candidate keyframes and in-engine finale staging.
-- [ ] Capture/inspect the complete pilot set: ordinary melee, multi-hit, charged beam, hit reaction, missed hit, guard result, target move, victory, exploration, dialogue, NPC interaction and relevant cutscene.
-- [ ] Refine Ginger Town's repetitive terrain/house composition and review the full Gohan vs Cell battle at normal, reduced-motion and alternate viewport settings.
+- [x] Capture/inspect the complete pilot set: ordinary melee, multi-hit, charged beam, hit reaction, missed hit, guard result, target move, victory, exploration, dialogue, NPC interaction and relevant cutscene. Evidence is indexed in `docs/OVERHAUL_VISUAL_EVIDENCE_INDEX.md`.
+- [x] Refine Ginger Town's repetitive terrain/house composition and review Gohan vs Cell at the normal 1280x720 view and a reduced-motion 1024x600 compact view. Dialogue and escort captures show the text fully typed and the follower separated from the player at the shuttle.
 
 ### M2 — Systemwide combat and interaction
 

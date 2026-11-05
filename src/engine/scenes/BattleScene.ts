@@ -207,7 +207,10 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     } else {
       this.bg.push(this.add.rectangle(W / 2, horizon / 2, W, horizon, 0x20304f).setDepth(0));
     }
-    const tileKey = `tile:${this.mapId}:floor`;
+    // Ginger Town's fights take place on a damaged street. The map's grass/lot
+    // floor is correct for exploration but clashes with its ruined-city stage art.
+    const floorClass = this.mapId === 'gingertown' ? 'path' : 'floor';
+    const tileKey = `tile:${this.mapId}:${floorClass}`;
     if (this.textures.exists(tileKey)) {
       const ts = this.add.tileSprite(W / 2, (horizon + H) / 2, W, H - horizon, tileKey).setDepth(0).setTileScale(2, 2);
       this.bg.push(ts);

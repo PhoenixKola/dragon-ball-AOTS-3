@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T16:28:13+00:00",
+ "generatedAt": "2026-11-05T17:13:43+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -21949,6 +21949,14 @@
      "solid": true,
      "w": 67
     },
+    "evacuation_shuttle": {
+     "footH": 2,
+     "footW": 3,
+     "h": 137,
+     "path": "assets/worlds/gingertown/props/evacuation_shuttle.png",
+     "solid": false,
+     "w": 160
+    },
     "fence": {
      "footH": 1,
      "footW": 1,
@@ -22088,6 +22096,16 @@
    },
    "quality": "genuine",
    "tileSize": 32,
+   "tileVariants": {
+    "floor": [
+     "assets/worlds/gingertown/tiles/floor-variant-0.png",
+     "assets/worlds/gingertown/tiles/floor-variant-1.png"
+    ],
+    "floor2": [
+     "assets/worlds/gingertown/tiles/floor2-variant-0.png",
+     "assets/worlds/gingertown/tiles/floor2-variant-1.png"
+    ]
+   },
    "tiles": {
     "edge": "assets/worlds/gingertown/tiles/edge.png",
     "floor": "assets/worlds/gingertown/tiles/floor.png",
