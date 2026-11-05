@@ -43,7 +43,7 @@ export type CutStep =
   | { t: 'move'; id: string; x: number; y: number; ms: number }
   | { t: 'pose'; id: string; state: string }
   | { t: 'form'; id: string; actor: string }
-  | { t: 'say'; who: string; text: string }
+  | { t: 'say'; who: string; text: string; portrait?: string }
   | { t: 'vfx'; vfx: string; x: number; y: number; scale?: number; ms?: number; facing?: 'left' | 'right' }
   | { t: 'flash'; color?: string; ms?: number }
   | { t: 'shake'; ms?: number; amount?: number }
@@ -53,6 +53,7 @@ export type CutStep =
   | { t: 'music'; key: string }
   | { t: 'card'; text: string; sub?: string }
   | { t: 'backdrop'; map: string }
+  | { t: 'camera'; x: number; y: number; zoom: number; ms?: number }
   | { t: 'keyframe'; path: string; ms: number }
   | { t: 'caption'; text: string };
 

@@ -532,7 +532,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     });
   }
 
-  playVfx(id: string, x: number, y: number, scale = 1, flip = false) {
+  playVfx(id: string, x: number, y: number, scale = 1, flip = false, behindNearestActor = false) {
     const v = getVfx(id);
     if (!v || this.opts.reducedMotion && v.family === 'lightning') return;
     const keys = v.frames.map((_, i) => `vfx:${id}:${i}`).filter((k) => this.textures.exists(k));
@@ -541,7 +541,10 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       this.tweens.add({ targets: c, alpha: 0, scale: 1.8, duration: this.fast ? 1 : 260, onComplete: () => c.destroy() });
       return;
     }
-    const img = this.add.image(x, y, keys[0]).setDepth(810).setScale(scale * 2).setFlipX(flip);
+    const nearest = v.family === 'aura' || behindNearestActor
+      ? [...this.slots.values()].sort((a, b) => Phaser.Math.Distance.Between(a.img.x, a.img.y - a.img.displayHeight * 0.45, x, y) - Phaser.Math.Distance.Between(b.img.x, b.img.y - b.img.displayHeight * 0.45, x, y))[0]
+      : undefined;
+    const img = this.add.image(x, y, keys[0]).setDepth(nearest ? nearest.img.depth - 1 : 810).setScale(scale * 2).setFlipX(flip);
     // frames marked variants_not_sequence play as a short pulse (never a fake smooth animation)
     const ordered = shouldAnimateVfxFrames(v.note, this.opts.reducedMotion);
     const seq = ordered ? keys : [keys[0]];
@@ -751,12 +754,60 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
   async form(uid: string, form: FormId, actor: string) {
     const s = this.slots.get(uid);
     if (!s) return;
-    audio.sfx('transform');
     await ensureActor(this, actor, 'battle');
-    s.view = { ...s.view, actor };
+    const auraId = AURA_VFX[form] ?? 'aura-ssj';
+    const motionless = this.opts.reducedMotion || this.fast;
+    const cam = this.cameras.main;
+    const oldZoom = cam.zoom;
+    this.setPose(s, 'charge', 1500);
+    s.aura.setVisible(true).setAlpha(motionless ? 0.46 : 0.78);
+    const auraKey = `vfx:${auraId}:0`;
+    const gatherAura = !motionless && this.textures.exists(auraKey)
+      ? this.add.image(s.img.x, s.homeY - s.img.displayHeight * 0.48, auraKey).setDepth(s.img.depth - 1).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.12).setScale(0.6)
+      : undefined;
+
+    if (!motionless) {
+      audio.sfx('transform-charge');
+      const zoom = 1.055;
+      const scrollX = Phaser.Math.Clamp(s.homeX - W / 2 / zoom, 0, W - W / zoom);
+      const scrollY = Phaser.Math.Clamp((s.homeY - 80) - H / 2 / zoom, 0, H - H / zoom);
+      await this.tween(cam, { zoom, scrollX, scrollY }, 260, 'Sine.easeInOut');
+      if (gatherAura) await this.tween(gatherAura, { scaleX: 1.32, scaleY: 1.12, alpha: 0.64 }, 270, 'Sine.easeOut');
+      s.img.setTint(0xffdf86);
+      await this.tween(s.img, { scaleX: s.img.scaleX * 1.04, scaleY: s.img.scaleY * 0.94, alpha: 0.86 }, 230, 'Sine.easeInOut');
+      await this.tween(s.img, { scaleX: s.img.scaleX / 1.04, scaleY: s.img.scaleY / 0.94, alpha: 1 }, 190, 'Back.easeOut');
+      this.playVfx('lightning', s.homeX, s.homeY - 90, form === 'ssj2' ? 0.76 : 0.48, false, true);
+      await this.wait(110);
+    }
+
+    s.view = { ...s.view, actor, form };
     this.applyFrame(s, 'idle');
-    this.playVfx(AURA_VFX[form] ?? 'aura-ssj', s.homeX, s.homeY - 70, form === 'ssj2' ? 1.9 : 1.6);
-    if (!this.opts.reducedMotion) this.cameras.main.flash(220, 255, 240, 160);
+    if (!motionless) {
+      const centerY = s.homeY - s.img.displayHeight * 0.48;
+      const ring = this.add.image(s.homeX, centerY, 'vfx:transform-shockwave:0').setDepth(18).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.96).setScale(0.18, 0.18);
+      void this.tween(ring, { scaleX: 7.2, scaleY: 5.1, alpha: 0 }, 820, 'Cubic.easeOut').then(() => ring.destroy());
+      let auraFade: Promise<void> | undefined;
+      if (gatherAura) {
+        gatherAura.setPosition(s.homeX, centerY);
+        auraFade = this.tween(gatherAura, { scaleX: 2.05, scaleY: 1.8, alpha: 0 }, 650, 'Cubic.easeOut').then(() => gatherAura.destroy());
+      }
+      audio.sfx('transform-release');
+      this.playVfx('flare', s.homeX, centerY, 0.62, false, true);
+      if (this.opts.shake > 0) cam.shake(320, 0.006 * this.opts.shake);
+      await this.tween(s.img, { scaleX: s.img.scaleX * 0.88, scaleY: s.img.scaleY * 0.88, alpha: 0.62 }, 95, 'Sine.easeIn');
+      this.applyFrame(s, 'idle');
+      await this.tween(s.img, { scaleX: s.img.scaleX * 1.1, scaleY: s.img.scaleY * 1.1, alpha: 1 }, 140, 'Back.easeOut');
+      this.applyFrame(s, 'idle');
+      audio.sfx('transform-impact');
+      if (auraFade) await auraFade;
+      await this.tween(cam, { zoom: oldZoom, scrollX: 0, scrollY: 0 }, 300, 'Sine.easeInOut');
+      s.img.clearTint();
+    } else {
+      this.playVfx(auraId, s.homeX, s.homeY - s.img.displayHeight * 0.5, 0.85);
+    }
+    this.setPose(s, 'idle');
+    const formName = form === 'ssj2' ? 'SUPER SAIYAN 2' : form === 'ssj' ? 'SUPER SAIYAN' : form.toUpperCase();
+    this.floatText(s, formName, '#ffe98b', true, -52);
   }
   async phase(uid: string, _text: string, actor?: string) {
     const s = this.slots.get(uid);

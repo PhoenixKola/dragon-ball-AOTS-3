@@ -17346,7 +17346,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T21:32:26+00:00",
+ "generatedAt": "2026-11-05T23:39:42+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -21186,6 +21186,35 @@
    "loop": false,
    "note": "ordered_growth: purple spike column rising",
    "quality": "genuine"
+  },
+  "transform-shockwave": {
+   "family": "impact",
+   "fps": 1,
+   "frames": [
+    {
+     "bbox": [
+      4,
+      31,
+      120,
+      65
+     ],
+     "facing": "front",
+     "feet": [
+      61,
+      96
+     ],
+     "h": 128,
+     "note": "native-generated source art/production/vfx/transform-shockwave-source.png; alpha cleaned at threshold 24, true-bound crop, nearest-neighbour fit to 120px on transparent canvas",
+     "path": "assets/vfx/transform-shockwave/0.png",
+     "quality": "derived",
+     "visible": 2260,
+     "w": 128
+    }
+   ],
+   "id": "transform-shockwave",
+   "loop": false,
+   "note": "single_generated_sprite: gold-white transformation shockwave ring; expanded and faded by runtime; human art review pending",
+   "quality": "derived"
   }
  },
  "worlds": {

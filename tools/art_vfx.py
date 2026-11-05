@@ -59,6 +59,7 @@ add('spirit-bomb', 'ball', [], fps=14, loop=False, quality='derived', note='temp
 add('telekinetic-pin', 'status', [], fps=12, loop=False, quality='derived', note='temporal_sequence: native-generated candidate restraint rings close and settle around the pinned target; human art review pending')
 add('hellzone-grenade', 'ball', [], fps=14, loop=False, quality='derived', note='single_generated_sprite: emerald ki grenade with orbiting sparks; human art review pending')
 add('beam-neo-tri', 'beam', [], fps=14, loop=False, quality='derived', note='single_generated_sprite: three-pronged lime-gold beam tip for Neo Tri-Beam; human art review pending')
+add('transform-shockwave', 'impact', [], fps=1, loop=False, quality='derived', note='single_generated_sprite: gold-white transformation shockwave ring; expanded and faded by runtime; human art review pending')
 add('ball-blue', 'ball', [('DB', 28), ('DB', 29), ('DB', 30), ('DB', 31), ('DB', 32)], note='ordered_growth: blue energy orb small->large')
 add('ball-yellow', 'ball', [('BP', 13), ('BP', 14), ('BP', 15)], note='ordered_growth: yellow orb small->large')
 add('ball-purple', 'ball', [('AS', 17), ('AS', 25), ('AS', 26), ('AS', 27)], note='ordered_growth: dark purple orb small->large')
@@ -94,6 +95,28 @@ add('crescent-purple', 'slash', [('ML', 95), ('ML', 96), ('ML', 99), ('ML', 119)
 def build_vfx(reg, log):
     for id_, spec in VFX.items():
         frames = []
+        if id_ == 'transform-shockwave':
+            source_path = ROOT / 'art' / 'production' / 'vfx' / 'transform-shockwave-source.png'
+            source = clean_alpha(Image.open(source_path).convert('RGBA'), 24)
+            bbox = source.getchannel('A').getbbox()
+            if not bbox:
+                raise ValueError(f'{source_path} has no visible pixels')
+            sprite = source.crop(bbox)
+            scale = min(120 / sprite.width, 120 / sprite.height, 1)
+            sprite = sprite.resize((max(1, round(sprite.width * scale)), max(1, round(sprite.height * scale))), Image.Resampling.NEAREST)
+            centered = Image.new('RGBA', (128, 128))
+            centered.alpha_composite(sprite, ((128 - sprite.width) // 2, (128 - sprite.height) // 2))
+            frames.append(save_frame(
+                centered,
+                f'vfx/{id_}/0.png',
+                'derived',
+                'front',
+                'native-generated source art/production/vfx/transform-shockwave-source.png; alpha cleaned at threshold 24, true-bound crop, nearest-neighbour fit to 120px on transparent canvas',
+                trim=False,
+            ))
+            reg['vfx'][id_] = dict(id=id_, frames=frames, fps=1, loop=False, family='impact', quality='derived', note=spec['note'])
+            log(f'[vfx] {id_}: one native-generated shockwave sprite')
+            continue
         if id_ == 'special-beam-cannon':
             # A distinct generated green spiral head for Piccolo's signature
             # technique. Crop the actual transparent bounds, normalize once

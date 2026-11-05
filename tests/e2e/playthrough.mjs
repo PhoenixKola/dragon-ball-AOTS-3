@@ -26,7 +26,7 @@ if (process.env.START_SAVE) {
   await page.getByRole('button', { name: new RegExp('^' + (POLICY === 'noguard' ? 'Easy' : 'Normal')) }).first().click();
 }
 await page.waitForFunction(() => window.__AOTS__.snapshot().screen !== 'title', null, { timeout: 20000 });
-await page.evaluate(({ capture, reducedMotion }) => window.__AOTS__.settings({ battleSpeed: capture ? 1 : 2, showTutorials: false, reducedMotion }), { capture: !!(process.env.CAPTURE_VFX || process.env.CAPTURE_PILOT || process.env.CAPTURE_HELLZONE || process.env.CAPTURE_ABSORB), reducedMotion: process.env.PILOT_REDUCED_MOTION === '1' });
+await page.evaluate(({ capture, reducedMotion }) => window.__AOTS__.settings({ battleSpeed: capture ? 1 : 2, showTutorials: false, reducedMotion }), { capture: !!(process.env.CAPTURE_VFX || process.env.CAPTURE_PILOT || process.env.CAPTURE_HELLZONE || process.env.CAPTURE_ABSORB || process.env.CAPTURE_TRANSFORM), reducedMotion: process.env.PILOT_REDUCED_MOTION === '1' });
 
 const held = new Set();
 const setKeys = async (want) => {
@@ -45,6 +45,10 @@ const jitterDone = new Set();
 const seenMaps = new Set();
 let pendingMapCapture = null;
 const seenKeyframes = new Set();
+let transformCaptureStarted = false;
+let transformCaptureDone = false;
+let transformBattleDone = false;
+let transformChargeCaptured = false;
 const beatLog = [];
 // Match the headless WorldBot's ordinary supply stops on the no-guard route.
 // Purchases go through the shop UI, so this profile exercises the same economy as a player.
@@ -63,6 +67,19 @@ const rnd = () => ((rng = (Math.imul(rng, 1664525) + 1013904223) >>> 0) / 429496
 async function battleStep(s) {
   const b = s.battle;
   await release();
+  if (process.env.CAPTURE_TRANSFORM && transformCaptureDone && !transformBattleDone && b.stageId === 'P02' && b.phase === 'input' && b.commands?.actorName === 'Trunks' && b.commands.forms.some((f) => f.form === 'ssj' && f.ok)) {
+    const result = await page.evaluate(() => window.__AOTS__.submit({ kind: 'form', form: 'ssj' }));
+    if (!result.ok) throw new Error('P02 Trunks SSJ form rejected: ' + result.reason);
+    await page.waitForTimeout(400);
+    await shot(page, 'battle-transform-charge', 'tests/logs/screens/combat-vfx');
+    await page.waitForTimeout(800);
+    await shot(page, 'battle-transform-release', 'tests/logs/screens/combat-vfx');
+    await page.waitForTimeout(500);
+    await shot(page, 'battle-transform-reveal', 'tests/logs/screens/combat-vfx');
+    transformBattleDone = true;
+    L('P02 battle transformation captured after the real story unlock');
+    return;
+  }
   if (b.tutorial) { await page.keyboard.press('Enter'); await page.waitForTimeout(150); return; }
   if (b.paused) { await page.keyboard.press('KeyP'); return; }
   if (b.phase === 'guard' && b.guard) {
@@ -206,6 +223,7 @@ async function overlayStep(s) {
 
 let lastDiag = 0;
 while ((Date.now() - t0) / 60000 < MAX_MIN) {
+  if (process.env.CAPTURE_TRANSFORM && transformCaptureDone && transformBattleDone) break;
   if (process.env.CAPTURE_PILOT && pilotG05 >= 3) break;
   if (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone) break;
   if (process.env.CAPTURE_ABSORB && absorbCaptureDone) break;
@@ -237,6 +255,21 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
   }
   if (s.screen === 'cutscene') {
     const cut = await page.evaluate(() => window.__AOTS__.cutDebug());
+    if (process.env.CAPTURE_TRANSFORM && cut.id === 'trunks_arrival' && cut.kind === 'form' && !transformChargeCaptured) {
+      transformChargeCaptured = true;
+      await page.waitForTimeout(500);
+      await shot(page, 'transform-charge', 'tests/logs/screens/combat-vfx');
+      await page.waitForTimeout(180);
+      await shot(page, 'transform-release', 'tests/logs/screens/combat-vfx');
+    }
+    if (process.env.CAPTURE_TRANSFORM && cut.id === 'trunks_arrival' && cut.kind === 'wait' && cut.step === 11 && !transformCaptureStarted) {
+      transformCaptureStarted = true;
+      await page.waitForFunction(() => window.__AOTS__.cutDebug().id !== 'trunks_arrival' || window.__AOTS__.cutDebug().kind !== 'wait', null, { timeout: 5000 });
+      await shot(page, 'transform-reveal', 'tests/logs/screens/combat-vfx');
+      L('Trunks transformation buildup, release and reveal captured on the real P02 story route');
+      transformCaptureDone = true;
+      continue;
+    }
     const frameKey = `${cut.id}:${cut.step}`;
     if (cut.kind === 'keyframe' && !seenKeyframes.has(frameKey)) {
       seenKeyframes.add(frameKey);
@@ -354,4 +387,4 @@ L('external requests: ' + JSON.stringify(external));
 mkdirSync('tests/logs', { recursive: true });
 writeFileSync(`tests/logs/e2e-playthrough-${POLICY}.json`, JSON.stringify({ policy: POLICY, final, beatLog, errors: t.errors, externalRequests: external, minutes: (Date.now() - t0) / 60000, log }, null, 1));
 await t.close();
-process.exit(final.beat >= 30 || (CAPTURE_MAPS_ONLY && seenMaps.size === 12 && !t.errors.length && !external.length) || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_ABSORB && absorbCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) ? 0 : 1);
+process.exit(final.beat >= 30 || (CAPTURE_MAPS_ONLY && seenMaps.size === 12 && !t.errors.length && !external.length) || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_ABSORB && absorbCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) || (process.env.CAPTURE_TRANSFORM && transformCaptureDone && transformBattleDone && !t.errors.length && !external.length) ? 0 : 1);

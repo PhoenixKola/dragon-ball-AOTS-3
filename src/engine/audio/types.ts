@@ -3,12 +3,14 @@ export type MusicKey =
   | 'awakening' | 'finalBeam' | 'victory' | 'credits' | 'battle' | 'bossBattle' | 'sacrifice' | 'lab'
   | 'island' | 'lookout' | 'chamber' | 'city' | 'wasteland' | 'epilogue';
 
+export type AmbientKey = 'open-wind' | 'quiet-air' | 'abandoned-city' | 'lab-hum' | 'shoreline' | 'chamber-void' | 'arena-wind' | null;
+
 export type SfxKey =
   | 'ui-move' | 'ui-confirm' | 'ui-cancel' | 'ui-error' | 'step' | 'chest' | 'heal' | 'levelup'
   | 'guard-perfect' | 'guard-good' | 'guard-miss' | 'hit-melee' | 'hit-energy' | 'hit-crit' | 'beam'
-  | 'absorb' | 'charge' | 'transform' | 'hurt' | 'ko' | 'boss-in' | 'item' | 'flee' | 'quest' | 'save'
+  | 'absorb' | 'charge' | 'transform' | 'transform-charge' | 'transform-release' | 'transform-impact' | 'hurt' | 'ko' | 'boss-in' | 'item' | 'flee' | 'quest' | 'save'
   | 'door' | 'teleport' | 'explosion' | 'victory' | 'defeat' | 'lightning' | 'telegraph' | 'cell-hiss'
-  | 'dialogue-blip' | 'sparking' | 'rage-ready';
+  | 'dialogue-blip' | 'sparking' | 'rage-ready' | 'transform-charge' | 'transform-release' | 'transform-impact';
 
 export const MUSIC_KEYS: readonly MusicKey[] = [
   'title', 'hub', 'tension', 'mystery', 'androidBoss', 'training', 'cellGames', 'perfectCell', 'awakening',
@@ -20,7 +22,7 @@ export const SFX_KEYS: readonly SfxKey[] = [
   'ui-move', 'ui-confirm', 'ui-cancel', 'ui-error', 'step', 'chest', 'heal', 'levelup', 'guard-perfect',
   'guard-good', 'guard-miss', 'hit-melee', 'hit-energy', 'hit-crit', 'beam', 'absorb', 'charge', 'transform',
   'hurt', 'ko', 'boss-in', 'item', 'flee', 'quest', 'save', 'door', 'teleport', 'explosion', 'victory',
-  'defeat', 'lightning', 'telegraph', 'cell-hiss', 'dialogue-blip', 'sparking', 'rage-ready',
+  'defeat', 'lightning', 'telegraph', 'cell-hiss', 'dialogue-blip', 'sparking', 'rage-ready', 'transform-charge', 'transform-release', 'transform-impact',
 ];
 
 export interface AudioSettings { master: number; music: number; sfx: number; muted: boolean }

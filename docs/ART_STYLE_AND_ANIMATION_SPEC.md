@@ -4,6 +4,10 @@ Use the installed hero and Cell sheets as the identity reference: dark confident
 
 ## Runtime contract
 
+### Transformation identity and staging
+
+Transformation sequences reuse the installed, identity-matched form sheets rather than generating a second face or costume interpretation. The base sprite supplies anticipation; the registered form sprite supplies the reveal. Story dialogue can explicitly select the matching form portrait (`portrait` on a cutscene line), as in Trunks' SSJ reveal. Aura art is a rear layer at actor scale, with variants kept static unless their registry note identifies a true temporal sequence. The transformation shockwave is one sprite with a stable pivot, expanded and faded at runtime; it is not represented as a frame animation.
+
 | Asset | Existing contract | Review rule |
 |---|---|---|
 | Battle actor | Eight named pose slots; per-frame pixel dimensions, bbox and feet anchor; per-actor `displayHeight` | All poses retain character scale and feet line; a pose is not a motion sequence |

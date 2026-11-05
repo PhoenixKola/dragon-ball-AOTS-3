@@ -62,3 +62,11 @@
 - Build: python tools/build_art.py --only vfx. The pipeline normalizes the alpha bounds to a 128px canvas and derives six nearest-neighbour charge-growth frames.
 - Runtime: public/assets/vfx/spirit-bomb/0.png through 5.png; the held charge sphere grows above Goku and the release launches the oversized sphere at every target, synchronized with real hit events.
 - Approval: candidate. Human art approval remains pending.
+
+## Transformation shockwave
+
+- Source: `transform-shockwave-source.png`, native Codex ImageGen RGBA artwork. The first generated four-cell sheet was rejected for color fringing and inconsistent geometry; only the cleaner single-ring source is retained.
+- Prompt: isolated gold-white circular ki shockwave ring for a 16-bit anime JRPG, warm gold palette, coherent hollow center, clean transparency, no figure or text. The source is used as one authored sprite and is expanded/faded by the runtime; it is not presented as a multi-frame animation.
+- Source SHA-256: `FB1A3874DC75BED39128931B251AC7177BCDB14E57176793F52DEAD3274B2542`.
+- Build: `python tools/build_art.py --only vfx`. The pipeline removes alpha fringe below 24, crops visible bounds, and nearest-neighbour fits the ring to a transparent 128px canvas.
+- Runtime: `vfx:transform-shockwave:0`, expanded behind the fighter during the form reveal. Story and battle stages use the same charge/release/impact sound cues. Candidate; human art approval pending.

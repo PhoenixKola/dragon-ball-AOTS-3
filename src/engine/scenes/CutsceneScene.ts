@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import type { CutStep, CutsceneDef } from '../../types/script';
 import { actorKey, getActor, getVfx, getWorld, needsFlip } from '../assets';
 import { audio } from '../audio';
+import { shouldAnimateVfxFrames } from '../combat/presentation';
 import { ensureActor, ensureMap, ensureVfx, loadImages } from './loader';
 import { SceneClock } from './BattleScene';
 
@@ -118,6 +119,7 @@ export class CutsceneScene extends Phaser.Scene {
     });
     for (const a of this.actors.values()) a.img.destroy();
     this.actors.clear();
+    await new Promise<void>((res) => this.tweens.add({ targets: this.cameras.main, zoom: 1, scrollX: 0, scrollY: 0, duration: host.skip() || host.reducedMotion() ? 1 : 260, onComplete: () => res() }));
     this.letterbox.forEach((bar) => bar.destroy());
     this.letterbox = [];
   }
@@ -171,11 +173,49 @@ export class CutsceneScene extends Phaser.Scene {
         const a = this.actors.get(st.id);
         if (!a) return;
         await ensureActor(this, st.actor, 'battle');
+        if (!fast && !this.host.reducedMotion()) {
+          const absorption = st.actor.startsWith('cell-') || st.actor === 'piccolo-kami';
+          const energyFx = absorption ? 'absorb' : 'aura-ssj';
+          await ensureVfx(this, ['transform-shockwave', energyFx]);
+          const cam = this.cameras.main;
+          const x = a.img.x;
+          const y = a.img.y - 80;
+          const oldZoom = cam.zoom;
+          const focusX = Phaser.Math.Clamp(x - W / 2 / 1.09, 0, W - W / 1.09);
+          const focusY = Phaser.Math.Clamp(y - H / 2 / 1.09, 0, H - H / 1.09);
+          await new Promise<void>((res) => this.tweens.add({ targets: cam, zoom: 1.09, scrollX: focusX, scrollY: focusY, duration: 240, ease: 'Sine.easeOut', onComplete: () => res() }));
+          audio.sfx(absorption ? 'absorb' : 'transform-charge');
+          a.img.setTint(absorption ? 0x9cff67 : 0xffdf75);
+          await this.wait(220);
+          const auraKey = `vfx:${energyFx}:0`;
+          if (this.textures.exists(auraKey)) {
+            const aura = this.add.image(x, y, auraKey).setDepth(a.img.depth - 1).setBlendMode(Phaser.BlendModes.ADD).setScale(1.8).setAlpha(0.86);
+            this.tweens.add({ targets: aura, scale: 2.55, alpha: 0, duration: 760, onComplete: () => aura.destroy() });
+          }
+          // Reveal the new form on the release beat so the gathered energy frames
+          // the transformed silhouette instead of disappearing before the swap.
+          a.actor = st.actor;
+          this.pose(a, 'idle');
+          a.img.clearTint();
+          const ringKey = 'vfx:transform-shockwave:0';
+          if (!absorption && this.textures.exists(ringKey)) {
+            const ring = this.add.image(x, y + 28, ringKey).setDepth(a.img.depth - 1).setBlendMode(Phaser.BlendModes.ADD).setScale(0.24).setAlpha(0.98);
+            this.tweens.add({ targets: ring, scale: 2.8, alpha: 0, duration: 640, ease: 'Cubic.easeOut', onComplete: () => ring.destroy() });
+          }
+          audio.sfx(absorption ? 'transform-impact' : 'transform-release');
+          // Keep the release readable; the behind-actor aura/ring, recoil and
+          // restrained camera shake provide the impact without bleaching the scene.
+          cam.shake(330, absorption ? 0.004 : 0.006);
+          await new Promise<void>((res) => this.tweens.add({ targets: a.img, scaleX: a.img.scaleX * 0.82, scaleY: a.img.scaleY * 0.82, alpha: 0.4, duration: 100, yoyo: true, onComplete: () => res() }));
+          a.img.clearTint();
+          if (!absorption) audio.sfx('transform-impact');
+          await new Promise<void>((res) => this.tweens.add({ targets: cam, zoom: oldZoom, scrollX: 0, scrollY: 0, duration: 300, ease: 'Sine.easeInOut', onComplete: () => res() }));
+        }
         a.actor = st.actor;
         this.pose(a, 'idle');
         return;
       }
-      case 'say': await this.host.say(st.who, st.text); return;
+      case 'say': await this.host.say(st.portrait ?? st.who, st.text); return;
       case 'vfx': {
         await ensureVfx(this, [st.vfx]);
         if (fast) return;
@@ -197,6 +237,20 @@ export class CutsceneScene extends Phaser.Scene {
       case 'music': audio.playMusic(st.key as never); return;
       case 'card': await this.host.card(st.text, st.sub); return;
       case 'backdrop': await this.setBackdrop(st.map); return;
+      case 'camera': {
+        const cam = this.cameras.main;
+        // Camera zooms in only. Clamped scroll keeps the viewport over the
+        // authored stage art instead of exposing the scene's black clear color.
+        const zoom = Math.max(1, Math.min(1.2, st.zoom));
+        const props = {
+          zoom,
+          scrollX: Phaser.Math.Clamp(st.x * W - W / 2 / zoom, 0, W - W / zoom),
+          scrollY: Phaser.Math.Clamp(st.y * H - H / 2 / zoom, 0, H - H / zoom),
+        };
+        if (fast || this.host.reducedMotion()) Object.assign(cam, props);
+        else await new Promise<void>((res) => this.tweens.add({ targets: cam, ...props, duration: st.ms ?? 600, ease: 'Sine.easeInOut', onComplete: () => res() }));
+        return;
+      }
       case 'keyframe': {
         if (fast) return;
         this.host.caption(null);
@@ -228,18 +282,24 @@ export class CutsceneScene extends Phaser.Scene {
       this.tweens.add({ targets: c, alpha: 0, scale: 1.8, duration: ms, onComplete: () => c.destroy() });
       return;
     }
-    const img = this.add.image(x, y, keys[0]).setDepth(4000).setScale(scale * 3);
+    const ordered = shouldAnimateVfxFrames(v?.note ?? '', this.host.reducedMotion());
+    const frames = ordered ? keys : [keys[0]];
+    const nearest = [...this.actors.values()].sort((a, b) => Phaser.Math.Distance.Between(a.img.x, a.img.y - 70, x, y) - Phaser.Math.Distance.Between(b.img.x, b.img.y - 70, x, y))[0];
+    const depth = v?.family === 'aura' && nearest ? nearest.img.depth - 1 : 4000;
+    const img = this.add.image(x, y, frames[0]).setDepth(depth).setScale(scale * 1.5);
     let i = 0;
-    const timer = this.time.addEvent({
-      delay: Math.max(60, ms / Math.max(1, keys.length)),
-      repeat: keys.length - 1,
-      callback: () => {
-        // the fade-out tween may already have destroyed the image; touching it would throw inside the scene's update loop
-        if (!img.scene) return;
-        img.setTexture(keys[i++ % keys.length]);
-      },
-    });
-    img.once('destroy', () => timer.remove(false));
+    if (frames.length > 1) {
+      const timer = this.time.addEvent({
+        delay: Math.max(60, ms / frames.length),
+        repeat: frames.length - 1,
+        callback: () => {
+          // The fade-out tween may already have destroyed the image; do not touch it afterward.
+          if (!img.scene) return;
+          img.setTexture(frames[i++ % frames.length]);
+        },
+      });
+      img.once('destroy', () => timer.remove(false));
+    }
     this.tweens.add({ targets: img, alpha: 0, delay: ms * 0.7, duration: ms * 0.3, onComplete: () => img.destroy() });
   }
 }

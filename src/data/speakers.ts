@@ -10,6 +10,7 @@ const S = (id: string, name: string, actor: string, color: string): [string, Spe
 
 export const SPEAKERS: Record<string, Speaker> = Object.fromEntries([
   S('trunks', 'Trunks', 'trunks-base', '#95a8f5'),
+  S('trunks-ssj', 'Trunks', 'trunks-ssj', '#f2c84b'),
   S('goku', 'Goku', 'goku-base', '#f09048'),
   S('gohan', 'Gohan', 'gohan-base', '#b59af1'),
   S('vegeta', 'Vegeta', 'vegeta-base', '#f2ce55'),

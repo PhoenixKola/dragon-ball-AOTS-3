@@ -28,10 +28,11 @@ const defs: CutsceneDef[] = [
       say('frieza', 'A boy with a sword? I came back from the dead for this? How… insulting.'),
       say('trunks', 'I won\'t trade words with a man who is about to be erased.'),
       { t: 'pose', id: 't', state: 'charge' },
-      { t: 'vfx', vfx: 'aura-ssj', x: 0.2, y: 0.78, scale: 1.4, ms: 900 },
+      { t: 'vfx', vfx: 'aura-ssj', x: 0.2, y: 0.67, scale: 1.05, ms: 900 },
       { t: 'flash', color: '#ffe36b', ms: 280 },
       { t: 'form', id: 't', actor: 'trunks-ssj' },
-      say('trunks', 'Hah!'),
+      wait(420),
+      { t: 'say', who: 'trunks', portrait: 'trunks-ssj', text: 'Hah!' },
       { t: 'pose', id: 't', state: 'attack' },
       { t: 'move', id: 't', x: 0.62, y: 0.82, ms: 220 },
       { t: 'vfx', vfx: 'slash', x: 0.7, y: 0.7, scale: 1.6, ms: 400 },
@@ -78,7 +79,7 @@ const defs: CutsceneDef[] = [
       say('a19', 'Another Saiyan. Your energy will make a fine addition to Dr. Gero\'s collection.'),
       say('vegeta', 'Gero\'s collection? I\'ve spent my life becoming something you cannot copy.'),
       { t: 'pose', id: 'v', state: 'charge' },
-      { t: 'vfx', vfx: 'aura-ssj', x: 0.26, y: 0.76, scale: 1.6, ms: 1100 },
+      { t: 'vfx', vfx: 'aura-ssj', x: 0.26, y: 0.67, scale: 1.05, ms: 1100 },
       { t: 'shake', ms: 700, amount: 8 },
       { t: 'flash', color: '#fff2a0', ms: 400 },
       { t: 'form', id: 'v', actor: 'vegeta-ssj' },
@@ -161,7 +162,7 @@ const defs: CutsceneDef[] = [
       say('gohan', '…16…'),
       { t: 'pose', id: 'g', state: 'charge' },
       { t: 'vfx', vfx: 'lightning', x: 0.25, y: 0.62, scale: 2.2, ms: 1400 },
-      { t: 'vfx', vfx: 'aura-ssj2', x: 0.25, y: 0.76, scale: 1.8, ms: 1400 },
+      { t: 'vfx', vfx: 'aura-ssj2', x: 0.25, y: 0.67, scale: 1.15, ms: 1400 },
       { t: 'shake', ms: 1200, amount: 10 },
       { t: 'flash', color: '#fff6a0', ms: 500 },
       { t: 'form', id: 'g', actor: 'gohan-ssj2' },
@@ -264,6 +265,24 @@ const defs: CutsceneDef[] = [
     ],
   },
 ];
+
+// Each story beat gets one authored establishing shot after its cast is staged.
+// Coordinates are normalized to the logical 1280x720 frame; group scenes use a
+// wider lens while reveals, illness and the finale lean into the subject.
+const storyShots: Record<string, [number, number, number]> = {
+  opening: [0.48, 0.6, 1.04], trunks_arrival: [0.52, 0.58, 1.1], goku_arrives: [0.49, 0.58, 1.05],
+  goku_virus: [0.5, 0.6, 1.12], vegeta_ssj_reveal: [0.48, 0.58, 1.1], androids_awakened: [0.68, 0.6, 0.91],
+  kami_merge: [0.48, 0.6, 1.06], cell_absorbs_17: [0.62, 0.58, 1.08], cell_absorbs_18: [0.55, 0.58, 1.08],
+  gohan_ssj2_awakening: [0.46, 0.58, 1.1], goku_sacrifice: [0.55, 0.6, 1.08], cell_returns: [0.56, 0.58, 1.1],
+  vegeta_opening: [0.52, 0.6, 1.08], father_son_finale: [0.5, 0.59, 1.08], trunks_departure: [0.53, 0.6, 0.96],
+};
+for (const def of defs) {
+  const shot = storyShots[def.id];
+  if (!shot) continue;
+  const firstLine = def.steps.findIndex((step) => step.t === 'say');
+  const insertion = firstLine < 0 ? def.steps.findIndex((step) => step.t !== 'show') : firstLine;
+  def.steps.splice(Math.max(0, insertion), 0, { t: 'camera', x: shot[0], y: shot[1], zoom: shot[2], ms: 520 });
+}
 
 export const CUTSCENES: Record<string, CutsceneDef> = Object.fromEntries(defs.map((d) => [d.id, d]));
 export { wait };
