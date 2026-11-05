@@ -69,7 +69,7 @@ function battleView(phase: BattleView['phase']): BattleView {
   const commands: Commands = {
     actorUid: 'h:trunks', actorName: 'Future Trunks', skills,
     items: [{ id: 'senzu_small', name: 'Senzu Fragment', desc: 'Restores 35% max HP.', count: 5, revive: false }, { id: 'revive_seed', name: 'Revive Seed', desc: 'Revives a fallen fighter.', count: 1, revive: true }],
-    combos: COMBOS.slice(0, 2).map((c, i) => ({ id: c.id, name: c.name, desc: c.desc, ok: i === 0, reason: i === 0 ? undefined : 'Gohan already acted', target: 'enemy' as const, members: c.members })),
+    combos: COMBOS.slice(0, 2).map((c, i) => ({ id: c.id, name: c.name, desc: c.desc, kiEach: c.kiCost, ok: i === 0, reason: i === 0 ? undefined : 'Gohan already acted', target: 'enemy' as const, members: c.members })),
     forms: [{ form: 'ssj', name: FORMS.ssj.name, note: FORMS.ssj.note, ok: true }, { form: 'ultra', name: FORMS.ultra.name, note: FORMS.ultra.note, ok: false, reason: 'Not unlocked yet' }],
     rage: { ok: true, name: 'Heat Dome Sword Flash', desc: 'Six piercing hits', target: 'none' }, sparking: { ok: false, reason: 'Needs 60 Rage' }, flee: { ok: false, reason: 'Cannot flee from this battle' }, finisher: { ok: false, visible: false },
     enemyTargets: ['e:0:cell-imperfect', 'e:1:cell-probe'], allyTargets: ['h:trunks', 'h:gohan', 'h:vegeta'], deadAllyTargets: [],

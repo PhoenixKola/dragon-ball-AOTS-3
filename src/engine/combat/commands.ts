@@ -24,7 +24,7 @@ export function buildCommands(b: Battle): Commands | null {
     .map(([id, n]) => ({ id, name: ITEMS[id].name, desc: ITEMS[id].desc, count: n, revive: !!ITEMS[id].revivePct }));
   const combos: ComboOption[] = COMBOS.filter((c) => c.members.includes(f.defId as HeroId)).map((c) => {
     const st = b.comboStatus(f, c);
-    return { id: c.id, name: c.name, desc: c.desc, ok: st.ok, reason: st.reason, target: c.target === 'enemy' ? 'enemy' : 'none', members: c.members.map((m) => HEROES[m].name) };
+    return { id: c.id, name: c.name, desc: c.desc, kiEach: c.kiCost, ok: st.ok, reason: st.reason, target: c.target === 'enemy' ? 'enemy' : 'none', members: c.members.map((m) => HEROES[m].name) };
   });
   const forms: FormOption[] = [];
   if (!f.guest) {

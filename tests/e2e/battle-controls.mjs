@@ -1,6 +1,7 @@
 // Focused visible-HUD regression check, using the dev-only UI harness.
 import { spawn } from 'node:child_process';
 import { chromium } from 'playwright-core';
+import { mkdirSync } from 'node:fs';
 
 const port = 5201;
 const vite = spawn(process.execPath, ['node_modules/vite/bin/vite.js', '--host', '127.0.0.1', '--port', String(port), '--strictPort'], { stdio: 'ignore' });
@@ -23,7 +24,17 @@ try {
   const menu = page.getByRole('menu', { name: 'Battle commands' });
   const actions = () => page.evaluate(() => window.__battleSubmissions);
 
+  for (const label of ['100 Rage', '60 Rage']) {
+    if (!(await menu.getByText(label, { exact: true }).count())) throw new Error(`Missing explicit resource label: ${label}`);
+  }
+  await menu.getByRole('button', { name: /Combos/ }).click();
+  if (!(await menu.locator('.cost-chip').filter({ hasText: /Ki each/ }).count())) throw new Error('Combo cost is missing its per-partner Ki label');
+  await menu.getByRole('button', { name: 'Back' }).click();
+
   await menu.getByRole('button', { name: /Techniques/ }).click();
+  if (!(await menu.locator('.cost-chip').filter({ hasText: /Ki/ }).count())) throw new Error('Technique cost is missing its Ki label');
+  mkdirSync('tests/logs/screens/battle-hud', { recursive: true });
+  await page.screenshot({ path: 'tests/logs/screens/battle-hud/technique-costs.png' });
   const enabledSkill = menu.locator('.cmd-row:not(.is-disabled)').first();
   const skillName = (await enabledSkill.locator('.cmd-label').innerText()).split('\n')[0];
   await enabledSkill.click();

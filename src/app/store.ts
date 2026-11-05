@@ -97,6 +97,7 @@ export interface ComboOption {
   id: string;
   name: string;
   desc: string;
+  kiEach: number;
   ok: boolean;
   reason?: string;
   target: 'enemy' | 'none';

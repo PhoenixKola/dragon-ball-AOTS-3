@@ -155,6 +155,15 @@ function weakNotes(f: FighterView, element: 'phys' | 'ki'): string[] {
   return out;
 }
 
+function skillCostLabel(skill: Commands['skills'][number]): string {
+  const costs = [
+    skill.ki > 0 ? `${skill.ki} Ki` : '',
+    skill.hpCost ? `${Math.round(skill.hpCost * 100)}% HP` : '',
+    skill.rageCost ? `${skill.rageCost} Rage` : '',
+  ].filter(Boolean);
+  return costs.join(' + ') || 'Free';
+}
+
 function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
   const ref = useRef<HTMLDivElement>(null);
   const [lvl, setLvl] = useState<Level>({ l: 'root' });
@@ -238,8 +247,8 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
     { key: 'defend', label: 'Guard', chip: '+8 Ki', info: 'Defend: take x0.55 damage until your next turn and restore 8 Ki.', go: () => submit({ kind: 'defend' }) },
     { key: 'items', label: 'Items', chip: String(c.items.reduce((n, i) => n + i.count, 0)), disabled: c.items.length === 0, reason: 'No usable items', info: 'Use a consumable on an ally.', go: () => { setInfo(''); setLvl({ l: 'items' }); } },
     { key: 'combo', label: 'Combos', chip: String(c.combos.filter((x) => x.ok).length), disabled: c.combos.length === 0, reason: 'No combos for this fighter', info: 'Team attacks with a partner.', go: () => { setInfo(''); setLvl({ l: 'combos' }); } },
-    { key: 'rage', label: 'Rage Art', chip: '100', disabled: !c.rage.ok, reason: c.rage.reason, info: `${c.rage.name}: ${c.rage.desc}`, go: () => choose({ kind: 'rage', label: c.rage.name, element: 'phys' }, c.rage.target === 'enemy' ? 'enemy' : 'none') },
-    { key: 'sparking', label: 'Sparking', chip: '60', disabled: !c.sparking.ok, reason: c.sparking.reason, info: '3 turns: ATK x1.25, Ki costs halved, damage taken x0.9.', go: () => submit({ kind: 'sparking' }) },
+    { key: 'rage', label: 'Rage Art', chip: '100 Rage', disabled: !c.rage.ok, reason: c.rage.reason, info: `${c.rage.name}: ${c.rage.desc}`, go: () => choose({ kind: 'rage', label: c.rage.name, element: 'phys' }, c.rage.target === 'enemy' ? 'enemy' : 'none') },
+    { key: 'sparking', label: 'Sparking', chip: '60 Rage', disabled: !c.sparking.ok, reason: c.sparking.reason, info: '3 turns: ATK x1.25, Ki costs halved, damage taken x0.9.', go: () => submit({ kind: 'sparking' }) },
     { key: 'form', label: 'Form', disabled: c.forms.length === 0, reason: 'No forms', info: 'Transform (costs your turn, drains Ki each turn).', go: () => { setInfo(''); setLvl({ l: 'forms' }); } },
     { key: 'flee', label: 'Flee', disabled: !c.flee.ok, reason: c.flee.reason, info: 'Try to escape the battle.', go: () => submit({ kind: 'flee' }) },
   ];
@@ -256,9 +265,9 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
         {lvl.l === 'root' && rootRows.map((r, i) => (
           <Row key={r.key} icon={iconForCommand(r.key)} label={r.label} chip={r.chip} disabled={r.disabled} reason={r.reason} onClick={r.go} primary={r.primary} autofocus={i === 0} onHover={() => setInfo(r.disabled && r.reason ? r.reason : r.info)} />
         ))}
-        {lvl.l === 'skills' && (c.skills.length === 0 ? <p className="hint pad">No techniques equipped.</p> : c.skills.map((s, i) => (
+          {lvl.l === 'skills' && (c.skills.length === 0 ? <p className="hint pad">No techniques equipped.</p> : c.skills.map((s, i) => (
           <Row key={s.id} icon={iconForSkill(s.id)} label={s.name} sub={s.role} disabled={!s.ok} reason={s.reason} autofocus={i === 0}
-            chip={`${s.ki}${s.hpCost ? `+${Math.round(s.hpCost * 100)}%` : ''}`} onHover={() => setInfo(s.ok ? `${s.desc} ${s.tradeoff}` : (s.reason ?? ''))}
+            chip={skillCostLabel(s)} onHover={() => setInfo(s.ok ? `${s.desc} ${s.tradeoff}` : (s.reason ?? ''))}
             onClick={() => choose({ kind: 'skill', skillId: s.id, label: s.name, element: SKILLS[s.id]?.element ?? 'phys' }, s.target === 'none' ? 'none' : s.target === 'enemy' ? 'enemy' : 'ally')} />
         )))}
         {lvl.l === 'items' && c.items.map((it, i) => (
@@ -266,7 +275,7 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
             onClick={() => choose({ kind: 'item', itemId: it.id, label: it.name, element: 'phys' }, it.revive ? 'dead' : 'ally')} />
         ))}
         {lvl.l === 'combos' && c.combos.map((cb, i) => (
-          <Row key={cb.id} icon={iconForCommand('combo')} label={cb.name} disabled={!cb.ok} reason={cb.reason} autofocus={i === 0} onHover={() => setInfo(cb.ok ? cb.desc : (cb.reason ?? ''))}
+          <Row key={cb.id} icon={iconForCommand('combo')} label={cb.name} chip={`${cb.kiEach} Ki each`} disabled={!cb.ok} reason={cb.reason} autofocus={i === 0} onHover={() => setInfo(cb.ok ? `${cb.desc} Costs ${cb.kiEach} Ki for each partner.` : (cb.reason ?? ''))}
             onClick={() => choose({ kind: 'combo', comboId: cb.id, label: cb.name, element: 'phys' }, cb.target === 'enemy' ? 'enemy' : 'none')} />
         ))}
         {lvl.l === 'forms' && c.forms.map((f, i) => (
@@ -279,7 +288,7 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
             <button key={uid} type="button" className={cx('target-chip', i === Math.min(tIdx, targetUids.length - 1) && 'on')} onMouseEnter={() => setTIdx(i)} onClick={() => resolve(lvl.p, uid)} aria-label={`${f.name}, ${f.hp} of ${f.maxHp} HP`} aria-pressed={i === tIdx}>
               <span className="tc-arrow" aria-hidden="true">▶</span>
               <span className="tc-name">{f.name}</span>
-              <span className="tc-hp"><Bar kind={f.team === 'enemy' ? 'hp' : 'hp'} value={f.hp} max={f.maxHp} label={`${f.hp}`} /></span>
+              <span className="tc-hp"><Bar kind="hp" value={f.hp} max={f.maxHp} label={`${f.hp}/${f.maxHp}`} /></span>
             </button>
           );
         })}
