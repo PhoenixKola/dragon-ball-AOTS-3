@@ -640,7 +640,7 @@ export class Battle {
       case 'attack': {
         const t = this.get(a.targetUid)!;
         const multi = getStatus(f, 'multiform');
-        this.emit({ t: 'clip', uid: f.uid, clip: 'melee', vfx: 'impact-hit', sfx: 'hit-melee', targetUid: t.uid });
+        this.emit({ t: 'clip', uid: f.uid, clip: 'melee', vfx: 'impact-hit', sfx: 'hit-melee', targetUid: t.uid, element: 'phys' });
         if (multi) {
           this.removeStatus(f, 'multiform');
           this.log(`${f.name}'s copies join the strike!`);
@@ -746,7 +746,7 @@ export class Battle {
       m.actedThisRound = true;
     }
     this.emit({ t: 'announce', uid: f.uid, text: c.name });
-    this.emit({ t: 'clip', uid: f.uid, clip: 'special', vfx: c.vfx, sfx: 'hit-crit', targetUid: targetUid ?? this.opponents(f)[0]?.uid });
+    this.emit({ t: 'clip', uid: f.uid, clip: 'special', vfx: c.vfx, sfx: 'hit-crit', targetUid: targetUid ?? this.opponents(f)[0]?.uid, element: c.element });
     this.log(`${members.map((m) => m.name).join(' & ')} unite: ${c.name}!`);
     const atk = members.reduce((s, m) => s + effAtk(m), 0) / members.length;
     const targets = c.target === 'allEnemies' ? this.opponents(f) : [this.get(targetUid!)!];
@@ -823,7 +823,7 @@ export class Battle {
       return;
     }
     this.emit({ t: 'announce', uid: f.uid, text: sk.name });
-    this.emit({ t: 'clip', uid: f.uid, clip: sk.clip, vfx: sk.vfx, sfx: sk.sfx, skillId: sk.id, targetUid: sk.target === 'enemy' ? (targetUid && this.get(targetUid)?.alive && this.get(targetUid)?.team !== f.team ? targetUid : this.opponents(f)[0]?.uid) : sk.target === 'ally' || sk.target === 'anyAlly' ? targetUid : undefined });
+    this.emit({ t: 'clip', uid: f.uid, clip: sk.clip, vfx: sk.vfx, sfx: sk.sfx, skillId: sk.id, targetUid: sk.target === 'enemy' ? (targetUid && this.get(targetUid)?.alive && this.get(targetUid)?.team !== f.team ? targetUid : this.opponents(f)[0]?.uid) : sk.target === 'ally' || sk.target === 'anyAlly' ? targetUid : undefined, element: sk.element });
     const kind = sk.kind;
     let primary: Fighter[] = [];
     switch (sk.target) {
@@ -1302,7 +1302,7 @@ export class Battle {
       this.log(`${f.name} ${m.telegraph}`);
     }
     this.emit({ t: 'announce', uid: f.uid, text: m.name });
-    this.emit({ t: 'clip', uid: f.uid, clip: m.element === 'ki' ? 'beam' : 'melee', vfx: m.vfx ?? (m.element === 'ki' ? 'beam-red' : 'impact-hit'), sfx: m.sfx ?? (m.element === 'ki' ? 'hit-energy' : 'hit-melee'), targetUid: targets[0]?.uid });
+    this.emit({ t: 'clip', uid: f.uid, clip: m.element === 'ki' ? 'beam' : 'melee', vfx: m.vfx ?? (m.element === 'ki' ? 'beam-red' : 'impact-hit'), sfx: m.sfx ?? (m.element === 'ki' ? 'hit-energy' : 'hit-melee'), targetUid: targets[0]?.uid, element: m.element });
     switch (m.special) {
       case 'selfBarrier':
         this.applyStatus(f, { kind: 'barrier', turns: 3, power: Math.round(f.maxHp * 0.12) }, f);

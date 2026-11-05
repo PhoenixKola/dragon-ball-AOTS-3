@@ -1,5 +1,5 @@
 import type { BattleView, FighterView, GuardCue, Settings } from '../../app/store';
-import type { BattleAction, BattleEvent, ClipId, Fighter, FormId, GuardGrade, StatusKind } from '../../types';
+import type { BattleAction, BattleEvent, ClipId, Element, Fighter, FormId, GuardGrade, StatusKind } from '../../types';
 import { buildCommands } from './commands';
 import { Battle } from './engine';
 import { GUARD_PRESETS, GuardTracker, widen, type GuardSettings } from './guard';
@@ -15,7 +15,7 @@ export interface BattleStage {
   setup(fighters: FighterView[]): Promise<void>;
   /** reinforcements joining mid-battle */
   spawn(fighters: FighterView[]): Promise<void>;
-  clip(uid: string, clip: ClipId, vfx: string, sfx: string, targetUid?: string): Promise<void>;
+  clip(uid: string, clip: ClipId, vfx: string, sfx: string, targetUid?: string, element?: Element): Promise<void>;
   /** attacker starts moving toward the target; contact happens `ms` later */
   approach(attackerUid: string, targetUid: string, ms: number, label: string): void;
   hit(e: Extract<BattleEvent, { t: 'hit' }>): Promise<void>;
@@ -257,7 +257,7 @@ export class BattleDirector {
         this.pushView({ banner: null });
         return;
       case 'clip':
-        await this.stage.clip(e.uid, e.clip, e.vfx, e.sfx, e.targetUid);
+        await this.stage.clip(e.uid, e.clip, e.vfx, e.sfx, e.targetUid, e.element);
         return;
       case 'hit':
         await this.stage.hit(e);

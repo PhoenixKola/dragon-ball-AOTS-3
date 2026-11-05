@@ -4,6 +4,7 @@ import { actorKey, getActor, getVfx, getWorld, needsFlip, registry } from '../as
 import type { BattleStage, Clock } from '../combat/director';
 import type { BattleEvent, ClipId, FormId, GuardGrade, StatusKind } from '../../types';
 import { audio } from '../audio';
+import { resolvePresentationClip } from '../combat/presentation';
 import { ensureActor, ensureMap, ensureVfx } from './loader';
 import { HEROES } from '../../data/heroes';
 
@@ -277,9 +278,10 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     });
   }
 
-  async clip(uid: string, clip: ClipId, vfx: string, sfx: string, targetUid?: string): Promise<void> {
+  async clip(uid: string, clip: ClipId, vfx: string, sfx: string, targetUid?: string, element?: 'phys' | 'ki'): Promise<void> {
     const s = this.slots.get(uid);
     if (!s) return;
+    const visualClip = resolvePresentationClip(clip, element);
     this.returnHome(s, 0);
     audio.sfx(sfx as never);
     const att = s.view.team === 'ally' ? 1 : -1;
@@ -288,7 +290,7 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       await this.fatherSonKamehameha(s, target);
       return;
     }
-    switch (clip) {
+    switch (visualClip) {
       case 'melee': case 'sword': case 'teleport': {
         if (!target) {
           this.setPose(s, 'attack', 500);
@@ -318,12 +320,26 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
         this.setPose(s, clip === 'beam' || clip === 'special' ? 'special' : 'attack', 900);
         this.playVfx('charge', s.img.x + att * 30, s.homeY - s.img.displayHeight * 0.55, 0.9);
         await this.wait(190);
-        if (target) await this.projectile(vfx, s, target, clip);
+        if (target) await this.projectile(vfx, s, target, visualClip);
+        break;
+      }
+      case 'heavy': {
+        if (!target) {
+          this.setPose(s, 'special', 500);
+          break;
+        }
+        this.setPose(s, 'charge', 450);
+        if (getVfx(vfx)?.family === 'aura') this.playVfx(vfx, s.img.x, s.homeY - s.img.displayHeight * 0.55, 1.05);
+        else this.playVfx('charge', s.img.x + att * 30, s.homeY - s.img.displayHeight * 0.55, 0.9);
+        await this.tween(s.img, { x: s.homeX - att * 20 }, 110, 'Sine.easeOut');
+        this.setPose(s, 'special', 700);
+        await this.tween(s.img, { x: target.homeX - att * 78 }, 170, 'Cubic.easeIn');
+        s.engaged = true;
         break;
       }
       case 'flare':
         this.setPose(s, 'special', 700);
-        this.playVfx('flare', s.img.x, s.homeY - s.img.displayHeight * 0.7, 2.2);
+        this.playVfx(vfx, s.img.x, s.homeY - s.img.displayHeight * 0.7, 2.2);
         await this.wait(260);
         break;
       case 'charge':
@@ -474,6 +490,16 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     const a = this.slots.get(e.attacker);
     if (!t) return;
     const last = e.hitIndex >= e.hits - 1;
+    if (a && e.countered && e.element === 'phys') {
+      this.tweens.killTweensOf(a.img);
+      a.img.setAlpha(1);
+      a.engaged = true;
+      this.setPose(a, 'attack', 360);
+      if (!this.opts.reducedMotion) {
+        const dir = a.view.team === 'ally' ? 1 : -1;
+        await this.tween(a.img, { x: t.homeX - dir * 78 }, 110, 'Cubic.easeIn');
+      }
+    }
     if (a && a.engaged && last) this.returnHome(a, 170);
     if (e.absorbed) {
       this.floatText(t, 'ABSORBED', '#9ae6ff');
@@ -489,7 +515,10 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     const hitX = t.homeX;
     const hitY = t.homeY - t.img.displayHeight * 0.5;
     const authored = getVfx(e.vfx);
-    if (authored && ['impact', 'slash'].includes(authored.family)) this.playVfx(e.vfx, hitX, hitY, big ? 1.25 : 0.9);
+    if (authored?.family === 'aura') {
+      this.playVfx(e.vfx, a?.img.x ?? hitX, a ? a.homeY - a.img.displayHeight * 0.5 : hitY, 1.05);
+      this.playVfx(e.element === 'phys' ? 'impact-hit' : 'explosion', hitX, hitY, big ? 1.25 : 0.95);
+    } else if (authored && ['impact', 'slash'].includes(authored.family)) this.playVfx(e.vfx, hitX, hitY, big ? 1.25 : 0.9);
     else this.playVfx(e.vfx, hitX, hitY, big ? 1.15 : 0.8);
     if (big && e.vfx !== 'father-son') this.playVfx('impact-big', hitX, hitY, 0.7);
     this.floatText(t, String(e.dmg), e.crit ? '#ffd24a' : e.guard === 'perfect' ? '#b8f5ff' : e.guard === 'good' ? '#d6f0ff' : t.view.team === 'ally' ? '#ff9a8a' : '#ffffff', e.crit);

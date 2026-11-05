@@ -45,7 +45,7 @@ export interface StatusInstance {
 
 export type TargetMode = 'enemy' | 'allEnemies' | 'randomEnemies' | 'ally' | 'allAllies' | 'self' | 'anyAlly';
 export type SkillKind = 'attack' | 'support' | 'heal' | 'debuff' | 'stance' | 'special';
-export type ClipId = 'melee' | 'blast' | 'beam' | 'barrage' | 'buff' | 'guard' | 'sword' | 'disc' | 'flare' | 'charge' | 'teleport' | 'heal' | 'special';
+export type ClipId = 'melee' | 'blast' | 'beam' | 'barrage' | 'buff' | 'guard' | 'sword' | 'disc' | 'flare' | 'charge' | 'teleport' | 'heal' | 'special' | 'heavy';
 
 export interface SkillRequires {
   form?: FormId | FormId[];
@@ -322,7 +322,7 @@ export type BattleEvent =
   | { t: 'turn'; uid: string }
   | { t: 'round'; round: number }
   | { t: 'wave'; uids: string[] }
-  | { t: 'clip'; uid: string; clip: ClipId; vfx: string; sfx: string; skillId?: string; targetUid?: string }
+  | { t: 'clip'; uid: string; clip: ClipId; vfx: string; sfx: string; skillId?: string; targetUid?: string; element?: Element }
   | { t: 'snap'; uid: string; hp: number; maxHp: number; ki: number; maxKi: number; rage: number; alive: boolean; form: FormId; actor: string; name: string; sparking: number; charging: boolean }
   | { t: 'end'; outcome: 'victory' | 'defeat' | 'fled'; reason: string };
 
