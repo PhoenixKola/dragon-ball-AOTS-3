@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AOTS3 Cell Saga art pipeline.  Usage: python tools/build_art.py [--only heroes,enemies,npcs,worlds,vfx,ui]
+"""AOTS3 Cell Saga art pipeline. Usage: python tools/build_art.py [--only heroes,enemies,npcs,worlds,vfx,ui,finalcontent]
 Reads art/source (bundle copy), writes public/assets/** and src/data/artRegistry.generated.json."""
 from __future__ import annotations
 import json, sys, shutil, datetime, time
@@ -86,6 +86,9 @@ def main():
     if want('worldextras'):
         import art_worlds_extra
         art_worlds_extra.build(reg, log)
+    if want('finalcontent'):
+        import art_final_content
+        art_final_content.build(reg, log)
     # prune files no longer referenced by the registry
     used = set()
     def walk(o):

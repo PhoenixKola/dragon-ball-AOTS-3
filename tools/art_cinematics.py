@@ -12,9 +12,9 @@ KEYFRAMES = {
     'trunks_arrival': 'trunks-defeats-frieza.png',
     'cell_absorbs_17': 'cell-absorbs-android17.png',
     'cell_absorbs_18': 'cell-absorbs-android18.png',
-    'gohan_ssj2_awakening': 'gohan-ssj2-awakening.png',
+    'gohan_ssj2_awakening': 'gohan-ssj2-awakening-pixel-v2.png',
     'goku_sacrifice': 'goku-sacrifice-choice.png',
-    'father_son_finale': 'father-son-kamehameha.png',
+    'father_son_finale': 'father-son-kamehameha-pixel-v2.png',
     'android16_destruction': 'android16-destruction.png',
 }
 

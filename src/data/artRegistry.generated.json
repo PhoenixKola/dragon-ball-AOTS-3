@@ -1726,25 +1726,26 @@
      "bbox": [
       2,
       2,
-      185,
-      423
+      141,
+      154
      ],
      "facing": "front",
      "feet": [
-      94,
-      425
+      60,
+      156
      ],
-     "h": 427,
-     "note": "art/handoff/npcs/bulma.png; standing pose (NPCs have no battle art)",
+     "h": 158,
+     "note": "Stable neutral pose reused from the generated front-facing overworld sheet.",
      "path": "assets/npcs/bulma/battle/idle.png",
      "quality": "genuine",
-     "visible": 44665,
-     "w": 189
+     "visible": 8465,
+     "w": 145
     }
    },
    "displayHeight": 100,
    "displayName": "Bulma",
    "facing": "front",
+   "fallbackReason": null,
    "id": "bulma",
    "kind": "npc",
    "overworld": {
@@ -1753,75 +1754,78 @@
       "bbox": [
        2,
        2,
-       99,
-       230
+       141,
+       154
       ],
       "facing": "front",
       "feet": [
-       43,
-       232
+       60,
+       156
       ],
-      "h": 234,
-      "note": "first of the sheet walk frames (no separate idle on the sheet)",
+      "h": 158,
+      "note": "Native-generated identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/bulma/overworld/down/idle.png",
       "quality": "genuine",
-      "visible": 16045,
-      "w": 103
+      "visible": 8465,
+      "w": 145
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        100,
-        230
+        154,
+        153
        ],
        "facing": "front",
        "feet": [
-        43,
-        232
+        104,
+        155
        ],
-       "h": 234,
+       "h": 157,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/down/walk-01.png",
        "quality": "genuine",
-       "visible": 16146,
-       "w": 104
+       "visible": 8253,
+       "w": 158
       },
       {
        "bbox": [
         2,
         2,
-        101,
-        230
+        149,
+        156
        ],
        "facing": "front",
        "feet": [
-        44,
-        232
+        100,
+        158
        ],
-       "h": 234,
+       "h": 160,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/down/walk-02.png",
        "quality": "genuine",
-       "visible": 16217,
-       "w": 105
+       "visible": 8021,
+       "w": 153
       },
       {
        "bbox": [
         2,
         2,
-        99,
-        230
+        114,
+        154
        ],
        "facing": "front",
        "feet": [
-        43,
-        232
+        94,
+        156
        ],
-       "h": 234,
+       "h": 158,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/down/walk-03.png",
        "quality": "genuine",
-       "visible": 16045,
-       "w": 103
+       "visible": 8023,
+       "w": 118
       }
      ]
     },
@@ -1830,75 +1834,78 @@
       "bbox": [
        2,
        2,
-       115,
-       226
+       140,
+       160
       ],
       "facing": "left",
       "feet": [
-       36,
-       228
+       64,
+       162
       ],
-      "h": 230,
-      "note": "first of the sheet walk frames (no separate idle on the sheet)",
+      "h": 164,
+      "note": "Native-generated identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/bulma/overworld/left/idle.png",
       "quality": "genuine",
-      "visible": 15496,
-      "w": 119
+      "visible": 7331,
+      "w": 144
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        115,
-        227
+        154,
+        160
        ],
        "facing": "left",
        "feet": [
-        44,
-        229
+        72,
+        162
        ],
-       "h": 231,
+       "h": 164,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/left/walk-01.png",
        "quality": "genuine",
-       "visible": 15586,
-       "w": 119
+       "visible": 8798,
+       "w": 158
       },
       {
        "bbox": [
         2,
         2,
-        119,
-        228
+        146,
+        159
        ],
        "facing": "left",
        "feet": [
-        38,
-        230
+        78,
+        161
        ],
-       "h": 232,
+       "h": 163,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/left/walk-02.png",
        "quality": "genuine",
-       "visible": 16174,
-       "w": 123
+       "visible": 7505,
+       "w": 150
       },
       {
        "bbox": [
         2,
         2,
-        115,
-        226
+        143,
+        160
        ],
        "facing": "left",
        "feet": [
-        36,
-        228
+        88,
+        162
        ],
-       "h": 230,
+       "h": 164,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/left/walk-03.png",
        "quality": "genuine",
-       "visible": 15496,
-       "w": 119
+       "visible": 8444,
+       "w": 147
       }
      ]
     },
@@ -1907,75 +1914,78 @@
       "bbox": [
        2,
        2,
-       121,
-       228
+       136,
+       160
       ],
       "facing": "right",
       "feet": [
-       85,
-       230
+       72,
+       162
       ],
-      "h": 232,
-      "note": "first of the sheet walk frames (no separate idle on the sheet)",
+      "h": 164,
+      "note": "Native-generated identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/bulma/overworld/right/idle.png",
       "quality": "genuine",
-      "visible": 15918,
-      "w": 125
+      "visible": 7026,
+      "w": 140
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        118,
-        227
+        154,
+        156
        ],
        "facing": "right",
        "feet": [
-        82,
-        229
+        77,
+        158
        ],
-       "h": 231,
+       "h": 160,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/right/walk-01.png",
        "quality": "genuine",
-       "visible": 16078,
-       "w": 122
+       "visible": 8557,
+       "w": 158
       },
       {
        "bbox": [
         2,
         2,
-        116,
-        227
+        134,
+        151
        ],
        "facing": "right",
        "feet": [
-        75,
-        229
+        56,
+        153
        ],
-       "h": 231,
+       "h": 155,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/right/walk-02.png",
        "quality": "genuine",
-       "visible": 15466,
-       "w": 120
+       "visible": 7654,
+       "w": 138
       },
       {
        "bbox": [
         2,
         2,
-        121,
-        228
+        147,
+        159
        ],
        "facing": "right",
        "feet": [
-        85,
-        230
+        26,
+        161
        ],
-       "h": 232,
+       "h": 163,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/right/walk-03.png",
        "quality": "genuine",
-       "visible": 15918,
-       "w": 125
+       "visible": 8537,
+       "w": 151
       }
      ]
     },
@@ -1984,75 +1994,78 @@
       "bbox": [
        2,
        2,
-       99,
-       231
+       143,
+       152
       ],
       "facing": "back",
       "feet": [
-       48,
-       233
+       75,
+       154
       ],
-      "h": 235,
-      "note": "first of the sheet walk frames (no separate idle on the sheet)",
+      "h": 156,
+      "note": "Native-generated identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/bulma/overworld/up/idle.png",
       "quality": "genuine",
-      "visible": 15658,
-      "w": 103
+      "visible": 7946,
+      "w": 147
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        100,
-        230
+        154,
+        158
        ],
        "facing": "back",
        "feet": [
-        46,
-        232
+        108,
+        160
        ],
-       "h": 234,
+       "h": 162,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/up/walk-01.png",
        "quality": "genuine",
-       "visible": 15923,
-       "w": 104
+       "visible": 7945,
+       "w": 158
       },
       {
        "bbox": [
         2,
         2,
-        101,
-        233
+        154,
+        160
        ],
        "facing": "back",
        "feet": [
-        58,
-        235
+        65,
+        162
        ],
-       "h": 237,
+       "h": 164,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/up/walk-02.png",
        "quality": "genuine",
-       "visible": 16336,
-       "w": 105
+       "visible": 8424,
+       "w": 158
       },
       {
        "bbox": [
         2,
         2,
-        99,
-        231
+        150,
+        159
        ],
        "facing": "back",
        "feet": [
-        48,
-        233
+        102,
+        161
        ],
-       "h": 235,
+       "h": 163,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/bulma/overworld/up/walk-03.png",
        "quality": "genuine",
-       "visible": 15658,
-       "w": 103
+       "visible": 7928,
+       "w": 154
       }
      ]
     }
@@ -2061,22 +2074,22 @@
     "bbox": [
      2,
      2,
-     277,
-     296
+     117,
+     86
     ],
     "facing": "front",
     "feet": [
-     144,
-     298
+     46,
+     88
     ],
-    "h": 300,
-    "note": "first (neutral) expression of the sheet; other expressions not exposed by the registry",
+    "h": 90,
+    "note": "Portrait crop derived from the generated front-facing overworld idle.",
     "path": "assets/npcs/bulma/portrait.png",
-    "quality": "genuine",
-    "visible": 60698,
-    "w": 281
+    "quality": "derived",
+    "visible": 5120,
+    "w": 121
    },
-   "provenance": "art/handoff/npcs/bulma.png (hand-checked contact sheets docs/art-evidence/h2-review-npc*.png); no sprite mirrored",
+   "provenance": "art/production/characters/bulma-overworld-4x4.png; native-generated with installed Bulma NPC reference; 4x4 rows down/left/right/up, columns idle/walk-01/02/03; sliced by tools/art_final_content.py",
    "provisional": false
   },
   "cell-husk": {
@@ -9440,26 +9453,26 @@
      "bbox": [
       2,
       2,
-      114,
-      198
+      126,
+      148
      ],
-     "facing": "right",
+     "facing": "front",
      "feet": [
-      65,
-      200
+      58,
+      150
      ],
-     "h": 202,
-     "note": "NPC has no battle art; scaled overworld idle",
+     "h": 152,
+     "note": "Stable neutral pose reused from the generated front-facing overworld sheet.",
      "path": "assets/npcs/kami/battle/idle.png",
-     "quality": "procedural_fallback",
-     "visible": 16506,
-     "w": 118
+     "quality": "genuine",
+     "visible": 9536,
+     "w": 130
     }
    },
    "displayHeight": 100,
    "displayName": "Kami",
    "facing": "front",
-   "fallbackReason": "missing-art: kami npc (05-story is REVIEW-ONLY; procedural placeholder)",
+   "fallbackReason": null,
    "id": "kami",
    "kind": "npc",
    "overworld": {
@@ -9468,75 +9481,78 @@
       "bbox": [
        2,
        2,
-       60,
-       105
+       126,
+       148
       ],
       "facing": "front",
       "feet": [
-       35,
-       107
+       58,
+       150
       ],
-      "h": 109,
-      "note": "tool-drawn placeholder chibi",
+      "h": 152,
+      "note": "Native-generated, identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/kami/overworld/down/idle.png",
-      "quality": "procedural_fallback",
-      "visible": 4842,
-      "w": 64
+      "quality": "genuine",
+      "visible": 9536,
+      "w": 130
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        60,
-        105
+        153,
+        147
        ],
        "facing": "front",
        "feet": [
-        35,
-        107
+        77,
+        149
        ],
-       "h": 109,
+       "h": 151,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/down/walk-01.png",
-       "quality": "procedural_fallback",
-       "visible": 4842,
-       "w": 64
+       "quality": "genuine",
+       "visible": 9354,
+       "w": 157
       },
       {
        "bbox": [
         2,
         2,
-        60,
-        105
+        121,
+        144
        ],
        "facing": "front",
        "feet": [
-        35,
-        107
+        58,
+        146
        ],
-       "h": 109,
+       "h": 148,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/down/walk-02.png",
-       "quality": "procedural_fallback",
-       "visible": 4842,
-       "w": 64
+       "quality": "genuine",
+       "visible": 9393,
+       "w": 125
       },
       {
        "bbox": [
         2,
         2,
-        60,
-        105
+        146,
+        142
        ],
        "facing": "front",
        "feet": [
-        35,
-        107
+        84,
+        144
        ],
-       "h": 109,
+       "h": 146,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/down/walk-03.png",
-       "quality": "procedural_fallback",
-       "visible": 4842,
-       "w": 64
+       "quality": "genuine",
+       "visible": 9118,
+       "w": 150
       }
      ]
     },
@@ -9545,75 +9561,78 @@
       "bbox": [
        2,
        2,
-       57,
-       105
+       97,
+       150
       ],
       "facing": "left",
       "feet": [
-       24,
-       107
+       44,
+       152
       ],
-      "h": 109,
-      "note": "tool-drawn placeholder chibi",
+      "h": 154,
+      "note": "Native-generated, identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/kami/overworld/left/idle.png",
-      "quality": "procedural_fallback",
-      "visible": 4329,
-      "w": 61
+      "quality": "genuine",
+      "visible": 8064,
+      "w": 101
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        57,
-        105
+        122,
+        148
        ],
        "facing": "left",
        "feet": [
-        24,
-        107
+        70,
+        150
        ],
-       "h": 109,
+       "h": 152,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/left/walk-01.png",
-       "quality": "procedural_fallback",
-       "visible": 4320,
-       "w": 61
+       "quality": "genuine",
+       "visible": 7973,
+       "w": 126
       },
       {
        "bbox": [
         2,
         2,
-        57,
-        105
+        114,
+        145
        ],
        "facing": "left",
        "feet": [
-        24,
-        107
+        50,
+        147
        ],
-       "h": 109,
+       "h": 149,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/left/walk-02.png",
-       "quality": "procedural_fallback",
-       "visible": 4329,
-       "w": 61
+       "quality": "genuine",
+       "visible": 8050,
+       "w": 118
       },
       {
        "bbox": [
         2,
         2,
-        57,
-        105
+        129,
+        141
        ],
        "facing": "left",
        "feet": [
-        28,
-        107
+        89,
+        143
        ],
-       "h": 109,
+       "h": 145,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/left/walk-03.png",
-       "quality": "procedural_fallback",
-       "visible": 4401,
-       "w": 61
+       "quality": "genuine",
+       "visible": 7976,
+       "w": 133
       }
      ]
     },
@@ -9622,75 +9641,78 @@
       "bbox": [
        2,
        2,
-       57,
-       105
+       118,
+       146
       ],
       "facing": "right",
       "feet": [
-       34,
-       107
+       70,
+       148
       ],
-      "h": 109,
-      "note": "tool-drawn placeholder chibi",
+      "h": 150,
+      "note": "Native-generated, identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/kami/overworld/right/idle.png",
-      "quality": "procedural_fallback",
-      "visible": 4374,
-      "w": 61
+      "quality": "genuine",
+      "visible": 7929,
+      "w": 122
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        57,
-        105
+        117,
+        149
        ],
        "facing": "right",
        "feet": [
-        34,
-        107
+        48,
+        151
        ],
-       "h": 109,
+       "h": 153,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/right/walk-01.png",
-       "quality": "procedural_fallback",
-       "visible": 4374,
-       "w": 61
+       "quality": "genuine",
+       "visible": 8010,
+       "w": 121
       },
       {
        "bbox": [
         2,
         2,
-        57,
-        105
+        148,
+        144
        ],
        "facing": "right",
        "feet": [
-        34,
-        107
+        88,
+        146
        ],
-       "h": 109,
+       "h": 148,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/right/walk-02.png",
-       "quality": "procedural_fallback",
-       "visible": 4374,
-       "w": 61
+       "quality": "genuine",
+       "visible": 7870,
+       "w": 152
       },
       {
        "bbox": [
         2,
         2,
-        57,
-        105
+        111,
+        148
        ],
        "facing": "right",
        "feet": [
-        30,
-        107
+        104,
+        150
        ],
-       "h": 109,
+       "h": 152,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/right/walk-03.png",
-       "quality": "procedural_fallback",
-       "visible": 4482,
-       "w": 61
+       "quality": "genuine",
+       "visible": 7941,
+       "w": 115
       }
      ]
     },
@@ -9699,75 +9721,78 @@
       "bbox": [
        2,
        2,
-       60,
-       105
+       124,
+       149
       ],
       "facing": "back",
       "feet": [
-       35,
-       107
+       50,
+       151
       ],
-      "h": 109,
-      "note": "tool-drawn placeholder chibi",
+      "h": 153,
+      "note": "Native-generated, identity-matched transparent 4x4 sheet; neutral directional pose.",
       "path": "assets/npcs/kami/overworld/up/idle.png",
-      "quality": "procedural_fallback",
-      "visible": 4842,
-      "w": 64
+      "quality": "genuine",
+      "visible": 9735,
+      "w": 128
      },
      "walk": [
       {
        "bbox": [
         2,
         2,
-        60,
-        105
+        118,
+        144
        ],
        "facing": "back",
        "feet": [
-        35,
-        107
+        41,
+        146
        ],
-       "h": 109,
+       "h": 148,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/up/walk-01.png",
-       "quality": "procedural_fallback",
-       "visible": 4842,
-       "w": 64
+       "quality": "genuine",
+       "visible": 9527,
+       "w": 122
       },
       {
        "bbox": [
         2,
         2,
-        60,
-        105
+        131,
+        146
        ],
        "facing": "back",
        "feet": [
-        35,
-        107
+        81,
+        148
        ],
-       "h": 109,
+       "h": 150,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/up/walk-02.png",
-       "quality": "procedural_fallback",
-       "visible": 4842,
-       "w": 64
+       "quality": "genuine",
+       "visible": 9629,
+       "w": 135
       },
       {
        "bbox": [
         2,
         2,
-        60,
-        105
+        123,
+        150
        ],
        "facing": "back",
        "feet": [
-        35,
-        107
+        68,
+        152
        ],
-       "h": 109,
+       "h": 154,
+       "note": "Native-generated neighboring walk pose from the same directional row.",
        "path": "assets/npcs/kami/overworld/up/walk-03.png",
-       "quality": "procedural_fallback",
-       "visible": 4842,
-       "w": 64
+       "quality": "genuine",
+       "visible": 9373,
+       "w": 127
       }
      ]
     }
@@ -9776,23 +9801,23 @@
     "bbox": [
      2,
      2,
-     196,
-     210
+     126,
+     83
     ],
     "facing": "front",
     "feet": [
-     100,
-     212
+     50,
+     85
     ],
-    "h": 214,
-    "note": "tool-drawn placeholder portrait (single expression)",
+    "h": 87,
+    "note": "Portrait crop derived from the generated front-facing overworld idle.",
     "path": "assets/npcs/kami/portrait.png",
-    "quality": "procedural_fallback",
-    "visible": 29204,
-    "w": 200
+    "quality": "derived",
+    "visible": 5355,
+    "w": 130
    },
-   "provenance": "tool-drawn pixel art (tools/art_procedural.py); original design, no source art used",
-   "provisional": true
+   "provenance": "art/production/characters/kami-overworld-4x4.png; native-generated with installed AOTS3 hero/NPC references; 4x4 rows down/left/right/up, columns idle/walk-01/02/03; sliced by tools/art_final_content.py",
+   "provisional": false
   },
   "king-cold": {
    "approved": false,
@@ -17316,16 +17341,16 @@
   "father_son_finale": {
    "approved": false,
    "h": 941,
-   "path": "assets/cinematics/father-son-kamehameha.png",
-   "provenance": "art/production/cinematics/father-son-kamehameha.png; native Codex image generation; candidate pending human review",
+   "path": "assets/cinematics/father-son-kamehameha-pixel-v2.png",
+   "provenance": "art/production/cinematics/father-son-kamehameha-pixel-v2.png; native Codex image generation; candidate pending human review",
    "quality": "genuine",
    "w": 1672
   },
   "gohan_ssj2_awakening": {
    "approved": false,
    "h": 941,
-   "path": "assets/cinematics/gohan-ssj2-awakening.png",
-   "provenance": "art/production/cinematics/gohan-ssj2-awakening.png; native Codex image generation; candidate pending human review",
+   "path": "assets/cinematics/gohan-ssj2-awakening-pixel-v2.png",
+   "provenance": "art/production/cinematics/gohan-ssj2-awakening-pixel-v2.png; native Codex image generation; candidate pending human review",
    "quality": "genuine",
    "w": 1672
   },
@@ -17346,7 +17371,7 @@
    "w": 1672
   }
  },
- "generatedAt": "2026-11-05T23:39:42+00:00",
+ "generatedAt": "2026-11-06T09:43:20+00:00",
  "itemIcons": {
   "anti_drain_charm": "assets/ui/items/anti_drain_charm.png",
   "antidote": "assets/ui/items/antidote.png",
@@ -21674,6 +21699,50 @@
      "path": "assets/worlds/capsule_corp/props/planter.png",
      "solid": true,
      "w": 23
+    },
+    "plaza_planter": {
+     "bbox": [
+      3,
+      4,
+      84,
+      59
+     ],
+     "facing": "front",
+     "feet": [
+      46,
+      63
+     ],
+     "footH": 1,
+     "footW": 3,
+     "h": 80,
+     "note": "Native-generated transparent Capsule Corp plaza planter; mirrored foliage variation for natural placement.",
+     "path": "assets/worlds/capsule_corp/props/plaza_planter.png",
+     "quality": "genuine",
+     "solid": false,
+     "visible": 2231,
+     "w": 91
+    },
+    "plaza_planter_b": {
+     "bbox": [
+      4,
+      4,
+      84,
+      59
+     ],
+     "facing": "front",
+     "feet": [
+      45,
+      63
+     ],
+     "footH": 1,
+     "footW": 3,
+     "h": 80,
+     "note": "Native-generated transparent Capsule Corp plaza planter; mirrored foliage variation for natural placement.",
+     "path": "assets/worlds/capsule_corp/props/plaza_planter_b.png",
+     "quality": "genuine",
+     "solid": false,
+     "visible": 2231,
+     "w": 91
     },
     "pool": {
      "footH": 1,

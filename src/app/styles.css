@@ -234,14 +234,17 @@ small { font-size: 0.8em; color: var(--mute); }
 .hud-hero { width: 9.5em; background: rgba(10, 16, 40, 0.85); border: 2px solid var(--line); border-radius: 4px; padding: 0.2em 0.4em; font-size: 0.85em; }
 .hud-map-tools { position: absolute; top: 1.5%; right: 1.5%; width: clamp(13rem, 19vw, 16rem); display: flex; flex-direction: column; align-items: stretch; gap: 0.35em; }
 .hud-map-tools .btn { align-self: flex-end; }
-.minimap-card { padding: 0.35em; background: rgba(7, 12, 29, 0.91); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 3px 14px rgba(0,0,0,0.55); }
-.minimap-title { display: flex; justify-content: space-between; gap: 0.6em; padding: 0 0.15em 0.2em; color: var(--gold); font-size: 0.72em; }
+.minimap-card { padding: 0.42em; background: linear-gradient(145deg, rgba(19, 30, 47, 0.96), rgba(5, 12, 26, 0.96)); border: 1px solid rgba(226, 195, 124, 0.56); border-radius: 7px; box-shadow: 0 5px 20px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.05); }
+.minimap-title { display: flex; justify-content: space-between; gap: 0.6em; padding: 0.05em 0.16em 0.3em; color: #eac879; font-size: 0.7em; letter-spacing: 0.06em; text-transform: uppercase; }
 .minimap-title b { white-space: nowrap; }
 .minimap-title span { color: var(--text); text-align: right; }
-.world-map-diagram { display: block; width: 100%; aspect-ratio: var(--map-aspect, 1.6); max-height: 14em; background: #263c32; border: 1px solid rgba(207, 216, 242, 0.35); shape-rendering: crispEdges; }
-.minimap-diagram { max-height: 8.5em; }
+.world-map-diagram { display: block; width: 100%; aspect-ratio: var(--map-aspect, 1.6); max-height: 14em; background: #263c32; border: 1px solid rgba(207, 216, 242, 0.35); border-radius: 3px; shape-rendering: crispEdges; }
+.minimap-diagram { max-height: 8.5em; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+.map-frame { fill: none; stroke: rgba(245, 218, 155, 0.68); stroke-width: 0.12; vector-effect: non-scaling-stroke; }
 .map-camera { fill: rgba(255,255,255,0.08); stroke: rgba(255,255,255,0.62); stroke-width: 0.11; vector-effect: non-scaling-stroke; }
 .map-player path { fill: #eaf0ff; stroke: #0b1330; stroke-width: 0.1; vector-effect: non-scaling-stroke; }
+.map-player-halo { fill: #8cecff; fill-opacity: .3; stroke: #d8fbff; stroke-width: .08; vector-effect: non-scaling-stroke; }
+.map-goal-halo { fill: #ffd166; fill-opacity: .2; stroke: #ffd166; stroke-opacity: .76; stroke-width: .08; vector-effect: non-scaling-stroke; }
 .map-goal { fill: #ffd166; stroke: #362100; stroke-width: 0.08; vector-effect: non-scaling-stroke; }
 .map-exit { fill: #48d5e8; stroke: #082d39; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
 .map-chest { fill: #f0b84b; stroke: #392000; stroke-width: 0.07; vector-effect: non-scaling-stroke; }

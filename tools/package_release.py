@@ -6,9 +6,15 @@ REL = os.path.join(ROOT, 'release')
 os.makedirs(REL, exist_ok=True)
 NAME = 'AOTS3-Cell-Saga-Polish-Preview-2026-11-06'
 SKIP_DIRS = {'node_modules', '.git', 'release', 'legacy', 'dist-test', '__pycache__', 'AOTS3-CELL-SAGA-ART-INTEGRATION-BUNDLE', '.vite'}
+LOCAL_ART_INPUT_DIRS = {'source', 'handoff', 'patch'}
 def add_tree(z, src, arc_root, skip_names=()):
     for d, dirs, files in os.walk(src):
         dirs[:] = [x for x in dirs if x not in SKIP_DIRS]
+        # Large bundle/working inputs are intentionally ignored by Git and
+        # must stay out of deliverables too. `art/production` contains the
+        # retained source art needed to reproduce the final-content additions.
+        if os.path.abspath(src) == os.path.join(ROOT, 'art'):
+            dirs[:] = [x for x in dirs if x not in LOCAL_ART_INPUT_DIRS]
         # Full-source deliveries include the runnable E2E/tests, not local run
         # logs or debug screenshots. Curated, reviewable evidence lives in docs.
         if os.path.abspath(src) == os.path.join(ROOT, 'tests'):
@@ -45,6 +51,7 @@ with zipfile.ZipFile(art_zip, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as z:
     add_tree(z, os.path.join(ROOT, 'art'), NAME + '-art')
     checksums = []
     for d, dirs, files in os.walk(os.path.join(ROOT, 'art')):
+        dirs[:] = [x for x in dirs if x not in LOCAL_ART_INPUT_DIRS]
         for f in files:
             p = os.path.join(d, f)
             if f.endswith('.pyc'): continue

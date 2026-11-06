@@ -15,7 +15,7 @@ Entities: zone ×1, sign ×1, npc ×2, chest ×2, foe ×2
 
 ## Capsule Corporation (`capsule_corp`, 40x30 tiles)
 
-Music hub; encounters: none; props 18.
+Music hub; encounters: none; props 20.
 
 Entities: save ×1, heal ×1, shop ×1, travel ×1, npc ×6, chest ×2, exit ×1
 

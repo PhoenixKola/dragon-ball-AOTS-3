@@ -32,6 +32,8 @@ function capsule(): MapDef {
   m.speckle('.', ',', 6);
   // paved courtyard
   m.fill(6, 11, 28, 15, '=').fill(18, 9, 4, 3, '=').fill(36, 13, 4, 4, '=');
+  // low capsule-white planters frame the service square without narrowing its route
+  m.prop('plaza_planter', 15, 16, 3, 1, false).prop('plaza_planter_b', 22, 16, 3, 1, false);
   // main building
   m.fill(8, 2, 24, 8, '#');
   m.prop('building_big', 8, 3, 6, 4).prop('building_big', 26, 3, 6, 4).prop('capsule_dome', 14, 2, 12, 7);
