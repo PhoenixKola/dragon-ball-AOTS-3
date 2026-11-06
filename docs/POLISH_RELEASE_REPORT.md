@@ -1,47 +1,51 @@
-# AOTS3 polish preview report — 5 November 2026
+# AOTS3 Cell Saga overhaul — Batch G integration report
 
-This is an **incomplete overhaul preview**, not a finished M0-M5 release. The master prompt's art, animation, world, UI, audio, balance and human sign-off gates remain open. The owner has now authorized batch commits/pushes; no deployment, paid service or remote-setting change is involved.
+**Build reviewed:** 6 November 2026, Windows x64 / browser preview. **Scope:** final campaign, postgame, release, and integration verification after batches A–F. This is a technical completion report; it does not claim human approval of art, play feel, audio, hardware controls, or clean-PC installation.
 
-## Changes that can be reviewed now
+## What is included
 
-- Seven native-generated, identity-referenced cinematic PNGs stage Trunks arrival, both Android absorptions, Android 16 destruction, Gohan SSJ2 awakening, Goku sacrifice, and the Father-Son Kamehameha in their existing story sequences. Original outputs are retained in `art/production/cinematics/`; `tools/art_cinematics.py` installs reproducible runtime copies in `public/assets/cinematics/`.
-- The cutscene player supports a short `keyframe` step with reduced-motion handling and scene-clock shutdown flush. The normal script, story flags and save format are untouched.
-- Battle scene shutdown now resolves pending scene-clock and projectile/tween waits. The target marker follows the actor's current vertical position.
-- World NPCs now use pixel feet-position depth, matching props and the player; map collision and entity coordinates are unchanged.
-- Ginger Town uses a new transparent mist sprite and additional nonblocking abandoned-street props from the existing world art. A real-browser image at `tests/logs/screens/polish/gingertown-after.png` shows the current result; the repeating terrain/house composition still needs a full art pass.
-- The registry and art audits now account for cinematic PNGs. Release packaging can produce separate source, browser player, source-art and Electron Windows archives.
+- Batch A established the baseline, art bible, provenance and visual evidence workflow.
+- Batch B rebuilt the Ginger Town and Gohan vs Perfect Cell pilot, including the playable cellar rescue, escort follower and evacuation.
+- Batch C applied combat timing and feedback, command clarity and truthful effects across the combat presentation families.
+- Batch D refreshed and inspected all 12 regions, props and regional battle stages.
+- Batch E refined all 15 cutscene camera definitions and the transformation sequence. Trunks changes form on the release beat; the aura, ring and lightning sit behind him and stay contained. Global flashes were removed in favor of localized effects. The six real P02 captures in `docs/overhaul-evidence/after/transformations/` include the corrected story and battle sequences.
+- Batch F added stable original motifs for all 22 music keys, seven offline ambient beds, transformation charge/release/impact audio, and the attack-versus-guard Ki rebalance. Basic Attack and Guard each restore 6 Ki; Attack also deals damage. Routine attacks no longer prompt repeated guard timing, and one guard covers a multi-hit move against one hero.
+- Batch G completed natural campaign and postgame runs, release packaging, Electron smoke, and artifact cleanup. The real postgame hub is captured at `docs/overhaul-evidence/after/campaign-postgame.png`.
 
-## Before and after evidence
+## Final integration evidence
 
-The historical baseline captures at `tests/logs/screens/playthrough/` show the 12 maps, Cell Games battles, credits and postgame. The current real-browser keyframe captures `keyframe-gohan_ssj2_awakening-step-08.png`, `keyframe-gohan_ssj2_awakening-step-16.png`, `keyframe-goku_sacrifice-step-17.png`, and `keyframe-father_son_finale-step-09.png` show distinct sequential frames in their actual cutscenes. The Android 16 destruction capture precedes Gohan's SSJ2 transformation in the scene. `tests/logs/screens/polish/gingertown-after.png` shows the changed map. The in-app browser host was unavailable, so Chrome was driven by the project E2E tools. `docs/ui-evidence/` is a React overlay harness and does not show the Phaser world/battle render, so it is not used as full-game approval.
+| Check | Result |
+|---|---|
+| `npm test` | 591 passed across 12 files (recorded during Batch G; logs are local and excluded from source archives) |
+| `npm run build` | Passed TypeScript and production Vite build. Vite printed two mixed dynamic/static import chunk warnings for `items.ts` and `enemies.ts`; output completed successfully. |
+| `npm run pack:win` | Produced the Windows x64 Electron app folder from the current production build. |
+| `node tests/e2e/electron-smoke.mjs` | 13/13 passed: title/audio unlock and crossfade, world, keyboard movement, save and relaunch persistence, no external requests or page errors, and Electron security defaults. |
+| `node tests/e2e/checks.mjs` | 15/15 passed: corrupt/legacy save recovery, persistence, three desktop viewport sizes without horizontal overflow, settings persistence, earned story-save load, zero browser errors/network requests, and software-rendered frame sampling. Measured 53/52/51 FPS at 1024×600, 1280×720 and 1920×1080 respectively; these are headless software-GL samples, not a modest-PC benchmark. |
+| `node tests/e2e/battle-controls.mjs` | Passed mouse/keyboard technique, item, target and back controls. |
+| `python tools/audit_assets.py` | 1,071 frames, 50 actors, 12 worlds, 42 VFX families; 0 warnings, errors or orphan frames. |
+| `node tools/audit_runtime_assets.mjs` | 1,682 runtime paths; 0 missing or invalid assets. |
+| Fresh Normal browser route | 30/30 beats, 29 story battles plus six random encounters, 35 wins, 0 defeats, 1,013 movement steps; all 15 unique cutscene IDs captured from their actual story triggers; no page errors or external requests. Progress was earned through regular play; no campaign flags, XP boosts or mandatory-stage skips were used. |
+| Postgame simulations | `SIM_JUNIORS`, `SIM_PERFECT` and `SIM_SUPER` each cleared through the real Capsule Corp console and battle engine using the earned beat-30 save; no page errors or external requests. |
 
-## Executed checks
+The viewport and performance check is a smoke sample only. Browser route evidence is generated by an automation policy that reads engine state for decisions; it is not a human playtest. The final postgame image shows Capsule Corp after the Cell Saga, not the credits screen. All 15 cutscene-trigger screenshots from the latest natural route are preserved in `docs/overhaul-evidence/after/story-sweep/`; historical and other cinematic captures are indexed in `docs/OVERHAUL_VISUAL_EVIDENCE_INDEX.md`.
 
-| Command | Result | Scope |
-|---|---|---|
-| `npm run typecheck` | exit 0 | TypeScript |
-| `npm run lint` | exit 0 | ESLint |
-| `npm test` | exit 0, 580 tests | Unit/integration; includes the multi-hit guard and six-seed occasional-guard policy checks |
-| `python tools/build_art.py --only cinematics` and `--only atmosphere` | exit 0 | Copies source artwork to runtime and updates registry |
-| `python tools/audit_assets.py` | exit 0, 0 errors and 0 warnings | 1,050 registry frames; 50 actors; 12 worlds; 36 VFX; no orphan PNGs |
-| `npm run audit:runtime` | exit 0; 1,623 paths, no missing files or invalid PNGs | Runtime asset path/integrity audit |
-| `npm run build` | exit 0 after final artwork and Ginger Town changes | Production browser build |
-| `npm run pack:win` | exit 0 after current build | Offline Electron Windows app directory |
-| `START_SAVE=tests/logs/saves/beat-25.json node tests/e2e/playthrough.mjs` | exit 0; beat 25 to 30, five fights, 34 total wins, zero defeats, zero page errors/network requests | Attentive-guard Normal replay from legitimate save; captures late story keyframes |
-| `START_SAVE=tests/logs/saves/beat-25.json POLICY=occasional node tests/e2e/playthrough.mjs` | exit 0; beat 25 to 30, five fights, 34 total wins, zero defeats, zero page errors/network requests | Guard-light Normal replay (35% success profile) reached credits |
+## Download size cleanup and package delivery
 
-The prior beat-23-to-30 route remains in `tests/logs/e2e-playthrough-attentive.json`. Current beat-25 replays used a legitimately earned save and reached credits in five mandatory fights. Both the attentive and 35%-guard-success Normal profiles finished with 34 total wins, zero defeats, and zero page errors/external requests. The guard-light route confirms an ordinary missed guard does not derail the late campaign in this browser policy; it is not a fresh New Game or human playtest.
+The repository tracked 137 UI-harness PNGs plus their report at about 27.6 MiB raw. They showed the React overlay with a black Phaser canvas and were not real gameplay evidence. They are now excluded from Git and ignored locally; `docs/ui-evidence/README.md` explains how to regenerate them. Curated in-game evidence remains tracked. The source packager also omits local `tests/logs`, `tests/tmp`, and the local UI-harness PNGs; release packages do not include `node_modules` or debug captures. These changes remove avoidable payload without dropping runtime game art or curated evidence.
 
-A further run from a legitimately earned beat-25 save reached credits with four story fights, zero defeats, zero page errors and zero external requests. It verified the preloaded awakening and finale frames. `node tests/e2e/gingertown-shot.mjs` passed from a legitimate beat-11 save with zero page errors and external requests.
+The refreshed Windows app folder was built and smoke-tested. `python tools/package_release.py` produced four preview archives: full source (307 MiB), Windows browser player (108 MiB), raw/source art with checksums (318 MiB), and Electron Windows player (198 MiB). All four passed `ZipFile.testzip()` with zero corrupt members. The full-source archive has 3,777 members and contains all 15 natural-trigger cutscene captures but no `tests/logs`, `node_modules`, UI-harness screenshots, or UI report; the player archive contains bundled `node.exe` and `index.html`; the Electron archive contains the app executable; and the art archive contains 567 source checksums. Archives are local deliverables under `release/`, which is not committed.
 
-The final `npm run lint` and `npm test` both exited 0; the latter passed 579/579. The refreshed Electron app passed `node tests/e2e/electron-smoke.mjs` (13/13), including save persistence across relaunch in an isolated user-data folder. This is not clean-PC installation, audio listening or physical gamepad approval. `python tools/package_release.py` produced four updated preview ZIPs under `release/`; all four passed `ZipFile.testzip()` with no corrupt member. The art-source ZIP contains 540 members and `source-checksums.json`. The Electron and browser-player ZIPs contain the app `.exe`; the browser-player ZIP also contains `runtime/node.exe` and `START_GAME.bat`.
+## Coverage limits and owner review
 
-## Owner review steps
+All 12 map captures and 15 authored camera definitions are present. A final natural route triggered and captured all 15 story sequences; the capture sweep is recorded in the visual evidence index. Existing matrices cover the full 84-skill data and presentation mapping, but this pass did not manually inspect every skill/loadout. Several effects are honest one-shot/variant pulses rather than multi-frame character animation; the art and provenance ledgers identify candidate and derived work. No universal human art approval is claimed.
 
-1. Extract `AOTS3-Cell-Saga-Polish-Preview-2026-11-05-electron-windows.zip` and launch `Attack of the Saiyans III - Cell Saga.exe`. Alternatively extract the browser-player ZIP and run `START_GAME.bat`.
-2. Start New Game and review title audio after the first click, dialogue advance, Ginger Town exploration and interactions, Gohan vs Perfect Cell targeting/guard/beam feedback, the SSJ2 awakening still, Father–Son finale and credits. Use a normal save if continuing from an existing `aots3.cell.v1.*` slot.
-3. Listen to the music and effects, try a physical controller, inspect art at different window sizes, and test extraction on a clean Windows PC. These checks remain **PENDING HUMAN SIGN-OFF**.
+These reviews still require a person:
 
-## Open gates
+- Play the route and judge combat balance, encounter pacing, quest clarity and story flow.
+- Inspect candidate/derived art and approve or request replacements.
+- Listen to all music/effects and review their levels on speakers or headphones.
+- Test a physical gamepad and reconnect/unplug behavior.
+- Extract and launch the Windows package on a clean Windows PC and verify save location.
+- Profile frame pacing, memory, decode time and loading on modest Windows hardware.
 
-Full temporal/character-specific animation coverage for all 84 skills, a refined battle UI, refreshed 12-region art and stages, direction for the remaining cutscenes, original audio treatment, approachable Normal balance, postgame replay, modest-PC performance profiling, and human art/audio/controller/clean-PC review remain open. The current verification proves code/runtime integrity and selected campaign sequences; it is not a finish-quality sign-off.
+See `docs/KNOWN_LIMITATIONS.md`, `docs/FINAL_ACCEPTANCE_MATRIX.md` and `docs/OVERHAUL_EXECUTION_CHECKLIST.md` for the current pending gates and precise checks. Do not interpret automated completion as a human sign-off.

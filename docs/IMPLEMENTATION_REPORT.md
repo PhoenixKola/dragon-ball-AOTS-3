@@ -1,5 +1,7 @@
 # Implementation report — AOTS3 Cell Saga RC1
 
+> **Historical RC1 baseline report, not the current release status.** Subsequent batches A–G updated the game and final verification. See `POLISH_RELEASE_REPORT.md`, `QA_REPORT.md`, `FINAL_ACCEPTANCE_MATRIX.md` and `KNOWN_LIMITATIONS.md` for current results and pending human checks. Details below describe the earlier implementation checkpoint and should not be used as current approval.
+
 Status vocabulary: **PASS** (executed, evidence in `tests/logs`), **FAIL**, **BLOCKED**, **NOT RUN**. See `FINAL_ACCEPTANCE_MATRIX.md` for every gate.
 
 ## What was built

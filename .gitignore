@@ -30,6 +30,9 @@ tests/logs/*.jpg
 # curated before/after set lives under docs/overhaul-evidence instead.
 docs/art-evidence/*
 !docs/art-evidence/MAP_ART_INDEX.md
+# UI-only harness screenshots are regenerable and do not include Phaser scenes.
+docs/ui-evidence/*.png
+docs/ui-evidence/report.json
 tests/tmp/
 
 # local/editor files

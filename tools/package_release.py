@@ -4,11 +4,21 @@ import os, shutil, sys, zipfile, hashlib, json
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REL = os.path.join(ROOT, 'release')
 os.makedirs(REL, exist_ok=True)
-NAME = 'AOTS3-Cell-Saga-Polish-Preview-2026-11-05'
+NAME = 'AOTS3-Cell-Saga-Polish-Preview-2026-11-06'
 SKIP_DIRS = {'node_modules', '.git', 'release', 'legacy', 'dist-test', '__pycache__', 'AOTS3-CELL-SAGA-ART-INTEGRATION-BUNDLE', '.vite'}
 def add_tree(z, src, arc_root, skip_names=()):
     for d, dirs, files in os.walk(src):
         dirs[:] = [x for x in dirs if x not in SKIP_DIRS]
+        # Full-source deliveries include the runnable E2E/tests, not local run
+        # logs or debug screenshots. Curated, reviewable evidence lives in docs.
+        if os.path.abspath(src) == os.path.join(ROOT, 'tests'):
+            dirs[:] = [x for x in dirs if x != 'logs']
+            if os.path.abspath(d) == os.path.join(ROOT, 'tests'):
+                dirs[:] = [x for x in dirs if x != 'tmp']
+        # This local React overlay sweep is intentionally ignored by Git and
+        # contains no Phaser render. Do not leak it into the source archive.
+        if os.path.abspath(src) == os.path.join(ROOT, 'docs') and os.path.abspath(d) == os.path.join(ROOT, 'docs', 'ui-evidence'):
+            files[:] = [x for x in files if not x.endswith('.png') and x != 'report.json']
         for f in files:
             if f in skip_names or f.endswith('.pyc'): continue
             p = os.path.join(d, f)

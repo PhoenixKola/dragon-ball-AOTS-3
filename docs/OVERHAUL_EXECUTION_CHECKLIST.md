@@ -4,7 +4,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 
 **Status key:** `DONE` = batch implementation and exit evidence complete; `ACTIVE` = current batch; `NEXT` = next batch; `QUEUED` = later batch; human-only approvals are tracked separately as `HUMAN / PENDING`.
 
-**Current overall status:** Batches A through F are complete with technical evidence; Batch G is active for final campaign/release QA. The complete overhaul is not finished; human art, play-feel, listening, controller and clean-PC gates remain. Do not translate test count, game feature coverage, or package availability into an overhaul-completion percentage.
+**Current overall status:** Batches A through G have completed their implementation and recorded automated exit evidence. Human art, play-feel, listening, physical controller, clean-PC install and modest-hardware profiling gates remain **HUMAN / PENDING**. Batch G captured all 15 story sequences through natural browser triggers; individual human inspection of all 84 skills remains unclaimed. Do not translate test count, feature coverage, or package availability into an overhaul-completion percentage.
 
 ## Batch sequence
 
@@ -16,7 +16,7 @@ This is the working source of truth for completing `aots3-cell-saga-codex-comple
 | D. Twelve-region exploration and battle stages | M3 | DONE | All 12 regional maps and battle backgrounds are rendered and reviewed. Native-generated ground refinements now cover Capsule Corp courtyard, Rocky Outskirts, Mountain Lab, Lab Interior, Android Island, Lookout, Time Chamber and Cell Games Arena; missing sign/flyer art and generic point markers are replaced with registered art. The fresh Normal route reached beat 23 and captured all 12 maps after movement (27 wins, 1 retry defeat, 0 page errors, 0 external requests); targeted terrain fixtures refreshed the final changed maps. Clean asset/runtime audits report 0 missing files, 0 invalid PNGs and 0 orphan PNGs. Existing layouts, collision, exits, quests and story triggers remain unchanged. |
 | E. Battle & transformation spectacle and story transitions | M2/M3 | DONE | Transformation charge/release/reveal now uses a retained generated ring, matching form aura, restrained camera, behind-actor energy layers, localized accents, unique audio cues and a reveal portrait. All 15 cutscene definitions receive authored, clamped camera framing; form changes reveal on the release beat. The real P02 Normal route captured six story/battle stages with 0 browser errors and 0 external requests. Typecheck, lint, build, runtime and art audits pass. |
 | F. Audio, pacing, difficulty and QoL | M4 | DONE | Stable original four-bar motifs cover all 22 music keys; seven offline region beds route across the 12 maps and stop/crossfade at battles, cutscenes and map changes. Transformation cues align to charge/release/impact. Audio unit checks pass 10/10; the six-seed Normal/Easy policy matrix and guard/offense review are documented. By-ear approval remains HUMAN / PENDING. |
-| G. Performance, release, campaign QA and sign-off | M5 | ACTIVE | Browser build, Windows app folder and preview ZIPs were refreshed at an earlier checkpoint; Electron smoke passed 13/13 and a late route reached credits. Final-build campaign, postgame, accessibility, performance and package checks remain. |
+| G. Performance, release, campaign QA and sign-off | M5 | DONE (technical) | Fresh 30/30 Normal route with 15 natural cutscene captures, all three postgame simulations, current browser/Windows builds, 13/13 Electron smoke, 15/15 browser checks, four verified ZIPs, and updated QA/limitations docs. Human sign-offs and individual visual review of every skill remain pending. |
 
 ## Acceptance ledger
 
@@ -61,7 +61,7 @@ Batch C technical checkpoint: **41 VFX families, 1,070 registered frames, 50 act
 - [x] Integrate candidate stills for Trunks defeating Frieza, Android 17/18 absorptions, Android 16 destruction, SSJ2 awakening, Goku sacrifice and Father-Son finale.
 - [x] Add a distinct, authored establishing camera shot to each of the 15 cutscene definitions. The shared renderer clamps every camera move to the stage, uses letterbox framing and restores the camera after replay; skip and reduced-motion paths apply the same final form/story state.
 - [x] Direct the Trunks SSJ story reveal on the energy-release beat, use his matching SSJ portrait for the reveal line, layer aura and ring behind the actor, and retain distinct absorption effects for Cell/Piccolo form changes. Candidate story art remains HUMAN / PENDING approval.
-- [ ] Capture all 15 stories and major transitions in their real triggered story flow, not by injected campaign flags. This full-route capture sweep remains in Batch G; the targeted P02 transformation capture is in `docs/overhaul-evidence/after/transformations/`.
+- [x] Capture all 15 stories and major transitions in their real triggered story flow, not by injected campaign flags. The final route sweep is indexed in `docs/OVERHAUL_VISUAL_EVIDENCE_INDEX.md`; targeted P02 transformation captures are in `docs/overhaul-evidence/after/transformations/`.
 
 ### M4 â€” Audio, balance, pacing and QoL
 
@@ -70,23 +70,22 @@ Batch C technical checkpoint: **41 VFX families, 1,070 registered frames, 50 act
 - [x] Balance offense against the defensive Guard action: basic attacks now restore 6 Ki (up from 3), while Guard restores 6 (down from 8); both choices fund techniques equally, and the attack also deals damage. Unit coverage verifies the tradeoff; campaign policy runs still clear all six no-guard Normal seeds with two retries each.
 - [x] Fix G05's threshold to match its stated 50% objective. Normal policy test: a route with 10% perfect, 25% good and 65% missed guards clears all six deterministic seeds (five with 0 defeats, one with 4); ordinary average and attentive routes also clear. No-guard Easy clears six seeds.
 - [x] Improve no-guard Normal viability without flattening the full challenge: routine untelegraphed hits no longer force a timing prompt, missed/omitted guards get a modest passive brace, and charged/telegraphed/multi-hit/heavy attacks retain Active Guard. Six no-guard Normal natural-progression campaign seeds now reach credits (two retries each); attentive, average, occasional-guard and no-guard Easy policies also clear all six seeds.
-- [x] Review encounter spacing, quest rewards, loadout/skill choices, healing/shop economy, formations, status/counter clarity and guard pressure against the deterministic campaign policy matrix. Full travel/read-time and all three postgame scenario runs remain in Batch G.
+- [x] Review encounter spacing, quest rewards, loadout/skill choices, healing/shop economy, formations, status/counter clarity and guard pressure against the deterministic campaign policy matrix. All three postgame scenarios cleared in Batch G; full travel/read-time and balance acceptance remain HUMAN / PENDING.
 - [x] Preserve accessible climax controls: Father–Son Kamehameha remains a direct command rather than a mandatory single-frame QTE; existing skip, battle speed and reduced-motion assists remain available.
 - [x] Add stable original themes, map-specific offline ambience, transformation sound phases and signal/routing checks. Preserve sliders, mute, unlock and pause behavior. **Listening/mastering sign-off remains HUMAN / PENDING.**
 
 ### M5 â€” Release, verification, and delivery
 
-- [x] Current browser build, typecheck, lint, 580-test unit/integration suite, asset audit, runtime-path audit and late-story browser run pass at this checkpoint.
-- [x] Refresh Windows Electron folder, browser/source/art-source archives and checksum manifest; all four ZIPs pass integrity inspection; all 536 archived source checksums verify.
-- [x] Current Electron smoke: 13/13, including save persistence after relaunch in an isolated app-data directory.
-- [ ] Run a fresh, normal-progression New Game-to-credits browser playthrough on the final build; include an ordinary imperfect-guard Normal policy and a low-skill Easy policy.
-- [ ] Verify all 29 battles, 10 quests, 12 maps, 15 cutscenes, all 84 skills/loadouts, save recovery, all postgame simulations and critical accessibility paths on the final build.
-- [ ] Capture actual current-game title/UI/map/battle/cinematic/credits/postgame evidence and inspect 3 viewport sizes; resolve baseline browser harness render limitations where possible.
-- [ ] Profile texture count, memory, asset decode, load time, sustained FPS and frame spikes on modest Windows hardware or mark unavailable.
-- [ ] Verify zero external runtime requests, clean extraction/launcher startup and save location. **Clean-PC and physical controller checks are human-only.**
-- [ ] Update every RC1/RC2 report so no historical result reads as current approval; include exact commands, failures and owner review steps.
-- [ ] Obtain human gameplay, art, audio, hardware controller and clean-PC sign-off. Until then mark these gates **HUMAN / PENDING**, never automated PASS.
+- [x] Final production browser build, lint, 591-test unit/integration suite, art/runtime audits, and route QA pass. Vite emits two mixed-import warnings; build succeeds.
+- [x] Refresh the Windows Electron app folder and source/player/art-source/Electron archives. All four ZIPs pass CRC integrity checks; source ZIP excludes local logs, UI-only screenshots, and `node_modules`; art ZIP carries 567 source checksums.
+- [x] Current Electron smoke passes 13/13, including save persistence after relaunch in isolated app data.
+- [x] Fresh normal-progression route: 30/30 beats, 34 wins, zero defeats, no browser errors/external requests; then all three postgame simulations clear on the earned save. This is automated policy evidence, not a human playtest.
+- [x] Confirm 12 world captures, viewport/save recovery checks (15/15), battle controls, and zero external requests. Existing data/regression matrices cover combat, skills, maps, quests and story contracts.
+- [x] Trigger and capture all 15 distinct cutscene sequences in natural browser story flow. Individual human inspection of all 84 skills/loadouts remains **HUMAN / PENDING**.
+- [x] Record software-GL FPS samples at three desktop viewports. Modest Windows hardware, memory, frame spikes, decode and load profiling were unavailable; documented as not run rather than implied complete.
+- [x] Update the current QA report, acceptance matrix, known limitations, final pass notes, visual evidence index and release report to remove stale RC1/RC2 claims.
+- [ ] Obtain human gameplay, art, audio, physical controller, and clean-PC Windows sign-off. Until then mark these gates **HUMAN / PENDING**, never automated PASS.
 
 ## Batch publishing rule
 
-Per the owner's latest instruction, commit and push only after a batch's implementation and stated verification have passed. Keep each commit scoped to that batch, preserve existing source/generated PNG provenance, and do not deploy or publish a release. If a batch fails its exit checks, fix it before committing/pushing.
+Per the owner's latest instruction, commit and push only after a batch's implementation and stated verification have passed. Keep each commit scoped to that batch, preserve existing source/generated PNG provenance, and do not deploy or publish a release. If a batch fails its exit checks, fix it before committing/pushing. Human review items above are still pending and are not represented as technical passes.

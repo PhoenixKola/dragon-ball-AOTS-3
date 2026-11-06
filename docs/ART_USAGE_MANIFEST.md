@@ -1,6 +1,8 @@
 # Art usage manifest and provenance
 
-## Current RC2 status
+## RC2 integration ledger and current supplement
+
+The integration table below started as the RC2 pass and retains its source/registry details. The current art audit is 1,071 frames, 50 actors, 12 worlds and 42 VFX families with zero errors, warnings or orphan frames. Batch D integrated regional battle backgrounds and selected ground/landmark refinements; Batch E added and corrected transformation staging, aura depth and story reveal timing. Candidate/derived quality labels and `approved=false` remain accurate until the owner reviews and approves the art. See `POLISH_RELEASE_REPORT.md` and `KNOWN_LIMITATIONS.md` for the current scope.
 
 The generated registry (`src/data/artRegistry.generated.json`) is the authority for individual frame provenance, quality, and `provisional` / `approved` flags. The pipeline now applies `art/handoff`, `art/handoff2`, and `art/patch` in `tools/build_art.py`. The earlier summary table below records the first handoff pass and is retained for its technical notes; its claims that NPC, villain, regular-enemy, and base-hero replacement sheets are **not integrated** are superseded. Those sheets were integrated in the RC2 pass described in `FINAL_PASS_NOTES.md`.
 

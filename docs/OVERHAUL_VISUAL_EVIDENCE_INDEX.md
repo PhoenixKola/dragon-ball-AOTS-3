@@ -4,7 +4,7 @@ This index preserves a concise before/after review set for the M0 baseline and a
 
 ## Capture rules
 
-- `before/` combines the October RC baseline captures with pre-follow-up combat captures. The original `docs/ui-evidence/` set is UI-harness evidence: its Phaser canvas is black, so it verifies the React overlay only and must not be used to approve world or battle rendering.
+- `before/` combines the October RC baseline captures with pre-follow-up combat captures. The generated `docs/ui-evidence/` set was a UI-harness sweep: its Phaser canvas is black, so it verifies only the React overlay. Its PNGs are excluded from Git to keep the project download smaller; regenerate them with `node tests/e2e/ui-shots.mjs` if needed.
 - `after/` uses fresh New Game screenshots for the opening, menu and P01 interaction states, plus real Phaser captures from natural story progress and isolated prop/VFX QA fixtures. Test-only fixtures are identified below and are not campaign-completion evidence.
 - Human art approval remains separate from this technical visual review. Generated keyframes and props remain `approved=false` until owner review.
 
@@ -15,7 +15,7 @@ This index preserves a concise before/after review set for the M0 baseline and a
 | Title | [`before/title-ui-only.png`](overhaul-evidence/before/title-ui-only.png) | [`after/title.png`](overhaul-evidence/after/title.png) | Before image is UI-harness-only; current image is a real fresh-game Phaser capture. |
 | Opening dialogue | [`before/opening-dialogue.png`](overhaul-evidence/before/opening-dialogue.png) | [`after/opening-dialogue.png`](overhaul-evidence/after/opening-dialogue.png) | Both are real game screens; current capture is on a fresh Normal route. |
 | Exploration | [`before/opening-world.png`](overhaul-evidence/before/opening-world.png) | [`after/opening-world.png`](overhaul-evidence/after/opening-world.png), [all 12 regional maps](overhaul-evidence/after/world-maps/) | Twelve actual Phaser map captures are preserved under `after/world-maps/`. The six terrain-final review shots use an earned-save visual fixture; they inspect art and interactions only, not campaign progression. The full set was also captured during fresh Normal progression. |
-| Menu / abilities | [`before/abilities-menu.png`](overhaul-evidence/before/abilities-menu.png) | [`after/main-menu.png`](overhaul-evidence/after/main-menu.png) | Actual menu panel; wider coverage is in the 3-viewport `docs/ui-evidence/menu-*.png` set. |
+| Menu / abilities | [`before/abilities-menu.png`](overhaul-evidence/before/abilities-menu.png) | [`after/main-menu.png`](overhaul-evidence/after/main-menu.png) | Actual menu panel; the generated React overlay sweep is reproducible with `node tests/e2e/ui-shots.mjs` and is not Phaser scene evidence. |
 | Battle input | [`before/battle-input-pre-balance.png`](overhaul-evidence/before/battle-input-pre-balance.png) | [`after/battle-input.png`](overhaul-evidence/after/battle-input.png) | Before shows Attack `+3 Ki` / Guard `+8 Ki`; current P01 is a fresh-game capture after the offensive resource rebalance. |
 | Target selection | [`before/target-selection-ui-only.png`](overhaul-evidence/before/target-selection-ui-only.png) | [`after/target-selection.png`](overhaul-evidence/after/target-selection.png) | Before is overlay-only; after shows the live P01 Phaser target marker and HP rows. |
 | Techniques | [`before/abilities-menu.png`](overhaul-evidence/before/abilities-menu.png) | [`after/technique-list.png`](overhaul-evidence/after/technique-list.png) | Current list shows named techniques, icons, cost and effect summary in the live battle. |
@@ -27,10 +27,32 @@ This index preserves a concise before/after review set for the M0 baseline and a
 | Android Island landmark | [`before/opening-world.png`](overhaul-evidence/before/opening-world.png) | [`after/android-island-pavilion-v2.png`](overhaul-evidence/after/android-island-pavilion-v2.png) | Real Phaser screenshot from an explicitly test-only map fixture; collision was unchanged. |
 | Android 16 / SSJ2 story beat | [`before/cutscene-caption-ui-only.png`](overhaul-evidence/before/cutscene-caption-ui-only.png) | [`after/android16-destruction-in-game.png`](overhaul-evidence/after/android16-destruction-in-game.png), [`after/gohan-ssj2-in-game.png`](overhaul-evidence/after/gohan-ssj2-in-game.png) | Separate real story-flow steps; SSJ2 follows Android 16's destruction. |
 | Absorptions and Trunks arrival | [`before/cutscene-caption-ui-only.png`](overhaul-evidence/before/cutscene-caption-ui-only.png) | [`after/trunks-arrival-in-game.png`](overhaul-evidence/after/trunks-arrival-in-game.png), [`after/cell-absorbs-17-in-game.png`](overhaul-evidence/after/cell-absorbs-17-in-game.png), [`after/cell-absorbs-18-in-game.png`](overhaul-evidence/after/cell-absorbs-18-in-game.png) | Captured at their actual story triggers during a fresh Normal route. |
-| Sacrifice and Father–Son finale | [`before/cutscene-caption-ui-only.png`](overhaul-evidence/before/cutscene-caption-ui-only.png) | [`after/goku-sacrifice-in-game.png`](overhaul-evidence/after/goku-sacrifice-in-game.png), [`after/father-son-finale-in-game.png`](overhaul-evidence/after/father-son-finale-in-game.png) | Captured after natural progression; all 15 cutscene definitions now receive their own camera framing, while the full real-trigger capture sweep remains a Batch G task. |
+| Sacrifice and Father–Son finale | [`before/cutscene-caption-ui-only.png`](overhaul-evidence/before/cutscene-caption-ui-only.png) | [`after/goku-sacrifice-in-game.png`](overhaul-evidence/after/goku-sacrifice-in-game.png), [`after/father-son-finale-in-game.png`](overhaul-evidence/after/father-son-finale-in-game.png) | Captured after natural progression; all 15 cutscene definitions receive their own camera framing. Batch G did not capture every definition through a real story trigger; see `FINAL_ACCEPTANCE_MATRIX.md`. |
 | Transformation staging and reveal | [`before/cutscene-caption-ui-only.png`](overhaul-evidence/before/cutscene-caption-ui-only.png) | [story charge/release/reveal and battle charge/release/reveal](overhaul-evidence/after/transformations/) | Trunks reaches SSJ through the real P02 story unlock and transforms again in the real P02 battle. Aura and shockwave render behind the character; the release capture keeps the face and arena readable. 1x Normal route: 1 win, no defeats, no injected flags, 0 browser errors and 0 external requests. |
-| Credits | [`before/credits-ui-only.png`](overhaul-evidence/before/credits-ui-only.png) | `docs/ui-evidence/credits-1280x720.png` | Credits are HTML presentation; UI capture exists at 1024×600, 1280×720 and 1920×1080. No new credits redesign was part of M0. |
-| Postgame | [`before/postgame-world-render-limitation.png`](overhaul-evidence/before/postgame-world-render-limitation.png) | `tests/logs/screens/checks/postgame-world.png` | Current check uses an earned-progress test save; the black Phaser render limitation is recorded and this is not progression evidence. |
+| Credits | [`before/credits-ui-only.png`](overhaul-evidence/before/credits-ui-only.png) | Existing baseline only; natural route completion is recorded in `tests/logs/e2e-playthrough-attentive.json` | Credits use HTML presentation. The final fresh-route screenshot is the postgame hub, not credits; no new credits screenshot is claimed here. |
+| Postgame | [`before/postgame-world-render-limitation.png`](overhaul-evidence/before/postgame-world-render-limitation.png) | [`after/campaign-postgame.png`](overhaul-evidence/after/campaign-postgame.png) | Actual Phaser Capsule Corp hub capture after an earned 30/30 Normal route; then all three postgame simulations were cleared from the earned save. |
+
+## Natural story cutscene sweep
+
+Each screenshot below was captured while that sequence was active during a fresh Normal route. The browser harness did not set story flags or jump between beats. The sweep finished beat 30 with 35 wins (29 story and 6 random), 0 defeats, and zero browser errors or external requests. Screens show the actual rendered in-engine scene and dialogue/caption state at the capture moment; candidate art remains pending human approval.
+
+| Story sequence | In-game capture |
+|---|---|
+| Opening warning | [`opening`](overhaul-evidence/after/story-sweep/story-opening.png) |
+| Trunks arrives | [`trunks_arrival`](overhaul-evidence/after/story-sweep/story-trunks_arrival.png) |
+| Goku arrives with medicine | [`goku_arrives`](overhaul-evidence/after/story-sweep/story-goku_arrives.png) |
+| Goku's heart virus | [`goku_virus`](overhaul-evidence/after/story-sweep/story-goku_virus.png) |
+| Vegeta's Super Saiyan reveal | [`vegeta_ssj_reveal`](overhaul-evidence/after/story-sweep/story-vegeta_ssj_reveal.png) |
+| Androids awaken | [`androids_awakened`](overhaul-evidence/after/story-sweep/story-androids_awakened.png) |
+| Piccolo merges with Kami | [`kami_merge`](overhaul-evidence/after/story-sweep/story-kami_merge.png) |
+| Cell absorbs Android 17 | [`cell_absorbs_17`](overhaul-evidence/after/story-sweep/story-cell_absorbs_17.png) |
+| Cell absorbs Android 18 | [`cell_absorbs_18`](overhaul-evidence/after/story-sweep/story-cell_absorbs_18.png) |
+| Gohan awakens SSJ2 | [`gohan_ssj2_awakening`](overhaul-evidence/after/story-sweep/story-gohan_ssj2_awakening.png) |
+| Goku's sacrifice | [`goku_sacrifice`](overhaul-evidence/after/story-sweep/story-goku_sacrifice.png) |
+| Cell returns | [`cell_returns`](overhaul-evidence/after/story-sweep/story-cell_returns.png) |
+| Vegeta creates an opening | [`vegeta_opening`](overhaul-evidence/after/story-sweep/story-vegeta_opening.png) |
+| Father–Son Kamehameha | [`father_son_finale`](overhaul-evidence/after/story-sweep/story-father_son_finale.png) |
+| Trunks departs | [`trunks_departure`](overhaul-evidence/after/story-sweep/story-trunks_departure.png) |
 
 ## M1 pilot: Ginger Town rescue and Gohan vs Perfect Cell
 

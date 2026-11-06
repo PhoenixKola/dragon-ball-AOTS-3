@@ -1,51 +1,23 @@
-# 5 November 2026 status note
+# Final acceptance matrix — Batch G technical review
 
-The entries below describe historical RC1/RC2 evidence. They are not final acceptance of the requested complete gameplay/visual overhaul. See POLISH_RELEASE_REPORT.md for the current preview changes, executed checks and open gates.
+Updated 6 November 2026. `PASS` means the listed automated evidence ran; it does not imply human acceptance. The current detailed run ledger is `QA_REPORT.md` and `POLISH_RELEASE_REPORT.md`.
 
-# Final acceptance matrix (RC1)
+| Gate | Status | Evidence / scope |
+|---|---|---|
+| Existing AOTS3 engine, story, saves, 7 heroes, 84 skills, 12 maps and 29 story fights preserved | PASS | Source, story/skill/map matrices, regression suite; no AOTS2/Namek edits. |
+| Baseline audit, art spec, provenance and before/after index | PASS | `POLISH_BASELINE_AUDIT.md`, `ART_STYLE_AND_ANIMATION_SPEC.md`, `ASSET_COVERAGE_AND_PROVENANCE.md`, visual evidence index. |
+| Ginger Town + Gohan/Cell playable pilot | PASS | Real game captures and route evidence; playable cellar rescue, escort and evacuation. |
+| Combat presentation, battle UI, inputs and balance update | PASS (automated) | 84 skill presentation map, control/browser checks, combat/integration suite, guard/offense policy matrix. Human play-feel pending. |
+| All 12 maps and regional battle stages | PASS (technical visual review) | 12 real Phaser map captures, collision/reachability tests and runtime/art audits. Human approval pending. |
+| Transformation flow and 15 camera definitions | PASS (implementation and route captures) | Release-beat form swap, behind-actor aura/ring/lightning; authored cameras and all 15 story IDs captured at natural triggers. Six P02 transformation captures also preserved. |
+| Fresh Normal New Game-to-postgame route | PASS (automated) | 30/30 beats, 29 story battles plus six random encounters, 35 wins, 0 defeats, 1,013 movement steps; 0 page errors/external requests. Actual postgame hub capture preserved. |
+| All three postgame simulations | PASS (automated) | SIM_JUNIORS, SIM_PERFECT, SIM_SUPER cleared using the earned beat-30 save through the game console/battle engine. |
+| Unit/integration suite | PASS | `npm test`: 591 tests in 12 files. |
+| Browser build, lint, asset/runtime integrity | PASS | Build and lint pass; 1,071 art frames/50 actors/12 worlds/42 VFX; 1,682 runtime paths; zero audit errors/warnings/missing/orphans. Two Vite mixed-import warnings remain. |
+| Save recovery, settings, 3 viewports, software-GL FPS samples | PASS (automated) | `checks.mjs` 15/15; no horizontal overflow; 53/52/51 sampled FPS. Not hardware performance certification. |
+| Windows Electron app folder | PASS (automated smoke) | `pack:win`; 13/13 Electron smoke, offline and security defaults, relaunch save persistence. Clean-PC/manual extraction remains pending. |
+| Release ZIP integrity/contents | PASS | Four 6 November 2026 archives pass CRC checks; source has no logs/UI-only images/node_modules, player and Electron executables are present, and art-source has its checksum manifest. |
+| Every skill/loadout individually inspected; all optional quests manually played | NOT CLAIMED | Broad automated matrices and quest regression checks exist, but this integration pass did not individually inspect every skill/loadout or play every optional quest by hand. |
+| Human art, gameplay, audio, physical controller, clean-PC and modest-PC review | HUMAN / PENDING | See `KNOWN_LIMITATIONS.md` for the exact owner checklist. |
 
-Legend: **PASS (executed and evidenced)**, **PARTIAL**, **FAIL**, **BLOCKED**, **NOT RUN**. "Complete" is deliberately **not** claimed: art is provisional and several verification gates were not run.
-
-| # | Gate (from the master brief) | Status | Evidence / note |
-|---|---|---|---|
-| 1 | Real React + TS + Phaser 3 + Vite app (not the iframe shell) | PASS | `src/**`, `npm run build` log |
-| 2 | Strict typing, `tsc --noEmit`, production `vite build`, lint | PASS | `tests/logs/build.log`, `lint.log` |
-| 3 | Offline, no external requests, isolated `aots3.*` saves | PASS | zero external requests in every E2E run; namespace tests |
-| 4 | 29 mandatory encounters triggered through the world with authored dialogue and distinct objectives (win/threshold/survive/protect/finisher, waves, phases) | PASS | `STORY_ENCOUNTER_MATRIX.md`, simulation + browser playthrough |
-| 5 | 12 regions, collision, doors, exits, chests, NPCs, shops, save/heal, travel | PASS (look is provisional) | map tests (reachability, arrivals), `MAPS_AND_INTERACTABLES.md` |
-| 6 | 7 heroes, 84 distinct skills with 4 customizable slots and disabled reasons | PASS | `ALL_84_SKILLS_MATRIX.md`, 84 per-skill tests, signature-uniqueness test |
-| 7 | Basic Attack/Defend/Items/Flee/Rage Art/Sparking/Forms/6+ combos | PASS | engine + combat tests (7 combos) |
-| 8 | Deterministic seeded combat, Active Guard good/perfect/miss with telegraphs | PASS | combat tests; real key-press guard in browser run |
-| 9 | Boss rules differ observably (19/20 absorb, 17/18 counter, Cell grab, adaptation, Super Perfect afterimage/solar beam, sentinel) | PASS | boss-rule unit tests + simulation |
-| 10 | Independent forms; SSJ2 locked before Android 16's event; finale legal only after gates | PASS | form + finisher + save-invariant tests |
-| 11 | XP/levels/TP, equipment, capsules/items, shops, journal, 10 quests with real objectives | PASS (quests exercised by unit tests; only the main route is bot-played in the browser) | systems tests, `MAPS_AND_INTERACTABLES.md` quest table |
-| 12 | Save integrity: slots, checksum, backup/recovery, validation, import/export, exactly-once rewards | PASS | `SAVE_AND_MIGRATION.md`, 25 systems tests, browser corrupt-save check |
-| 13 | Migration: legacy prototype / Namek | PASS (by design: no automatic import) | `migrateLegacy` test |
-| 14 | Natural-progression simulation incl. defended and low-skill routes | PASS | policy matrix (attentive/average/Easy no-guard finish; Normal no-guard documented wall) |
-| 15 | Real-browser playthrough fresh save -> credits | PASS | `e2e-playthrough-attentive-fresh.json` / `e2e-fresh.log` (see QA_REPORT for scope) |
-| 16 | Browser: low-skill route to credits | FAIL (informative) | Easy no-guard/no-shopping bot stalls at G01 in the browser; headless equivalent with shopping completes |
-| 17 | Save/reload mid-story and postgame in the browser | PASS | `e2e-checks.json` |
-| 18 | Postgame simulations separated from canon | PASS (one sim) | sim stages + records + validation; the browser bot cleared "Cell Junior Swarm" from the credits save and the record persisted (`e2e-postgame.log`); the Perfect/Super Perfect simulations were not browser-played |
-| 19 | Screenshots of 12 locations, boss/hero/form battle shots, menus, 3 resolutions | PASS / PARTIAL | `tests/logs/screens/**`; every character/form is not individually screenshotted in battle (forms: SSJ2, Ascended, Ultra, Kami visible in playthrough shots; others only in art evidence sheets) |
-| 20 | Art: every actor/form resolves to art or labelled fallback; 13 duplicate slots handled; 84 icons; worlds | PASS (provisional) | `art-runtime-audit.json`, `MISSING_OR_PROVISIONAL_ART.md` |
-| 21 | Art approved by a human | **NOT DONE** | `approved=false` everywhere |
-| 22 | Painted cutscene art | NOT DONE | 15 in-engine choreographed cutscenes (provisional) |
-| 23 | Music/SFX original and playable offline | PASS (synthesized); audio quality NOT RUN | `AUDIO_NOTES.md` |
-| 24 | Keyboard/gamepad parity, held-A safe, blur safe | PASS (unit, fake pad); hardware NOT RUN | input tests |
-| 25 | Accessibility: reduced motion, guard assist, text speed, contrast, focus, no colour-only cue | PASS (UI sweep); not audited with assistive tech | `docs/ui-evidence`, settings persist test |
-| 26 | Responsive 1024x600 / 1280x720 / 1920x1080, no page overflow | PASS | `e2e-checks.json` |
-| 27 | Packaged `dist` + `START_GAME.bat` + player ZIP + full source ZIP | PARTIAL | ZIPs built by `tools/package_release.py`; the extracted player ZIP was served with its bundled node.exe and smoke-tested in Chrome; the .bat itself was not double-clicked and no clean-PC run happened |
-| 28 | Modest-PC performance | NOT RUN | only software-GL headless FPS sampled (43–56) |
-| 29 | Docs set (implementation, art, story matrix, skills, maps, save, QA, missing art, limitations, acceptance) | PASS | `docs/` |
-| 30 | No commit/push/deploy; original Namek project untouched | PASS | no git actions; Namek only read as reference |
-
-**Verdict:** a complete, playable offline RC with real exploration, 29 fights, the Cell Games finale and credits, verified by tests, a deterministic simulation and a real-browser run — but with provisional art throughout, and with Windows launcher, hardware gamepad, audio listening and human playtesting still to be done by a person. Not called "final".
-# 5 November 2026 status note
-
-The entries below describe historical RC1/RC2 evidence. They are not final acceptance of the requested complete gameplay/visual overhaul. See `POLISH_RELEASE_REPORT.md` for the current preview changes, executed checks and open gates.
-
-## Current delta (5 November 2026)
-
-Seven candidate cinematic keyframes are now integrated (Trunks arrival, Android 17 and 18 absorptions, Android 16 destruction, SSJ2 awakening, Goku sacrifice, Father-Son finale). Cinematic rows below are historical baseline statuses; this asset addition does **not** close the full cinematic direction or human approval gates. Runtime asset audit now covers 1,623 paths with no missing or invalid PNGs; the 1,050-frame art audit has zero errors or warnings. The overall overhaul remains incomplete; see `POLISH_RELEASE_REPORT.md` and `KNOWN_LIMITATIONS.md`.
-
-Historical row 30 predates the owner's later instruction to push each completed batch. Batch commits/pushes are now authorized; nothing is deployed, and the Namek project remains untouched.
+**Verdict:** Batches A–G have completed their implementation and automated technical exit evidence and have been pushed. Human acceptance is still required before calling the game human-approved or release-final.

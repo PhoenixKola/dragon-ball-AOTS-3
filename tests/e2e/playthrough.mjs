@@ -9,6 +9,7 @@ const POLICY = process.env.POLICY || 'attentive';
 const CAPTURE_MAPS_ONLY = process.env.CAPTURE_MAPS_ONLY === '1';
 const PROB = { attentive: [0.55, 0.35], average: [0.15, 0.45], occasional: [0.1, 0.25], noguard: [0, 0] }[POLICY] || [0.55, 0.35];
 const MAX_MIN = Number(process.env.MAX_MIN || 40);
+const POSTGAME_ID = process.env.POSTGAME_ID || 'SIM_JUNIORS';
 const t0 = Date.now();
 const t = await launch({ width: Number(process.env.PILOT_WIDTH || 1280), height: Number(process.env.PILOT_HEIGHT || 720), port: 4181 });
 const { page } = t;
@@ -43,6 +44,7 @@ let pilotG05 = 0;
 const shotBattles = new Set();
 const jitterDone = new Set();
 const seenMaps = new Set();
+const seenCutscenes = new Set();
 let pendingMapCapture = null;
 const seenKeyframes = new Set();
 let transformCaptureStarted = false;
@@ -255,6 +257,12 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
   }
   if (s.screen === 'cutscene') {
     const cut = await page.evaluate(() => window.__AOTS__.cutDebug());
+    if (process.env.CAPTURE_STORY_SWEEP && !seenCutscenes.has(cut.id)) {
+      seenCutscenes.add(cut.id);
+      await page.waitForTimeout(400);
+      await shot(page, `story-${cut.id}`, 'tests/logs/screens/playthrough/cutscenes');
+      L(`STORY CUTSCENE CAPTURE ${seenCutscenes.size}: ${cut.id}`);
+    }
     if (process.env.CAPTURE_TRANSFORM && cut.id === 'trunks_arrival' && cut.kind === 'form' && !transformChargeCaptured) {
       transformChargeCaptured = true;
       await page.waitForTimeout(500);
@@ -292,7 +300,7 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
     lastBeat = game.beat; stuck = 0;
   }
   if (game.beat >= 30 && !process.env.POSTGAME) { L('STORY COMPLETE'); break; }
-  if (process.env.POSTGAME && game.postgame.records.SIM_JUNIORS) { L('POSTGAME SIM CLEARED ' + JSON.stringify(game.postgame.records)); break; }
+  if (process.env.POSTGAME && game.postgame.records[POSTGAME_ID]) { L(`POSTGAME ${POSTGAME_ID} CLEARED ` + JSON.stringify(game.postgame.records)); break; }
   if (!seenMaps.has(game.mapId)) {
     seenMaps.add(game.mapId);
     // Wait for the asynchronous Phaser map textures and eased camera follow to
@@ -378,7 +386,8 @@ while ((Date.now() - t0) / 60000 < MAX_MIN) {
   }
 }
 await release();
-const final = await page.evaluate(() => ({ beat: window.__AOTS__.state().beat, completed: window.__AOTS__.state().completed.length, flags: Object.keys(window.__AOTS__.state().flags), stats: window.__AOTS__.state().stats }));
+const final = await page.evaluate(() => ({ beat: window.__AOTS__.state().beat, completed: window.__AOTS__.state().completed.length, flags: Object.keys(window.__AOTS__.state().flags), stats: window.__AOTS__.state().stats, postgame: window.__AOTS__.state().postgame.records }));
+final.cutscenes = [...seenCutscenes];
 await shot(page, `pt-${POLICY}-final`, 'tests/logs/screens/playthrough');
 L('FINAL ' + JSON.stringify(final));
 L('page errors: ' + JSON.stringify(t.errors));
@@ -387,4 +396,6 @@ L('external requests: ' + JSON.stringify(external));
 mkdirSync('tests/logs', { recursive: true });
 writeFileSync(`tests/logs/e2e-playthrough-${POLICY}.json`, JSON.stringify({ policy: POLICY, final, beatLog, errors: t.errors, externalRequests: external, minutes: (Date.now() - t0) / 60000, log }, null, 1));
 await t.close();
-process.exit(final.beat >= 30 || (CAPTURE_MAPS_ONLY && seenMaps.size === 12 && !t.errors.length && !external.length) || (process.env.CAPTURE_VFX && impactCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_ABSORB && absorbCaptureDone && !t.errors.length && !external.length) || (process.env.CAPTURE_PILOT && pilotG05 >= 3 && !t.errors.length && !external.length) || (process.env.CAPTURE_TRANSFORM && transformCaptureDone && transformBattleDone && !t.errors.length && !external.length) ? 0 : 1);
+const postgameOk = !process.env.POSTGAME || !!final.postgame?.[POSTGAME_ID];
+const storySweepOk = !process.env.CAPTURE_STORY_SWEEP || seenCutscenes.size === 15;
+process.exit((final.beat >= 30 || postgameOk && process.env.POSTGAME || (CAPTURE_MAPS_ONLY && seenMaps.size === 12) || (process.env.CAPTURE_VFX && impactCaptureDone) || (process.env.CAPTURE_HELLZONE && hellzoneCaptureDone) || (process.env.CAPTURE_ABSORB && absorbCaptureDone) || (process.env.CAPTURE_PILOT && pilotG05 >= 3) || (process.env.CAPTURE_TRANSFORM && transformCaptureDone && transformBattleDone)) && storySweepOk && !t.errors.length && !external.length ? 0 : 1);

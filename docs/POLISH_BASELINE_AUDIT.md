@@ -2,7 +2,7 @@
 
 Source: local RC2 working tree. `git status --short` initially showed only the supplied overhaul brief as untracked. I inspected `CLAUDE.md`, `README.md`, the RC2 notes, limitations, art manifest, registry, and the title, world, battle, and targeting captures. The in-app browser host was unavailable; `node tests/e2e/ui-shots.mjs` ran the existing Chrome harness (111 checks, one 404 console error). Its world and battle images contain a black Phaser area, so they are **UI overlay diagnostics, not valid full-game visual approval**.
 
-The existing real-browser playthrough captures under `tests/logs/screens/playthrough/` are useful baseline evidence, but were produced before this pass. Review these 16 actual game frames: `map-landing_future.png`, `map-capsule_corp.png`, `map-south_city.png`, `map-rocky_outskirts.png`, `map-mountain_lab.png`, `map-lab_inner.png`, `map-gingertown.png`, `map-android_island.png`, `map-lookout.png`, `map-time_chamber.png`, `map-cell_games_approach.png`, `map-cell_games_arena.png`, `battle-G02.png`, `battle-G05.png`, `battle-G07.png`, and `pt-attentive-final.png`. Title, dialogue, menus, targets and credits are also visible in `docs/ui-evidence/`, subject to the Phaser limitation above.
+The generated real-browser playthrough captures under `tests/logs/screens/playthrough/` and the curated `docs/overhaul-evidence/` set contain actual game frames. The older `docs/ui-evidence/` images came from a mock React overlay harness with a black Phaser canvas, so their PNGs are now excluded from Git and can be regenerated with `node tests/e2e/ui-shots.mjs`; they were never used to approve full-game rendering.
 
 ## Preserve
 
