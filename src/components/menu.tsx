@@ -128,12 +128,13 @@ function PartyTab({ game }: { game: GameState }) {
       </Panel>
       <Panel title="Roster">
         {game.joined.map((h) => {
-          const away = game.away.includes(h);
+          const away = game.away.includes(h) && !game.flags.postgame_unlocked;
           const inParty = game.party.includes(h);
+          const rosterNote = away ? awayReason(game, h) : game.away.includes(h) ? 'Available for postgame play' : HEROES[h].role;
           return (
             <div className={cx('party-slot', away && 'locked')} key={h}>
               <Portrait actor={heroActorId(h, 'base', game.flags)} name={heroName(h)} color={HEROES[h].color} size="sm" />
-              <span className="grow"><b>{heroName(h)}</b> Lv {game.roster[h].level}<br /><small>{away ? awayReason(game, h) : HEROES[h].role}</small></span>
+              <span className="grow"><b>{heroName(h)}</b> Lv {game.roster[h].level}<br /><small>{rosterNote}</small></span>
               <Btn small disabled={away || inParty || game.party.length >= 3} reason={away ? awayReason(game, h) : inParty ? 'Already in the party' : 'Party is full (remove someone first)'} onClick={() => apply([...game.party, h])}>Add</Btn>
             </div>
           );

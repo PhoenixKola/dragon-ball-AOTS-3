@@ -118,8 +118,8 @@ function GuardCue({ b }: { b: BattleView }) {
 }
 
 /* ------------------------------------------------------------------ command panel */
-function Row({ icon, label, chip, disabled, reason, sub, onClick, onHover, autofocus, primary }: {
-  icon: IconRef; label: ReactNode; chip?: ReactNode; disabled?: boolean; reason?: string; sub?: string; onClick: () => void; onHover?: () => void; autofocus?: boolean; primary?: boolean;
+function Row({ icon, label, chip, disabled, reason, tooltip, sub, onClick, onHover, autofocus, primary }: {
+  icon: IconRef; label: ReactNode; chip?: ReactNode; disabled?: boolean; reason?: string; tooltip?: string; sub?: string; onClick: () => void; onHover?: () => void; autofocus?: boolean; primary?: boolean;
 }) {
   return (
     <button
@@ -128,7 +128,7 @@ function Row({ icon, label, chip, disabled, reason, sub, onClick, onHover, autof
       data-nav=""
       data-autofocus={autofocus ? '' : undefined}
       aria-disabled={disabled || undefined}
-      title={disabled && reason ? reason : undefined}
+      title={disabled && reason ? reason : tooltip}
       onClick={() => !disabled && onClick()}
       onMouseEnter={onHover}
       onFocus={onHover}
@@ -271,11 +271,11 @@ function CommandMenu({ b, c }: { b: BattleView; c: Commands }) {
       <div className="cmd-head"><span className="cmd-title">{title}</span>{lvl.l !== 'root' && <button type="button" className="link-btn cmd-back" onClick={back} aria-label="Back">◀ Back</button>}</div>
       <div className="cmd-list">
         {lvl.l === 'root' && rootRows.map((r, i) => (
-          <Row key={r.key} icon={iconForCommand(r.key)} label={r.label} chip={r.chip} disabled={r.disabled} reason={r.reason} onClick={r.go} primary={r.primary} autofocus={i === 0} onHover={() => setInfo(r.disabled && r.reason ? r.reason : r.info)} />
+          <Row key={r.key} icon={iconForCommand(r.key)} label={r.label} chip={r.chip} disabled={r.disabled} reason={r.reason} tooltip={r.info} onClick={r.go} primary={r.primary} autofocus={i === 0} onHover={() => setInfo(r.disabled && r.reason ? r.reason : r.info)} />
         ))}
           {lvl.l === 'skills' && (c.skills.length === 0 ? <p className="hint pad">No techniques equipped.</p> : c.skills.map((s, i) => (
           <Row key={s.id} icon={iconForSkill(s.id)} label={s.name} sub={skillRowHint(s)} disabled={!s.ok} reason={s.reason} autofocus={i === 0}
-            chip={skillCostLabel(s)} onHover={() => setInfo(s.ok ? `${s.desc} ${s.tradeoff}` : (s.reason ?? ''))}
+            chip={skillCostLabel(s)} tooltip={s.ok ? `${s.desc} ${s.tradeoff}` : s.reason} onHover={() => setInfo(s.ok ? `${s.desc} ${s.tradeoff}` : (s.reason ?? ''))}
             onClick={() => choose({ kind: 'skill', skillId: s.id, label: s.name, element: SKILLS[s.id]?.element ?? 'phys' }, s.target === 'none' ? 'none' : s.target === 'enemy' ? 'enemy' : 'ally')} />
         )))}
         {lvl.l === 'items' && c.items.map((it, i) => (

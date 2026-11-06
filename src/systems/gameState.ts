@@ -121,7 +121,9 @@ export const chapterOf = (s: GameState) => (BEATS[s.beat]?.chapter ?? 8);
 
 /** Heroes that can be fielded right now (story-aware). */
 export function availableHeroes(s: GameState): HeroId[] {
-  return HERO_IDS.filter((h) => s.joined.includes(h) && !s.away.includes(h));
+  // The postgame is explicitly non-canonical: let players field everyone who
+  // joined the story, including heroes who left or died in the finale.
+  return HERO_IDS.filter((h) => s.joined.includes(h) && (s.flags.postgame_unlocked || !s.away.includes(h)));
 }
 
 export function validateParty(s: GameState): void {

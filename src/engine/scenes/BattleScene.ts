@@ -57,8 +57,6 @@ interface Slot {
   view: FighterView;
   img: Phaser.GameObjects.Image;
   shadow: Phaser.GameObjects.Ellipse;
-  aura: Phaser.GameObjects.Image;
-  auraKey: string;
   homeX: number;
   homeY: number;
   baseScale: number;
@@ -68,8 +66,6 @@ interface Slot {
   alive: boolean;
   engaged: boolean;
 }
-
-const AURA_VFX: Partial<Record<FormId | 'sparking', string>> = { ssj: 'aura-ssj', ssj2: 'aura-ssj2', ascended: 'aura-ascended', ultra: 'aura-ultra', sparking: 'aura-sparking' };
 
 export class BattleScene extends Phaser.Scene implements BattleStage {
   clock = new SceneClock();
@@ -130,26 +126,8 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       const idleBob = s.pose === 'idle' && !this.opts.reducedMotion ? Math.sin(sec * 2 + s.bobPhase) * 3 : 0;
       s.img.y = s.homeY + (s.img.getData('dy') as number ?? 0) + idleBob;
       s.shadow.setPosition(s.img.x, s.homeY + 4);
-      s.aura.setPosition(s.img.x, s.homeY - s.img.displayHeight * 0.45);
-      const aur = this.auraFor(s.view);
-      s.aura.setVisible(!!aur && s.alive && this.textures.exists(`vfx:${aur}:0`));
-      if (aur && this.textures.exists(`vfx:${aur}:0`)) {
-        if (s.auraKey !== aur) {
-          s.auraKey = aur;
-          s.aura.setTexture(`vfx:${aur}:0`);
-        }
-        const frame = getVfx(aur)?.frames[0];
-        if (frame) s.aura.setScale((s.img.displayWidth * 1.35) / frame.w, (s.img.displayHeight * 1.25) / frame.h);
-        s.aura.setAlpha(this.opts.reducedMotion ? 0.42 : 0.48 + 0.06 * Math.sin(sec * 3.2 + s.bobPhase));
-      }
     }
     this.drawRing(now);
-  }
-
-  private auraFor(v: FighterView): string | null {
-    if (v.sparking > 0) return AURA_VFX.sparking!;
-    if (v.form !== 'base') return AURA_VFX[v.form] ?? null;
-    return null;
   }
 
   /* ------------------------------------------------------------------ setup */
@@ -258,10 +236,8 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
 
   private addSlot(v: FighterView, x: number, y: number) {
     const shadow = this.add.ellipse(x, y + 4, 80, 18, 0x000000, 0.35).setDepth(10);
-    const initialAura = this.textures.exists('vfx:aura-ssj:0') ? 'vfx:aura-ssj:0' : actorKey(v.actor, 'idle');
-    const aura = this.add.image(x, y - 60, initialAura).setDepth(11).setVisible(false).setBlendMode(Phaser.BlendModes.ADD);
     const img = this.add.image(x, y, actorKey(v.actor, 'idle')).setDepth(20 + y / 10);
-    const s: Slot = { uid: v.uid, view: v, img, shadow, aura, auraKey: '', homeX: x, homeY: y, baseScale: 1, pose: 'idle', poseUntil: 0, bobPhase: Math.random() * 6, alive: v.alive, engaged: false };
+    const s: Slot = { uid: v.uid, view: v, img, shadow, homeX: x, homeY: y, baseScale: 1, pose: 'idle', poseUntil: 0, bobPhase: Math.random() * 6, alive: v.alive, engaged: false };
     this.slots.set(v.uid, s);
     this.applyFrame(s, v.alive ? 'idle' : 'ko');
     if (!v.alive) this.setPose(s, 'ko');
@@ -724,7 +700,6 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     s.view.alive = false;
     this.setPose(s, 'ko');
     audio.sfx('ko');
-    s.aura.setVisible(false);
     if (s.view.team === 'enemy') {
       await this.tween(s.img, { alpha: 0.0 }, 600);
       s.shadow.setVisible(false);
@@ -755,24 +730,16 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
     const s = this.slots.get(uid);
     if (!s) return;
     await ensureActor(this, actor, 'battle');
-    const auraId = AURA_VFX[form] ?? 'aura-ssj';
     const motionless = this.opts.reducedMotion || this.fast;
     const cam = this.cameras.main;
     const oldZoom = cam.zoom;
     this.setPose(s, 'charge', 1500);
-    s.aura.setVisible(true).setAlpha(motionless ? 0.46 : 0.78);
-    const auraKey = `vfx:${auraId}:0`;
-    const gatherAura = !motionless && this.textures.exists(auraKey)
-      ? this.add.image(s.img.x, s.homeY - s.img.displayHeight * 0.48, auraKey).setDepth(s.img.depth - 1).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.12).setScale(0.6)
-      : undefined;
-
     if (!motionless) {
       audio.sfx('transform-charge');
       const zoom = 1.055;
       const scrollX = Phaser.Math.Clamp(s.homeX - W / 2 / zoom, 0, W - W / zoom);
       const scrollY = Phaser.Math.Clamp((s.homeY - 80) - H / 2 / zoom, 0, H - H / zoom);
       await this.tween(cam, { zoom, scrollX, scrollY }, 260, 'Sine.easeInOut');
-      if (gatherAura) await this.tween(gatherAura, { scaleX: 1.32, scaleY: 1.12, alpha: 0.64 }, 270, 'Sine.easeOut');
       s.img.setTint(0xffdf86);
       await this.tween(s.img, { scaleX: s.img.scaleX * 1.04, scaleY: s.img.scaleY * 0.94, alpha: 0.86 }, 230, 'Sine.easeInOut');
       await this.tween(s.img, { scaleX: s.img.scaleX / 1.04, scaleY: s.img.scaleY / 0.94, alpha: 1 }, 190, 'Back.easeOut');
@@ -786,11 +753,6 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       const centerY = s.homeY - s.img.displayHeight * 0.48;
       const ring = this.add.image(s.homeX, centerY, 'vfx:transform-shockwave:0').setDepth(18).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.96).setScale(0.18, 0.18);
       void this.tween(ring, { scaleX: 7.2, scaleY: 5.1, alpha: 0 }, 820, 'Cubic.easeOut').then(() => ring.destroy());
-      let auraFade: Promise<void> | undefined;
-      if (gatherAura) {
-        gatherAura.setPosition(s.homeX, centerY);
-        auraFade = this.tween(gatherAura, { scaleX: 2.05, scaleY: 1.8, alpha: 0 }, 650, 'Cubic.easeOut').then(() => gatherAura.destroy());
-      }
       audio.sfx('transform-release');
       this.playVfx('flare', s.homeX, centerY, 0.62, false, true);
       if (this.opts.shake > 0) cam.shake(320, 0.006 * this.opts.shake);
@@ -799,11 +761,8 @@ export class BattleScene extends Phaser.Scene implements BattleStage {
       await this.tween(s.img, { scaleX: s.img.scaleX * 1.1, scaleY: s.img.scaleY * 1.1, alpha: 1 }, 140, 'Back.easeOut');
       this.applyFrame(s, 'idle');
       audio.sfx('transform-impact');
-      if (auraFade) await auraFade;
       await this.tween(cam, { zoom: oldZoom, scrollX: 0, scrollY: 0 }, 300, 'Sine.easeInOut');
       s.img.clearTint();
-    } else {
-      this.playVfx(auraId, s.homeX, s.homeY - s.img.displayHeight * 0.5, 0.85);
     }
     this.setPose(s, 'idle');
     const formName = form === 'ssj2' ? 'SUPER SAIYAN 2' : form === 'ssj' ? 'SUPER SAIYAN' : form.toUpperCase();

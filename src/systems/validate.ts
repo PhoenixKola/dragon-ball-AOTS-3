@@ -120,7 +120,7 @@ export function validateState(raw: unknown): GameState {
   const party = heroList(r.party, 'party');
   if (party.length < 1 || party.length > MAX_PARTY) fail('Invalid party size');
   if (away.some((h) => !joined.includes(h))) fail('Away hero never joined');
-  if (party.some((h) => !joined.includes(h) || away.includes(h))) fail('Party contains an unavailable hero');
+  if (party.some((h) => !joined.includes(h) || (away.includes(h) && !flags.postgame_unlocked))) fail('Party contains an unavailable hero');
   if (!isPlain(r.roster)) fail('Invalid roster');
   const rosterRaw = r.roster as Record<string, unknown>;
   for (const k of Object.keys(rosterRaw)) if (!(HERO_IDS as readonly string[]).includes(k)) fail(`Unknown hero ${k}`);
@@ -178,7 +178,7 @@ export function validateState(raw: unknown): GameState {
     hs.hp = Math.round(x.hp as number);
     hs.ki = Math.round(x.ki as number);
   }
-  if (flags.goku_sacrifice && (!away.includes('goku') || party.includes('goku'))) fail('Goku is dead in the main story');
+  if (flags.goku_sacrifice && (!away.includes('goku') || (party.includes('goku') && !flags.postgame_unlocked))) fail('Goku is dead in the main story');
   if (flags.goku_sick && !flags.goku_recovered && !away.includes('goku')) fail('Goku must be away while sick');
 
   // inventory

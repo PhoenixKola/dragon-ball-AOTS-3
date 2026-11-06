@@ -361,7 +361,7 @@ small { font-size: 0.8em; color: var(--mute); }
 .cmd-label small { font-size: 0.72em; overflow: hidden; text-overflow: ellipsis; }
 .cost-chip { font-size: 0.75em; color: var(--gold); border: 1px solid var(--line-soft); border-radius: 3px; padding: 0 0.3em; background: #0a0f22; white-space: nowrap; }
 .cmd-foot { border-top: 1px solid var(--line-soft); padding: 0.15em 0.5em; font-size: 0.7em; display: flex; flex-direction: column; gap: 0.1em; }
-.cmd-info { color: var(--mute); min-height: 2.4em; display: block; overflow: hidden; }
+.cmd-info { color: var(--mute); height: 2.4em; min-height: 2.4em; line-height: 1.2; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .keyhints { color: var(--mute); display: flex; justify-content: space-between; align-items: center; }
 .keyhints .link-btn { min-height: 0; padding: 0; font-size: 1em; }
 .target-chip { display: grid; grid-template-columns: 1em 1fr; align-items: center; column-gap: 0.3em; min-height: 2.4em; padding: 0.05em 0.4em; background: var(--panel2); border: 2px solid transparent; border-radius: 3px; cursor: pointer; text-align: left; }

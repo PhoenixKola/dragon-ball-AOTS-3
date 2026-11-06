@@ -721,7 +721,6 @@ export class Battle {
         this.refreshActor(f);
         this.snap(f);
         this.emit({ t: 'form', uid: f.uid, form: f.form });
-        this.emit({ t: 'clip', uid: f.uid, clip: 'buff', vfx: `aura-${a.form === 'base' ? 'base' : a.form}`, sfx: 'transform' });
         return;
       }
       case 'combo': {
