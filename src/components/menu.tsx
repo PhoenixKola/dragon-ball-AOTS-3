@@ -4,7 +4,7 @@ import { heroActorId } from '../engine/assets';
 import { computeHeroStats } from '../engine/combat/fighters';
 import { FORMS, HEROES, HERO_FORMS, xpForLevel } from '../data/heroes';
 import { ITEMS } from '../data/items';
-import { TRAVEL_DESTINATIONS } from '../data/maps';
+import { MAPS, TRAVEL_DESTINATIONS } from '../data/maps';
 import { QUESTS } from '../data/quests';
 import { skillsOf } from '../data/skills';
 import { CHAPTERS } from '../data/stages';
@@ -18,11 +18,12 @@ import type { HeroId } from '../types';
 import { OptionsPanel, SaveLoadPanel } from './screens';
 import { RAGE } from '../engine/combat/rage';
 import { SPARKING_ATK, SPARKING_COST, SPARKING_TURNS } from '../engine/combat/formulas';
+import { MapLegend, WorldMapDiagram } from './WorldMap';
 import { FLAG_NOTES, TARGET_TEXT, heroName, iconForForm, iconForItem, iconForSkill, skillNote } from './helpers';
 import { modText } from './shop';
 import { Bar, Btn, Glyph, Panel, Portrait, RefIcon, cx, fmtTime, useConfirm, useNav } from './ui';
 
-const TABS = ['Status', 'Party', 'Abilities', 'Items', 'Equipment', 'Journal', 'Options', 'Save'] as const;
+const TABS = ['Status', 'Party', 'Abilities', 'Items', 'Equipment', 'Journal', 'Map', 'Options', 'Save'] as const;
 type Tab = (typeof TABS)[number];
 
 function HeroPicker({ game, hero, onPick }: { game: GameState; hero: HeroId; onPick: (h: HeroId) => void }) {
@@ -407,6 +408,31 @@ function JournalTab({ game }: { game: GameState }) {
   );
 }
 
+function MapTab({ game }: { game: GameState }) {
+  const ui = useUI();
+  const map = MAPS[game.mapId];
+  const destinations = TRAVEL_DESTINATIONS.filter((d) => evalCond(game, d.when));
+  if (!map) return <p className="hint">The local map is unavailable.</p>;
+  return (
+    <div className="map-tab">
+      <Panel title={map.name} className="map-tab-main">
+        <WorldMapDiagram map={map} game={game} position={ui.worldMap} className="large-map" />
+        <MapLegend />
+      </Panel>
+      <div className="map-tab-aside">
+        <Panel title="Current objective">
+          <p className="map-summary">{ui.hudObjective.text || 'The Cell Saga is complete.'}</p>
+          <p className="hint">{ui.hudObjective.where || map.name}</p>
+        </Panel>
+        <Panel title="Capsule Flyer stops">
+          {destinations.length ? destinations.map((d) => <p className="map-summary" key={d.map}><b>{d.label}</b><br /><small>{d.hint}</small></p>) : <p className="hint">Flyer destinations become available as the story progresses.</p>}
+          <p className="hint">At a flyer, interact to choose a destination. Press N to show or hide the local map.</p>
+        </Panel>
+      </div>
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------------ menu shell */
 export function MenuOverlay() {
   const ui = useUI();
@@ -436,7 +462,7 @@ export function MenuOverlay() {
             <button key={t} type="button" role="tab" aria-selected={t === tab} className={cx('tab', t === tab && 'on')} onClick={() => setTab(t)}>{t}</button>
           ))}
         </div>
-        <div className="objective-strip">Objective: {ui.hudObjective.text} <small>{ui.hudObjective.where}</small></div>
+        <div className="objective-strip"><span><b>Current objective</b>{ui.hudObjective.text || 'The Cell Saga is complete.'}</span><small>{ui.hudObjective.where}</small></div>
         <div className="shell-body" ref={ref}>
           {showHero && <HeroPicker game={game} hero={game.joined.includes(hero) ? hero : game.joined[0]} onPick={setHero} />}
           {tab === 'Status' && <StatusTab game={game} hero={game.joined.includes(hero) ? hero : game.joined[0]} />}
@@ -445,6 +471,7 @@ export function MenuOverlay() {
           {tab === 'Items' && <ItemsTab game={game} />}
           {tab === 'Equipment' && <EquipmentTab game={game} hero={game.joined.includes(hero) ? hero : game.joined[0]} />}
           {tab === 'Journal' && <JournalTab game={game} />}
+          {tab === 'Map' && <MapTab game={game} />}
           {tab === 'Options' && <OptionsPanel inGame />}
           {tab === 'Save' && <SaveLoadPanel canSave />}
         </div>

@@ -180,6 +180,14 @@ export interface RewardView {
 
 export type Overlay = null | 'menu' | 'shop' | 'travel' | 'save' | 'help' | 'options' | 'confirm' | 'rewards' | 'defeat' | 'credits' | 'newgame';
 
+export interface WorldMapPosition {
+  mapId: string;
+  x: number;
+  y: number;
+  facing: 'up' | 'down' | 'left' | 'right';
+  viewport: { x: number; y: number; w: number; h: number };
+}
+
 export interface UISnapshot {
   version: number;
   screen: 'boot' | 'title' | 'world' | 'battle' | 'cutscene';
@@ -200,6 +208,8 @@ export interface UISnapshot {
   defeat: { stageName: string; canLoad: boolean } | null;
   hudMap: string;
   hudObjective: { text: string; where: string };
+  worldMap: WorldMapPosition | null;
+  minimapOpen: boolean;
   hasSave: boolean;
   slots: SlotInfo[];
   /** latest game state (read-only for components; mutate only through Session actions) */
@@ -239,6 +249,7 @@ export interface SessionApi {
   /* settings */
   updateSettings(p: Partial<Settings>): void;
   toggleFullscreen(): void;
+  toggleMinimap(): void;
   /* menu actions (all validated against rules in systems/progression.ts) */
   setParty(heroes: HeroId[]): { ok: boolean; reason?: string };
   setLoadout(hero: HeroId, slot: number, skillId: string | null): { ok: boolean; reason?: string };
@@ -287,7 +298,7 @@ export class Store<T> {
 export function emptySnapshot(): UISnapshot {
   return {
     version: 0, screen: 'boot', overlay: null, scriptActive: false, dialogue: null, choice: null, card: null, caption: null, toasts: [], settings: { ...DEFAULT_SETTINGS },
-    battle: null, rewards: null, confirm: null, shop: null, travel: null, defeat: null, hudMap: '', hudObjective: { text: '', where: '' }, hasSave: false, slots: [], game: null,
+    battle: null, rewards: null, confirm: null, shop: null, travel: null, defeat: null, hudMap: '', hudObjective: { text: '', where: '' }, worldMap: null, minimapOpen: true, hasSave: false, slots: [], game: null,
     assetsReady: false, loading: false, fullscreen: false, prompt: null, note: null,
   };
 }

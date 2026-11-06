@@ -10,6 +10,7 @@
 - Batch D refreshed and inspected all 12 regions, props and regional battle stages.
 - Batch E refined all 15 cutscene camera definitions and the transformation sequence. Trunks changes form on the release beat; the aura, ring and lightning sit behind him and stay contained. Global flashes were removed in favor of localized effects. The six real P02 captures in `docs/overhaul-evidence/after/transformations/` include the corrected story and battle sequences.
 - Batch F added stable original motifs for all 22 music keys, seven offline ambient beds, transformation charge/release/impact audio, and the attack-versus-guard Ki rebalance. Basic Attack and Guard each restore 6 Ki; Attack also deals damage. Routine attacks no longer prompt repeated guard timing, and one guard covers a multi-hit move against one hero.
+- Batch F usability follow-up adds a live minimap with player facing, objective, points of interest and camera extent; it can be hidden with the on-screen control or **N**. The Map menu tab shows the full current region, objective, discovered Capsule Flyer stops and legend. Objective and location text are separated for readability, and the map/destination panels fit desktop and compact 16:9 layouts. Fresh 1280×720 and 1024×600 real-game captures were reviewed with no page errors.
 - Batch G completed natural campaign and postgame runs, release packaging, Electron smoke, and artifact cleanup. The real postgame hub is captured at `docs/overhaul-evidence/after/campaign-postgame.png`.
 
 ## Final integration evidence

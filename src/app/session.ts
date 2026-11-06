@@ -22,7 +22,7 @@ import { SaveManager, type SlotId, type StorageLike } from '../systems/save';
 import type { BattleAction, HeroId, StageDef } from '../types';
 import { GameController, type BattleKind, type ControllerHost } from './controller';
 import {
-  DEFAULT_SETTINGS, SETTINGS_KEY, bindApi, uiStore, type BattleView, type Overlay, type SessionApi, type Settings, type UISnapshot,
+  DEFAULT_SETTINGS, SETTINGS_KEY, bindApi, uiStore, type BattleView, type Overlay, type SessionApi, type Settings, type UISnapshot, type WorldMapPosition,
 } from './store';
 
 function ambientForMap(mapId: string): AmbientKey {
@@ -77,6 +77,7 @@ export class Session implements SessionApi, ControllerHost {
   private skipRun = false;
   private pendingLoad = false;
   private scriptDepth = 0;
+  private minimapClock = 0;
   /** test-only hook: disables ONLY random encounters */
   encountersEnabled = true;
 
@@ -242,6 +243,22 @@ export class Session implements SessionApi, ControllerHost {
       tick: (dt) => {
         input.pollPad(performance.now());
         if (this.state && uiStore.get().screen === 'world') this.state.stats.playMs += dt;
+        if (this.sim && uiStore.get().screen === 'world') {
+          this.minimapClock += dt;
+          if (this.minimapClock >= 100) {
+            this.minimapClock %= 100;
+            const cam = this.world.cameras.main;
+            const pos: WorldMapPosition = {
+              mapId: this.sim.map.id,
+              x: this.sim.px,
+              y: this.sim.py,
+              facing: this.sim.facing,
+              viewport: { x: cam.scrollX / 32, y: cam.scrollY / 32, w: cam.width / cam.zoom / 32, h: cam.height / cam.zoom / 32 },
+            };
+            const prev = uiStore.get().worldMap;
+            if (!prev || prev.mapId !== pos.mapId || Math.abs(prev.x - pos.x) > 2 || Math.abs(prev.y - pos.y) > 2 || prev.facing !== pos.facing || Math.abs(prev.viewport.x - pos.viewport.x) > 0.2 || Math.abs(prev.viewport.y - pos.viewport.y) > 0.2) uiStore.patch({ worldMap: pos });
+          }
+        }
       },
     };
     try {
@@ -324,6 +341,9 @@ export class Session implements SessionApi, ControllerHost {
   }
 
   /* ------------------------------------------------------------------ overlays */
+  toggleMinimap() {
+    uiStore.patch({ minimapOpen: !uiStore.get().minimapOpen });
+  }
   openMenu() {
     if (!this.state || this.worldBlocked()) return;
     this.stateChanged();
@@ -528,7 +548,15 @@ export class Session implements SessionApi, ControllerHost {
     const s = this.state;
     if (!s) return;
     const obj = this.controller?.objective() ?? { text: '', where: '' };
-    uiStore.patch({ game: { ...s }, hudMap: MAPS[s.mapId]?.name ?? '', hudObjective: obj });
+    const cam = this.world.cameras.main;
+    const worldMap: WorldMapPosition = {
+      mapId: s.mapId,
+      x: this.sim?.px ?? s.x,
+      y: this.sim?.py ?? s.y,
+      facing: this.sim?.facing ?? s.facing,
+      viewport: { x: cam.scrollX / 32, y: cam.scrollY / 32, w: cam.width / cam.zoom / 32, h: cam.height / cam.zoom / 32 },
+    };
+    uiStore.patch({ game: { ...s }, hudMap: MAPS[s.mapId]?.name ?? '', hudObjective: obj, worldMap });
   }
 
   /* ------------------------------------------------------------------ input routing */
@@ -537,6 +565,10 @@ export class Session implements SessionApi, ControllerHost {
     audio.unlock();
     if (a === 'fullscreen') {
       this.toggleFullscreen();
+      return true;
+    }
+    if (a === 'map' && u.screen === 'world' && !u.overlay && !u.scriptActive && !u.dialogue && !u.choice) {
+      this.toggleMinimap();
       return true;
     }
     if (u.screen === 'battle') {

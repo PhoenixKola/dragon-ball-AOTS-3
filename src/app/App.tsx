@@ -4,6 +4,8 @@ import { CardOverlay, Caption, ChoiceMenu, DialogueBox, SessionConfirm, ToastSta
 import { MenuOverlay } from '../components/menu';
 import { CreditsOverlay, DefeatOverlay, HelpOverlay, NewGameOverlay, OptionsOverlay, RewardsOverlay, SaveOverlay, TitleScreen, TravelOverlay } from '../components/screens';
 import { ShopOverlay } from '../components/shop';
+import { MapLegend, WorldMapDiagram } from '../components/WorldMap';
+import { MAPS } from '../data/maps';
 import { Bar, Btn, cx } from '../components/ui';
 import { HEROES } from '../data/heroes';
 import { maxStats } from '../systems/gameState';
@@ -33,7 +35,17 @@ function WorldHUD() {
           );
         })}
       </div>
-      <Btn small className="hud-menu-btn" onClick={() => api.openMenu()}>Menu (Tab)</Btn>
+      <div className="hud-map-tools">
+        <Btn small className="hud-menu-btn" onClick={() => api.openMenu()}>Menu (Tab)</Btn>
+        <Btn small className="hud-minimap-toggle" pressed={ui.minimapOpen} onClick={() => api.toggleMinimap()}>{ui.minimapOpen ? 'Hide map' : 'Show map'} (N)</Btn>
+        {ui.minimapOpen && ui.worldMap && MAPS[ui.worldMap.mapId] && (
+          <section className="minimap-card" aria-label="Local map">
+            <div className="minimap-title"><b>LOCAL MAP</b><span>{ui.hudMap}</span></div>
+            <WorldMapDiagram map={MAPS[ui.worldMap.mapId]} game={g} position={ui.worldMap} className="minimap-diagram" />
+            <MapLegend compact />
+          </section>
+        )}
+      </div>
     </div>
   );
 }

@@ -150,7 +150,7 @@ const mock: SessionApi = {
   newGame: () => {}, continueGame: () => {}, loadSlot: () => true, saveSlot: () => ({ ok: true }), deleteSlot: () => {}, exportSlot: () => {}, importFile: () => ({ ok: true }), toTitle: () => {}, refreshSlots: () => {},
   openMenu: () => push({ overlay: 'menu' }), closeOverlay: () => uiStore.patch({ overlay: null }), openOverlay: (o) => uiStore.patch({ overlay: o }),
   confirm: async () => true, resolveConfirm: () => uiStore.patch({ overlay: null, confirm: null }), advanceDialogue: () => uiStore.patch({ dialogue: null }), skipDialogue: () => uiStore.patch({ dialogue: null }), chooseOption: () => uiStore.patch({ choice: null }),
-  updateSettings: (p) => { Object.assign(settings, p); sync(); }, toggleFullscreen: () => uiStore.patch({ fullscreen: !uiStore.get().fullscreen }),
+  updateSettings: (p) => { Object.assign(settings, p); sync(); }, toggleFullscreen: () => uiStore.patch({ fullscreen: !uiStore.get().fullscreen }), toggleMinimap: () => uiStore.patch({ minimapOpen: !uiStore.get().minimapOpen }),
   setParty: (h) => { const r = setParty(game, h); sync(); return r; },
   setLoadout: (h, s, k) => { const r = setLoadout(game, h, s, k); sync(); return r; },
   equip: (h, s, i) => { const r = equipAccessory(game, h, s, i); sync(); return r; },

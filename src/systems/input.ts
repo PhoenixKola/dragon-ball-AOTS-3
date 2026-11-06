@@ -1,5 +1,5 @@
 export type Action =
-  | 'up' | 'down' | 'left' | 'right' | 'confirm' | 'back' | 'menu' | 'guard1' | 'guard2' | 'guard3' | 'pause' | 'fullscreen' | 'skip' | 'tabPrev' | 'tabNext';
+  | 'up' | 'down' | 'left' | 'right' | 'confirm' | 'back' | 'menu' | 'map' | 'guard1' | 'guard2' | 'guard3' | 'pause' | 'fullscreen' | 'skip' | 'tabPrev' | 'tabNext';
 
 export type Handler = (a: Action) => boolean | void;
 
@@ -7,7 +7,7 @@ const KEYMAP: Record<string, Action> = {
   ArrowUp: 'up', KeyW: 'up', ArrowDown: 'down', KeyS: 'down', ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right',
   KeyE: 'confirm', Enter: 'confirm', Space: 'confirm', KeyZ: 'confirm',
   KeyX: 'back', Backspace: 'back', Escape: 'back',
-  Tab: 'menu', KeyM: 'menu', KeyP: 'pause', KeyF: 'fullscreen', KeyK: 'skip',
+  Tab: 'menu', KeyM: 'menu', KeyN: 'map', KeyP: 'pause', KeyF: 'fullscreen', KeyK: 'skip',
   Digit1: 'guard1', Digit2: 'guard2', Digit3: 'guard3', Numpad1: 'guard1', Numpad2: 'guard2', Numpad3: 'guard3',
   KeyQ: 'tabPrev', PageUp: 'tabPrev', PageDown: 'tabNext',
 };

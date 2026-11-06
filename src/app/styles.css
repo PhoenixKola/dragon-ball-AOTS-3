@@ -232,7 +232,56 @@ small { font-size: 0.8em; color: var(--mute); }
 .hud-where { font-size: 0.75em; color: var(--mute); }
 .hud-party { position: absolute; bottom: 1.5%; left: 1.5%; display: flex; gap: 0.4em; }
 .hud-hero { width: 9.5em; background: rgba(10, 16, 40, 0.85); border: 2px solid var(--line); border-radius: 4px; padding: 0.2em 0.4em; font-size: 0.85em; }
-.hud-menu-btn { position: absolute; top: 1.5%; right: 1.5%; }
+.hud-map-tools { position: absolute; top: 1.5%; right: 1.5%; width: clamp(13rem, 19vw, 16rem); display: flex; flex-direction: column; align-items: stretch; gap: 0.35em; }
+.hud-map-tools .btn { align-self: flex-end; }
+.minimap-card { padding: 0.35em; background: rgba(7, 12, 29, 0.91); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 3px 14px rgba(0,0,0,0.55); }
+.minimap-title { display: flex; justify-content: space-between; gap: 0.6em; padding: 0 0.15em 0.2em; color: var(--gold); font-size: 0.72em; }
+.minimap-title b { white-space: nowrap; }
+.minimap-title span { color: var(--text); text-align: right; }
+.world-map-diagram { display: block; width: 100%; aspect-ratio: var(--map-aspect, 1.6); max-height: 14em; background: #263c32; border: 1px solid rgba(207, 216, 242, 0.35); shape-rendering: crispEdges; }
+.minimap-diagram { max-height: 8.5em; }
+.map-camera { fill: rgba(255,255,255,0.08); stroke: rgba(255,255,255,0.62); stroke-width: 0.11; vector-effect: non-scaling-stroke; }
+.map-player path { fill: #eaf0ff; stroke: #0b1330; stroke-width: 0.1; vector-effect: non-scaling-stroke; }
+.map-goal { fill: #ffd166; stroke: #362100; stroke-width: 0.08; vector-effect: non-scaling-stroke; }
+.map-exit { fill: #48d5e8; stroke: #082d39; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-chest { fill: #f0b84b; stroke: #392000; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-opened { fill: #9c8a63; stroke: #332b1d; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-foe { fill: #ff7777; stroke: #390a12; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-npc { fill: #b8ccff; stroke: #10284d; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-save { fill: #c9a7ff; stroke: #241a47; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-heal { fill: #6fe3a0; stroke: #103320; stroke-width: 0.06; vector-effect: non-scaling-stroke; }
+.map-shop { fill: #ffb467; stroke: #522600; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-travel { fill: #65d9ff; stroke: #103246; stroke-width: 0.07; vector-effect: non-scaling-stroke; }
+.map-point { fill: #f4f0dd; stroke: #272516; stroke-width: 0.06; vector-effect: non-scaling-stroke; }
+.map-legend { display: flex; flex-wrap: wrap; gap: 0.25em 0.65em; padding: 0.3em 0.1em 0; font-size: 0.64em; color: var(--mute); }
+.map-legend span { display: inline-flex; align-items: center; gap: 0.3em; }
+.map-legend i { display: inline-block; width: 0.75em; height: 0.75em; border: 1px solid #081020; }
+.legend-player { background: #eaf0ff; clip-path: polygon(50% 0,100% 100%,50% 75%,0 100%); }
+.legend-goal { background: #ffd166; transform: rotate(45deg) scale(0.8); }
+.legend-exit { background: #48d5e8; }
+.legend-point { background: #b8ccff; border-radius: 50%; }
+.legend-service { background: #6fe3a0; border-radius: 50%; }
+.legend-chest { background: #f0b84b; }
+.large-map { max-width: 55em; max-height: min(40vh, 28em); margin: 0 auto; }
+.map-tab { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(14em, 0.8fr); gap: 0.8em; min-height: 0; flex: 1; }
+.map-tab-main, .map-tab-aside { min-width: 0; min-height: 0; }
+.map-tab-main { display: flex; flex-direction: column; overflow: hidden; }
+.map-tab-main > .world-map-diagram { flex: none; margin: 0.5em auto; width: min(100%, 48em); }
+.map-tab-aside { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 0.6em; }
+.map-tab-aside > .panel { min-height: 0; overflow-y: auto; }
+.map-tab .map-summary { color: var(--mute); line-height: 1.45; }
+.objective-strip { display: grid; gap: 0.12em; padding: 0.35em 0.9em; background: #0d1633; font-size: 0.82em; color: var(--mute); border-bottom: 1px solid var(--line-soft); line-height: 1.4; }
+.objective-strip > span { display: block; min-width: 0; overflow-wrap: anywhere; }
+.objective-strip b { color: var(--gold); margin-right: 0.45em; }
+.objective-strip small { min-width: 0; overflow-wrap: anywhere; }
+.map-tab .map-legend { font-size: 0.8em; }
+@media (max-width: 720px) {
+  .hud-map-tools { width: clamp(10.5rem, 35vw, 13rem); }
+  .minimap-diagram { max-height: 6.5em; }
+  .map-tab { grid-template-columns: 1fr; grid-template-rows: minmax(18em, 1fr) minmax(16em, 0.8fr); overflow-y: auto; flex: initial; }
+  .map-tab-main { overflow: visible; }
+  .map-tab-aside { grid-template-rows: auto minmax(10em, 1fr); }
+}
 .prompt { position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%); background: rgba(10, 16, 40, 0.9); border: 2px solid var(--gold); padding: 0.25em 0.9em; border-radius: 4px; z-index: 11; }
 
 /* ------------------------------------------------------------------ rewards / defeat / credits */

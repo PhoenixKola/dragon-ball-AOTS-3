@@ -86,7 +86,7 @@ export function OptionsPanel({ inGame }: { inGame?: boolean }) {
           <p className="hint">{DIFFICULTY_TEXT[ui.game.difficulty]}</p>
         </>
       )}
-      <p className="hint">Controls: move WASD / arrows / stick · interact E / Enter / Space / A · back X / Backspace / B (Esc is best-effort in fullscreen) · menu Tab / M / Start · guard 1/2/3 · fullscreen F.</p>
+      <p className="hint">Controls: move WASD / arrows / stick · interact E / Enter / Space / A · back X / Backspace / B (Esc is best-effort in fullscreen) · menu Tab / M / Start · local map N · guard 1/2/3 · fullscreen F.</p>
     </div>
   );
 }
@@ -113,7 +113,7 @@ export function HelpPanel() {
           <tr><th>Move</th><td>WASD / arrow keys / left stick / D-pad (Shift to run)</td></tr>
           <tr><th>Interact / confirm</th><td>E, Enter, Space, Z · gamepad A · click</td></tr>
           <tr><th>Back / cancel</th><td>X, Backspace, gamepad B, the on-screen Back button (Esc works, but browsers reserve it in fullscreen)</td></tr>
-          <tr><th>Menu</th><td>Tab, M · gamepad Start</td></tr>
+          <tr><th>Menu / local map</th><td>Menu: Tab, M · gamepad Start. Map: N or the on-screen Map button.</td></tr>
           <tr><th>Active Guard</th><td>Keys 1 / 2 / 3 for the targeted fighter's slot · gamepad X / Y / RB · or click the Guard buttons</td></tr>
           <tr><th>Pause battle / fullscreen / skip text</th><td>P · F · K</td></tr>
         </tbody>
