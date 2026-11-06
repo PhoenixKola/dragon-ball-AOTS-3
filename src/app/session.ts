@@ -51,6 +51,7 @@ function safeStorage(): StorageLike {
 
 let toastId = 1;
 let dlgId = 1;
+const TUTORIALS_KEY = 'aots3.cell.tutorials.v1';
 
 export class Session implements SessionApi, ControllerHost {
   game!: Phaser.Game;
@@ -226,6 +227,7 @@ export class Session implements SessionApi, ControllerHost {
   /* ------------------------------------------------------------------ lifecycle */
   private async begin(state: GameState, fromLoad: boolean) {
     this.state = state;
+    this.restoreTutorials(state);
     validateParty(state);
     this.sim = new WorldSim(state);
     this.sim.encountersEnabled = this.encountersEnabled;
@@ -279,6 +281,8 @@ export class Session implements SessionApi, ControllerHost {
 
   newGame(difficulty: 'easy' | 'normal') {
     audio.unlock();
+    this.tutorialsSeen.clear();
+    try { this.store.removeItem(TUTORIALS_KEY); } catch { /* storage may be unavailable */ }
     void this.begin(newGameState(difficulty), false);
   }
   continueGame() {
@@ -547,6 +551,7 @@ export class Session implements SessionApi, ControllerHost {
   stateChanged() {
     const s = this.state;
     if (!s) return;
+    void this.world.refreshLeader(s);
     const obj = this.controller?.objective() ?? { text: '', where: '' };
     const cam = this.world.cameras.main;
     const worldMap: WorldMapPosition = {
@@ -557,6 +562,24 @@ export class Session implements SessionApi, ControllerHost {
       viewport: { x: cam.scrollX / 32, y: cam.scrollY / 32, w: cam.width / cam.zoom / 32, h: cam.height / cam.zoom / 32 },
     };
     uiStore.patch({ game: { ...s }, hudMap: MAPS[s.mapId]?.name ?? '', hudObjective: obj, worldMap });
+  }
+
+  private restoreTutorials(state: GameState) {
+    this.tutorialsSeen = new Set(state.seen.filter((id) => id.startsWith('tut:')));
+    try {
+      const stored = this.store.getItem(TUTORIALS_KEY);
+      if (stored) {
+        const ids: unknown = JSON.parse(stored);
+        if (Array.isArray(ids)) for (const id of ids) if (typeof id === 'string' && id.startsWith('tut:')) this.tutorialsSeen.add(id);
+      }
+    } catch { /* a corrupt tutorial record only means a tip may be shown again */ }
+  }
+
+  private rememberTutorial(id: string) {
+    if (!id.startsWith('tut:')) return;
+    this.tutorialsSeen.add(id);
+    if (this.state && !this.state.seen.includes(id)) this.state.seen.push(id);
+    try { this.store.setItem(TUTORIALS_KEY, JSON.stringify([...this.tutorialsSeen])); } catch { /* storage may be unavailable */ }
   }
 
   /* ------------------------------------------------------------------ input routing */
@@ -704,7 +727,7 @@ export class Session implements SessionApi, ControllerHost {
       settings: () => uiStore.get().settings,
       nextAction: () => new Promise<BattleAction>((res) => (this.actionResolve = res)),
       tutorial: (id, _t) => new Promise<void>((res) => {
-        void id;
+        this.rememberTutorial(id);
         this.tutorialResolve = res;
       }),
       rejected: (reason) => this.toast(reason),

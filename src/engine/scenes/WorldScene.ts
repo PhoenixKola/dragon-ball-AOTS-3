@@ -346,6 +346,21 @@ export class WorldScene extends Phaser.Scene {
     this.setOw(this.player, actor, sim.facing, 'idle');
   }
 
+  /** Refresh the visible field character as soon as the player changes party order. */
+  async refreshLeader(state: GameState) {
+    const actor = heroActorId(state.party[0] ?? 'trunks', 'base', { ...state.flags, goku_sick: false });
+    if (actor === this.lastPlayerActor || !this.player) return;
+    await ensureActor(this, actor, 'all');
+    const sim = this.bridge?.sim;
+    const current = sim?.state;
+    const currentActor = current
+      ? heroActorId(current.party[0] ?? 'trunks', 'base', { ...current.flags, goku_sick: false })
+      : actor;
+    if (!this.player || currentActor !== actor) return;
+    this.lastPlayerActor = actor;
+    this.setOw(this.player, actor, sim?.facing ?? state.facing, 'idle');
+  }
+
   /** Ginger Town's rescued civilian follows the actual player route to the evacuation shuttle. */
   private buildSurvivorFollower(sim: WorldSim) {
     if (sim.map.id !== 'gingertown') return;
