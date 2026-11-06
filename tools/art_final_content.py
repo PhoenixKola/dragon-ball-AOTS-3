@@ -7,116 +7,64 @@ from PIL import Image
 from art_lib import ROOT, save_frame
 
 
-def build(reg, log):
-    """Install generated character and Capsule Corp courtyard finishing art."""
-    source = ROOT / 'art' / 'production' / 'characters' / 'kami-overworld-4x4.png'
+def install_actor(reg, log, actor_id, source_name, display_name):
+    source = ROOT / 'art' / 'production' / 'characters' / source_name
     if not source.exists():
-        log('[finalcontent] Kami source missing; kept existing fallback')
+        log(f'[finalcontent] {display_name} source missing; kept existing character art')
         return
-
     atlas = Image.open(source).convert('RGBA')
-    if atlas.width != atlas.height:
-        raise ValueError(f'Kami sprite atlas must be square: {atlas.size}')
-    cell = atlas.width / 4
+    cell_w, cell_h = atlas.width / 4, atlas.height / 4
     directions = ('down', 'left', 'right', 'up')
     rows = {}
     for row, direction in enumerate(directions):
         frames = []
         for col in range(4):
-            box = (round(col * cell), round(row * cell), round((col + 1) * cell), round((row + 1) * cell))
+            box = (round(col * cell_w), round(row * cell_h), round((col + 1) * cell_w), round((row + 1) * cell_h))
             frame = atlas.crop(box)
-            alpha = frame.getchannel('A')
-            bbox = alpha.getbbox()
+            bbox = frame.getchannel('A').getbbox()
             if not bbox:
-                raise ValueError(f'Kami atlas contains an empty cell at row {row}, column {col}')
+                raise ValueError(f'{display_name} atlas contains an empty cell at row {row}, column {col}')
             frame = frame.crop(bbox)
-            # The generated atlas is about twice the density of the installed
-            # runtime sprites. Keep its pixel clusters crisp at the established
-            # character scale instead of introducing a blurred resize.
-            target_h = max(1, round(frame.height * 0.5))
-            target_w = max(1, round(frame.width * 0.5))
-            frame = frame.resize((target_w, target_h), Image.Resampling.NEAREST)
+            # Retain crisp pixel clusters at the established runtime character scale.
+            frame = frame.resize((max(1, round(frame.width * 0.5)), max(1, round(frame.height * 0.5))), Image.Resampling.NEAREST)
             frames.append(frame)
         rows[direction] = frames
 
-    old = reg['actors']['kami']
+    old = reg['actors'][actor_id]
     old['overworld'] = {}
     for direction in directions:
         facing = {'down': 'front', 'left': 'left', 'right': 'right', 'up': 'back'}[direction]
         frames = rows[direction]
-        idle = save_frame(frames[0], f'npcs/kami/overworld/{direction}/idle.png', 'genuine', facing,
-                          'Native-generated, identity-matched transparent 4x4 sheet; neutral directional pose.', trim=True)
-        walk = [save_frame(frame, f'npcs/kami/overworld/{direction}/walk-0{i}.png', 'genuine', facing,
+        idle = save_frame(frames[0], f'npcs/{actor_id}/overworld/{direction}/idle.png', 'genuine', facing,
+                          f'Native-generated identity-matched transparent 4x4 sheet; neutral {direction}-facing pose.', trim=True)
+        walk = [save_frame(frame, f'npcs/{actor_id}/overworld/{direction}/walk-0{i}.png', 'genuine', facing,
                            'Native-generated neighboring walk pose from the same directional row.', trim=True)
                 for i, frame in enumerate(frames[1:], 1)]
         old['overworld'][direction] = {'idle': idle, 'walk': walk}
-
     down = rows['down'][0]
-    old['battle'] = {
-        'idle': save_frame(down, 'npcs/kami/battle/idle.png', 'genuine', 'front',
-                           'Stable neutral pose reused from the generated front-facing overworld sheet.', trim=True)
-    }
-    # A cropped, matching head-and-shoulders portrait derived from the new idle.
-    alpha_box = down.getchannel('A').getbbox()
-    if alpha_box:
-        x0, y0, x1, y1 = alpha_box
-        head = down.crop((x0, y0, x1, min(y1, y0 + round((y1 - y0) * 0.56))))
-        old['portrait'] = save_frame(head, 'npcs/kami/portrait.png', 'derived', 'front',
-                                     'Portrait crop derived from the generated front-facing overworld idle.', trim=True)
+    old['battle'] = {'idle': save_frame(down, f'npcs/{actor_id}/battle/idle.png', 'genuine', 'front',
+                                         'Stable neutral pose reused from the generated front-facing overworld sheet.', trim=True)}
+    x0, y0, x1, y1 = down.getchannel('A').getbbox()
+    head = down.crop((x0, y0, x1, min(y1, y0 + round((y1 - y0) * 0.56))))
+    old['portrait'] = save_frame(head, f'npcs/{actor_id}/portrait.png', 'derived', 'front',
+                                 'Portrait crop derived from the generated front-facing overworld idle.', trim=True)
     old.update({
-        'facing': 'front',
-        'approved': False,
-        'provisional': False,
-        'fallbackReason': None,
-        'provenance': 'art/production/characters/kami-overworld-4x4.png; native-generated with installed AOTS3 hero/NPC references; 4x4 rows down/left/right/up, columns idle/walk-01/02/03; sliced by tools/art_final_content.py',
+        'facing': 'front', 'approved': False, 'provisional': False, 'fallbackReason': None,
+        'provenance': f'art/production/characters/{source_name}; native-generated, 4x4 rows down/left/right/up, columns idle/walk-01/02/03; sliced by tools/art_final_content.py',
     })
-    log('[finalcontent] installed Kami native-generated 4-direction idle and 3-frame walk sheet')
+    log(f'[finalcontent] installed {display_name} native-generated 4-direction idle and 3-frame walk sheet')
 
-    bulma_source = ROOT / 'art' / 'production' / 'characters' / 'bulma-overworld-4x4.png'
-    if bulma_source.exists():
-        atlas = Image.open(bulma_source).convert('RGBA')
-        cell_w = atlas.width / 4
-        cell_h = atlas.height / 4
-        rows = {}
-        for row, direction in enumerate(('down', 'left', 'right', 'up')):
-            frames = []
-            for col in range(4):
-                box = (round(col * cell_w), round(row * cell_h), round((col + 1) * cell_w), round((row + 1) * cell_h))
-                frame = atlas.crop(box)
-                if not frame.getchannel('A').getbbox():
-                    raise ValueError(f'Bulma atlas contains an empty cell at row {row}, column {col}')
-                frame = frame.crop(frame.getchannel('A').getbbox())
-                frame = frame.resize((max(1, round(frame.width * 0.5)), max(1, round(frame.height * 0.5))), Image.Resampling.NEAREST)
-                frames.append(frame)
-            rows[direction] = frames
 
-        old = reg['actors']['bulma']
-        old['overworld'] = {}
-        for direction in ('down', 'left', 'right', 'up'):
-            facing = {'down': 'front', 'left': 'left', 'right': 'right', 'up': 'back'}[direction]
-            frames = rows[direction]
-            idle = save_frame(frames[0], f'npcs/bulma/overworld/{direction}/idle.png', 'genuine', facing,
-                              'Native-generated identity-matched transparent 4x4 sheet; neutral directional pose.', trim=True)
-            walk = [save_frame(frame, f'npcs/bulma/overworld/{direction}/walk-0{i}.png', 'genuine', facing,
-                               'Native-generated neighboring walk pose from the same directional row.', trim=True)
-                    for i, frame in enumerate(frames[1:], 1)]
-            old['overworld'][direction] = {'idle': idle, 'walk': walk}
-        down = rows['down'][0]
-        old['battle'] = {'idle': save_frame(down, 'npcs/bulma/battle/idle.png', 'genuine', 'front',
-                                             'Stable neutral pose reused from the generated front-facing overworld sheet.', trim=True)}
-        box = down.getchannel('A').getbbox()
-        if box:
-            x0, y0, x1, y1 = box
-            old['portrait'] = save_frame(down.crop((x0, y0, x1, min(y1, y0 + round((y1 - y0) * 0.56)))),
-                                         'npcs/bulma/portrait.png', 'derived', 'front',
-                                         'Portrait crop derived from the generated front-facing overworld idle.', trim=True)
-        old.update({
-            'facing': 'front', 'approved': False, 'provisional': False, 'fallbackReason': None,
-            'provenance': 'art/production/characters/bulma-overworld-4x4.png; native-generated with installed Bulma NPC reference; 4x4 rows down/left/right/up, columns idle/walk-01/02/03; sliced by tools/art_final_content.py',
-        })
-        log('[finalcontent] installed Bulma native-generated 4-direction idle and 3-frame walk sheet')
-    else:
-        log('[finalcontent] Bulma source missing; kept existing character art')
+def build(reg, log):
+    """Install generated character and Capsule Corp courtyard finishing art."""
+    for actor_id, source_name, display_name in (
+        ('kami', 'kami-overworld-4x4.png', 'Kami'),
+        ('bulma', 'bulma-overworld-4x4.png', 'Bulma'),
+        ('chi-chi', 'chi-chi-overworld-4x4.png', 'Chi-Chi'),
+        ('mr-satan', 'mr-satan-overworld-4x4.png', 'Mr. Satan'),
+        ('king-kai', 'king-kai-overworld-4x4.png', 'King Kai'),
+    ):
+        install_actor(reg, log, actor_id, source_name, display_name)
 
     # A Capsule Corporation planter set makes the service plaza feel tended and
     # lived in, while leaving the central route and all interaction tiles clear.
